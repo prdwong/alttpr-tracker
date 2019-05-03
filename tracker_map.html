@@ -116,9 +116,9 @@ while (k < itemList.length) {
 			document.write("</td>");
 		} else if (x === "boss10") { //create boss squares for GT
 			document.write("<td id='boss10' style='position:relative'>");
-			document.write("<div id='gtboss13' style='width:20px; height:20px; position:absolute; bottom:0px; left:0px; background-size:20px 20px; background-color:black; display:none'></div>");
-			document.write("<div id='gtboss14' style='width:20px; height:20px; position:absolute; bottom:0px; left:22px; background-size:20px 20px; background-color:black; display:none'></div>");
-			document.write("<div id='gtboss15' style='width:20px; height:20px; position:absolute; bottom:0px; right:0px; background-size:20px 20px; background-color:black; display:none'></div>");
+			document.write("<div id='gtboss13' style='width:20px; height:20px; position:absolute; bottom:0px; left:0px; background-size:20px 20px; background-color:black'></div>");
+			document.write("<div id='gtboss14' style='width:20px; height:20px; position:absolute; bottom:0px; left:22px; background-size:20px 20px; background-color:black'></div>");
+			document.write("<div id='gtboss15' style='width:20px; height:20px; position:absolute; bottom:0px; right:0px; background-size:20px 20px; background-color:black'></div>");
 			document.querySelector('#'+x).addEventListener('mousedown', itemToggle);
 			//quadrant controlled by entire td, no need for separate listener
 			document.write("</td>");

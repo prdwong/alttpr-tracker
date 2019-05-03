@@ -44,8 +44,10 @@ function initTracker() {
 			updateQuadrant("ditems_sk"+i);
 		}
 	}
-	for (var i = 13; i <=15; i++)
+	for (var i = 13; i <=15; i++) {
 		updateQuadrant("gtboss"+i);
+		document.getElementById("gtboss"+i).style.display = "none";
+	}
 	initSphereTracker();
 }
 
