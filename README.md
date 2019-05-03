@@ -5,7 +5,7 @@ Based on the original ALTTPR tracker
 by crossproduct (twitch.tv/crossproduct)  
 and Ohga / halfarebel (twitch.tv/halfarebel)  
 
-Join the discord: https://discord.gg/wuaErj
+Join the discord: https://discord.gg/GqrEgyN
 
 v1.000: Initial release  
 Inverted not supported yet  
