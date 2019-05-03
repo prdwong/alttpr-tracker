@@ -1815,6 +1815,57 @@ dungeons[9] = {
 		}
 	},
 	canGetChests: function(){
+		if (isEmpty(this.isAccessible()))
+			return {};
+		switch (optionLogic) {
+			case "nmg":
+				switch (optionVariation) {
+					case "keysanity":
+						var i = {};
+						if (items.somaria && canBeatTrinexx() && items.firerod && qtyCounter.ditems_bk9 && qtyCounter.ditems_sk9 >= 4
+							&& items.lantern
+							&& (items.cape || items.byrna || canBlockLasers()))
+							i = canBeatBoss(9, qtyCounter.boss9);
+						if (!isEmpty(i))
+							return i;
+						return {ng:"au"};
+					case "retro":
+						var i = {};
+						if (items.somaria && canBeatTrinexx() && items.firerod && sphereCounter.smallkey >= 4
+							&& items.lantern
+							&& (items.cape || items.byrna || canBlockLasers()))
+							i = canBeatBoss(9, qtyCounter.boss9);
+						if (!isEmpty(i))
+							return i;
+						//laserbridge means crystalroller,big,compass,chainchomps
+						//trinexx means roller access
+						if (items.somaria && items.firerod //mc in trinexx/BK
+							&& items.lantern
+							&& (items.cape || items.byrna || canBlockLasers()))
+							i = {ng:"p"};
+						if (!isEmpty(i))
+							return i;
+						return {ng:"au"};
+					default:
+						var i = {};
+						if (items.somaria && canBeatTrinexx() && items.firerod
+							&& items.lantern
+							&& (items.cape || items.byrna || canBlockLasers()))
+							i = canBeatBoss(9, qtyCounter.boss9);
+						if (!isEmpty(i))
+							return i;
+						//no laserbridge means 5 items+BK in 8 locations, but cannot have 2SK on laserbridge
+						//no roller means 2SK in compass/chainchomps, BK in BK (scenario #1, no trinexx, no roller)
+						//scenario #2 no trinexx, no BK -- inferior to scenario #1
+						if (items.somaria
+							&& items.lantern
+							&& (items.cape || items.byrna || canBlockLasers()))
+							return {ng:"p"};
+						return {ng:"au"};
+				}
+			default:
+				return undefined;
+		}
 	},
 	upper: function(){
 		switch (optionLogic) {
@@ -1922,6 +1973,65 @@ dungeons[10] = {
 		}
 	},
 	canGetChests: function(){
+		if (isEmpty(this.isAccessible()))
+			return {};
+		//Entire logic is lazy, based on old tracker
+		switch (optionVariation) {
+			case "keysanity":
+				var i = {};
+				if (hasHookshot() && canLightTorches() //reqs for upstairs
+					&& items.boots //Bob's Torch BK
+					&& items.hammer //DMs Room BK
+					&& items.somaria //Tile Room BK
+					&& items.firerod //Compass Room BK
+					&& qtyCounter.ditems_bk10 && qtyCounter.ditems_sk10 >= 4)
+					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+				if (isEmpty(i))
+					return {ng:"au"};
+				return i;
+			case "retro":
+				var i = {};
+				if (hasHookshot() && canLightTorches() //reqs for upstairs
+					&& items.boots //Bob's Torch BK
+					&& items.hammer //DMs Room BK
+					&& items.somaria //Tile Room BK
+					&& items.firerod //Compass Room BK
+					&& qtyCounter.hc_sk >= 4)
+					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+				if (!isEmpty(i))
+					return i;
+				if (hasHookshot() && canLightTorches()
+					&& items.hammer && items.somaria && items.firerod
+					&& (items.boots //mc in Moldorm+pre-moldorm
+						|| qtyCounter.hc_sk >= 1)) //mc in torch/moldorm
+					i = convertPossible(andCombinator(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
+				if (!isEmpty(i))
+					return i;
+				return {ng:"au"};
+			default:
+				var i = {};
+				if (hasHookshot() && canLightTorches() //reqs for upstairs
+					&& items.boots //Bob's Torch BK
+					&& items.hammer //DMs Room BK
+					&& items.somaria //Tile Room BK
+					&& items.firerod) //Compass Room BK
+					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+				if (!isEmpty(i))
+					return i;
+				//must have hammer & hookshot for left
+				//upstairs required (lanmolas, arrows, torches, BK) (only 1SK possible, no BK)
+				//compass required (only 1SK possible)
+				//=hopex2+DMx4+randox4+firesnake+Big+Bob+BKx3+helmx2+compassx4+tile
+				//torch(boots)+pre-moldorm(SK)+moldorm+map(SK)
+				if (hasHookshot() && canLightTorches() //reqs for upstairs
+					&& items.hammer //DMs Room BK
+					&& items.somaria //Tile Room BK
+					&& items.firerod) //Compass Room BK
+					i = convertPossible(andCombinator(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
+				if (!isEmpty(i))
+					return i;
+				return {ng:"au"};
+		}
 	}
 };
 dungeons[11] = {
