@@ -8,8 +8,13 @@ and Ohga / halfarebel (twitch.tv/halfarebel)
 Join the discord: https://discord.gg/wuaErj
 
 v1.000: Initial release
+
 Inverted not supported yet
+
 TR glitched mode chest logic not supported yet
+
 Boss shuffle supported
+
 No glitches/sequence breaks supported yet
+
 Sphere tracker added
