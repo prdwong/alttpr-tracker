@@ -1,0 +1,302 @@
+<html>
+<head>
+<title>LTTP Randomizer Tracker</title>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="images/triforce.png">
+
+<script src="script/items.js"></script>
+<script src="script/event_render.js"></script>
+<script src="script/misc_logic.js"></script>
+<script src="script/chests.js"></script>
+<script src="script/logging.js"></script>
+<script src="script/glitches.js"></script>
+
+<script>
+//disable right clicking (because we are using right clicks for other things)
+window.oncontextmenu = function () {
+	return false;
+}
+</script>
+
+</head>
+
+<body>
+<table class="tracker" cellpadding="0" cellspacing="0" border="0" align="center">
+
+<script>
+//disable middle scroll (because we are using middle clicks for other things)
+document.body.onmousedown = function(e) { if (e.button === 1) return false; }
+
+var optionState = "open";
+var optionLogic = "nmg";
+var optionSwords = "random";
+var optionGoal = "ganon";
+var optionDifficulty = "normal";
+var optionVariation = "none";
+var optionBossShuffle = "off";
+var optionCategorySelect = "all";
+var optionItemSelect = "blank";
+
+// Item tracker
+var itemList = Object.keys(items);
+var rowLength = 7;
+var k = 0;
+while (k < itemList.length) {
+	document.write("<tr");
+	//Mark dungeon item rows to be hidden for non-keysanity
+	if (itemList[k].substring(0, 6) === "ditems") {
+		document.write(" class='dungeonrow' style='display:none'");
+	}
+	document.write(">");
+
+	for(var j = 0; j < rowLength; j++){
+		var x = itemList[k];
+
+		if (x === "hookshot") { //create stun prize
+			document.write("<td id='hookshot' style='position:relative'>");
+			document.write("<div id='stunprize' class='corner half' style='position:absolute; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.querySelector('#'+x).addEventListener('mousedown', itemToggle);
+			//quadrant controlled by entire td, no need for separate listener
+			document.write("</td>");
+		} else if (x === "hearts") { //create heart quadrants
+			document.write("<td id='hearts' style='position:relative'>");
+			document.write("<div id='magic' class='corner' style='position:absolute; top:0px'></div>");
+			document.write("<div id='heart_piece' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute; top:0px; right:0px'></div>");
+			document.write("<div id='death' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute'></div>");
+			document.write("<div id='heart_full' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute; right:0px'></div>");
+			document.querySelector('#magic').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#heart_piece').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#death').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#heart_full').addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "bottle") { //bottle quadrants
+			document.write("<td id='bottle' class='true' style='position:relative'>");
+			document.write("<div id='bottle0' class='corner' style='position:absolute; top:0px'></div>");
+			document.write("<div id='bottle1' class='corner' style='position:absolute; top:0px; right:0px'></div>");
+			document.write("<div id='bottle2' class='corner' style='position:absolute'></div>");
+			document.write("<div id='bottle3' class='corner' style='position:absolute; right:0px'></div>");
+			document.querySelector('#bottle0').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#bottle1').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#bottle2').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#bottle3').addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "fairycrab") { //fairycrab quadrants
+			document.write("<td id='fairycrab' style='position:relative; background-size:contain'>");
+			document.write("<div id='fairy0' class='corner' style='position:absolute; top:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='fairy1' class='corner' style='position:absolute; top:0px; right:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='pullcrab0' class='corner' style='position:absolute; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='pullcrab1' class='corner' style='position:absolute; right:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.querySelector('#fairy0').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#fairy1').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#pullcrab0').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#pullcrab1').addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "pulls") { //create pull tree quadrants
+			document.write("<td id='pulls' style='position:relative'>");
+			document.write("<div id='pull1' class='corner' style='position:absolute; top:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='pull2' class='corner' style='position:absolute; top:0px; right:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='pull3' class='corner' style='position:absolute; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.write("<div id='pullfish' class='corner' style='position:absolute; right:0px; background-size:20px 20px; background-repeat:no-repeat; background-position: left bottom'></div>");
+			document.querySelector('#pull1').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#pull2').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#pull3').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#pullfish').addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "hcitems") { //create hyrule castle items
+			document.write("<td id='hcitems' style='position:relative'>");
+			document.write("<div id='hc_sk' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute; top:0px'></div>");
+			document.write("<div id='hc_bk' class='corner' style='position:absolute; top:0px; right:0px'></div>");
+			document.write("<div id='hc_map' class='corner' style='position:absolute;'></div>");
+			document.write("<div id='zelda' class='corner' style='position:absolute; right:0px'></div>");
+			document.querySelector('#hc_sk').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#hc_bk').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#hc_map').addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#zelda').addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "boss10") { //create boss squares for GT
+			document.write("<td id='boss10' style='position:relative'>");
+			document.write("<div id='gtboss13' style='width:20px; height:20px; position:absolute; bottom:0px; left:0px; background-size:20px 20px; background-color:black; display:none'></div>");
+			document.write("<div id='gtboss14' style='width:20px; height:20px; position:absolute; bottom:0px; left:22px; background-size:20px 20px; background-color:black; display:none'></div>");
+			document.write("<div id='gtboss15' style='width:20px; height:20px; position:absolute; bottom:0px; right:0px; background-size:20px 20px; background-color:black; display:none'></div>");
+			document.querySelector('#'+x).addEventListener('mousedown', itemToggle);
+			//quadrant controlled by entire td, no need for separate listener
+			document.write("</td>");
+		} else if (x.substring(0,4) === "boss") { //create crystal/medallion quadrants
+			var d = x.substring(4);
+			document.write("<td id='"+x+"' style='position:relative'>");
+			if (d === "8" || d === "9") //MM and TR have medallion quadrants
+				document.write("<div id='medallion"+d+"' class='corner' style='position:absolute; bottom:0px'></div>");
+			if (d < 10) //Only dungeons 0-9 have crystal quadrants
+				document.write("<div id='dungeonPrize"+d+"' class='corner' style='position:absolute; bottom:0px; right:0px'></div>");
+			document.querySelector('#'+x).addEventListener('mousedown', itemToggle); //handles quadrant foreground as well
+			document.write("</td>");
+		} else if (x.substring(0,6) === "ditems") { //create dungeon item quadrants
+			var d = x.substring(6);
+			document.write("<td id='"+x+"' class='true' style='position:relative'>");
+			document.write("<div id='ditems_sk"+d+"' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute; top:0px'></div>");
+			document.write("<div id='ditems_bk"+d+"' class='corner' style='position:absolute; top:0px; right:0px'></div>");
+			document.write("<div id='ditems_map"+d+"' class='corner' style='position:absolute;'></div>");
+			document.write("<div id='ditems_comp"+d+"' class='corner' style='position:absolute; right:0px'></div>");
+			document.querySelector('#ditems_sk'+d).addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#ditems_bk'+d).addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#ditems_map'+d).addEventListener('mousedown', quadrantToggle);
+			document.querySelector('#ditems_comp'+d).addEventListener('mousedown', quadrantToggle);
+			document.write("</td>");
+		} else if (x === "go") {
+			document.write("<td id='"+x+"' style='vertical-align:bottom; text-align:right; direction:rtl; text-indent:10px; font-weight:bold'></td>");
+			document.querySelector('#'+x).addEventListener('mousedown', itemToggle);
+		} else {
+			document.write("<td id='"+x+"'></td>");
+			document.querySelector('#'+x).addEventListener('mousedown', itemToggle);
+		}
+
+		if (++k === itemList.length)
+			break;
+	}
+	document.write("</tr>");
+}
+
+document.write("<tr id='sphereborder'>");
+for (var i = 0; i < 7; i++) {
+	document.write("<td style='height:3px; border-top:3px double white'></td>");
+}
+document.write("</tr>")
+//sphere tracker
+for (var j = 0; j < 4; j++) {
+	document.write("<tr id='spheres"+j+"'>");
+	for (var i = 0; i < 7; i++) {
+		document.write("<td id='sphere"+i+j+"' style='position:relative'>");
+		document.write("<div id='sphere"+i+j+"0' class='corner' style='font-size:12px; line-height:48px; direction:rtl;background-size:contain; position:absolute; top:0px'></div>");
+		document.write("<div id='sphere"+i+j+"1' class='corner' style='font-size:12px; line-height:48px; direction:rtl;background-size:contain; position:absolute; top:0px; right:0px'></div>");
+		document.write("<div id='sphere"+i+j+"2' class='corner' style='font-size:12px; line-height:48px; direction:rtl;background-size:contain; position:absolute'></div>");
+		document.write("<div id='sphere"+i+j+"3' class='corner' style='font-size:12px; line-height:48px; direction:rtl;background-size:contain; position:absolute; right:0px'></div>");
+		document.write("</td>");
+	}
+	document.write("</tr>");
+	document.querySelector('#spheres'+j).addEventListener('mousedown', sphereToggle);
+}
+
+document.write('</table>');
+
+initTracker();
+
+document.write('<div id="map">');
+for (var i = 0; i < chests.length; i++) {
+	var k = "poi" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:3px; outline-offset:-3px; outline-color: black; top:"+chests[i].y+"; left:"+chests[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
+}
+
+// Dungeon bosses & chests on the map
+for (var i = 0; i < dungeons.length; i++) {
+	var k = "bossMap" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='background-size:20px 20px; background-repeat:no-repeat; outline-style:solid; outline-width:1px; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	var k = "dungeon" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:0px; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	var k = "dungentr" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:3px; outline-offset:-3px; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+}
+
+for (var i = 0; i < entrances.length; i++) {
+	var k = "entrance" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='top:"+entrances[i].y+"; left:"+entrances[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
+}
+
+for (var i = 0; i < shops.length; i++) {
+	var k = "shop" + i;
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:2px; outline-offset:-2px; outline-color:black; top:"+shops[i].y+"; left:"+shops[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
+}
+
+refreshMap();
+
+</script>
+<span id="caption" class='true'>&nbsp</span></div>
+
+
+<input type="button" id="option_button" value="Options">
+<input type="button" id="reset_button" value="Reset">
+
+<select name="state" id="state_select">
+	<option value="standard">Standard</option>
+	<option value="open" selected>Open</option>
+	<option value="inverted">Inverted</option>
+</select>
+<select name="logic" id="logic_select">
+	<option value="nmg" selected>No Glitches</option>
+	<option value="owg">Overworld Glitches</option>
+	<option value="major">Major Glitches</option>
+	<option value="nologic">None</option>
+</select>
+<select name="swords" id="swords_select">
+	<option value="random" selected>Randomized</option>
+	<option value="uncle">Uncle Assured</option>
+	<option value="swordless">Swordless</option>
+</select>
+<select name="goal" id="goal_select">
+	<option value="ganon" selected>Defeat Ganon</option>
+	<option value="alldungeons">All Dungeons</option>
+	<option value="pedestal">Master Sword Pedestal</option>
+	<option value="triforce">Triforce Pieces</option>
+</select>
+<select name="difficulty" id="difficulty_select">
+	<option value="easy">Easy</option>
+	<option value="normal" selected>Normal</option>
+	<option value="hard">Hard</option>
+	<option value="expert">Expert</option>
+	<option value="insane">Insane</option>
+</select>
+<select name="variation" id="variation_select">
+	<option value="none" selected>None</option>
+	<option value="keysanity">Keysanity</option>
+	<option value="retro">Retro</option>
+	<option value="timed">Timed Race</option>
+	<option value="timedohko">Timed OHKO</option>
+	<option value="ohko">OHKO</option>
+</select>
+<select name="bossShuffle" id="bossShuffle_select">
+	<option value="off" selected>Boss Shuffle Off</option>
+	<option value="on">Boss Shuffle</option>
+</select>
+
+<div id="options" style='display:none; background:rgba(0, 0, 0, 0.75)'>
+	<textarea id="log-text-area" readonly="true">Item log will be shown here</textarea>
+	<div id="seq-break-border" style='position:absolute; top:15px; left:453px; height:386px; width:396px; border:2px solid white'>
+		<h4 style='margin-top:-10px; margin-left:10px; background:black; padding:0px 5px; width:138px'>Sequence Breaks</h4>
+	</div>
+	<span style='position:absolute; top:30px; left:460px; width:40px; background:rgba(0, 0, 0); padding:0px 5px'>Filter:</span>
+	<select name="categorySelect" id="category_select">
+		<option value="all" selected>(all)</option>
+		<option value="darkrooms">Dark Rooms</option>
+		<option value="bj">Bomb Jumps</option>
+		<option value="minor">Minor Glitches</option>
+		<option value="major">Major Glitches</option>
+	</select>
+	<select name="itemSelect" id="item_select"></select>
+	<select multiple id="top-area"></select>
+	<input type="button" id="add_top" value="Add">
+	<input type="button" id="remove_top" value="Delete">
+	<input type="button" id="all_top" value="All">
+	<input type="button" id="none_top" value="None">
+	<input type="button" id="clear_top" value="Clear">
+	<input type="button" id="arrow_up" value="&uarr;">
+	<input type="button" id="arrow_down" value="&darr;">
+	<span style='position:absolute; top:273px; left:460px; background:rgba(0, 0, 0); padding:0px 5px'>Hard Sequence Breaks</span>
+	<select multiple id="bottom-area"></select>
+	<div id="display_options">
+		Some header text<br>
+		<label><input id="sphereTracker" type="checkbox" onclick='handleOptionClick(this);' checked>Show Sphere Tracker</label><br>
+		<label><input id="testcheck" type="checkbox" onclick='handleOptionClick(this);' checked>Another Option</label><br>
+	</div>
+
+</div>
+
+<script src="script/options.js"></script>
+<script>
+filterChange();
+</script>
+
+</body>
+</html>
