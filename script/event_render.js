@@ -48,6 +48,11 @@ function initTracker() {
 		updateQuadrant("gtboss"+i);
 		document.getElementById("gtboss"+i).style.display = "none";
 	}
+	document.getElementById("sphereborder").style.display = "none";
+	document.getElementById("spheres0").style.display = "none";
+	document.getElementById("spheres1").style.display = "none";
+	document.getElementById("spheres2").style.display = "none";
+	document.getElementById("spheres3").style.display = "none";
 	initSphereTracker();
 }
 
