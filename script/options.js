@@ -410,6 +410,7 @@ document.querySelector('#add_top').addEventListener('click', function() {
 		option.text = glitches[optionItemSelect].name;
 		topList.add(option);
 	}
+	refreshMap();
 });
 
 document.querySelector('#remove_top').addEventListener('click', function() {
@@ -418,6 +419,7 @@ document.querySelector('#remove_top').addEventListener('click', function() {
 			topList.remove(i);
 		}
 	}
+	refreshMap();
 });
 
 document.querySelector('#all_top').addEventListener('click', function() {
@@ -436,6 +438,7 @@ document.querySelector('#all_top').addEventListener('click', function() {
 			topList.add(option);
 		}
 	}
+	refreshMap();
 });
 
 document.querySelector('#none_top').addEventListener('click', function() {
@@ -444,11 +447,13 @@ document.querySelector('#none_top').addEventListener('click', function() {
 			if (topList[j].value === itemSelect[i].value)
 				topList.remove(j);
 	}
+	refreshMap();
 });
 
 document.querySelector('#clear_top').addEventListener('click', function() {
 	for (var j = topList.length - 1; j >= 0; j--)
 		topList.remove(j);
+	refreshMap();
 });
 
 document.querySelector('#arrow_up').addEventListener('click', function() {
@@ -468,6 +473,7 @@ document.querySelector('#arrow_up').addEventListener('click', function() {
 		if (found_dupe)
 			bottomList.remove(i);
 	}
+	refreshMap();
 });
 
 document.querySelector('#arrow_down').addEventListener('click', function() {
@@ -487,6 +493,7 @@ document.querySelector('#arrow_down').addEventListener('click', function() {
 		if (found_dupe)
 			topList.remove(i);
 	}
+	refreshMap();
 });
 
 function handleOptionClick(cb) {

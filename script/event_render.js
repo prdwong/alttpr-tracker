@@ -613,8 +613,15 @@ function refreshMap() {
 	chests.forEach(function(chest, chestNum) {
 		if (chest.isOpened)
 			document.getElementById("poi"+chestNum).className = "chest opened";
-		else
+		else {
 			document.getElementById("poi"+chestNum).className = "chest " + accessTranslator(chest.isAvailable());
+			if (accessTranslator(chest.isAvailable()).indexOf("majorglitched") !== -1)
+				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";
+			else if (accessTranslator(chest.isAvailable()).indexOf("glitched") !== -1)
+				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/glitched.png)";
+			else
+				document.getElementById("poi"+chestNum).style.backgroundImage = "";
+		}
 	});
 
 	//Update all boss & dungeons on the map, className, innerText and backgroundImage
@@ -697,17 +704,41 @@ function accessTranslator(path) {
 		return undefined;
 	if (path.ng === "a")
 		return "available";
+	if (path.g === "a")
+		return "available glitched";
 	if (path.ng === "p" || path.ng === "ap")
 		return "possible";
+	if (path.g === "p" || path.g === "ap")
+		return "possible glitched";
 	if (path.ng === "au" || path.ng === "apu")
 		return "some";
+	if (path.g === "au" || path.g === "apu")
+		return "some glitched";
 	if (path.ng === "pu")
 		return "some";
+	if (path.g === "pu")
+		return "some glitched";
 	if (path.ngv === "a")
 		return "possible";
+	if (path.gv === "a")
+		return "possible glitched";
 	if (path.ngv === "p")
 		return "possible";
-	if (path.ng === "u" || path.ng === undefined)
+	if (path.gv === "p")
+		return "possible glitched";
+	if (path.mg === "a")
+		return "available majorglitched";
+	if (path.mg === "p" || path.mg === "ap")
+		return "possible majorglitched";
+	if (path.mg === "au" || path.mg === "apu")
+		return "some majorglitched";
+	if (path.mg === "pu")
+		return "some majorglitched";
+	if (path.mgv === "a")
+		return "possible majorglitched";
+	if (path.mgv === "p")
+		return "possible majorglitched";
+	if (isEmpty(path))
 		return "unavailable";
 	return undefined;
 }

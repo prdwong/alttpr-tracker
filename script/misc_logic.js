@@ -434,17 +434,19 @@ function depopulate(set) {
 //p+p/u -> p
 //u+u -> u
 //
-function orCombinator(path1, path2, path3 = {}, path4 = {}) {
+function orCombinator(path1, path2, path3 = {}, path4 = {}, path5 = {}, path6 = {}) {
 	var p1 = populatePath(path1);
 	var p2 = populatePath(path2);
 	var p3 = populatePath(path3);
 	var p4 = populatePath(path4);
+	var p5 = populatePath(path5);
+	var p6 = populatePath(path6);
 	var result = {};
 	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
 	pathList.forEach(function(route) {
-		if (p1[route] === "a" || p2[route] === "a" || p3[route] === "a" || p4[route] === "a")
+		if (p1[route] === "a" || p2[route] === "a" || p3[route] === "a" || p4[route] === "a" || p5[route] === "a" || p6[route] === "a")
 			result[route] = "a";
-		else if (p1[route] === "p" || p2[route] === "p" || p3[route] === "p" || p4[route] === "p")
+		else if (p1[route] === "p" || p2[route] === "p" || p3[route] === "p" || p4[route] === "p" || p5[route] === "p" || p6[route] === "p")
 			result[route] = "p";
 	});
 	return depopulate(result);
@@ -535,4 +537,17 @@ function andCombinator(path1, path2, path3 = undefined, path4 = undefined, path5
 			result[route] = "p";
 	});
 	return depopulate(result);
+}
+
+//Looks up a glitch and returns a path
+function glitched(id) {
+	for (var i = 0; i < topList.length; i++) {
+		if (topList[i].value === id)
+			return {g:"a"};
+	}
+	for (var i = 0; i < bottomList.length; i++) {
+		if (bottomList[i].value === id)
+			return {mg:"a"};
+	}
+	return {};
 }

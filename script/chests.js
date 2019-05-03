@@ -33,37 +33,66 @@ Nonexistent/undefined values are equivalent to unavailable
 var regions = {
 	westDeathMountain: function($logic = optionLogic) {
 		if (optionState === "inverted") {
-			;
+			switch ($logic) {
+				case "nmg":
+					var path1 = {}; //Old man cave
+					var path2 = {}; //Flute
+					var path3 = {}; //Dark room glitch
+					if (canLiftRocks() && items.lantern)
+						path1 = {ng:"a"};
+					path2 = canFly_path();
+					if (canLiftRocks())
+						path3 = glitched("oldMan");
+					return orCombinator(path1, path2, path3);
+				default:
+					return regions.darkWestDeathMountain();
+			}
 		} else {
 			switch ($logic) {
 				case "nmg":
 					if (rescueZelda()) {
 						var path1 = {}; //Old man cave
 						var path2 = {}; //Flute
+						var path3 = {}; //Dark room glitch
 						if (canLiftRocks() && items.lantern)
 							path1 = {ng:"a"};
 						path2 = canFly_path();
-						return orCombinator(path1, path2);
+						if (canLiftRocks())
+							path3 = glitched("oldMan");
+						return orCombinator(path1, path2, path3);
 					}
 					return {};
 				case "owg":
 					if (rescueZelda()) {
 						var path1 = {}; //DMA or old man cave
 						var path2 = {}; //Flute
+						var path3 = {}; //Dark room glitch
+						var path4 = {}; //Fake flute
+						var path5 = {}; //1f clip
 						if (items.boots || (canLiftRocks() && items.lantern))
 							path1 = {ng:"a"};
 						path2 = canFly_path();
-						return orCombinator(path1, path2);
+						if (canLiftRocks())
+							path3 = glitched("oldMan");
+						if (hasABottle())
+							path4 = glitched("fakeflute");
+						path5 = glitched("clip1f");
+						return orCombinator(path1, path2, path3, path4, path5);
 					}
 					return {};
 				default:
 					if (rescueZelda()) {
 						var path1 = {}; //DMA, fake flute, or old man cave
 						var path2 = {}; //Flute
+						var path3 = {}; //Dark room glitch
+						var path4 = {}; //1f clip
 						if (items.boots || hasABottle() || (canLiftRocks() && items.lantern))
 							path1 = {ng:"a"};
 						path2 = canFly_path();
-						return orCombinator(path1, path2);
+						if (canLiftRocks())
+							path3 = glitched("oldMan");
+						path4 = glitched("clip1f");
+						return orCombinator(path1, path2, path3, path4);
 					}
 					return {};
 			}
