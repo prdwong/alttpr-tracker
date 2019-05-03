@@ -23,11 +23,10 @@ function logAction(label, status, click) {
 function processLog() {
 	var result = ' ';
 	currentLog.forEach(function(line, index) {
-		if (index > 0) {
-			result += getSeparatorSymbol(currentLog[index-1].timestamp, currentLog[index].timestamp);
-		}
 		if (translateLabel(line.label, line.status, line.click) === undefined)
 			;
+		else if (index > 0)
+			result += getSeparatorSymbol(currentLog[index-1].timestamp, currentLog[index].timestamp);
 		else
 			result += convertTime(line.timestamp) + translateLabel(line.label, line.status, line.click) + '\r\n';
 	});
@@ -252,6 +251,16 @@ var itemNames = {
 		13: "Lower GT",
 		14: "Middle GT",
 		15: "Upper GT"
+	},
+	arrow: {
+		0: "Silver Arrows",
+		1: "Silver Arrows"
+	},
+	retroarrow: {
+		0: "Arrows",
+		1: "Wooden Arrows",
+		2: "Silver Arrows",
+		3: "Wooden & Silver Arrows"
 	}
 }
 //heart_piece, death, heart_full, hc_sk, ditems_skx: add 1, max out at end
@@ -311,6 +320,10 @@ function translateLabel(label, value, click) {
 		return (value !== 1 ? 'GOT  ' : 'drop ') + itemNames[label][value];
 	} else if (label === "heart_piece" || label === "death" || label === "heart_full") {
 		;
+	} else if (label === "arrow") {
+		if (optionVariation === "retro")
+			return (value ? 'GOT  ' : 'drop ') + itemNames["retroarrow"][value];
+		return (value ? 'GOT  ' : 'drop ') + itemNames[label][value];
 	} else
 		return (value ? 'GOT  ' : 'drop ') + itemNames[label][value];
 }
