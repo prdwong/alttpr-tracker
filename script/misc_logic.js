@@ -86,7 +86,9 @@ function canFly_path() {
 	return {};
 }
 function canActivateOcarina_path() {
-	if (optionState === "inverted") { //TODO, inverted logic
+	if (optionState === "inverted") {
+		if (items.moonpearl)
+			return regions.northEastLightWorld();
 		return {};
 	} else
 		return {ng:"a"};

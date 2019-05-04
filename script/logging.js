@@ -25,10 +25,11 @@ function processLog() {
 	currentLog.forEach(function(line, index) {
 		if (translateLabel(line.label, line.status, line.click) === undefined)
 			;
-		else if (index > 0)
-			result += getSeparatorSymbol(currentLog[index-1].timestamp, currentLog[index].timestamp);
-		else
+		else {
+			if (index > 0) 
+				result += getSeparatorSymbol(currentLog[index-1].timestamp, currentLog[index].timestamp);
 			result += convertTime(line.timestamp) + translateLabel(line.label, line.status, line.click) + '\r\n';
+		}
 	});
 	return result;
 }
