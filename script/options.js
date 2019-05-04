@@ -36,6 +36,52 @@ stateSelect.addEventListener('change', function() {
 			updateQuadrant("zelda");
 		}
 	}
+	
+	if (optionState === "inverted") {
+		document.getElementById("poi21").style.left = "77.56%";
+		document.getElementById("poi21").style.top = "68.92%";
+		document.getElementById("bossMap10").style.left = "24.75%";
+		document.getElementById("bossMap10").style.top = "40.01%";
+		document.getElementById("dungeon10").style.left = "24.75%";
+		document.getElementById("dungeon10").style.top = "40.01%";
+		document.getElementById("dungentr10").style.left = "24.75%";
+		document.getElementById("dungentr10").style.top = "40.01%";
+		document.getElementById("bossMap11").style.left = "78.33%";
+		document.getElementById("bossMap11").style.top = "5.86%";
+		document.getElementById("dungeon11").style.left = "78.33%";
+		document.getElementById("dungeon11").style.top = "5.86%";
+		document.getElementById("dungentr11").style.left = "78.33%";
+		document.getElementById("dungentr11").style.top = "5.86%";
+		document.getElementById("bossMap12").style.left = "29.10%";
+		document.getElementById("bossMap12").style.top = "51.70%";
+		document.getElementById("dungeon12").style.left = "29.10%";
+		document.getElementById("dungeon12").style.top = "51.70%";
+		document.getElementById("dungentr12").style.left = "29.10%";
+		document.getElementById("dungentr12").style.top = "51.70%";
+	} else {
+		document.getElementById("poi21").style.left = "27.09%";
+		document.getElementById("poi21").style.top = "68.92%";
+		document.getElementById("bossMap10").style.left = "78.33%";
+		document.getElementById("bossMap10").style.top = "5.86%";
+		document.getElementById("dungeon10").style.left = "78.33%";
+		document.getElementById("dungeon10").style.top = "5.86%";
+		document.getElementById("dungentr10").style.left = "78.33%";
+		document.getElementById("dungentr10").style.top = "5.86%";
+		document.getElementById("bossMap11").style.left = "24.75%";
+		document.getElementById("bossMap11").style.top = "40.01%";
+		document.getElementById("dungeon11").style.left = "24.75%";
+		document.getElementById("dungeon11").style.top = "40.01%";
+		document.getElementById("dungentr11").style.left = "24.75%";
+		document.getElementById("dungentr11").style.top = "40.01%";
+		document.getElementById("bossMap12").style.left = "75.14%";
+		document.getElementById("bossMap12").style.top = "40.80%";
+		document.getElementById("dungeon12").style.left = "75.14%";
+		document.getElementById("dungeon12").style.top = "40.80%";
+		document.getElementById("dungentr12").style.left = "75.14%";
+		document.getElementById("dungentr12").style.top = "40.80%";
+	}
+	
+	
 	refreshMap();
 });
 
