@@ -611,9 +611,10 @@ function mapToggle(event) {
 function refreshMap() {
 	//Update all chests on the map, className and backgroundImage
 	chests.forEach(function(chest, chestNum) {
-		if (chest.isOpened)
+		if (chest.isOpened) {
 			document.getElementById("poi"+chestNum).className = "chest opened";
-		else {
+			document.getElementById("poi"+chestNum).style.backgroundImage = "";
+		} else {
 			document.getElementById("poi"+chestNum).className = "chest " + accessTranslator(chest.isAvailable());
 			if (accessTranslator(chest.isAvailable()).indexOf("majorglitched") !== -1)
 				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";

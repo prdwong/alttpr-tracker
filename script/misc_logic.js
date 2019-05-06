@@ -78,19 +78,17 @@ function hasABottle() {
 	return hasBottle()
 }
 //Helpers returning path information
-function canFly_path() {
+function canFly_path(from_locs = []) {
 	if (qtyCounter.flute === 2)
 		return {ng:"a"};
 	if (qtyCounter.flute === 1)
-		return canActivateOcarina_path();
+		return canActivateOcarina_path(from_locs);
 	return {};
 }
-function canActivateOcarina_path() {
-	if (optionState === "inverted") {
-		if (items.moonpearl)
-			return regions.northEastLightWorld();
-		return {};
-	} else
+function canActivateOcarina_path(from_locs = []) {
+	if (optionState === "inverted")
+		return regions.northEastLightWorld(true, from_locs);
+	else
 		return {ng:"a"};
 }
 function canShootArrows_path($min_level = 1) {
