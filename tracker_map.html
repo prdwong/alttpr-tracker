@@ -179,7 +179,6 @@ for (var j = 0; j < 4; j++) {
 
 document.write('</table>');
 
-initTracker();
 
 document.write('<div id="map">');
 for (var i = 0; i < chests.length; i++) {
@@ -209,9 +208,6 @@ for (var i = 0; i < shops.length; i++) {
 	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:2px; outline-offset:-2px; outline-color:black; top:"+shops[i].y+"; left:"+shops[i].x+"'></span>");
 	document.getElementById(k).addEventListener('mousedown', mapToggle);
 }
-
-refreshMap();
-
 </script>
 <span id="caption" class='true'>&nbsp</span></div>
 
@@ -295,6 +291,8 @@ refreshMap();
 
 <script src="script/options.js"></script>
 <script>
+initTracker();
+refreshMap();
 filterChange();
 </script>
 

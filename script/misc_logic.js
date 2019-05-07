@@ -110,9 +110,11 @@ function canShootArrows_path($min_level = 1) {
 function canGetGoodBee_path() {
 	if (items.net
 		&& hasABottle()
-		&& canBombThings()
 		&& (items.boots
 			|| (hasSword() && items.quake)))
+		return {ng:"a"};
+	if ((qtyCounter.bottle0 === 5 || qtyCounter.bottle1 === 5 || qtyCounter.bottle2 === 5 || qtyCounter.bottle3 === 5)
+		&& items.net) //All GoodBee queries require you to recatch the bee (Mothula fight)
 		return {ng:"a"};
 	if (hasABottle()) {
 		var path1 = {}; //waterfall fairy
@@ -122,6 +124,26 @@ function canGetGoodBee_path() {
 		if (qtyCounter.fairy0 === 0)
 			path1 = convertPossible(chests[5].isAvailable());
 		if (qtyCounter.fairy1 === 5)
+			path2 = chests[46].isAvailable();
+		if (qtyCounter.fairy1 === 0)
+			path2 = convertPossible(chests[46].isAvailable());
+		return orCombinator(path1, path2);
+	}
+	return {};
+}
+function canGetFairy_path() {
+	if (items.net && hasABottle())
+		return {ng:"a"};
+	if (qtyCounter.bottle0 === 6 || qtyCounter.bottle1 === 6 || qtyCounter.bottle2 === 6 || qtyCounter.bottle3 === 6)
+		return {ng:"a"};
+	if (hasABottle()) {
+		var path1 = {}; //waterfall fairy
+		var path2 = {}; //pyramid fairy
+		if (qtyCounter.fairy0 === 6)
+			path1 = chests[5].isAvailable();
+		if (qtyCounter.fairy0 === 0)
+			path1 = convertPossible(chests[5].isAvailable());
+		if (qtyCounter.fairy1 === 6)
 			path2 = chests[46].isAvailable();
 		if (qtyCounter.fairy1 === 0)
 			path2 = convertPossible(chests[46].isAvailable());
