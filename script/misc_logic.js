@@ -113,8 +113,7 @@ function canGetGoodBee_path() {
 		&& (items.boots
 			|| (hasSword() && items.quake)))
 		return {ng:"a"};
-	if ((qtyCounter.bottle0 === 5 || qtyCounter.bottle1 === 5 || qtyCounter.bottle2 === 5 || qtyCounter.bottle3 === 5)
-		&& items.net) //All GoodBee queries require you to recatch the bee (Mothula fight)
+	if (qtyCounter.bottle0 === 5 || qtyCounter.bottle1 === 5 || qtyCounter.bottle2 === 5 || qtyCounter.bottle3 === 5)
 		return {ng:"a"};
 	if (hasABottle()) {
 		var path1 = {}; //waterfall fairy
@@ -131,12 +130,41 @@ function canGetGoodBee_path() {
 	}
 	return {};
 }
-function canGetFairy_path() {
+function canGetBee_path() {
 	if (items.net && hasABottle())
 		return {ng:"a"};
-	if (qtyCounter.bottle0 === 6 || qtyCounter.bottle1 === 6 || qtyCounter.bottle2 === 6 || qtyCounter.bottle3 === 6)
+	if (qtyCounter.bottle0 === 4 || qtyCounter.bottle1 === 4 || qtyCounter.bottle2 === 4 || qtyCounter.bottle3 === 4)
 		return {ng:"a"};
 	if (hasABottle()) {
+		var path1 = {}; //waterfall fairy
+		var path2 = {}; //pyramid fairy
+		if (qtyCounter.fairy0 === 4)
+			path1 = chests[5].isAvailable();
+		if (qtyCounter.fairy0 === 0)
+			path1 = convertPossible(chests[5].isAvailable());
+		if (qtyCounter.fairy1 === 4)
+			path2 = chests[46].isAvailable();
+		if (qtyCounter.fairy1 === 0)
+			path2 = convertPossible(chests[46].isAvailable());
+		return orCombinator(path1, path2);
+	}
+	return {};
+}
+function canGetFairy_path(num = 1) {
+	if (items.net && bottleCount() >= num)
+		return {ng:"a"};
+	var count = 0;
+	if (qtyCounter.bottle0 === 6)
+		count++;
+	if (qtyCounter.bottle1 === 6)
+		count++;
+	if (qtyCounter.bottle2 === 6)
+		count++;
+	if (qtyCounter.bottle3 === 6)
+		count++;
+	if (count >= num)
+		return {ng:"a"};
+	if (bottleCount >= num) {
 		var path1 = {}; //waterfall fairy
 		var path2 = {}; //pyramid fairy
 		if (qtyCounter.fairy0 === 6)
@@ -220,7 +248,9 @@ function canBeatMothula() {
 	if (hasSword() || items.hammer
 		|| (canExtendMagic(2) && (items.firerod || items.somaria || items.byrna))) //byrna is really hard (is there a trick?)
 		return {ng:"a"};
-	return canGetGoodBee_path(); //need to keep re-catching good bee
+	if (items.net)
+		return canGetGoodBee_path(); //need to keep re-catching good bee
+	return {};
 }
 function canBeatBlind() {
 	if (hasSword() || items.hammer

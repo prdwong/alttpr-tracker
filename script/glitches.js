@@ -30,6 +30,12 @@ var glitches = {
 	},
 	fakepowder: { category: "minor", name: "Fake Powder"
 	},
+	bigbomb: { category: "minor", name: "Use Big Bomb as a bomb"
+	},
+	dungeonrevival: { category: "minor", name: "Dungeon bunny revival"
+	},
+	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG"
+	},
 	
 	//Misc strats
 	DM_lynels: { category: "misc", name: "Hookshot past DM Lynels in OHKO"
