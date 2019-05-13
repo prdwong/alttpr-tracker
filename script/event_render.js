@@ -149,12 +149,13 @@ function updateQuadrant(itemName) {
 			}
 			document.getElementById("bottle"+i).style.backgroundImage = "url(images/bottle"+qtyCounter["bottle"+i]+".png)";
 		}
-	} else if (itemName.substring(0, 5) === "fairy") { //fairyx: half visibilty if empty, share bottle pngs
-		if (qtyCounter[itemName])
-			document.getElementById(itemName).className = "corner true";
-		else
-			document.getElementById(itemName).className = "corner half";
-		document.getElementById(itemName).style.backgroundImage = "url(images/bottle"+qtyCounter[itemName]+".png)";
+	} else if (itemName.substring(0, 5) === "fairy") { //fairyx: share bottle pngs, +
+		if (qtyCounter[itemName]) {
+			document.getElementById(itemName).style.backgroundImage = "url(images/bottle"+qtyCounter[itemName]+".png)";
+		} else {
+			document.getElementById(itemName).style.backgroundImage = "url(images/unknown.png)";
+			document.getElementById(itemName).style.backgroundImage += ", url(images/bottle_half.png)";
+		}
 	} else if (itemName === "stunprize" || itemName.substring(0, 4) === "pull") { //stunprize, pullx: share stunprize pngs
 		document.getElementById(itemName).style.backgroundImage = "url(images/stunprize"+qtyCounter[itemName]+".png)";
 	} else if (itemName.substring(0, 7) === "dungeon") { //dungeonPrizex

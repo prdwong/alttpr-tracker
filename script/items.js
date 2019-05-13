@@ -89,7 +89,7 @@ var qtyCounterMax = {
 	stunprize: 14,
 	magic: 2, heart_piece: 24, death: 999, heart_full: 14,
 	bottle0: 6, bottle1: 6, bottle2: 6, bottle3: 6,
-	fairy0: 6, fairy1: 6, pullcrab0: 14, pullcrab1: 14,
+	fairy0: 7, fairy1: 7, pullcrab0: 14, pullcrab1: 14,
 	pull1: 14, pull2: 14, pull3: 14, pullfish: 14,
 	triforce: 0,
 	hc_sk: 1, zelda: 1,
