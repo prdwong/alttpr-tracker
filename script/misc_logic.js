@@ -133,16 +133,17 @@ function canGetGoodBee_path() {
 function canGetBee_path() {
 	if (items.net && hasABottle())
 		return {ng:"a"};
-	if (qtyCounter.bottle0 === 4 || qtyCounter.bottle1 === 4 || qtyCounter.bottle2 === 4 || qtyCounter.bottle3 === 4)
+	if (qtyCounter.bottle0 === 4 || qtyCounter.bottle1 === 4 || qtyCounter.bottle2 === 4 || qtyCounter.bottle3 === 4
+		|| qtyCounter.bottle0 === 5 || qtyCounter.bottle1 === 5 || qtyCounter.bottle2 === 5 || qtyCounter.bottle3 === 5)
 		return {ng:"a"};
 	if (hasABottle()) {
 		var path1 = {}; //waterfall fairy
 		var path2 = {}; //pyramid fairy
-		if (qtyCounter.fairy0 === 4)
+		if (qtyCounter.fairy0 === 4 || qtyCounter.fairy0 === 5)
 			path1 = chests[5].isAvailable();
 		if (qtyCounter.fairy0 === 0)
 			path1 = convertPossible(chests[5].isAvailable());
-		if (qtyCounter.fairy1 === 4)
+		if (qtyCounter.fairy1 === 4 || qtyCounter.fairy1 === 5)
 			path2 = chests[46].isAvailable();
 		if (qtyCounter.fairy1 === 0)
 			path2 = convertPossible(chests[46].isAvailable());
@@ -593,6 +594,8 @@ function andCombinator(path1, path2, path3 = undefined, path4 = undefined, path5
 
 //Looks up a glitch and returns a path
 function glitched(id) {
+	if (id === "true")
+		return {g:"a"};
 	for (var i = 0; i < topList.length; i++) {
 		if (topList[i].value === id)
 			return {g:"a"};

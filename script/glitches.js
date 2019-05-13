@@ -2,6 +2,8 @@ var glitches = {
 	//Dark rooms
 	oldMan: { category: "darkrooms", name: "DM access via dark Old Man cave"
 	},
+	oldMan_back: { category: "darkrooms", name: "Rescue Old Man from the back"
+	},
 	
 	//Bomb jumps
 	qirn_jump: { category: "bj", name: "Fake flipper via bomb (Qirn jump)"
@@ -30,8 +32,6 @@ var glitches = {
 	},
 	fakepowder: { category: "minor", name: "Fake Powder"
 	},
-	bigbomb: { category: "minor", name: "Use Big Bomb as a bomb"
-	},
 	dungeonrevival: { category: "minor", name: "Dungeon bunny revival"
 	},
 	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG"
@@ -39,6 +39,12 @@ var glitches = {
 	
 	//Misc strats
 	DM_lynels: { category: "misc", name: "Hookshot past DM Lynels in OHKO"
+	},
+	bigbomb: { category: "misc", name: "Use Big Bomb as a bomb"
+	},
+	spiralcave: { category: "misc", name: "Spiral cave with no weapons"
+	},
+	library: { category: "misc", name: "Beat Aga to get superbunny in Library"
 	},
 	
 	//Major glitches
