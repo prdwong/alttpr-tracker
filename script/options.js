@@ -36,7 +36,8 @@ stateSelect.addEventListener('change', function() {
 			updateQuadrant("zelda");
 		}
 	}
-	
+
+	//Move Link's House, CT, GT, and Ganon for inverted
 	if (optionState === "inverted") {
 		document.getElementById("poi21").style.left = "77.56%";
 		document.getElementById("poi21").style.top = "68.92%";
@@ -80,8 +81,7 @@ stateSelect.addEventListener('change', function() {
 		document.getElementById("dungentr12").style.left = "75.14%";
 		document.getElementById("dungentr12").style.top = "40.80%";
 	}
-	
-	
+
 	refreshMap();
 });
 
@@ -245,6 +245,24 @@ difficultySelect.addEventListener('change', function() {
 		if (qtyCounter["bottle"+i] > qtyCounterMax["bottle"+i])
 			qtyCounter["bottle"+i] = 0; //empty bottle if it had a fairy but not allowed to
 	updateQuadrant("bottle0"); //triggers update of all 4
+	
+	//Addition of wooden arrows in retro mode
+	if (optionVariation === "retro") {
+		qtyCounterMax.arrow = 3;
+		if (optionDifficulty === "insane") {
+			qtyCounterMax.arrow = 1;
+			if (qtyCounter.arrow > 1)
+				qtyCounter.arrow -= 2;
+		}
+	} else {
+		qtyCounterMax.arrow = 1;
+		if (optionDifficulty === "insane") {
+			qtyCounterMax.arrow = 0;
+			qtyCounter.arrow = 0;
+		}
+	}
+	updateTrackerItem("allbow");
+
 	refreshMap();
 });
 
@@ -254,14 +272,21 @@ variationSelect.addEventListener('change', function() {
 	//Addition of wooden arrows in retro mode
 	if (optionVariation === "retro") {
 		qtyCounterMax.arrow = 3;
+		if (optionDifficulty === "insane")
+			qtyCounterMax.arrow = 1;
 		if (qtyCounter.arrow === 1)
-			qtyCounter.arrow = 2;
+			if (optionDifficulty === "insane")
+				qtyCounter.arrow = 0;
+			else
+				qtyCounter.arrow = 2;
 	} else {
 		qtyCounterMax.arrow = 1;
 		if (qtyCounter.arrow < 2)
 			qtyCounter.arrow = 0;
 		else
 			qtyCounter.arrow = 1;
+		if (optionDifficulty === "insane")
+			qtyCounterMax.arrow = 0;
 	}
 	updateTrackerItem("allbow");
 
