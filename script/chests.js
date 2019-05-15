@@ -449,11 +449,11 @@ var regions = {
 						path5 = andCombinator(glitched("clip1f"), regions.darkWestDeathMountain(must_be_link, new_locs, bottles));
 						if (hasABottle() && bottles >= 1)
 							path6 = andCombinator(glitched("fakeflute"),
-								orCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles - 1)),
-								orCombinator(regions.darkEastDeathMountain(undefined, new_locs, bottles - 1)),
-								orCombinator(regions.northEastDarkWorld(undefined, new_locs, bottles - 1)),
-								orCombinator(regions.SouthDarkWorld(undefined, new_locs, bottles - 1)),
-								orCombinator(regions.mire(undefined, new_locs, bottles - 1)));
+								orCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles - 1),
+								regions.darkEastDeathMountain(undefined, new_locs, bottles - 1),
+								regions.northEastDarkWorld(undefined, new_locs, bottles - 1),
+								regions.SouthDarkWorld(undefined, new_locs, bottles - 1),
+								regions.mire(undefined, new_locs, bottles - 1)));
 					}
 					return orCombinator(path1, path2, path3, path4, path5, path6);
 				default:
