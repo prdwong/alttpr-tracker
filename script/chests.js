@@ -213,7 +213,7 @@ var regions = {
 								path1 = regions.darkWestDeathMountain(true, new_locs, bottles);
 							if (items.mirror)
 								path2 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
-							if (canLiftDarkRocks() || (items.hammer && items.boots)
+							if ((canLiftDarkRocks() || (items.hammer && items.boots))
 								&& ((items.moonpearl && must_be_link)
 									|| !must_be_link))
 								path3 = regions.eastDeathMountain(undefined, new_locs, bottles);
@@ -293,7 +293,7 @@ var regions = {
 								path1 = regions.westDeathMountain(undefined, new_locs, bottles);
 							if (items.boots)
 								path2 = regions.northWestDarkWorld(true, new_locs, bottles);
-							if (bottles >= 1) {
+							if (hasABottle() && bottles >= 1) {
 								//To prevent calculating multiple redundant fake flutes back and forth
 								var temp_locs = new_locs.slice(0);
 								temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
