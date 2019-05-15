@@ -255,7 +255,7 @@ var regions = {
 						var path3 = {}; //Dark room glitch
 						if (canLiftRocks() && items.lantern)
 							path1 = {ng:"a"};
-						path2 = canFly_path();
+						path2 = canFly_path(new_locs);
 						if (canLiftRocks())
 							path3 = glitched("oldMan");
 						return orCombinator(path1, path2, path3);
@@ -267,7 +267,7 @@ var regions = {
 						if ((canLiftRocks() && items.lantern)
 							|| items.boots)
 							path1 = {ng:"a"};
-						path2 = canFly_path();
+						path2 = canFly_path(new_locs);
 						if (canLiftRocks())
 							path3 = glitched("oldMan");
 						if (hasABottle() && bottles >= 1)
