@@ -376,34 +376,43 @@ var regions = {
 					var path6 = {}; //Qirn jump from NW
 					var path7 = {}; //From south
 					if (rescueZelda()) {
-						if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && items.hammer && canLiftRocks()))
-							path1 = {ng:"a"};
 						if (items.boots || items.flippers)
 							path2 = regions.northWestDarkWorld(true, new_locs, bottles);
+						if (path2.ng === "a") return path2;
+						if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
+							|| (items.moonpearl && items.hammer && canLiftRocks())) {
+							path1 = {ng:"a"};
+							return {ng:"a"};
+						}
 						if (items.mirror && canSpinSpeed())
 							path3 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
+						if (path3.ng === "a") return path3;
 						if (items.mirror)
 							path4 = regions.darkWestDeathMountain(true, new_locs, bottles);
+						if (path4.ng === "a") return path4;
+						if (items.hammer || items.flippers || items.boots)
+							path7 = regions.SouthDarkWorld(true, new_locs, bottles);
+						if (path7.ng === "a") return path7;
 						if (hasABottle() && bottles >= 1) { //Can always pull pyramid statue for link state
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
 							var temp_locs = new_locs.slice(0);
 							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
 							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-							var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
-							var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; } //always go via DM
+							else {
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
+								var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
+								var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+							}
 							path5 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
 						}
 						if (canBombThings())
 							path6 = andCombinator(glitched("qirn_jump"), regions.northWestDarkWorld(true, new_locs, bottles));
-						if (items.hammer || items.flippers || items.boots)
-							path7 = regions.SouthDarkWorld(true, new_locs, bottles);
 					}
 					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
 				default:
@@ -466,17 +475,20 @@ var regions = {
 						path5 = andCombinator(glitched("clip1f"), regions.darkWestDeathMountain(must_be_link, new_locs, bottles));
 						if (hasABottle() && bottles >= 1) {
 							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
 							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
 							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-							var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
-							var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; }
+							else {
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
+								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
+								var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
+								var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+							}
 							path6 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
 						}
 					}
@@ -532,17 +544,20 @@ var regions = {
 						path3 = andCombinator(glitched("clip1f"), regions.northEastDarkWorld(must_be_link, new_locs, bottles));
 						if (hasABottle() && bottles >= 1) {
 							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-							var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
 							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
 							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
-							var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
-							var ff4 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
+							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; }
+							else {
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
+								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
+								var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
+								var temp_locs = new_locs.slice(0);
+								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
+								var ff4 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
+							}
 							path4 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
 						}
 						if (items.boots)
@@ -611,13 +626,24 @@ var regions = {
 							path2 = canFly_path(new_locs);
 						if (items.boots)
 							path3 = regions.SouthDarkWorld(true, new_locs, bottles);
-						if (hasABottle() && bottles >= 1)
-							path4 = andCombinator(glitched("fakeflute"),
-								orCombinator(regions.northEastDarkWorld(must_be_link, new_locs, bottles - 1),
-								regions.northWestDarkWorld(must_be_link, new_locs, bottles - 1),
-								regions.SouthDarkWorld(must_be_link, new_locs, bottles - 1),
-								regions.darkWestDeathMountain(must_be_link, new_locs, bottles - 1),
-								regions.darkEastDeathMountain(must_be_link, new_locs, bottles - 1)));
+						if (hasABottle() && bottles >= 1) {
+							var temp_locs = new_locs.slice(0);
+							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+							var ff2 = regions.darkWestDeathMountain(must_be_link, temp_locs, bottles - 1);
+							var temp_locs = new_locs.slice(0);
+							temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+							var ff1 = regions.darkEastDeathMountain(must_be_link, temp_locs, bottles - 1);
+							var temp_locs = new_locs.slice(0);
+							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+							var ff3 = regions.northEastDarkWorld(must_be_link, temp_locs, bottles - 1);
+							var temp_locs = new_locs.slice(0);
+							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
+							var ff4 = regions.northWestDarkWorld(must_be_link, temp_locs, bottles - 1);
+							var temp_locs = new_locs.slice(0);
+							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
+							var ff5 = regions.SouthDarkWorld(must_be_link, temp_locs, bottles - 1);
+							path4 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4, ff5));
+						}
 					}
 					return orCombinator(path1, path2, path3, path4);
 				default:
