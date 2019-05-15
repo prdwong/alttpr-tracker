@@ -278,7 +278,7 @@ var regions = {
 				switch (optionLogic) {
 					case "nmg":
 						if (rescueZelda()) {
-							if ((moonpearl && must_be_link)
+							if ((items.moonpearl && must_be_link)
 								|| !must_be_link)
 								return regions.westDeathMountain(undefined, new_locs, bottles);
 						}
@@ -288,11 +288,11 @@ var regions = {
 						var path2 = {}; //DMA
 						var path3 = {}; //Fake flute
 						if (rescueZelda()) {
-							if ((moonpearl && must_be_link)
+							if ((items.moonpearl && must_be_link)
 								|| !must_be_link)
-								return regions.westDeathMountain(undefined, new_locs, bottles);
+								path1 = regions.westDeathMountain(undefined, new_locs, bottles);
 							if (items.boots)
-								return regions.northWestDarkWorld(true, new_locs, bottles);
+								path2 = regions.northWestDarkWorld(true, new_locs, bottles);
 							if (bottles >= 1)
 								path3 = andCombinator(glitched("fakeflute"),
 									orCombinator(regions.darkEastDeathMountain(must_be_link, new_locs, bottles - 1),
@@ -3278,9 +3278,12 @@ chests[23] = {
 				superb_path = orCombinator(superb1, superb2);
 				var kill1 = {}; //Sword beams
 				var kill2 = canGetBee_path(); //Bee
+				var kill3 = {}; //Hover
 				if (hasSword(2))
 					kill1 = {ng:"a"};
-				killpath = orCombinator(kill1, kill2);
+				if (hasSword())
+					kill3 = glitched("hover");
+				killpath = orCombinator(kill1, kill2, kill3);
 				path2 = orCombinator(andCombinator(glitched("bigbomb"), superb_path, kill1, regions.SouthLightWorld()),
 					andCombinator(glitched("bigbomb"), superb_path, kill2, regions.SouthLightWorld(undefined, undefined, bottleCount() - 1)));
 				if (must_be_link)
@@ -4060,20 +4063,44 @@ chests[44] = {
 	y: "16.78%",
 	isOpened: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.moonpearl && canLiftRocks())
-					return regions.northEastDarkWorld();
-				return {};
-			case "owg":
-				if (items.moonpearl && (canLiftRocks() || items.boots)) //instead go DMA, DMD, waterwalk, clip past rock
-					return regions.northEastDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld() && (canLiftRocks() || items.boots))
-					return regions.northEastDarkWorld();
-				return {};
-	}	}
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					if (items.moonpearl && canLiftRocks())
+						return regions.northEastDarkWorld();
+					return {};
+				case "owg":
+					var path1 = {}; //NE dark world
+					var path2 = {}; //From EDM
+					if (canLiftRocks() || items.boots) //instead go DMA, DMD, waterwalk, clip past rock
+						path1 = regions.northEastDarkWorld(true);
+					if (items.boots)
+						path2 = regions.darkEastDeathMountain(true);
+					return orCombinator(path1, path2);
+				default:
+					if (glitchedLinkInDarkWorld() && (canLiftRocks() || items.boots))
+						return regions.northEastDarkWorld();
+					return {};
+			}
+		else
+			switch (optionLogic) {
+				case "nmg":
+					if (canLiftRocks())
+						return regions.northEastDarkWorld();
+					return {};
+				default:
+					var path1 = {}; //Dark world
+					var path2 = {}; //Light world
+					var path3 = {}; //Mirror from zora
+					if (items.boots || canLiftRocks())
+						path1 = regions.northEastDarkWorld();
+					if (items.mirror)
+						path2 = regions.northEastLightWorld(true);
+					if (items.mirror)
+						path3 = chests[2].isAvailable();
+					return orCombinator(path1, path2, path3);
+			}
+	}
 };
 chests[45] = {
 	name: "Pyramid",
@@ -4098,11 +4125,24 @@ chests[46] = {
 				crystalCount++;
 		switch (optionLogic) {
 			case "nmg":
-				if (crystalCount === 2 && items.moonpearl) {
+				var path1 = {}; //Normal
+				var path2 = {}; //Dupe via mirror
+				var path3 = {}; //Dupe via waterwalk
+				var path4 = {}; //Dupe via swim
+				var path5 = {}; //Dupe via Qirn blob
+				if (crystalCount === 2) {
 					if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-						return andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+						path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld());
+					if (items.mirror && items.flippers)
+						path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+					if (canLiftDarkRocks() && items.boots)
+						path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+					if (canLiftDarkRocks() && items.flippers)
+						path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+					if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
+						path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 				}
-				return {};
+				return orCombinator(path1, path2, path3, path4, path5);
 			case "owg":
 				var path1 = {}; //Screenwrap mirror portal
 				var path2 = {}; //NMG

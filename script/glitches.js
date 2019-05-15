@@ -36,6 +36,16 @@ var glitches = {
 	},
 	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG"
 	},
+	bigbombdupe_mirror: { category: "minor", name: "Dupe big bomb using mirror"
+	},
+	bigbombdupe_transition: { category: "minor", name: "Dupe big bomb via transition"
+	},
+	bigbombdupe_swim: { category: "minor", name: "Dupe big bomb via swim transition"
+	},
+	bigbombdupe_hinox: { category: "minor", name: "Dupe big bomb via Hinox blob"
+	},
+	hover: { category: "minor", name: "Hovering"
+	},
 	
 	//Misc strats
 	DM_lynels: { category: "misc", name: "Hookshot past DM Lynels in OHKO"
