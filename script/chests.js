@@ -4182,46 +4182,76 @@ chests[46] = {
 		for(var i = 0; i < 10; i++)
 			if (qtyCounter["dungeonPrize"+i] === 2 && dungeons[i].gotPrize())
 				crystalCount++;
-		switch (optionLogic) {
-			case "nmg":
-				var path1 = {}; //Normal
-				var path2 = {}; //Dupe via mirror
-				var path3 = {}; //Dupe via waterwalk
-				var path4 = {}; //Dupe via swim
-				var path5 = {}; //Dupe via Qirn blob
-				if (crystalCount === 2) {
-					if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-						path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld());
-					if (items.mirror && items.flippers)
-						path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
-					if (canLiftDarkRocks() && items.boots)
-						path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
-					if (canLiftDarkRocks() && items.flippers)
-						path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
-					if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
-						path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
-				}
-				return orCombinator(path1, path2, path3, path4, path5);
-			case "owg":
-				var path1 = {}; //Screenwrap mirror portal
-				var path2 = {}; //NMG
-				if (items.mirror && canSpinSpeed())
-					path1 = regions.northEastDarkWorld();
-				if (crystalCount === 2) {
-					if ((items.hammer && items.moonpearl) || (items.mirror && dungeons[11].isBeaten()))
-						path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
-				}
-				return orCombinator(path1, path2);
-			default:
-				var path1 = {}; //Screenwrap mirror portal
-				var path2 = {}; //NMG
-				if (items.mirror && canSpinSpeed())
-					path1 = regions.northEastDarkWorld();
-				if (crystalCount === 2) {
-					if ((items.hammer && glitchedLinkInDarkWorld()) || (items.mirror && dungeons[11].isBeaten()))
-						path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
-				}
-				return orCombinator(path1, path2);
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Normal
+					var path2 = {}; //Dupe via mirror
+					var path3 = {}; //Dupe via waterwalk
+					var path4 = {}; //Dupe via swim
+					var path5 = {}; //Dupe via Qirn blob
+					if (crystalCount === 2) {
+						if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
+							path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld());
+						if (items.mirror && items.flippers)
+							path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.boots)
+							path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.flippers)
+							path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
+							path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
+					}
+					return orCombinator(path1, path2, path3, path4, path5);
+				case "owg":
+					var path1 = {}; //Screenwrap mirror portal
+					var path2 = {}; //NMG
+					var path3 = {}; //Dupe via mirror
+					var path4 = {}; //Dupe via waterwalk
+					var path5 = {}; //Dupe via swim
+					var path6 = {}; //Dupe via Qirn blob
+					if (items.mirror && canSpinSpeed())
+						path1 = regions.northEastDarkWorld();
+					if (crystalCount === 2) {
+						if ((items.hammer && items.moonpearl) || (items.mirror && dungeons[11].isBeaten()))
+							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+						if (items.mirror && items.flippers)
+							path3 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.boots)
+							path4 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.flippers)
+							path5 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
+							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
+					}
+					return orCombinator(path1, path2, path3, path4, path5, path6);
+				default:
+					var path1 = {}; //Screenwrap mirror portal
+					var path2 = {}; //NMG
+					var path3 = {}; //Dupe via mirror
+					var path4 = {}; //Dupe via waterwalk
+					var path5 = {}; //Dupe via swim
+					var path6 = {}; //Dupe via Qirn blob
+					if (items.mirror && canSpinSpeed())
+						path1 = regions.northEastDarkWorld();
+					if (crystalCount === 2) {
+						if ((items.hammer && glitchedLinkInDarkWorld()) || (items.mirror && dungeons[11].isBeaten()))
+							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+						if (items.mirror && items.flippers)
+							path3 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.boots)
+							path4 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && items.flippers)
+							path5 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
+							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
+					}
+					return orCombinator(path1, path2, path3, path4, path5, path6);
+			}
+		else {
+			if (crystalCount === 2 && items.mirror)
+				return regions.SouthLightWorld();
+			return {};
 		}
 	}
 };
