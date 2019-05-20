@@ -11,9 +11,10 @@ var topList = document.querySelector('#top-area');
 var bottomList = document.querySelector('#bottom-area');
 
 document.querySelector('#option_button').addEventListener('click', function() {
-	if (document.querySelector('#options').style.display === "none")
+	if (document.querySelector('#options').style.display === "none") {
 		document.querySelector('#options').style.display = "inherit";
-	else
+		setOptionBlankHeight();
+	} else
 		document.querySelector('#options').style.display = "none";
 });
 
@@ -410,6 +411,7 @@ variationSelect.addEventListener('change', function() {
 		document.getElementById("map").style.top = top_px + "px";
 	}
 
+	setOptionBlankHeight();
 	resetItems();
 	refreshMap();
 });
@@ -576,6 +578,18 @@ document.querySelector('#arrow_down').addEventListener('click', function() {
 	refreshMap();
 });
 
+function setOptionBlankHeight() {
+	var height = 512;
+	if (optionVariation === "keysanity")
+		height += 128;
+	if (document.getElementById("sphereTracker").checked)
+		height += 259;
+	if (document.getElementById("altMap").checked)
+		height += 222 + 20;
+	if (height <= 550) height = 550;
+	document.querySelector('#options').style.height = height + "px";
+}
+
 function handleOptionClick(cb) {
 	switch (cb.id) {
 		case "sphereTracker":
@@ -587,6 +601,7 @@ function handleOptionClick(cb) {
 					top_px += 259;
 				document.getElementById("map").style.top = top_px + "px";
 			}
+			setOptionBlankHeight();
 			if (cb.checked) {
 				document.getElementById("sphereborder").style.display = "";
 				document.getElementById("spheres0").style.display = "";
@@ -602,6 +617,7 @@ function handleOptionClick(cb) {
 			}
 			break;
 		case "altMap":
+			setOptionBlankHeight();
 			if (cb.checked) {
 				document.getElementById("map").className = "map-alt";
 				var top_px = 512;
