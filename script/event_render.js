@@ -570,6 +570,9 @@ function sphereToggle(event) {
 
 // Highlights a chest location on mouseover and shows the name as caption
 function highlight(x){
+	var caption = "caption";
+	if (document.getElementById("altMap").checked)
+		caption = "caption-alt";
 	if (x.substring(0, 7) === "bossMap" || x.substring(0, 7) === "dungeon")
 		x = "dungentr" + x.substring(7);
 	if (x.substring(0, 8) === "entrance")
@@ -577,20 +580,23 @@ function highlight(x){
 	else
 		document.getElementById(x).style.outlineColor  = "yellow";
 	if (x.substring(0, 3) === "poi")
-		document.getElementById("caption").innerHTML = chests[x.substring(3)].name + " " + (chests[x.substring(3)].hint ? chests[x.substring(3)].hint : "");
+		document.getElementById(caption).innerHTML = chests[x.substring(3)].name + " " + (chests[x.substring(3)].hint ? chests[x.substring(3)].hint : "");
 	else if (x.substring(0, 8) === "entrance")
-		document.getElementById("caption").innerHTML = entrances[x.substring(8)].name + " " + (entrances[x.substring(8)].hint ? entrances[x.substring(8)].hint : "");
+		document.getElementById(caption).innerHTML = entrances[x.substring(8)].name + " " + (entrances[x.substring(8)].hint ? entrances[x.substring(8)].hint : "");
 	else if (x.substring(0, 4) === "shop")
-		document.getElementById("caption").innerHTML = shops[x.substring(4)].name + " " + (shops[x.substring(4)].hint ? shops[x.substring(4)].hint : "");
+		document.getElementById(caption).innerHTML = shops[x.substring(4)].name + " " + (shops[x.substring(4)].hint ? shops[x.substring(4)].hint : "");
 }
 function unhighlight(x){
+	var caption = "caption";
+	if (document.getElementById("altMap").checked)
+		caption = "caption-alt";
 	if (x.substring(0, 7) === "bossMap" || x.substring(0, 7) === "dungeon")
 		x = "dungentr" + x.substring(7);
 	if (x.substring(0, 8) === "entrance")
 		document.getElementById(x).style.borderColor  = "black";
 	else
 		document.getElementById(x).style.outlineColor  = "black";
-	document.getElementById("caption").innerHTML = "&nbsp;";
+	document.getElementById(caption).innerHTML = "&nbsp;";
 }
 
 function mapToggle(event) {
@@ -611,12 +617,24 @@ function mapToggle(event) {
 
 function refreshMap() {
 	//Update all chests on the map, className and backgroundImage
+	var start = Date.now();
+	var times = [];
+	var chestClass = "chest";
+	var bossClass = "boss";
+	var dungeonClass = "dungeon";
+	var dungentrClass = "dungentr";
+	if (document.getElementById("altMap").checked) {
+		chestClass = "chest-alt";
+		bossClass = "boss-alt";
+		dungeonClass = "dungeon-alt";
+		dungentrClass = "dungentr-alt";
+	}
 	chests.forEach(function(chest, chestNum) {
 		if (chest.isOpened) {
-			document.getElementById("poi"+chestNum).className = "chest opened";
+			document.getElementById("poi"+chestNum).className = chestClass + " opened";
 			document.getElementById("poi"+chestNum).style.backgroundImage = "";
 		} else {
-			document.getElementById("poi"+chestNum).className = "chest " + accessTranslator(chest.isAvailable());
+			document.getElementById("poi"+chestNum).className = chestClass + " " + accessTranslator(chest.isAvailable());
 			if (accessTranslator(chest.isAvailable()).indexOf("majorglitched") !== -1)
 				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";
 			else if (accessTranslator(chest.isAvailable()).indexOf("glitched") !== -1)
@@ -624,23 +642,25 @@ function refreshMap() {
 			else
 				document.getElementById("poi"+chestNum).style.backgroundImage = "";
 		}
+		var newt = Date.now();
+		times.push(newt - start);
+		start = newt;
 	});
-
 	//Update all boss & dungeons on the map, className, innerText and backgroundImage
 	dungeons.forEach(function(dungeon, dungeonNum) {
 		if (dungeon.isBeaten() || (dungeonNum === 12 && (optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("bossMap"+dungeonNum).className = "boss opened";
+			document.getElementById("bossMap"+dungeonNum).className = bossClass + " opened";
 		else
-			document.getElementById("bossMap"+dungeonNum).className = "boss " + accessTranslator(dungeon.isBeatable());
+			document.getElementById("bossMap"+dungeonNum).className = bossClass + " " + accessTranslator(dungeon.isBeatable());
 		if (items["chest" + dungeonNum] === 0 || (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("dungeon"+dungeonNum).className = "dungeon opened";
+			document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " opened";
 		else
-			document.getElementById("dungeon"+dungeonNum).className = "dungeon " + accessTranslator(dungeon.canGetChests());
+			document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " " + accessTranslator(dungeon.canGetChests());
 		if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
 			|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("dungentr"+dungeonNum).className = "dungentr opened";
+			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
 		else
-			document.getElementById("dungentr"+dungeonNum).className = "dungentr " + accessTranslator(dungeon.isAccessible());
+			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " " + accessTranslator(dungeon.isAccessible());
 		switch (dungeonNum) {
 			case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
 			case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
@@ -656,22 +676,29 @@ function refreshMap() {
 				break;
 		}
 	});
+	times.push(Date.now() - start);
 
+	var entrClass = "entrance";
+	var shopClass = "shop";
+	if (document.getElementById("altMap").checked) {
+		entrClass = "entrance-alt";
+		shopClass = "shop-alt";
+	}
 	if (optionVariation === "retro") {
 		//Update all entrances on the map, className and backgroundImage
 		entrances.forEach(function(entrance, entranceNum) {
 			if (entrance.isOpened)
-				document.getElementById("entrance"+entranceNum).className = "entrance opened";
+				document.getElementById("entrance"+entranceNum).className = entrClass + " opened";
 			else
-				document.getElementById("entrance"+entranceNum).className = "entrance " + accessTranslator(entrance.isAvailable());
+				document.getElementById("entrance"+entranceNum).className = entrClass + " " + accessTranslator(entrance.isAvailable());
 		});
 
 		//Update all shops on the map, className and backgroundImage
 		shops.forEach(function(shop, shopNum) {
 			if (shop.isOpened)
-				document.getElementById("shop"+shopNum).className = "shop opened";
+				document.getElementById("shop"+shopNum).className = shopClass + " opened";
 			else
-				document.getElementById("shop"+shopNum).className = "shop " + accessTranslator(shop.isAvailable());
+				document.getElementById("shop"+shopNum).className = shopClass + " " + accessTranslator(shop.isAvailable());
 		});
 	}
 }

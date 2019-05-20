@@ -401,6 +401,15 @@ variationSelect.addEventListener('change', function() {
 			document.getElementById("shop"+shopNum).className = "shop no-show";
 	});
 
+	if (document.getElementById("altMap").checked) {
+		var top_px = 512;
+		if (optionVariation === "keysanity")
+			top_px += 128;
+		if (document.getElementById("sphereTracker").checked)
+			top_px += 259;
+		document.getElementById("map").style.top = top_px + "px";
+	}
+
 	resetItems();
 	refreshMap();
 });
@@ -568,18 +577,109 @@ document.querySelector('#arrow_down').addEventListener('click', function() {
 });
 
 function handleOptionClick(cb) {
-	if (cb.id === "sphereTracker")
-		if (cb.checked) {
-			document.getElementById("sphereborder").style.display = "";
-			document.getElementById("spheres0").style.display = "";
-			document.getElementById("spheres1").style.display = "";
-			document.getElementById("spheres2").style.display = "";
-			document.getElementById("spheres3").style.display = "";
-		} else {
-			document.getElementById("sphereborder").style.display = "none";
-			document.getElementById("spheres0").style.display = "none";
-			document.getElementById("spheres1").style.display = "none";
-			document.getElementById("spheres2").style.display = "none";
-			document.getElementById("spheres3").style.display = "none";
-		}
+	switch (cb.id) {
+		case "sphereTracker":
+			if (document.getElementById("altMap").checked) {
+				var top_px = 512;
+				if (optionVariation === "keysanity")
+					top_px += 128;
+				if (cb.checked)
+					top_px += 259;
+				document.getElementById("map").style.top = top_px + "px";
+			}
+			if (cb.checked) {
+				document.getElementById("sphereborder").style.display = "";
+				document.getElementById("spheres0").style.display = "";
+				document.getElementById("spheres1").style.display = "";
+				document.getElementById("spheres2").style.display = "";
+				document.getElementById("spheres3").style.display = "";
+			} else {
+				document.getElementById("sphereborder").style.display = "none";
+				document.getElementById("spheres0").style.display = "none";
+				document.getElementById("spheres1").style.display = "none";
+				document.getElementById("spheres2").style.display = "none";
+				document.getElementById("spheres3").style.display = "none";
+			}
+			break;
+		case "altMap":
+			if (cb.checked) {
+				document.getElementById("map").className = "map-alt";
+				var top_px = 512;
+				if (optionVariation === "keysanity")
+					top_px += 128;
+				if (document.getElementById("sphereTracker").checked)
+					top_px += 259;
+				document.getElementById("map").style.top = top_px + "px";
+				document.getElementById("caption").id = "caption-alt";
+				document.getElementById("option_button").id = "option_button-alt";
+				document.getElementById("reset_button").id = "reset_button-alt";
+				var chestlist = document.getElementsByClassName("chest");
+				while (chestlist.length > 0) {
+					chestlist[0].classList.add("chest-alt");
+					chestlist[0].classList.remove("chest");
+				}
+				var list = document.getElementsByClassName("boss");
+				while (list.length > 0) {
+					list[0].classList.add("boss-alt");
+					list[0].classList.remove("boss");
+				}
+				var list = document.getElementsByClassName("dungeon");
+				while (list.length > 0) {
+					list[0].classList.add("dungeon-alt");
+					list[0].classList.remove("dungeon");
+				}
+				var list = document.getElementsByClassName("dungentr");
+				while (list.length > 0) {
+					list[0].classList.add("dungentr-alt");
+					list[0].classList.remove("dungentr");
+				}
+				var list = document.getElementsByClassName("entrance");
+				while (list.length > 0) {
+					list[0].classList.add("entrance-alt");
+					list[0].classList.remove("entrance");
+				}
+				var list = document.getElementsByClassName("shop");
+				while (list.length > 0) {
+					list[0].classList.add("shop-alt");
+					list[0].classList.remove("shop");
+				}
+			} else {
+				document.getElementById("map").className = "map";
+				document.getElementById("map").style.top = "0px";
+				document.getElementById("caption-alt").id = "caption";
+				document.getElementById("option_button-alt").id = "option_button";
+				document.getElementById("reset_button-alt").id = "reset_button";
+				var chestlist = document.getElementsByClassName("chest-alt");
+				while (chestlist.length > 0) {
+					chestlist[0].classList.add("chest");
+					chestlist[0].classList.remove("chest-alt");
+				}
+				var list = document.getElementsByClassName("boss-alt");
+				while (list.length > 0) {
+					list[0].classList.add("boss");
+					list[0].classList.remove("boss-alt");
+				}
+				var list = document.getElementsByClassName("dungeon-alt");
+				while (list.length > 0) {
+					list[0].classList.add("dungeon");
+					list[0].classList.remove("dungeon-alt");
+				}
+				var list = document.getElementsByClassName("dungentr-alt");
+				while (list.length > 0) {
+					list[0].classList.add("dungentr");
+					list[0].classList.remove("dungentr-alt");
+				}
+				var list = document.getElementsByClassName("entrance-alt");
+				while (list.length > 0) {
+					list[0].classList.add("entrance");
+					list[0].classList.remove("entrance-alt");
+				}
+				var list = document.getElementsByClassName("shop-alt");
+				while (list.length > 0) {
+					list[0].classList.add("shop");
+					list[0].classList.remove("shop-alt");
+				}
+			}
+			break;
+	}
 }

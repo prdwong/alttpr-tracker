@@ -180,21 +180,21 @@ for (var j = 0; j < 4; j++) {
 document.write('</table>');
 
 
-document.write('<div id="map">');
+document.write('<div id="map" class="map">');
 for (var i = 0; i < chests.length; i++) {
 	var k = "poi" + i;
-	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:3px; outline-offset:-3px; outline-color: black; top:"+chests[i].y+"; left:"+chests[i].x+"'></span>");
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-color: black; top:"+chests[i].y+"; left:"+chests[i].x+"'></span>");
 	document.getElementById(k).addEventListener('mousedown', mapToggle);
 }
 
 // Dungeon bosses & chests on the map
 for (var i = 0; i < dungeons.length; i++) {
 	var k = "bossMap" + i;
-	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='background-size:20px 20px; background-repeat:no-repeat; outline-style:solid; outline-width:1px; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='background-repeat:no-repeat; outline-style:solid; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
 	var k = "dungeon" + i;
 	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:0px; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
 	var k = "dungentr" + i;
-	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:3px; outline-offset:-3px; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
 }
 
 for (var i = 0; i < entrances.length; i++) {
@@ -205,7 +205,7 @@ for (var i = 0; i < entrances.length; i++) {
 
 for (var i = 0; i < shops.length; i++) {
 	var k = "shop" + i;
-	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:2px; outline-offset:-2px; outline-color:black; top:"+shops[i].y+"; left:"+shops[i].x+"'></span>");
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-color:black; top:"+shops[i].y+"; left:"+shops[i].x+"'></span>");
 	document.getElementById(k).addEventListener('mousedown', mapToggle);
 }
 </script>
@@ -270,6 +270,7 @@ for (var i = 0; i < shops.length; i++) {
 		<option value="minor">Minor Glitches</option>
 		<option value="misc">Misc Strats</option>
 		<option value="major">Major Glitches</option>
+		<option value="major_uw">UW Major Glitches</option>
 	</select>
 	<select name="itemSelect" id="item_select"></select>
 	<select multiple id="top-area"></select>
@@ -283,8 +284,9 @@ for (var i = 0; i < shops.length; i++) {
 	<span style='position:absolute; top:273px; left:460px; background:rgba(0, 0, 0); padding:0px 5px'>Hard Sequence Breaks</span>
 	<select multiple id="bottom-area"></select>
 	<div id="display_options">
-		Some header text<br>
+		Options<br>
 		<label><input id="sphereTracker" type="checkbox" onclick='handleOptionClick(this);'>Show Sphere Tracker</label><br>
+		<label><input id="altMap" type="checkbox" onclick='handleOptionClick(this);'>Compact Map</label><br>
 	</div>
 
 </div>
