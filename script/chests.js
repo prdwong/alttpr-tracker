@@ -375,6 +375,7 @@ var regions = {
 					var path5 = {}; //Fake flute
 					var path6 = {}; //Qirn jump from NW
 					var path7 = {}; //From south
+					var path8 = {}; //DM screenwrap w/out spinspeed
 					if (rescueZelda()) {
 						if (items.boots || items.flippers)
 							path2 = regions.northWestDarkWorld(true, new_locs, bottles);
@@ -393,6 +394,8 @@ var regions = {
 						if (items.hammer || items.flippers || items.boots)
 							path7 = regions.SouthDarkWorld(true, new_locs, bottles);
 						if (path7.ng === "a") return path7;
+						if (items.mirror && items.boots && ((items.moonpearl && must_be_link) || !must_be_link))
+							path8 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain(undefined, new_locs, bottles));
 						if (hasABottle() && bottles >= 1) { //Can always pull pyramid statue for link state
 							var temp_locs = new_locs.slice(0);
 							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
@@ -414,7 +417,7 @@ var regions = {
 						if (canBombThings())
 							path6 = andCombinator(glitched("qirn_jump"), regions.northWestDarkWorld(true, new_locs, bottles));
 					}
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
+					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7, path8);
 				default:
 					var path1 = {}; //Aga, NW waterwalk/flippers, or portal
 					var path2 = {}; //Buggy logic (fake flute using too many bottles), DM screenwrap portal to pyramid, potion shop DMD fake flipper to portal, or DMD waterwalk
@@ -4259,6 +4262,8 @@ chests[46] = {
 					var path6 = {}; //Dupe via Qirn blob
 					if (items.mirror && canSpinSpeed())
 						path1 = regions.northEastDarkWorld();
+					if (items.mirror && items.boots)
+						path7 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain());
 					if (crystalCount === 2) {
 						if ((items.hammer && items.moonpearl) || (items.mirror && dungeons[11].isBeaten()))
 							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
@@ -4271,7 +4276,7 @@ chests[46] = {
 						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
 							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 					}
-					return orCombinator(path1, path2, path3, path4, path5, path6);
+					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
 				default:
 					var path1 = {}; //Screenwrap mirror portal
 					var path2 = {}; //NMG
@@ -4281,6 +4286,8 @@ chests[46] = {
 					var path6 = {}; //Dupe via Qirn blob
 					if (items.mirror && canSpinSpeed())
 						path1 = regions.northEastDarkWorld();
+					if (items.mirror && items.boots)
+						path7 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain());
 					if (crystalCount === 2) {
 						if ((items.hammer && glitchedLinkInDarkWorld()) || (items.mirror && dungeons[11].isBeaten()))
 							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
@@ -4293,7 +4300,7 @@ chests[46] = {
 						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
 							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 					}
-					return orCombinator(path1, path2, path3, path4, path5, path6);
+					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
 			}
 		else {
 			if (crystalCount === 2 && items.mirror)

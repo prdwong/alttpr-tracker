@@ -64,8 +64,16 @@ var glitches = {
 	},
 	kingtomb: { category: "major", name: "King's Tomb jump"
 	},
+	blacksmith_wrap: { category: "major", name: "Blacksmith screenwrap portal"
+	},
+	mirrorjump: { category: "major", name: "Mirror jump"
+	},
+	OW_YBA: { category: "major", name: "Overworld YBA"
+	},
+	pyramid_wrap: { category: "major", name: "Screenwrap to pyramid w/out spinspeed"
+	},
 	
 	//Underworld major glitches
-	bombjuke: { category: "major", name: "Bomb Juke"
+	bombjuke: { category: "major_uw", name: "Bomb Juke"
 	}
 }
