@@ -593,9 +593,22 @@ function unhighlight(x){
 	if (x.substring(0, 7) === "bossMap" || x.substring(0, 7) === "dungeon")
 		x = "dungentr" + x.substring(7);
 	if (x.substring(0, 8) === "entrance")
-		document.getElementById(x).style.borderColor  = "black";
+		if (entrances[x.substring(8)].isHighlight)
+			document.getElementById(x).style.borderColor = "gold";
+		else
+			document.getElementById(x).style.borderColor = "black";
+	else if (x.substring(0, 4) === "shop")
+		if (shops[x.substring(4)].isHighlight)
+			document.getElementById(x).style.outlineColor = "gold";
+		else
+			document.getElementById(x).style.outlineColor = "black";
+	else if (x.substring(0, 3) === "poi")
+		if (chests[x.substring(3)].isHighlight)
+			document.getElementById(x).style.outlineColor = "gold";
+		else
+			document.getElementById(x).style.outlineColor = "black";
 	else
-		document.getElementById(x).style.outlineColor  = "black";
+		document.getElementById(x).style.outlineColor = "black";
 	document.getElementById(caption).innerHTML = "&nbsp;";
 }
 
@@ -611,6 +624,16 @@ function mapToggle(event) {
 			shops[event.target.id.substring(4)].isOpened = !shops[event.target.id.substring(4)].isOpened;
 			logAction(event.target.id, shops[event.target.id.substring(4)].isOpened, event.button);
 		}
+	} else if (event.button === 2) { //right click
+		var icon;
+		if (event.target.id.substring(0, 3) === "poi")
+			icon = chests[event.target.id.substring(3)];
+		else if (event.target.id.substring(0, 8) === "entrance")
+			icon = entrances[event.target.id.substring(8)];
+		else if (event.target.id.substring(0, 4) === "shop")
+			icon = shops[event.target.id.substring(4)];
+		icon.isHighlight = !icon.isHighlight;
+		
 	}
 	refreshMap();
 }
@@ -642,6 +665,10 @@ function refreshMap() {
 			else
 				document.getElementById("poi"+chestNum).style.backgroundImage = "";
 		}
+		if (chest.isHighlight)
+			document.getElementById("poi"+chestNum).style.outlineColor = "gold";
+		else
+			document.getElementById("poi"+chestNum).style.outlineColor = "black";
 		var newt = Date.now();
 		times.push(newt - start);
 		start = newt;
@@ -691,6 +718,10 @@ function refreshMap() {
 				document.getElementById("entrance"+entranceNum).className = entrClass + " opened";
 			else
 				document.getElementById("entrance"+entranceNum).className = entrClass + " " + accessTranslator(entrance.isAvailable());
+			if (entrance.isHighlight)
+				document.getElementById("entrance"+entranceNum).style.borderColor = "gold";
+			else
+				document.getElementById("entrance"+entranceNum).style.borderColor = "black";
 		});
 
 		//Update all shops on the map, className and backgroundImage
@@ -699,6 +730,10 @@ function refreshMap() {
 				document.getElementById("shop"+shopNum).className = shopClass + " opened";
 			else
 				document.getElementById("shop"+shopNum).className = shopClass + " " + accessTranslator(shop.isAvailable());
+			if (shop.isHighlight)
+				document.getElementById("shop"+shopNum).style.outlineColor = "gold";
+			else
+				document.getElementById("shop"+shopNum).style.outlineColor = "black";
 		});
 	}
 }

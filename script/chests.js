@@ -2544,6 +2544,7 @@ chests[0] = {
 	x: "40.13%",
 	y: "42.33%", //45.26%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings() || items.boots)
@@ -2585,6 +2586,7 @@ chests[1] = {
 	x: "40.13%",
 	y: "48.19%", //45.26%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		var pendants = 0;
 		for (var i = 0; i < 10; i++)
@@ -2601,6 +2603,7 @@ chests[2] = {
 	x: "48.07%", //47.48%
 	y: "9.74%", //12.67%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			switch (optionLogic) {
@@ -2661,6 +2664,7 @@ chests[3] = {
 	x: "39.65%",
 	y: "33.37%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (hasMushroom())
@@ -2683,6 +2687,7 @@ chests[4] = {
 	x: "48.07%", //47.48%
 	y: "15.60%", //12.67%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -2785,6 +2790,7 @@ chests[5] = {
 	x: "45.16%", //44.57%
 	y: "13.43%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -2856,6 +2862,7 @@ chests[6] = {
 	x: "2.04%",
 	y: "5.03%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		var pendantCountg = 0;
 		var pendantCountrb = 0;
@@ -2879,6 +2886,7 @@ chests[7] = {
 	x: "30.39%", //29.78%
 	y: "29.64%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -2932,6 +2940,7 @@ chests[8] = {
 	x: "7.94%",
 	y: "58.16%", //56.79%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			return regions.northWestLightWorld();
@@ -2965,6 +2974,7 @@ chests[9] = {
 	x: "4.83%",
 	y: "54.08%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -2988,6 +2998,7 @@ chests[10] = {
 	x: "1.45%", //1.17%
 	y: "42.53%", 
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -3030,6 +3041,7 @@ chests[11] = {
 	x: "6.38%",
 	y: "41.13%", //41.94%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -3076,6 +3088,7 @@ chests[12] = {
 	x: "18.74%", //19.34%
 	y: "29.27%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.boots)
 			return regions.northWestLightWorld(true);
@@ -3088,6 +3101,7 @@ chests[13] = {
 	x: "4.73%",
 	y: "46.99%", //46.18%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -3098,6 +3112,7 @@ chests[14] = {
 	x: "16.05%",
 	y: "56.20%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3159,6 +3174,7 @@ chests[15] = {
 	x: "7.74%",
 	y: "52.29%", //53.66%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (hasABottle())
 			return regions.northWestLightWorld();
@@ -3170,6 +3186,7 @@ chests[16] = {
 	x: "9.39%",
 	y: "13.06%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		var path1 = {}; //Normal
 		var path2 = {}; //View
@@ -3184,6 +3201,7 @@ chests[17] = {
 	x: "14.89%",
 	y: "7.20%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if ((dungeons[11].isBeaten()) && items.boots)
 			return regions.northWestLightWorld(true);
@@ -3196,6 +3214,7 @@ chests[18] = {
 	x: "27.47%", //28.23%
 	y: "27.49%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3229,6 +3248,7 @@ chests[19] = {
 	x: "5.89%",
 	y: "8.39%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		var path1 = {}; //Normal
 		var path2 = {}; //View
@@ -3244,6 +3264,7 @@ chests[20] = {
 	x: "24.33%", //23.22%
 	y: "93.51%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			return regions.SouthLightWorld();
@@ -3271,6 +3292,7 @@ chests[21] = { //Technically this should be SouthLightWorld, but then it's gated
 	x: "27.09%",
 	y: "68.92%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return {ng:"a"};
 	}
@@ -3281,6 +3303,7 @@ chests[22] = {
 	x: "9.87%",
 	y: "83.08%", //82.59%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -3304,6 +3327,7 @@ chests[23] = {
 	x: "32.30%",
 	y: "93.92%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(must_be_link = false){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -3358,6 +3382,7 @@ chests[24] = {
 	x: "44.30%",
 	y: "77.10%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -3389,6 +3414,7 @@ chests[25] = {
 	x: "35.09%",
 	y: "69.63%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			switch (optionLogic) {
@@ -3449,6 +3475,7 @@ chests[26] = {
 	x: "10.83%",
 	y: "91.39%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3499,6 +3526,7 @@ chests[27] = {
 	x: "13.16%",
 	y: "82.57%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3547,6 +3575,7 @@ chests[28] = {
 	x: "8.70%",
 	y: "77.22%", //77.71%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3578,6 +3607,7 @@ chests[29] = {
 	x: "7.73%",
 	y: "65.80%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			var path1 = {}; //Get item
@@ -3623,6 +3653,7 @@ chests[30] = {
 	x: "1.45%", //1.44%
 	y: "70.12%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			var path1 = {}; //Get item
@@ -3647,6 +3678,7 @@ chests[31] = {
 	x: "1.45%", //1.25%
 	y: "91.60%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			var path1 = {}; //Get item
@@ -3682,6 +3714,7 @@ chests[32] = {
 	x: "35.87%",
 	y: "82.62%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3761,6 +3794,7 @@ chests[33] = {
 	x: "21.42%", //22.53%
 	y: "93.14%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			return regions.SouthLightWorld();
@@ -3789,6 +3823,7 @@ chests[34] = {
 	x: "14.21%",
 	y: "66.20%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (hasShovel())
 			return regions.SouthLightWorld(true);
@@ -3803,6 +3838,7 @@ chests[35] = {
 	x: "20.11%",
 	y: "18.92%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			var path1 = {}; //Normal
@@ -3832,6 +3868,7 @@ chests[36] = {
 	x: "24.17%",
 	y: "14.63%", //14.60%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.westDeathMountain();
 	}
@@ -3842,6 +3879,7 @@ chests[37] = {
 	x: "20.79%",
 	y: "2.93%", //1.16%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3894,6 +3932,7 @@ chests[38] = {
 	x: "25.24%",
 	y: "8.79%", //8.76%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -3938,6 +3977,7 @@ chests[39] = {
 	x: "39.15%", //39.45%
 	y: "9.13%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			return regions.eastDeathMountain();
@@ -3984,6 +4024,7 @@ chests[40] = { //check dungeon[9].isAccessible assumptions
 	x: "42.06%", //41.76%
 	y: "8.94%", //9.13%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -4021,6 +4062,7 @@ chests[41] = {
 	x: "42.25%", //42.35%
 	y: "14.81%", //14.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canBombThings())
@@ -4044,6 +4086,7 @@ chests[42] = {
 	x: "42.74%",
 	y: "21.66%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			var path1 = {}; //Non-arrow
@@ -4078,6 +4121,7 @@ chests[43] = {
 	x: "40.13%",
 	y: "2.93%", //1.37%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -4121,6 +4165,7 @@ chests[44] = {
 	x: "96.18%", //94.77%
 	y: "16.78%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			switch (optionLogic) {
@@ -4166,6 +4211,7 @@ chests[45] = {
 	x: "79.50%", //79.20%
 	y: "44.73%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northEastDarkWorld();
 	}
@@ -4177,6 +4223,7 @@ chests[46] = {
 	x: "73.69%",
 	y: "49.60%", //48.61%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		var crystalCount = 0;
 		for(var i = 0; i < 10; i++)
@@ -4263,20 +4310,27 @@ chests[47] = {
 	x: "55.89%",
 	y: "58.37%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (canBombThings())
-					return regions.northWestDarkWorld();
-				return {};
-			case "owg":
-				if (items.moonpearl && canBombThings())
-					return regions.northWestDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld() && canBombThings())
-					return regions.northWestDarkWorld();
-				return {};
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					if (canBombThings())
+						return regions.northWestDarkWorld();
+					return {};
+				case "owg":
+					if (canBombThings())
+						return regions.northWestDarkWorld(true);
+					return {};
+				default:
+					if (glitchedLinkInDarkWorld() && canBombThings())
+						return regions.northWestDarkWorld();
+					return {};
+			}
+		else {
+			if (canBombThings())
+				return regions.northWestDarkWorld();
+			return {};
 		}
 	}
 };
@@ -4285,6 +4339,7 @@ chests[48] = {
 	x: "61.03%", //60.73%
 	y: "48.22%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -4295,6 +4350,7 @@ chests[49] = {
 	x: "52.31%", //53.00%
 	y: "46.66%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -4305,27 +4361,48 @@ chests[50] = {
 	x: "66.14%",
 	y: "60.53%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.hammer && canLiftDarkRocks())
-					return regions.northWestDarkWorld();
-				return {};
-			case "owg":
-				var path1 = {}; //NW
-				var path2 = {}; //NE
-				if (items.hammer && items.moonpearl) {
-					if (canLiftDarkRocks())
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					if (items.hammer && canLiftDarkRocks())
+						return regions.northWestDarkWorld();
+					return {};
+				case "owg":
+					var path1 = {}; //NW
+					var path2 = {}; //NE
+					if (items.hammer) {
+						if (canLiftDarkRocks())
+							path1 = regions.northWestDarkWorld(true);
+						if (items.boots) //Don't need spinspeed
+							path2 = andCombinator(regions.northEastDarkWorld(true), regions.northWestDarkWorld());
+					}
+					return orCombinator(path1, path2);
+				default:
+					if (items.hammer && glitchedLinkInDarkWorld()) //1f clip near pyramid
+						return regions.northWestDarkWorld();
+					return {};
+			}
+		else
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Dark world
+					var path2 = {}; //Light world
+					if (items.hammer && canLiftDarkRocks())
 						path1 = regions.northWestDarkWorld();
-					if (items.boots) //Don't need spinspeed
-						path2 = andCombinator(regions.northEastDarkWorld(), regions.northWestDarkWorld());
-				}
-				return orCombinator(path1, path2);
-			default:
-				if (items.hammer && glitchedLinkInDarkWorld()) //1f clip near pyramid
-					return regions.northWestDarkWorld();
-				return {};
-		}
+					if (items.hammer && items.mirror)
+						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+					return orCombinator(path1, path2);
+				default:
+					var path1 = {}; //Dark world
+					var path2 = {}; //Light world
+					if (items.hammer && (canLiftDarkRocks() || items.boots))
+						path1 = regions.northWestDarkWorld();
+					if (items.hammer && items.mirror)
+						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+					return orCombinator(path1, path2);
+			}
 	}
 };
 chests[51] = {
@@ -4334,34 +4411,54 @@ chests[51] = {
 	x: "67.60%",
 	y: "15.82%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				var path1 = {}; //Get item
-				var path2 = {}; //View item
-				if (canLiftRocks() && items.cape)
-					path1 = regions.northWestDarkWorld();
-				path2 = convertView(regions.northWestDarkWorld());
-				return orCombinator(path1, path2);
-			case "owg":
-				var path1 = {}; //Get item
-				var path2 = {}; //View item
-				if (items.moonpearl
-					&& (items.boots
-						|| (canLiftRocks() && items.cape)))
-					path1 = regions.northWestDarkWorld();
-				path2 = convertView(regions.northWestDarkWorld());
-				return orCombinator(path1, path2);
-			default:
-				var path1 = {}; //Get item
-				var path2 = {}; //View item
-				if (glitchedLinkInDarkWorld()
-					&& (items.boots
-						|| (canLiftRocks() && items.cape)))
-					path1 = regions.northWestDarkWorld();
-				path2 = convertView(regions.northWestDarkWorld());
-				return orCombinator(path1, path2);
-s		}
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Get item
+					var path2 = {}; //View item
+					if (canLiftRocks() && items.cape)
+						path1 = regions.northWestDarkWorld();
+					path2 = convertView(regions.northWestDarkWorld());
+					return orCombinator(path1, path2);
+				case "owg":
+					var path1 = {}; //Get item
+					var path2 = {}; //View item
+					if (items.boots || (canLiftRocks() && items.cape))
+						path1 = regions.northWestDarkWorld(true);
+					path2 = convertView(regions.northWestDarkWorld());
+					return orCombinator(path1, path2);
+				default:
+					var path1 = {}; //Get item
+					var path2 = {}; //View item
+					if (glitchedLinkInDarkWorld()
+						&& (items.boots
+							|| (canLiftRocks() && items.cape)))
+						path1 = regions.northWestDarkWorld();
+					path2 = convertView(regions.northWestDarkWorld());
+					return orCombinator(path1, path2);
+			}
+		else
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Get item
+					var path2 = {}; //View item
+					if (canLiftRocks() && items.cape && items.mirror)
+						path1 = regions.northWestLightWorld(true);
+					path2 = convertView(regions.northWestDarkWorld());
+					return orCombinator(path1, path2);
+				default:
+					var path1 = {}; //Get item
+					var path2 = {}; //Clip
+					var path3 = {}; //View item
+					if (canLiftRocks() && items.cape && items.mirror)
+						path1 = regions.northWestLightWorld(true);
+					if (items.boots)
+						path2 = regions.northWestDarkWorld();
+					path3 = convertView(regions.northWestDarkWorld());
+					return orCombinator(path1, path2, path3);
+			}
 	}
 };
 chests[52] = {
@@ -4370,21 +4467,48 @@ chests[52] = {
 	x: "57.92%",
 	y: "66.16%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (canLiftDarkRocks())
-					return regions.northWestDarkWorld();
-				return {};
-			case "owg":
-				if (items.moonpearl && canLiftDarkRocks())
-					return regions.northWestDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
-					return regions.northWestDarkWorld();
-				return {};
-		}
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					if (canLiftDarkRocks())
+						return regions.northWestDarkWorld();
+					return {};
+				case "owg":
+					var path1 = {}; //Lift rocks
+					var path2 = {}; //Screenwrap mirror portal
+					var path3 = {}; //Mirrorjump
+					var path4 = {}; //YBA
+					if (canLiftDarkRocks())
+						path1 = regions.northWestDarkWorld(true);
+					if (items.boots && items.mirror && (canBombThings() || items.flute))
+						path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
+					if (items.mirror)
+						path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
+					if (hasABottle() && items.boots)
+						path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
+					return orCombinator(path1, path2, path3, path4);
+				default:
+					var path1 = {}; //Lift rocks
+					var path2 = {}; //Screenwrap mirror portal
+					var path3 = {}; //Mirrorjump
+					var path4 = {}; //YBA
+					if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
+						path1 = regions.northWestDarkWorld();
+					if (items.boots && items.mirror && (canBombThings() || items.flute))
+						path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
+					if (items.mirror)
+						path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
+					if (hasABottle() && items.boots)
+						path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
+					return orCombinator(path1, path2, path3, path4);
+			}
+		else
+			switch (optionLogic) {
+				case "nmg":
+				default:
+			}
 	}
 };
 chests[53] = {
@@ -4393,6 +4517,7 @@ chests[53] = {
 	x: "65.47%",
 	y: "51.75%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4430,6 +4555,7 @@ chests[54] = {
 	x: "80.07%",
 	y: "77.88%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4452,6 +4578,7 @@ chests[55] = {
 	x: "65.76%",
 	y: "67.69%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4473,6 +4600,7 @@ chests[56] = {
 	x: "53.28%",
 	y: "69.21%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4497,6 +4625,7 @@ chests[57] = {
 	x: "51.93%", //52.41%
 	y: "80.05%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4529,6 +4658,7 @@ chests[58] = {
 	x: "78.91%",
 	y: "14.65%", //14.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4561,6 +4691,7 @@ chests[59] = {
 	x: "91.23%", //93.03%
 	y: "15.01%", //14.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4578,6 +4709,7 @@ chests[60] = {
 	x: "91.68%",
 	y: "9.15%", //6.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch(optionLogic) {
 			case "nmg":
@@ -4598,6 +4730,7 @@ chests[61] = {
 	x: "91.68%",
 	y: "3.30%", //6.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch(optionLogic) {
 			case "nmg":
@@ -4618,6 +4751,7 @@ chests[62] = {
 	x: "21.65%", //22.82%
 	y: "26.74%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
@@ -4636,6 +4770,7 @@ chests[63] = {
 	x: "24.56%", //25.72%
 	y: "29.25%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
@@ -4665,6 +4800,7 @@ chests[64] = {
 	x: "24.75%",
 	y: "48.80%", //43.92%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
@@ -4684,6 +4820,7 @@ chests[65] = {
 	x: "24.75%",
 	y: "54.66%", //43.92%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
@@ -4711,6 +4848,7 @@ chests[66] = { //Some funny, not understood logic regarding Sanc here, and also 
 	x: "29.49%",
 	y: "41.55%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
@@ -4743,6 +4881,7 @@ entrances[0] = {
 	x: "17.37%", //16.63%
 	y: "6.03%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4752,6 +4891,7 @@ entrances[1] = {
 	x: "9.18%",
 	y: "2.08%", //1.54%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4761,6 +4901,7 @@ entrances[2] = {
 	x: "9.28%",
 	y: "32.18%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4770,6 +4911,7 @@ entrances[3] = {
 	x: "2.52%",
 	y: "47.54%", //46.66%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4779,6 +4921,7 @@ entrances[4] = {
 	x: "10.25%",
 	y: "48.22%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4788,6 +4931,7 @@ entrances[5] = {
 	x: "10.22%", //10.05%
 	y: "53.27%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -4798,6 +4942,7 @@ entrances[6] = {
 	x: "1.35%",
 	y: "59.52%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (canBombThings())
 			return regions.northWestLightWorld();
@@ -4809,6 +4954,7 @@ entrances[7] = {
 	x: "10.63%",
 	y: "70.07%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthLightWorld();
 	}
@@ -4819,6 +4965,7 @@ entrances[8] = {
 	x: "23.40%",
 	y: "65.19%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.boots)
 			return regions.SouthLightWorld();
@@ -4830,6 +4977,7 @@ entrances[9] = {
 	x: "13.74%",
 	y: "89.21%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthLightWorld();
 	}
@@ -4840,6 +4988,7 @@ entrances[10] = {
 	x: "15.48%",
 	y: "95.65%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (canLiftRocks())
 			return regions.SouthLightWorld();
@@ -4852,6 +5001,7 @@ entrances[11] = {
 	x: "29.60%",
 	y: "77.88%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (canBombThings())
 			return regions.SouthLightWorld();
@@ -4863,6 +5013,7 @@ entrances[12] = {
 	x: "32.10%",
 	y: "80.22%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthLightWorld();
 	}
@@ -4872,6 +5023,7 @@ entrances[13] = {
 	x: "40.81%",
 	y: "64.62%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northEastLightWorld();
 	}
@@ -4881,6 +5033,7 @@ entrances[14] = {
 	x: "48.56%",
 	y: "70.07%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northEastLightWorld();
 	}
@@ -4890,6 +5043,7 @@ entrances[15] = {
 	x: "46.78%", //45.27%
 	y: "77.10%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthLightWorld();
 	}
@@ -4900,6 +5054,7 @@ entrances[16] = {
 	x: "44.69%",
 	y: "82.10%", //78.47%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (canLiftRocks())
 			return regions.SouthLightWorld();
@@ -4911,6 +5066,7 @@ entrances[17] = {
 	x: "40.07%", //41.77%
 	y: "14.60%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.eastDeathMountain();
 	}
@@ -4920,6 +5076,7 @@ entrances[18] = {
 	x: "59.76%",
 	y: "32.20%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -4929,6 +5086,7 @@ entrances[19] = {
 	x: "61.12%",
 	y: "70.09%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthDarkWorld();
 	}
@@ -4938,6 +5096,7 @@ entrances[20] = {
 	x: "73.30%",
 	y: "27.51%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -4948,6 +5107,7 @@ entrances[21] = {
 	x: "73.34%",
 	y: "65.21%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4970,6 +5130,7 @@ entrances[22] = {
 	x: "60.22%", //55.89%
 	y: "80.05%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -4986,6 +5147,7 @@ entrances[23] = {
 	x: "60.34%",
 	y: "83.59%", //82.59%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5002,6 +5164,7 @@ entrances[24] = {
 	x: "91.29%",
 	y: "64.62%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northEastDarkWorld();
 	}
@@ -5011,6 +5174,7 @@ entrances[25] = {
 	x: "92.55%",
 	y: "50.17%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.moonpearl)
 			return regions.northEastDarkWorld();
@@ -5022,6 +5186,7 @@ entrances[26] = {
 	x: "99.03%",
 	y: "70.09%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.moonpearl)
 			return regions.northEastDarkWorld();
@@ -5034,6 +5199,7 @@ entrances[27] = {
 	x: "94.38%", //94.77%
 	y: "77.12%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5077,6 +5243,7 @@ entrances[28] = {
 	x: "96.13%", //95.74%
 	y: "77.12%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5120,6 +5287,7 @@ entrances[29] = {
 	x: "95.16%",
 	y: "80.30%", //78.49%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5162,6 +5330,7 @@ entrances[30] = {
 	x: "70.59%",
 	y: "18.92%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5180,6 +5349,7 @@ entrances[30] = {
 	x: "39.26%",
 	y: "85.33%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.flippers || optionLogic !== "nmg")
 			return "available";
@@ -5203,6 +5373,7 @@ shops[0] = {
 	x: "5.41%",
 	y: "59.08%", //58.35%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestLightWorld();
 	}
@@ -5212,6 +5383,7 @@ shops[1] = {
 	x: "35.97%",
 	y: "76.71%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthLightWorld();
 	}
@@ -5222,6 +5394,7 @@ shops[2] = {
 	x: "42.25%", //42.66%
 	y: "14.81%", //14.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5241,6 +5414,7 @@ shops[3] = {
 	x: "90.32%",
 	y: "33.76%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		if (items.moonpearl && (canLiftRocks() || items.hammer || items.flippers))
 			return regions.northEastDarkWorld();
@@ -5252,6 +5426,7 @@ shops[4] = {
 	x: "66.92%",
 	y: "45.87%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -5261,6 +5436,7 @@ shops[5] = {
 	x: "67.11%",
 	y: "5.64%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.northWestDarkWorld();
 	}
@@ -5270,6 +5446,7 @@ shops[6] = {
 	x: "82.59%",
 	y: "80.25%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.SouthDarkWorld();
 	}
@@ -5280,6 +5457,7 @@ shops[7] = {
 	x: "60.54%",
 	y: "53.30%",
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		switch (optionLogic) {
 			case "nmg":
@@ -5302,6 +5480,7 @@ shops[8] = {
 	x: "93.71%", //92.84%
 	y: "14.92%", //14.62%
 	isOpened: false,
+	isHighlight: false,
 	isAvailable: function(){
 		return regions.darkEastDeathMountain();
 	}
