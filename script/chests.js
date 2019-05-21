@@ -4514,7 +4514,17 @@ chests[52] = {
 		else
 			switch (optionLogic) {
 				case "nmg":
+					if (canLiftDarkRocks() || items.mirror)
+						return regions.northWestLightWorld();
+					return {};
 				default:
+					var path1 = {}; //Normal
+					var path2 = {}; //YBA
+					if (canLiftDarkRocks() || items.mirror)
+						path1 = regions.northWestLightWorld();
+					if (hasABottle() && items.boots)
+						path2 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(undefined, undefined, bottleCount() - 1));
+					return orCombinator(path1, path2);
 			}
 	}
 };
@@ -4526,31 +4536,46 @@ chests[53] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (canLiftDarkRocks())
-					return regions.northWestDarkWorld();
-				return {};
-			case "owg":
-				var path1 = {}; //NMG
-				var path2 = {}; //NE
-				if (items.moonpearl && canLiftDarkRocks())
-					path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
-				if (items.moonpearl && items.boots)
-					path2 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld()), regions.northWestDarkWorld());
-				return orCombinator(path1, path2);
-			default:
-				var path1 = {}; //mirrorwrap
-				var path2 = {}; //NMG
-				var path3 = {}; //NE
-				if (items.mirror)
-					path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
-				if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
-					path2 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
-				if (items.boots && glitchedLinkInDarkWorld())
-					path3 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld()), regions.northWestDarkWorld());
-				return orCombinator(path1, path2, path3);
-		}
+		if (optionState !== "inverted")
+			switch (optionLogic) {
+				case "nmg":
+					if (canLiftDarkRocks())
+						return regions.northWestDarkWorld();
+					return {};
+				case "owg":
+					var path1 = {}; //NMG
+					var path2 = {}; //NE
+					var path3 = {}; //Mirrorwrap
+					if (canLiftDarkRocks())
+						path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld(true));
+					if (items.boots)
+						path2 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld(true)), regions.northWestDarkWorld(true));
+					if (items.mirror)
+						path3 = andCombinator(glitched("mirrorwrap"), chests[52].isAvailable(), regions.northWestDarkWorld());
+					return orCombinator(path1, path2, path3);
+				default:
+					var path1 = {}; //mirrorwrap
+					var path2 = {}; //NMG
+					var path3 = {}; //NE
+					if (items.mirror)
+						path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
+					if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
+						path2 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
+					if (items.boots && glitchedLinkInDarkWorld())
+						path3 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld()), regions.northWestDarkWorld());
+					return orCombinator(path1, path2, path3);
+			}
+		else
+			switch (optionLogic) {
+				case "nmg":
+					if (canLiftDarkRocks() || items.mirror)
+						return andCombinator(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
+					return {};
+				default:
+					if (canLiftDarkRocks() || items.mirror || items.boots)
+						return andCombinator(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
+					return {};
+			}
 	}
 };
 

@@ -72,6 +72,8 @@ var glitches = {
 	},
 	pyramid_wrap: { category: "major", name: "Screenwrap to pyramid w/out spinspeed"
 	},
+	mirrorwrap: { category: "major", name: "Mirror wrap"
+	},
 	
 	//Underworld major glitches
 	bombjuke: { category: "major_uw", name: "Bomb Juke"
