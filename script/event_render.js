@@ -529,6 +529,8 @@ function updateSphereTracker(sphereName) {
 function sphereToggle(event) {
 	if (event.button === 0 || event.button === 1) { //left or middle click, place last item to this sphere, or clear this sphere
 		var newItem = spheres[event.target.id];
+		if (newItem === lastItem)
+			lastItem = "";
 		spheres[event.target.id] = lastItem;
 		lastItem = newItem;
 		updateSphereTracker(event.target.id);
@@ -544,25 +546,26 @@ function sphereToggle(event) {
 				case "sword1": spheres[event.target.id] = "sword2"; break;
 				case "sword2": spheres[event.target.id] = "sword3"; break;
 				case "sword3": spheres[event.target.id] = "sword4"; break;
-				case "sword4": spheres[event.target.id] = "sword1"; break;
+				case "sword4": spheres[event.target.id] = ""; lastItem = "sword1"; break;
 				case "glove1": spheres[event.target.id] = "glove2"; break;
-				case "glove2": spheres[event.target.id] = "glove1"; break;
+				case "glove2": spheres[event.target.id] = ""; lastItem = "glove1"; break;
 				case "magic2": spheres[event.target.id] = "magic3"; break;
-				case "magic3": spheres[event.target.id] = "magic2"; break;
+				case "magic3": spheres[event.target.id] = ""; lastItem = "magic2"; break;
 				case "bow": spheres[event.target.id] = "arrow1"; break;
 				case "arrow1": spheres[event.target.id] = "arrow"; break;
-				case "arrow": spheres[event.target.id] = "bow"; break;
+				case "arrow": spheres[event.target.id] = ""; lastItem = "bow"; break;
 				case "blueboom": spheres[event.target.id] = "redboom"; break;
-				case "redboom": spheres[event.target.id] = "blueboom"; break;
+				case "redboom": spheres[event.target.id] = ""; lastItem = "blueboom"; break;
 				case "mushroom": spheres[event.target.id] = "powder"; break;
-				case "powder": spheres[event.target.id] = "mushroom"; break;
+				case "powder": spheres[event.target.id] = ""; lastItem = "mushroom"; break;
 				case "shovel": spheres[event.target.id] = "flute"; break;
-				case "flute": spheres[event.target.id] = "shovel"; break;
+				case "flute": spheres[event.target.id] = ""; lastItem = "shovel"; break;
 				case "shield1": spheres[event.target.id] = "shield2"; break;
 				case "shield2": spheres[event.target.id] = "shield3"; break;
 				case "shield3": spheres[event.target.id] = "tunic2"; break;
 				case "tunic2": spheres[event.target.id] = "tunic3"; break;
-				case "tunic3": spheres[event.target.id] = "shield1"; break;
+				case "tunic3": spheres[event.target.id] = ""; lastItem = "shield1"; break;
+				default: lastItem = spheres[event.target.id]; spheres[event.target.id] = ""; break;
 			}
 		updateSphereTracker(event.target.id);
 	}
@@ -633,7 +636,6 @@ function mapToggle(event) {
 		else if (event.target.id.substring(0, 4) === "shop")
 			icon = shops[event.target.id.substring(4)];
 		icon.isHighlight = !icon.isHighlight;
-		
 	}
 	refreshMap();
 }
