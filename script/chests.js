@@ -2539,6 +2539,8 @@ var chests = new Array;
 //Mire MG logic has no reqs
 //	Issue #664 filed
 
+/*NEED TO CHECK BOTTLE REQS WHEN DOING MULTIPLE REGIONS*/
+
 //NorthEast LightWorld chests, region is always accessible from Link's House
 chests[0] = {
 	name: "Sahasrahla's Hut",
@@ -4173,8 +4175,8 @@ chests[44] = {
 		if (optionState !== "inverted")
 			switch (optionLogic) {
 				case "nmg":
-					if (items.moonpearl && canLiftRocks())
-						return regions.northEastDarkWorld();
+					if (canLiftRocks())
+						return regions.northEastDarkWorld(true);
 					return {};
 				case "owg":
 					var path1 = {}; //NE dark world
@@ -4242,7 +4244,7 @@ chests[46] = {
 					var path5 = {}; //Dupe via Qirn blob
 					if (crystalCount === 2) {
 						if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-							path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld());
+							path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true));
 						if (items.mirror && items.flippers)
 							path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
 						if (canLiftDarkRocks() && items.boots)
@@ -4260,6 +4262,7 @@ chests[46] = {
 					var path4 = {}; //Dupe via waterwalk
 					var path5 = {}; //Dupe via swim
 					var path6 = {}; //Dupe via Qirn blob
+					var path7 = {}; //Screenwrap mirror portal
 					if (items.mirror && canSpinSpeed())
 						path1 = regions.northEastDarkWorld();
 					if (items.mirror && items.boots)
@@ -4284,6 +4287,7 @@ chests[46] = {
 					var path4 = {}; //Dupe via waterwalk
 					var path5 = {}; //Dupe via swim
 					var path6 = {}; //Dupe via Qirn blob
+					var path7 = {}; //Screenwrap mirror portal
 					if (items.mirror && canSpinSpeed())
 						path1 = regions.northEastDarkWorld();
 					if (items.mirror && items.boots)
@@ -4323,7 +4327,7 @@ chests[47] = {
 			switch (optionLogic) {
 				case "nmg":
 					if (canBombThings())
-						return regions.northWestDarkWorld();
+						return regions.northWestDarkWorld(true);
 					return {};
 				case "owg":
 					if (canBombThings())
@@ -4374,7 +4378,7 @@ chests[50] = {
 			switch (optionLogic) {
 				case "nmg":
 					if (items.hammer && canLiftDarkRocks())
-						return regions.northWestDarkWorld();
+						return regions.northWestDarkWorld(true);
 					return {};
 				case "owg":
 					var path1 = {}; //NW
@@ -4426,7 +4430,7 @@ chests[51] = {
 					var path1 = {}; //Get item
 					var path2 = {}; //View item
 					if (canLiftRocks() && items.cape)
-						path1 = regions.northWestDarkWorld();
+						path1 = regions.northWestDarkWorld(true);
 					path2 = convertView(regions.northWestDarkWorld());
 					return orCombinator(path1, path2);
 				case "owg":
@@ -4480,7 +4484,7 @@ chests[52] = {
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftDarkRocks())
-						return regions.northWestDarkWorld();
+						return regions.northWestDarkWorld(true);
 					return {};
 				case "owg":
 					var path1 = {}; //Lift rocks
@@ -4592,11 +4596,11 @@ chests[54] = {
 		switch (optionLogic) {
 			case "nmg":
 				if (canBombThings())
-					return regions.SouthDarkWorld();
+					return regions.SouthDarkWorld(true);
 				return {};
 			case "owg":
-				if (canBombThings() && items.moonpearl)
-					return regions.SouthDarkWorld();
+				if (canBombThings())
+					return regions.SouthDarkWorld(true);
 				return {};
 			default:
 				if (canBombThings() && glitchedLinkInDarkWorld())
