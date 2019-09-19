@@ -28,16 +28,6 @@ window.oncontextmenu = function () {
 //disable middle scroll (because we are using middle clicks for other things)
 document.body.onmousedown = function(e) { if (e.button === 1) return false; }
 
-var optionState = "open";
-var optionLogic = "nmg";
-var optionSwords = "random";
-var optionGoal = "ganon";
-var optionDifficulty = "normal";
-var optionVariation = "none";
-var optionBossShuffle = "off";
-var optionCategorySelect = "all";
-var optionItemSelect = "blank";
-
 // Item tracker
 var itemList = Object.keys(items);
 var rowLength = 7;
@@ -215,46 +205,85 @@ for (var i = 0; i < shops.length; i++) {
 <input type="button" id="option_button" value="Options">
 <input type="button" id="reset_button" value="Reset">
 
-<select name="state" id="state_select">
-	<option value="standard">Standard</option>
-	<option value="open" selected>Open</option>
-	<option value="inverted">Inverted</option>
-</select>
 <select name="logic" id="logic_select">
-	<option value="nmg" selected>No Glitches</option>
+	<option value="title" disabled>Glitches Required:</option>
+	<option value="nmg" selected>None</option>
 	<option value="owg">Overworld Glitches</option>
 	<option value="major">Major Glitches</option>
-	<option value="nologic">None</option>
+	<option value="nologic">No Logic</option>
 </select>
-<select name="swords" id="swords_select">
-	<option value="random" selected>Randomized</option>
-	<option value="uncle">Uncle Assured</option>
-	<option value="swordless">Swordless</option>
+<select name="itemplace" id="itemplace_select">
+	<option value="title" disabled>Item Placement:</option>
+	<option value="basic">Basic</option>
+	<option value="advanced" selected>Advanced</option>
+</select>
+<select name="variation" id="variation_select">
+	<option value="title" disabled>Dungeon Items:</option>
+	<option value="none" selected>Standard</option>
+	<option value="mc">Maps/Compasses</option>
+	<option value="mcs">Maps/Compasses/Small Keys</option>
+	<option value="keysanity">Keysanity</option>
 </select>
 <select name="goal" id="goal_select">
+	<option value="title" disabled>Goal:</option>
 	<option value="ganon" selected>Defeat Ganon</option>
+	<option value="fastganon">Fast Ganon</option>
 	<option value="alldungeons">All Dungeons</option>
 	<option value="pedestal">Master Sword Pedestal</option>
 	<option value="triforce">Triforce Pieces</option>
 </select>
+<select name="tower" id="tower_select">
+	<option value="title" disabled>Open Tower:</option>
+	<option value="0" selected>0 Crystals</option>
+	<option value="1" selected>1 Crystals</option>
+	<option value="2" selected>2 Crystals</option>
+	<option value="3" selected>3 Crystals</option>
+	<option value="4" selected>4 Crystals</option>
+	<option value="5" selected>5 Crystals</option>
+	<option value="6" selected>6 Crystals</option>
+	<option value="7" selected>7 Crystals</option>
+	<option value="random" selected>Random</option>
+</select>
+<select name="ganon" id="ganon_select">
+	<option value="title" disabled>Ganon Vulnerable:</option>
+	<option value="0" selected>0 Crystals</option>
+	<option value="1" selected>1 Crystals</option>
+	<option value="2" selected>2 Crystals</option>
+	<option value="3" selected>3 Crystals</option>
+	<option value="4" selected>4 Crystals</option>
+	<option value="5" selected>5 Crystals</option>
+	<option value="6" selected>6 Crystals</option>
+	<option value="7" selected>7 Crystals</option>
+	<option value="random" selected>Random</option>
+</select>
+<select name="state" id="state_select">
+	<option value="title" disabled>World State:</option>
+	<option value="standard">Standard</option>
+	<option value="open" selected>Open</option>
+	<option value="inverted" disabled>Inverted</option>
+	<option value="retro" disabled>Retro</option>
+</select>
+<select name="bossShuffle" id="bossShuffle_select">
+	<option value="title" disabled>Boss Shuffle:</option>
+	<option value="off" selected>None</option>
+	<option value="simple">Simple</option>
+	<option value="full">Full</option>
+	<option value="on">Random</option>
+</select>
+<select name="swords" id="swords_select">
+	<option value="title" disabled>Swords:</option>
+	<option value="random" selected>Randomized</option>
+	<option value="uncle">Assured</option>
+	<option value="vanilla">Vanilla</option>
+	<option value="swordless">Swordless</option>
+</select>
+
 <select name="difficulty" id="difficulty_select">
 	<option value="easy">Easy</option>
 	<option value="normal" selected>Normal</option>
 	<option value="hard">Hard</option>
 	<option value="expert">Expert</option>
 	<option value="insane">Insane</option>
-</select>
-<select name="variation" id="variation_select">
-	<option value="none" selected>None</option>
-	<option value="keysanity">Keysanity</option>
-	<option value="retro">Retro</option>
-	<option value="timed">Timed Race</option>
-	<option value="timedohko">Timed OHKO</option>
-	<option value="ohko">OHKO</option>
-</select>
-<select name="bossShuffle" id="bossShuffle_select">
-	<option value="off" selected>Boss Shuffle Off</option>
-	<option value="on">Boss Shuffle</option>
 </select>
 
 <div id="options" style='display:none; background:rgba(0, 0, 0, 0.75)'>

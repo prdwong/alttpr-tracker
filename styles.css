@@ -275,48 +275,70 @@ td {
 	vertical-align: text-bottom;
 }
 
-#state_select {
-	position: absolute;
-	z-index: 5;
-	left: 448px;
-	top: 410px;
-}
 #logic_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
 	top: 430px;
 }
-#swords_select {
+#itemplace_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
 	top: 450px;
 }
-#goal_select {
+#variation_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
 	top: 470px;
 }
-#difficulty_select{
+
+#goal_select {
 	position: absolute;
 	z-index: 5;
-	left: 448px;
-	top: 490px;
+	left: 660px;
+	top: 430px;
 }
-#variation_select {
+#tower_select {
+	position: absolute;
+	z-index: 5;
+	left: 660px;
+	top: 450px;
+}
+#ganon_select {
+	position: absolute;
+	z-index: 5;
+	left: 660px;
+	top: 470px;
+}
+#state_select {
+	position: absolute;
+	z-index: 5;
+	left: 830px;
+	top: 430px;
+}
+#bossShuffle_select {
+	position: absolute;
+	z-index: 5;
+	left: 830px;
+	top: 450px;
+}
+#swords_select {
+	position: absolute;
+	z-index: 5;
+	left: 940px;
+	top: 430px;
+}
+
+#difficulty_select{
 	position: absolute;
 	z-index: 5;
 	left: 448px;
 	top: 510px;
 }
-#bossShuffle_select {
-	position: absolute;
-	z-index: 5;
-	left: 448px;
-	top: 530px;
-}
+
+
 
 #option_button {
 	position: absolute;
