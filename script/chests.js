@@ -69,50 +69,23 @@ var regions = {
 					return orCombinator(path1, path2, path3, path4);
 			}
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Old man cave
-					var path2 = {}; //Flute
-					var path3 = {}; //Dark room glitch
-					if (rescueZelda()) {
-						if (canLiftRocks() && items.lantern)
-							path1 = {ng:"a"};
-						path2 = canFly_path(new_locs); //Assume all of light world accessible
-						if (canLiftRocks())
-							path3 = glitched("oldMan");
-					}
-					return orCombinator(path1, path2, path3);
-				case "owg":
-					var path1 = {}; //DMA or old man cave
-					var path2 = {}; //Flute
-					var path3 = {}; //Dark room glitch
-					var path4 = {}; //Fake flute
-					var path5 = {}; //From EDM
-					if (rescueZelda()) {
-						if (items.boots || (canLiftRocks() && items.lantern))
-							path1 = {ng:"a"};
-						path2 = canFly_path(new_locs);
-						if (canLiftRocks())
-							path3 = glitched("oldMan");
-						if (hasABottle() && bottles >= 1)
-							path4 = glitched("fakeflute");
-						if (items.boots || items.hammer || hasHookshot())
-							path5 = regions.eastDeathMountain(undefined, new_locs, bottles);
-					}
-					return orCombinator(path1, path2, path3, path4, path5);
-				default:
-					var path1 = {}; //DMA, fake flute, or old man cave
-					var path2 = {}; //Flute
-					var path3 = {}; //Dark room glitch
-					if (rescueZelda()) {
-						if (items.boots || hasABottle() || (canLiftRocks() && items.lantern))
-							path1 = {ng:"a"};
-						path2 = canFly_path(new_locs);
-						if (canLiftRocks())
-							path3 = glitched("oldMan");
-					}
-					return orCombinator(path1, path2, path3, path4);
+			var path1 = {}; //Flute
+			var path2 = {}; //1f
+			var path3 = {}; //Fake Flute
+			var path4 = {}; //Bootsclip
+			var path5 = {}; //Old man cave 
+			var path6 = {}; //Dark room - DW logic
+			if (rescueZelda()) {
+				path1 = canFly_path(new_locs);
+				path2 = canOneFrameClipOW_path();
+				path3 = canOWYBA_path();
+				path4 = canBootsClip_path();
+				if (canLiftRocks() && items.lantern)
+					path5 = {ng:"a"};
+				if (canLiftRocks())
+					path6 = glitched("oldMan");
 			}
+			return orCombinator(path1, path2, path3, path4, path5, path6);
 		}
 	},
 	eastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -145,22 +118,21 @@ var regions = {
 					return orCombinator(path1, path2);
 			}
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					if (rescueZelda() && ((items.hammer && items.mirror) || hasHookshot()))
-						return regions.westDeathMountain(undefined, new_locs, bottles);
-					return {};
-				default:
-					var path1 = {}; //DMA + DM climb
-					var path2 = {}; //Hookshot or mirrorclip
-					if (rescueZelda()) {
-						if (items.boots)
-							path1 = {ng:"a"};
-						if (hasHookshot() || items.mirror)
-							path2 = regions.westDeathMountain(undefined, new_locs, bottles);
-					}
-					return orCombinator(path1, path2);
+			path1 = {}; //1f
+			path2 = {}; //Mirror clip
+			path3 = {}; //Bootsclip
+			path4 = {}; //Hammer+Mirror, Hookshot
+			path5 = {}; //Mirrorwrap [V31 bug]
+			if (rescueZelda()) {
+				path1 = canOneFrameClipOW_path();
+				path2 = canMirrorClip_path();
+				path3 = canBootsClip_path();
+				if ((items.hammer && items.mirror)
+					|| hasHookshot())
+					path4 = {ng:"a"};
+				//path5 = andCombinator(glitched("true"), canMirrorWrap_path());
 			}
+			return andCombinator(regions.westDeathMountain(), orCombinator(path1, path2, path3, path4));
 		}
 	},
 	darkEastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -168,77 +140,71 @@ var regions = {
 			return {};
 		var new_locs = from_locs.slice(0);
 		new_locs.push("darkEastDeathMountain");
-		switch (optionState) {
-			case "inverted":
-				switch (optionLogic) {
-					case "nmg":
-						var path1 = {}; //Lynels
-						var path2 = {}; //EDM
-						var path3 = {}; //Hookshot Lynels
-						if ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-							|| items.byrna || items.cape)
-							path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-						if (items.mirror)
-							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
-						if (hasHookshot())
-							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-						return orCombinator(path1, path2, path3);
-					default:
-						var path1 = {}; //Lynels
-						var path2 = {}; //EDM
-						var path3 = {}; //Hookshot Lynels
-						if (items.boots || (optionVariation !== "ohko" && optionVariation !== "timedohko")
-							|| items.byrna || items.cape)
-							path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-						if (items.mirror)
-							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
-						if (hasHookshot())
-							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-						return orCombinator(path1, path2, path3);
-				}
-			default:
-				switch (optionLogic) {
-					case "nmg":
-						if (rescueZelda() && canLiftDarkRocks()
-							&& ((items.moonpearl && must_be_link)
-								|| !must_be_link))
-							return regions.eastDeathMountain(undefined, new_locs, bottles);
-						return {};
-					case "owg":
-						if (rescueZelda()) {
-							var path1 = {}; //DM climb frorm dark WDM
-							var path2 = {}; //Mirrorclip from dark WDM
-							var path3 = {}; //EDM portals
-							if (items.boots)
-								path1 = regions.darkWestDeathMountain(true, new_locs, bottles);
-							if (items.mirror)
-								path2 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
-							if ((canLiftDarkRocks() || (items.hammer && items.boots))
-								&& ((items.moonpearl && must_be_link)
-									|| !must_be_link))
-								path3 = regions.eastDeathMountain(undefined, new_locs, bottles);
-							return orCombinator(path1, path2, path3);
-						}
-						return {};
-					default:
-						if (rescueZelda()) {
-							var path1 = {}; //Buggy logic
-							var path2 = {}; //Mirrorclip
-							var path3 = {}; //EDM portals
-							if (items.moonpearl || (hasABottle() && items.boots)) //Req 1f clip, leaving it in for now because it is possible (though not intended)
-								path1 = {ng:"a"};
-							if (items.mirror
-								&& ((items.moonpearl && must_be_link)
-									|| !must_be_link))
-								path2 = regions.westDeathMountain(undefined, new_locs, bottles);
-							if (canLiftDarkRocks() || (items.hammer && items.boots)
-								&& ((items.moonpearl && must_be_link)
-									|| !must_be_link))
-								path3 = regions.eastDeathMountain(undefined, new_locs, bottles);
-							return orCombinator(path1, path2, path3);
-						}
-						return {};
-				}
+		if (optionState === "inverted") {
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Lynels
+					var path2 = {}; //EDM
+					var path3 = {}; //Hookshot Lynels
+					if ((optionVariation !== "ohko" && optionVariation !== "timedohko")
+						|| items.byrna || items.cape)
+						path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+					if (items.mirror)
+						path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
+					if (hasHookshot())
+						path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+					return orCombinator(path1, path2, path3);
+				default:
+					var path1 = {}; //Lynels
+					var path2 = {}; //EDM
+					var path3 = {}; //Hookshot Lynels
+					if (items.boots || (optionVariation !== "ohko" && optionVariation !== "timedohko")
+						|| items.byrna || items.cape)
+						path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+					if (items.mirror)
+						path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
+					if (hasHookshot())
+						path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+					return orCombinator(path1, path2, path3);
+			}
+		} else {
+			var path1 = {}; //eDM + mitts
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //1f
+			if (rescueZelda()) {
+				if (canLiftDarkRocks())
+					path1 = regions.eastDeathMountain();
+				if (items.moonpearl || items.hammer)
+					path2 = canBootsClip_path();
+				path3 = canOneFrameClipOW_path();
+			}
+			return orCombinator(path1, path2, path3);
+			var path1 = {}; //eDM + mitts
+			var path2 = {}; //Bootsclip TR
+			var path3 = {}; //Bootsclip from wDM
+			var path4 = {}; //1f
+			var path5 = {}; //Mirrorclip [V31 bug]
+			var path6 = {}; //Mirrorwrap [V31 bug]
+			if (rescueZelda()) {
+				if (canLiftDarkRocks()
+					&& ((items.moonpearl && must_be_link) || !must_be_link))
+					path1 = regions.eastDeathMountain(undefined, new_locs, bottles);
+				if (items.hammer && ((items.moonpearl && must_be_link) || !must_be_link))
+					path2 = andCombinator(canBootsClip_path(), regions.eastDeathMountain(undefined, new_locs, bottles));
+				if (must_be_link)
+					//TR climb involves a jump, so need to be Link even if you only care about superbunny
+					path3 = andCombinator(canBootsClip_path(), regions.darkWestDeathMountain(true, new_locs, bottles));
+				if (!must_be_link)
+					//If you don't care at all, then TR climb as superbunny is allowable
+					path3 = andCombinator(canBootsClip_path(), regions.darkWestDeathMountain(2, new_locs, bottles));
+				//1f/mirror clip involves a jump, so need to be Link even if you only care about superbunny.
+				//  If you don't care at all, then 1f/mirror clip as bunny is allowable
+				path4 = andCombinator(canOneFrameClipOW_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles));
+				//path5 = andCombinator(glitched("true"), canMirrorClip_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles), glitched("true"));
+				//Mirror wrap preserves state of Link, but the only down there is superbunny (which doesn't matter), so you'll be bunny on top of dEDM
+				//path6 = andCombinator(glitched("true"), canMirrorWrap_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles), glitched("true"));
+			}
+			return orCombinator(path1, path2, path3, path4);
 		}
 	},
 	darkWestDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -246,72 +212,59 @@ var regions = {
 			return {};
 		var new_locs = from_locs.slice(0);
 		new_locs.push("darkWestDeathMountain");
-		switch (optionState) {
-			case "inverted":
-				switch (optionLogic) {
-					case "nmg":
-						var path1 = {}; //Old man cave
-						var path2 = {}; //Flute
-						var path3 = {}; //Dark room glitch
-						if (canLiftRocks() && items.lantern)
-							path1 = {ng:"a"};
-						path2 = canFly_path(new_locs);
-						if (canLiftRocks())
-							path3 = glitched("oldMan");
-						return orCombinator(path1, path2, path3);
-					default:
-						var path1 = {}; //Old man cave
-						var path2 = {}; //Flute
-						var path3 = {}; //Dark room glitch
-						var path4 = {}; //Fake flute
-						if ((canLiftRocks() && items.lantern)
-							|| items.boots)
-							path1 = {ng:"a"};
-						path2 = canFly_path(new_locs);
-						if (canLiftRocks())
-							path3 = glitched("oldMan");
-						if (hasABottle() && bottles >= 1)
-							path4 = glitched("fakeflute");
-						return orCombinator(path1, path2, path3, path4);
+		if (optionState === "inverted") {
+			switch (optionLogic) {
+				case "nmg":
+					var path1 = {}; //Old man cave
+					var path2 = {}; //Flute
+					var path3 = {}; //Dark room glitch
+					if (canLiftRocks() && items.lantern)
+						path1 = {ng:"a"};
+					path2 = canFly_path(new_locs);
+					if (canLiftRocks())
+						path3 = glitched("oldMan");
+					return orCombinator(path1, path2, path3);
+				default:
+					var path1 = {}; //Old man cave
+					var path2 = {}; //Flute
+					var path3 = {}; //Dark room glitch
+					var path4 = {}; //Fake flute
+					if ((canLiftRocks() && items.lantern)
+						|| items.boots)
+						path1 = {ng:"a"};
+					path2 = canFly_path(new_locs);
+					if (canLiftRocks())
+						path3 = glitched("oldMan");
+					if (hasABottle() && bottles >= 1)
+						path4 = glitched("fakeflute");
+					return orCombinator(path1, path2, path3, path4);
+			}
+		} else {
+			return rescueZelda();
+			var path1 = {}; //From WDM
+			var path2 = {}; //DMA to get to DM with Link State
+			var path3 = {}; //Fake flute to boulders, to get superbunny state
+			if (rescueZelda()) {
+				if ((items.moonpearl && must_be_link) || !must_be_link)
+					path1 = regions.westDeathMountain(undefined, new_locs, bottles);
+				path2 = andCombinator(canBootsClip_path(), regions.northWestDarkWorld(true, new_locs, bottles));
+				if (bottles >= 1 && must_be_link != true) { //Can't get Link State by fake fluting here, only superbunny
+//					var temp_locs = new_locs.slice(0);
+//					temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+//					var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+					var temp_locs = new_locs.slice(0);
+					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+					var ff2 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
+//					var temp_locs = new_locs.slice(0);
+//					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
+//					var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
+//					var temp_locs = new_locs.slice(0);
+//					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
+//					var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+					path3 = andCombinator(canOWYBA_path(bottles), glitched("fakefluteDM"), orCombinator(ff2, {}));
 				}
-			default:
-				switch (optionLogic) {
-					case "nmg":
-						if (rescueZelda()) {
-							if ((items.moonpearl && must_be_link)
-								|| !must_be_link)
-								return regions.westDeathMountain(undefined, new_locs, bottles);
-						}
-						return {};
-					default:
-						var path1 = {}; //From WDM
-						var path2 = {}; //DMA
-						var path3 = {}; //Fake flute
-						if (rescueZelda()) {
-							if ((items.moonpearl && must_be_link)
-								|| !must_be_link)
-								path1 = regions.westDeathMountain(undefined, new_locs, bottles);
-							if (items.boots)
-								path2 = regions.northWestDarkWorld(true, new_locs, bottles);
-							if (hasABottle() && bottles >= 1) {
-								//To prevent calculating multiple redundant fake flutes back and forth
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-								var ff1 = regions.darkEastDeathMountain(must_be_link, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-								var ff2 = regions.northEastDarkWorld(must_be_link, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-								var ff3 = regions.northWestDarkWorld(must_be_link, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-								var ff4 = regions.SouthDarkWorld(must_be_link, temp_locs, bottles - 1);
-								path3 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
-							}
-						}
-						return orCombinator(path1, path2, path3);
-				}
+			}
+			return orCombinator(path1, path2, path3);
 		}
 	},
 	northEastDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) { //Later: Add aga info
@@ -351,91 +304,87 @@ var regions = {
 					return orCombinator(path1, path2, path3, path4);
 			}
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal access
-					var path2 = {}; //Waterwalk from NW
-					var path3 = {}; //Qirn jump
-					if (rescueZelda()) {
-						if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.hammer && canLiftRocks() && items.moonpearl)
-							|| (canLiftDarkRocks() && items.flippers && items.moonpearl))
-							path1 = {ng:"a"};
-						if (items.boots && items.moonpearl && canLiftDarkRocks())
-							path2 = glitched("waterwalk_boots");
-						if (canBombThings() && items.moonpearl && canLiftDarkRocks())
-							path3 = glitched("qirn_jump");
-					}
-					return orCombinator(path1, path2, path3);
-				case "owg":
-					var path1 = {}; //Aga or portal
-					var path2 = {}; //Waterwalk/swim from NW
-					var path3 = {}; //DM screenwrap portal to pyramid
-					var path4 = {}; //DMD to potion shop area and jump to screen transition to fake flipper (must be link)
-					var path5 = {}; //Fake flute
-					var path6 = {}; //Qirn jump from NW
-					var path7 = {}; //From south
-					var path8 = {}; //DM screenwrap w/out spinspeed
-					if (rescueZelda()) {
-						if (items.boots || items.flippers)
-							path2 = regions.northWestDarkWorld(true, new_locs, bottles);
-						if (path2.ng === "a") return path2;
-						if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && items.hammer && canLiftRocks())) {
-							path1 = {ng:"a"};
-							return {ng:"a"};
-						}
-						if (items.mirror && canSpinSpeed())
-							path3 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
-						if (path3.ng === "a") return path3;
-						if (items.mirror)
-							path4 = regions.darkWestDeathMountain(true, new_locs, bottles);
-						if (path4.ng === "a") return path4;
-						if (items.hammer || items.flippers || items.boots)
-							path7 = regions.SouthDarkWorld(true, new_locs, bottles);
-						if (path7.ng === "a") return path7;
-						if (items.mirror && items.boots && ((items.moonpearl && must_be_link) || !must_be_link))
-							path8 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain(undefined, new_locs, bottles));
-						if (hasABottle() && bottles >= 1) { //Can always pull pyramid statue for link state
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; } //always go via DM
-							else {
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-								var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
-								var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
-							}
-							path5 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
-						}
-						if (canBombThings())
-							path6 = andCombinator(glitched("qirn_jump"), regions.northWestDarkWorld(true, new_locs, bottles));
-					}
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7, path8);
-				default:
-					var path1 = {}; //Aga, NW waterwalk/flippers, or portal
-					var path2 = {}; //Buggy logic (fake flute using too many bottles), DM screenwrap portal to pyramid, potion shop DMD fake flipper to portal, or DMD waterwalk
-					var path3 = {}; //Qirn jump from NW
-					if (rescueZelda()) {
-						if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && ((canLiftDarkRocks() && (items.boots || items.flippers))
-								|| (items.hammer && canLiftRocks()))))
-							path1 = {ng:"a"};
-						if (hasABottle() //1f possible, leaving in even though it's not intended
-							|| ((items.mirror && canSpinSpeed()) && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && (items.mirror || items.boots)))
-							path2 = regions.westDeathMountain();
-						if (canBombThings() && (items.moonpearl && canLiftDarkRocks()))
-							path3 = glitched("qirn_jump");
-					}
-					return orCombinator(path1, path2, path3);
+			var path1 = {}; //fake flute
+			var path2 = {}; //Aga or Portal 5
+			var path3 = {}; //NW Portal to NE
+			var path4 = {}; //Pyramid Mirror Portal
+			var path5 = {}; //NW Portal [V31 Bug]
+			var path5a = {}; //NW Portal - DW [V31 Bug], flippers
+			var path5b = {}; //NW Portal - DW [V31 Bug], waterwalk
+			var path5c = {}; //NW Portal - DW [V31 Bug], qirnjump
+			var path5d = {}; //S Portal - DW [V31 Bug], clip+fake flipper
+			var path5e = {}; //Qirn crazy jump - DW [V31 Bug]
+			var path6 = {}; //Pyramid portal [V31 Bug]
+			var path6a = {}; //Pyramid portal - DW [V31 Bug]
+			var path6b = {}; //Pyramid portal - DW [V31 Bug], no spinspeed
+			var path7 = {}; //Potion shop DMD - DW [V31 Bug]
+			var path7a = {}; //Potion shop DMD - DW [V31 Bug], fake flippers
+			var path7b = {}; //Potion shop FAWT - DW [V31 Bug]
+			var path8 = {}; //Catfish DMD - DW [V31 Bug]
+			var path9 = {}; //Moatclip - DW [V31 Bug]
+			var path10 = {}; //Fake flipper fairy revive
+			var path11 = {}; //Mirror wrap
+			if (rescueZelda()) {
+				if ((dungeons[11].isBeaten())// && ((items.moonpearl && must_be_link) || !must_be_link))
+					|| (items.moonpearl && items.hammer && canLiftRocks())) {
+					return {ng:"a"}; //path2
+				}
+				if (canLiftDarkRocks() && items.moonpearl)
+					if (items.flippers)
+						return {ng:"a"}; //path3
+					path3 = orCombinator(andCombinator(canBootsClip_path(), canFakeFlipper_path()), canWaterWalk_path());
+				if (bottles >= 1) { //Can always pull pyramid statue for link state
+					//var temp_locs = new_locs.slice(0);
+					//temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+					//var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
+					//if (canBootsClip_path().ng === "a") { ff1 = {}; ff3 = {}; ff4 = {}; } //always go via DM
+					//else {
+					//	var temp_locs = new_locs.slice(0);
+					//	temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
+					//	var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+					//	var temp_locs = new_locs.slice(0);
+					//	temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
+					//	var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
+					//	var temp_locs = new_locs.slice(0);
+					//	temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
+					//	var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+					// }
+					path1 = canOWYBA_path();
+				}
+				//if ((items.moonpearl && must_be_link) || !must_be_link)
+				path4 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain());
+				/*
+				if (items.flippers)
+					path5a = regions.northWestDarkWorld(true, new_locs, bottles);
+				path5b = andCombinator(canWaterWalk_path(), regions.northWestDarkWorld(true, new_locs, bottles));
+				path5c = andCombinator(glitched("qirn_jump"), canBombThings(), regions.northWestDarkWorld(true, new_locs, bottles));
+				path5d = andCombinator(orCombinator(canBootsClip_path(), canOneFrameClipOW_path()),
+					canFakeFlipper_path(), regions.SouthDarkWorld(true, new_locs, bottles));
+				if ((items.icerod || items.ether) && items.quake && hasSword())
+					path5e = andCombinator(glitched("superqirn_jump"), regions.northWestDarkWorld(true, new_locs, bottles));
+				path5 = andCombinator(glitched("true"), orCombinator(path5a, path5b, path5c, path5d, path5e));
+				if ((items.moonpearl && must_be_link) || !must_be_link) {
+					path6a = andCombinator(glitched("true"), canMirrorClip_path(), canSuperSpeed_path(), regions.westDeathMountain(undefined, new_locs, bottles));
+					path6b = andCombinator(glitched("pyramid_wrap"), canMirrorClip_path(), canBootsClip_path(), regions.westDeathMountain(undefined, new_locs, bottles));
+				}
+				path6 = orCombinator(path6a, path6b);
+				path7a = andCombinator(glitched("true"),
+					orCombinator(canMirrorClip_path(), canBootsClip_path(), canSuperSpeed_path()),
+					canFakeFlipper_path(), regions.darkWestDeathMountain(true, new_locs, bottles));
+				path7b = andCombinator(glitched("true"), canBootsClip_path(), regions.darkEastDeathMountain(true, new_locs, bottles));
+				path7 = orCombinator(path7a, path7b);
+				path8z = andCombinator(canSuperSpeed_path(), ((canLiftRocks() || items.flippers) ? {ng:"a"} : canFakeFlipper_path()));
+				path8 = andCombinator(glitched("true"), orCombinator(canBootsClip_path(), path8z), regions.darkEastDeathMountain(true, new_locs, bottles));
+				if (items.mirror)
+					path9 = andCombinator(glitched("true"), canBootsClip_path(), regions.northWestDarkWorld(true, new_locs, bottles));
+				if (bottles > 0)
+					path10 = andCombinator(glitched("true"),
+						orCombinator(glitched("enemyfairy_fakeflipper"), (canBombThings() ? glitched("bombfairy_fakeflipper") : {})),
+						canGetFairy_path(), regions.SouthDarkWorld(true, new_locs, bottles - 1));
+				path11 = andCombinator(glitched("adv_mirrorwrap"), canMirrorWrap_path(), regions.northWestDarkWorld(undefined, new_locs, bottles));
+				*/
 			}
+			return orCombinator(path1, path2, path3, path4);
 		}
 	},
 	northWestDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -446,70 +395,64 @@ var regions = {
 		if (optionState === "inverted") {
 			return {ng:"a"};
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Portal
-					var path2 = {}; //NE
-					if (items.moonpearl && rescueZelda()) {
-						if ((items.hammer && canLiftRocks())
-							|| canLiftDarkRocks())
-							path1 = {ng:"a"};
-						if (hasHookshot() && (items.flippers || canLiftRocks() || items.hammer))
-							path2 = regions.northEastDarkWorld();
-					}
-					return orCombinator(path1, path2);
-				case "owg":
-					var path1 = {}; //Portal
-					var path2 = {}; //From NE
-					var path3 = {}; //Mirrorclip DMD
-					var path4 = {}; //DMD
-					var path5 = {}; //1f DMD
-					var path6 = {}; //Fake flute
-					if (rescueZelda()) {
-						if (items.moonpearl
-							&& (canLiftDarkRocks() || (items.hammer && canLiftRocks())))
-							path1 = {ng:"a"};
-						if (hasHookshot() && (items.hammer || canLiftRocks() || items.flippers))
-							path2 = regions.northEastDarkWorld(true, new_locs, bottles);
-						if (items.mirror)
-							path3 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
-						if (items.boots)
-							path4 = regions.darkWestDeathMountain(true, new_locs, bottles);
-						path5 = andCombinator(glitched("clip1f"), regions.darkWestDeathMountain(must_be_link, new_locs, bottles));
-						if (hasABottle() && bottles >= 1) {
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; }
-							else {
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-								var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
-								var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
-							}
-							path6 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
-						}
-					}
-					return orCombinator(path1, path2, path3, path4, path5, path6);
-				default:
-					var path1 = {}; //Portal or NE
-					var path2 = {}; //1f DMD
-					if (rescueZelda()) {
-						if (items.moonpearl
-							&& (canLiftDarkRocks()
-								|| (items.hammer && canLiftRocks())
-								|| (dungeons[11].isBeaten() && hasHookshot()
-									&& (items.hammer || canLiftRocks() || items.flippers))))
-							path1 = {ng:"a"};
-						path2 = regions.westDeathMountain(must_be_link, new_locs, bottles);
-					}
-					return orCombinator(path1, path2);
+			var path1 = {}; //1f
+			var path2 = {}; //Link state
+			var path3 = {}; //NE
+			var path4 = {}; //Portal
+			if (rescueZelda()) {
+				path1 = canOneFrameClipOW_path();
+				path2 = orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path());
+				if (hasHookshot() && (items.flippers || canLiftRocks() || items.hammer))
+					path3 = regions.northEastDarkWorld();
+				if ((items.hammer && canLiftRocks()) || canLiftDarkRocks())
+					path4 = {ng:"a"};
 			}
+			return orCombinator(path1, andCombinator(path2, orCombinator(path3, path4)));
+			var path1 = {}; //1f
+			var path2 = {}; //Stupid logic [V31 bug]
+			var path2a = {}; //Moonpearl
+			var path2b = {}; //Fake Flute
+			var path2c = {}; //From NE
+			var path2d = {}; //Portal
+			var path4 = {}; //From NE
+			var path5 = {}; //Mirrorclip DMD
+			var path6 = {}; //Bootsclip DMD (at bridge)
+			var path7 = {}; //Fake Flute
+			if (rescueZelda()) {
+				path1 = canOneFrameClipOW_path();
+				if (items.moonpearl)
+					path2a = {ng:"a"};
+				path2b = canOWYBA_path(bottles);
+				if (hasHookshot() && (items.flippers || canLiftRocks() || items.hammer))
+					path2c = regions.northEastDarkWorld(true, new_locs, (items.moonpearl ? bottles : bottles - 1));
+				if ((items.hammer && canLiftRocks())
+					|| canLiftDarkRocks())
+					path2d = {ng:"a"};
+				path2 = andCombinator(orCombinator(path2a, path2b), orCombinator(path2c, path2d));
+				if (hasHookshot() && (items.hammer || canLiftRocks() || items.flippers))
+					path4 = andCombinator(glitched("true"), regions.northEastDarkWorld(true, new_locs, bottles));
+				path5 = andCombinator(glitched("true"), canMirrorClip_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles));
+				path6 = andCombinator(glitched("true"), canBootsClip_path(), regions.darkWestDeathMountain((must_be_link ? true : 2), new_locs, bottles));
+				if (hasABottle() && bottles >= 1) {
+					var temp_locs = new_locs.slice(0);
+					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
+					var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
+					if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; } //With boots, can get to dWDM, no need to check others
+					else {
+						var temp_locs = new_locs.slice(0);
+						temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
+						var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
+						var temp_locs = new_locs.slice(0);
+						temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
+						var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
+						var temp_locs = new_locs.slice(0);
+						temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
+						var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
+					}
+					path7 = andCombinator(glitched("true"), canOWYBA_path(), orCombinator(ff1, ff2, ff3, ff4));
+				}
+			}
+			return orCombinator(path1, path2, path3, path4, path5, orCombinator(path6, path7));
 		}
 	},
 	SouthDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -520,67 +463,17 @@ var regions = {
 		if (optionState === "inverted") {
 			return {ng:"a"};
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Portal or NW
-					var path2 = {}; //NE
-					if (items.moonpearl && rescueZelda()) {
-						if ((items.hammer && canLiftRocks())
-							|| canLiftDarkRocks())
-							path1 = {ng:"a"};
-						if (items.hammer
-							|| (hasHookshot()
-								&& (items.flippers || canLiftRocks())))
-							path2 = regions.northEastDarkWorld(undefined, new_locs, bottles);
-					}
-					return orCombinator(path1, path2);
-				case "owg":
-					var path1 = {}; //NW
-					var path2 = {}; //NE
-					var path3 = {}; //NE 1f moat clip
-					var path4 = {}; //Fake flute
-					var path5 = {}; //Clip from mire
-					if (rescueZelda()) {
-						path1 = regions.northWestDarkWorld(must_be_link, new_locs, bottles);
-						if (items.hammmer)
-							path2 = regions.northEastDarkWorld(true, new_locs, bottles);
-						path3 = andCombinator(glitched("clip1f"), regions.northEastDarkWorld(must_be_link, new_locs, bottles));
-						if (hasABottle() && bottles >= 1) {
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-							var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-							if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; }
-							else {
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-								var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
-								var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-								var temp_locs = new_locs.slice(0);
-								temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
-								var ff4 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
-							}
-							path4 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4));
-						}
-						if (items.boots)
-							path5 = regions.mire(true, new_locs, bottles);
-					}
-					return orCombinator(path1, path2, path3, path4);
-				default:
-					var path1 = {}; //NMG
-					var path2 = {}; //NW
-					if (rescueZelda()) {
-						if (items.moonpearl
-							&& (canLiftDarkRocks()
-								|| (items.hammer && canLiftRocks())
-								|| (dungeons[11].isBeaten() && (items.hammer
-									|| (hasHookshot() && (canLiftRocks() || items.flippers))))))
-							path1 = {ng:"a"};
-						path2 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles);
-					}
-					return orCombinator(path1, path2);
+			var path1 = {}; //Fake flute
+			var path2 = {}; //NE
+			var path3 = {}; //Portal
+			if (rescueZelda()) {
+				path1 = canOWYBA_path();
+				if (items.moonpearl && (items.hammer || (hasHookshot() && (items.flippers || canLiftRocks()))))
+					path2 = regions.northEastDarkWorld();
+				if (items.moonpearl && ((items.hammer && canLiftRocks()) || canLiftDarkRocks()))
+					path3 = {ng:"a"};
 			}
+			return orCombinator(path1, path2, path3);
 		}
 	},
 	mire: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -612,60 +505,17 @@ var regions = {
 					return orCombinator(path1, path2, path3, path4);
 			}
 		} else {
-			switch (optionLogic) {
-				case "nmg":
-					if (rescueZelda() && canLiftDarkRocks())
-						return canFly_path(new_locs);
-					return {};
-				case "owg":
-					var path1 = {}; //Bootsclip portal
-					var path2 = {}; //Portal
-					var path3 = {}; //Bootsclip DW
-					var path4 = {}; //Fake flute
-					if (rescueZelda()) {
-						if (canLiftDarkRocks() && items.boots)
-							path1 = {ng:"a"};
-						if (canLiftDarkRocks())
-							path2 = canFly_path(new_locs);
-						if (items.boots)
-							path3 = regions.SouthDarkWorld(true, new_locs, bottles);
-						if (hasABottle() && bottles >= 1) {
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff2 = regions.darkWestDeathMountain(must_be_link, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff1 = regions.darkEastDeathMountain(must_be_link, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff3 = regions.northEastDarkWorld(must_be_link, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-							var ff4 = regions.northWestDarkWorld(must_be_link, temp_locs, bottles - 1);
-							var temp_locs = new_locs.slice(0);
-							temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-							var ff5 = regions.SouthDarkWorld(must_be_link, temp_locs, bottles - 1);
-							path4 = andCombinator(glitched("fakeflute"), orCombinator(ff1, ff2, ff3, ff4, ff5));
-						}
-					}
-					return orCombinator(path1, path2, path3, path4);
-				default:
-					var path1 = {}; //Fake flute or bootsclip portal
-					var path2 = {}; //Portal
-					var path3 = {}; //Buggy logic (fake flute using too many bottles)
-					var path4 = {}; //Bootsclip DW
-					if (rescueZelda()) {
-						if (canLiftDarkRocks() && (hasABottle() || items.boots))
-							path1 = {ng:"a"};
-						if (canLiftDarkRocks())
-							path2 = canFly_path(new_locs);
-						if (hasABottle())
-							path3 = regions.darkWestDeathMountain(must_be_link, new_locs, bottles+4); //1f possible, so leaving this in even though not intended
-						if (items.boots)
-							path4 = regions.SouthDarkWorld(true, new_locs, bottles);
-					}
-					return orCombinator(path1, path2, path3, path4);
+			var path1 = {}; //Fly
+			var path2 = {}; //Clip
+			var path3 = {}; //Fake flute
+			if (rescueZelda()) {
+				if (canLiftDarkRocks())
+					path1 = orCombinator(canFly_path(), canBootsClip_path());
+				if (items.moonpearl)
+					path2 = andCombinator(canBootsClip_path(), regions.SouthDarkWorld());
+				path3 = canOWYBA_path();
 			}
+			return orCombinator(path1, path2, path3);
 		}
 	},
 	northEastLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) { //Later: Add aga info
@@ -834,28 +684,20 @@ dungeons[1] = {
 	},
 	kChestCount: 6,
 	isAccessible: function(){ //isAccessible only gets you to the front
-		switch(optionLogic) {
-			case "nmg":
-				var path1 = {}; //Front
-				var path2 = {}; //Dark world
-				if (rescueZelda()) {
-					if (items.book)
-						path1 = {ng:"a"};
-					if (items.mirror && canLiftDarkRocks())
-						path2 = canFly_path();
-				}
-				return orCombinator(path1, path2);
-			default:
-				var path1 = {}; //Front
-				var path2 = {}; //Dark world
-				if (rescueZelda()) {
-					if (items.book || items.boots)
-						path1 = {ng:"a"};
-					if (items.mirror)
-						path2 = regions.mire();
-				}
-				return orCombinator(path1, path2);
+		var path1 = {}; //Front
+		var path2 = {}; //Bootsclip
+		var path3 = {}; //Fake Flute [V31 bug]
+		var path4 = {}; //Dark world
+		if (rescueZelda()) {
+			if (items.book)
+				path1 = {ng:"a"};
+			path2 = canBootsClip_path();
+			if (items.mirror && hasABottle())
+				path3 = canOWYBA_path();
+			if (items.mirror && canLiftDarkRocks())
+				path4 = canFly_path();
 		}
+		return orCombinator(path1, path2, path3, path4);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -995,32 +837,14 @@ dungeons[2] = {
 		}
 	},
 	kChestCount: 6,
-	isAccessible: function(){ //isAccessible could be from MM for MG
-		switch (optionLogic) {
-			case "nmg":
-				if (rescueZelda()
-					&& (items.mirror || (hasHookshot() && items.hammer)))
-					return regions.westDeathMountain();
-				return {};
-			case "owg":
-				var path1 = {}; //Boots DMA
-				var path2 = {}; //West DM
-				if (rescueZelda()) {
-					if (items.boots)
-						path1 = {ng:"a"};
-					if (items.mirror || (hasHookshot() && items.hammer))
-						path2 = regions.westDeathMountain();
-				}
-				return orCombinator(path1, path2);
-			default:
-				var path1 = {}; //Main
-				var path2 = {}; //Mire
-				if (rescueZelda()) {
-					path1 = this.main();
-					path2 = this.mire();
-				}
-				return orCombinator(path1, path2);
+	isAccessible: function(){
+		var path1 = {}; //Main
+		var path2 = {}; //Mire
+		if (rescueZelda()) {
+			path1 = this.main();
+			path2 = this.mire();
 		}
+		return orCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		switch (optionLogic) {
@@ -1155,13 +979,13 @@ dungeons[2] = {
 	main: function(){
 		var path1 = {}; //Boots DMA
 		var path2 = {}; //West DM
-		if (items.boots)
-			path1 = {ng:"a"};
+		path1 = canBootsClip_path();
 		if (items.mirror || (hasHookshot() && items.hammer))
 			path2 = regions.westDeathMountain();
 		return orCombinator(path1, path2);
 	},
-	mire: function(){
+	mire: function(){ //TODO -- Add MM key logic smarts
+		return convertPossible(andCombinator(canOneFrameClipUW_path(), dungeons[8].isAccessible()));
 		var path1 = {}; //Mire w/all keys
 		var path2 = {}; //Mire w/all keys, normal (need to get keys in spike chest and Vitty)
 						//  If SK in left side, then BK also in left side, then we only need 2 keys, and they can't be in big/Vitty
@@ -1201,22 +1025,18 @@ dungeons[3] = {
 	},
 	kChestCount: 14,
 	isAccessible: function(){ //isAccessible also considers kikiskip
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (rescueZelda() && items.moonpearl)
-					return regions.northEastDarkWorld();
-				return {};
-			default:
-				var path1 = {}; //NE
-				var path2 = {}; //Kikiskip
-				if (rescueZelda()) {
-					if (glitchedLinkInDarkWorld())
-						path1 = regions.northEastDarkWorld();
-					path2 = regions.westDeathMountain();
-				}
-				return orCombinator(path1, path2);
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = orCombinator(andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
+									regions.northEastDarkWorld()),
+								andCombinator(canOneFrameClipUW_path(), regions.westDeathMountain()));
 		}
+		return andCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1292,21 +1112,16 @@ dungeons[4] = {
 	},
 	kChestCount: 10,
 	isAccessible: function(){ //Entrance does not require pearl/mirror/flippers. MG entrance could also be from mire
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (rescueZelda() && (items.moonpearl || items.mirror)) //NMG guaranteed pearl. OWG needs pearl or mirror to read hint
-					return regions.SouthDarkWorld();
-				return {};
-			default:
-				path1 = {}; //Main
-				path2 = {}; //Mire
-				if (rescueZelda()) {
-					path1 = this.main();
-					path2 = this.mire();
-				}
-				return orCombinator(path1, path2);
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = orCombinator(this.main(), this.mire());
 		}
+		return andCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1481,12 +1296,13 @@ dungeons[4] = {
 				}
 		}
 	},
-	main: function(){ //changed so you need glitchedLink or mirror to read hint. Need pearl+mirror+flippers to access rest, per logic
-		if (glitchedLinkInDarkWorld() || items.mirror)
+	main: function(){
+		if (items.moonpearl && items.mirror && items.flippers)
 			return regions.SouthDarkWorld();
 		return {};
 	},
-	mire: function() { //This is more restrictive than it needs to be, but it's how the logic is right now
+	mire: function() { //TODO -- Add MM key logic smarts
+		return andCombinator(canOneFrameClipUW_path(), regions.mire());
 		var path1 = {}; //Mire w/all keys
 		var path2 = {}; //Mire w/all keys, normal (need to get keys in spike chest and Vitty)
 						//  If SK in left side, then BK also in left side, and SKs can't be in big/Vitty
@@ -1527,16 +1343,16 @@ dungeons[5] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){ //isAccessible is only for the front
-		switch (optionLogic) {
-			case "nmg":
-				if (rescueZelda() && items.moonpearl)
-					return regions.northWestDarkWorld();
-				return {};
-			default:
-				if (rescueZelda())
-					return regions.northWestDarkWorld(); //expects dungeon bunny revival
-				return {};
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = andCombinator(orCombinator(canDungeonRevive_path(), (items.moonpearl ? {ng:"a"} : {})), regions.northWestDarkWorld());
 		}
+		return andCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1621,17 +1437,16 @@ dungeons[6] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (rescueZelda() && items.moonpearl)
-					return regions.northWestDarkWorld();
-				return {};
-			default:
-				if (rescueZelda() && glitchedLinkInDarkWorld())
-					return regions.northWestDarkWorld();
-				return {};
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()), regions.northWestDarkWorld());
 		}
+		return andCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1723,27 +1538,26 @@ dungeons[7] = {
 		}
 	},
 	kChestCount: 8,
-	isAccessible: function(){ //Took out canMeltThings req for NMG/OWG
-		switch (optionLogic) {
-			case "nmg":
-				if (rescueZelda() && items.moonpearl && items.flippers && canLiftDarkRocks())
-					return {ng:"a"};
-				return {};
-			case "owg":
-				if (rescueZelda() && canLiftDarkRocks())
-					return {ng:"a"};
-				return {};
-			default:
-				var path1 = {}; //Portal
-				var path2 = {}; //Mirrorwrap with 1f? - WOW
-				if (rescueZelda()) {
-					if (canLiftDarkRocks())
-						path1 = {ng:"a"};
-					if (items.mirror && glitchedLinkInDarkWorld())
-						path2 = regions.SouthDarkWorld();
-				}
-				return orCombinator(path1, path2);
+	isAccessible: function(){
+		path1 = {}; //Basic
+		path2 = {}; //First room
+		path3 = {}; //Normal
+		path4 = {}; //Glitched
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = orCombinator((canMeltThings() ? {ng:"a"} : {}), canOneFrameClipUW_path());
+			path3 = andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canDungeonRevive_path()),
+				orCombinator((items.flippers ? {ng:"a"} : {}), canFakeFlipper_path()),
+				(canLiftDarkRocks() ? {ng:"a"} : {}));
+			path4 = andCombinator(canMirrorWrap_path(),
+				orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
+				orCombinator(canOneFrameClipOW_path(), canBootsClip_path()),
+				regions.SouthDarkWorld());
 		}
+		return andCombinator(path1, path2, orCombinator(path3, path4));
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1926,24 +1740,27 @@ dungeons[8] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){ //isAccessible includes boots/hookshot for entry
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (rescueZelda() && (optionSwords === "swordless" || hasSword())
-					&& items.moonpearl && (items.boots || hasHookshot()))
-					return andCombinator(andCombinator(canKillMostThings_path(), regions.mire()), medallionCheck_path(8));
-				return {};
-			default:
-				if (rescueZelda() && (optionSwords === "swordless" || hasSword())
-					&& (items.moonpearl || (hasABottle() && items.boots))
-					&& (items.boots || hasHookshot())) {
-					var kill = canKillMostThings_path();
-					if (items.icerod && hasHookshot()) //kill wizzrobes and popos
-						kill = {ng:"a"};
-					return andCombinator(andCombinator(kill, regions.mire()), medallionCheck_path(8)); //Adding canKillMostThings as the intent.
-				}
-				return {};
+		path1 = {}; //Basic
+		path2 = {}; //Medallion
+		path3 = {}; //First room
+		path4 = {}; //Glitched
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor()))
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			if (optionSwords === "swordless" || hasSword())
+				path2 = medallionCheck_path(8);
+			if (items.moonpearl) {
+				if (items.boots || hasHookshot())
+					path3 = {ng:"a"};
+				else if (items.boots)
+					path3 = canAdvancedItems_path();
+				else
+					path3 = {};
+			}
 		}
+		return andCombinator(path1, path2, path3, canKillMostThings_path(8), regions.mire());
 	},
 	canGetPrize: function(){
 		switch (optionLogic) {
@@ -2070,21 +1887,16 @@ dungeons[9] = {
 	},
 	kChestCount: 12,
 	isAccessible: function(){ //isAccessible doesn't have somaria as req
-		switch(optionLogic) {
-			case "nmg":
-				if (rescueZelda() && (optionSwords === "swordless" || hasSword())
-					&& items.moonpearl && canLiftDarkRocks() && items.hammer)
-					return andCombinator(medallionCheck_path(9), regions.eastDeathMountain());
-				return {};
-			case "owg":
-				if (rescueZelda())
-					return orCombinator(this.upper(), this.middle());
-				return {};
-			default:
-				if (rescueZelda())
-					return orCombinator(this.lower(), this.middle(), this.upper());
-				return {};
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor()))
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = orCombinator(this.lower(), this.middle(), this.upper());
 		}
+		return andCombinator(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -2241,45 +2053,26 @@ dungeons[9] = {
 		}
 	},
 	upper: function(){
-		switch (optionLogic) {
-			case "nmg":
-				return {};
-			case "owg":
-				if ((optionSwords === "swordless" || hasSword())
-					&& items.moonpearl && items.hammer
-					&& (canLiftDarkRocks() || items.boots))
-					return andCombinator(medallionCheck_path(9), regions.eastDeathMountain());
-				return {};
-			default:
-				if ((optionSwords === "swordless" || hasSword())
-					&& (items.moonpearl || (hasABottle() && items.boots)) && items.hammer
-					&& (canLiftDarkRocks() || items.boots))
-					return andCombinator(medallionCheck_path(9), regions.eastDeathMountain());
-				return {};
+		var path1 = {}; //Normal
+		var path2 = {}; //Clip
+		if ((optionSwords === "swordless" || hasSword())
+			&& items.moonpearl && items.somaria) {
+			if (items.hammer)
+				path1 = andCombinator(orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path()), regions.eastDeathMountain());
+			path2 = andCombinator(canBootsClip_path(), regions.darkEastDeathMountain());
 		}
+		return andCombinator(medallionCheck_path(9), orCombinator(path1, path2));
 	},
 	middle: function(){
-		switch (optionLogic) {
-			case "nmg":
-				return {};
-			case "owg":
-				if ((items.mirror || (items.moonpearl && canSpinSpeed()))
-					&& (items.boots || items.somaria || hasHookshot() //Big chest entrance
-						|| (canBombThings() && ((optionVariation !== "ohko" && optionVariation !== "timedohko") || items.cape || items.byrna)))) //Laser wall entrance
-					return regions.darkEastDeathMountain();
-				return {};
-			default:
-				if ((items.mirror || (glitchedLinkInDarkWorld() && canSpinSpeed()))
-					&& (items.boots || items.somaria || hasHookshot() //Big chest entrance
-						|| (canBombThings() && ((optionVariation !== "ohko" && optionVariation !== "timedohko") || items.cape || items.byrna)))) //Laser wall entrance
-					return regions.darkEastDeathMountain();
-				return {};
-		}
+		return andCombinator(orCombinator(canMirrorClip_path(), andCombinator(canSuperSpeed_path(), (items.moonpearl ? {ng:"a"} : {})), andCombinator(canOneFrameClipOW_path(), canOWYBA_path())),
+			(items.boots || items.somaria || hasHookshot() || items.cape || items.byrna ? {ng:"a"} : {}),
+			regions.darkEastDeathMountain());
 	},
 	lower: function(){
-		if (items.mirror && (items.moonpearl || (hasABottle() && items.boots))) //Have to 1f up to wrap?
-			return regions.westDeathMountain();
-		return {};
+		return andCombinator(canMirrorClip_path(),
+			orCombinator((items.moonpearl ? {ng:"a"} : {}), andCombinator(canOWYBA_path(), canBootsClip_path())),
+			orCombinator(canBootsClip_path(), canOneFrameClipOW_path()),
+			regions.westDeathMountain());
 	}
 };
 dungeons[10] = {
@@ -2303,24 +2096,22 @@ dungeons[10] = {
 	},
 	kChestCount: 27,
 	isAccessible: function(){
-		switch (optionLogic) {
-			case "nmg":
-				var crystals = 0;
-				for (i = 0; i < 10; i++)
-					if (dungeons[i].gotPrize() && qtyCounter["dungeonPrize"+i] >= 1 && qtyCounter["dungeonPrize"+i] <= 2)
-						crystals++;
-				if (rescueZelda() && items.moonpearl && crystals === 7)
-					return regions.darkEastDeathMountain();
-				return {};
-			case "owg":
-				if (rescueZelda() && items.boots && items.moonpearl)
-					return {ng:"a"};
-				return {};
-			default:
-				if (rescueZelda())
-					return regions.westDeathMountain();
-				return {};
+		var crystalCount = 0;
+		for(var i = 0; i < 10; i++)
+			if ((qtyCounter["dungeonPrize"+i] === 2 || qtyCounter["dungeonPrize"+i] === 1) && dungeons[i].gotPrize())
+				crystalCount++;
+		path1 = {}; //Basic
+		path2 = {}; //Entry
+		if (rescueZelda()) {
+			if ((optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor()))
+				path1 = {ng:"a"};
+			else
+				path1 = canAdvancedItems_path();
+			path2 = orCombinator(canOneFrameClipOW_path(),
+				andCombinator((items.moonpearl ? {ng:"a"} : {}),
+					orCombinator(canBootsClip_path(), (optionTower === "random" ? {ng:"p"} : (crystalCount >= optionTower ? {ng:"a"} : {})))));
 		}
+		return andCombinator(path1, path2, regions.darkEastDeathMountain());
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -2487,7 +2278,8 @@ dungeons[12] = {
 	},
 	kChestCount: 0,
 	isAccessible: function(){
-		if (dungeons[10].isBeaten())
+		if (optionGoal === "fastganon"
+			|| dungeons[10].isBeaten())
 			return regions.northEastDarkWorld();
 		return {};
 	},
@@ -2611,25 +2403,22 @@ chests[2] = {
 	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Waterwalk
-					var path3 = {}; //Fake flipper
-					var path4 = {}; //Fairy revive
-					var path5 = {}; //Fairy revive from enemy RNG
-					if (canLiftRocks() || items.flippers)
-						path1 = regions.northEastLightWorld();
-					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld());
-					path3 = andCombinator(glitched("fakeflipper"), regions.northEastLightWorld());
-					if (canBombThings())
-						path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4, path5);
-				default:
-					return regions.northEastLightWorld(); //Fake flipper from south or NE
-			}
+			var path1 = {}; //Normal
+			var path2 = {}; //Waterwalk
+			var path3 = {}; //Fake flipper
+			var path4 = {}; //Fairy revive
+			var path5 = {}; //Fairy revive from enemy RNG
+			var path6 = {}; //Bootsclip
+			if (canLiftRocks() || items.flippers)
+				path1 = regions.northEastLightWorld();
+			//if (items.boots)
+			//	path2 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld());
+			path3 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld());
+			//if (canBombThings())
+			//	path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			//path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			path6 = andCombinator(canBootsClip_path(), regions.northEastLightWorld());
+			return orCombinator(path1, path2, path3, path4, path5, path6);
 		} else {
 			switch (optionLogic) {
 				case "nmg":
@@ -2694,53 +2483,32 @@ chests[4] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //Fake flipper w/waterwalk through Zora's Domain
-					var path3 = {}; //Fake flipper w/moonpearl w/stored waterwalk
-					var path4 = {}; //Fake flipper w/moonpearl into fairy revive
-					var path5 = {}; //Bomb revive w/moonpearl into fairy revive
-					var path6 = {}; //RNG revive w/moonpearl into fairy revive <-- same as path5
-					var path7 = {}; //Waterwalk into fairy revive
-					var pathv = {}; //View item
-					if (items.flippers)
-						path1 = regions.northEastLightWorld();
-					if (items.boots)
-						path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld());
-					if (items.moonpearl && items.boots)
-						path3 = andCombinator(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld());
-					if (items.moonpearl && canBombThings())
-						path4 = andCombinator(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					if (items.moonpearl && canBombThings())
-						path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 2));
-					if (items.boots && canBombThings())
-						path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					pathv = convertView(chests[2].isAvailable());
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path7), pathv);
-				default:
-					var path1 = {}; //Get item
-					var path2 = {}; //Fake flipper w/waterwalk through Zora's Domain
-					var path4 = {}; //Fake flipper w/moonpearl into fairy revive
-					var path5 = {}; //Bomb revive w/moonpearl into fairy revive
-					var path6 = {}; //RNG revive w/moonpearl into fairy revive <-- same as path5
-					var path7 = {}; //Waterwalk into fairy revive
-					var pathv = {}; //View item
-					if (items.flippers || (items.boots && items.moonpearl))
-						path1 = regions.northEastLightWorld();
-					if (items.boots)
-						path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld());
-					if (items.moonpearl && canBombThings())
-						path4 = andCombinator(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					if (items.moonpearl && canBombThings())
-						path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 2));
-					if (items.boots && canBombThings())
-						path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					pathv = convertView(chests[2].isAvailable());
-					return orCombinator(path1, path2, path4, path5, path7, pathv);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Get item
+			var path2 = {}; //Fake flipper w/waterwalk through Zora's Domain
+			var path3 = {}; //Fake flipper w/moonpearl w/stored waterwalk
+			var path4 = {}; //Fake flipper w/moonpearl into fairy revive
+			var path5 = {}; //Bomb revive w/moonpearl into fairy revive
+			var path6 = {}; //RNG revive w/moonpearl into fairy revive <-- same as path5
+			var path7 = {}; //Waterwalk into fairy revive
+			var path8 = {}; //Logical access
+			var pathv = {}; //View item
+			if (items.flippers)
+				path1 = regions.northEastLightWorld();
+			//if (items.boots)
+			//	path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld());
+			//if (items.moonpearl && items.boots)
+			//	path3 = andCombinator(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld());
+			//if (items.moonpearl && canBombThings())
+			//	path4 = andCombinator(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			//if (items.moonpearl && canBombThings())
+			//	path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 2));
+			//if (items.boots && canBombThings())
+			//	path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			path8 = andCombinator(canWaterWalk_path(), orCombinator(canFakeFlipper_path(), canBootsClip_path()));
+			pathv = convertView(chests[2].isAvailable());
+			return orCombinator(orCombinator(path1, path2, path3, path4, path5, path7), path8, pathv);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Get item
@@ -2797,30 +2565,21 @@ chests[5] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Fake flipper
-					var path3 = {}; //Waterwalk
-					if (items.flippers)
-						path1 = regions.northEastLightWorld();
-					if (items.moonpearl)
-						path2 = orCombinator(andCombinator(glitched("fakeflipper"), regions.northEastLightWorld()),
-							andCombinator(orCombinator(canBombThings() ? andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, glitched("enemyfairy_fakeflipper")), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1)));
-					if (items.boots)
-						path3 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld());
-					return orCombinator(path1, path2, path3);
-				default:
-					var path1 = {}; //Normal
-					var path2 = {}; //Waterwalk
-					if (items.flippers || items.moonpearl)
-						path1 = regions.northEastLightWorld();
-					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld());
-					return orCombinator(path1, path2);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Fake flipper
+			var path3 = {}; //Waterwalk
+			var path4 = {}; //regular Fake flipper
+			if (items.flippers)
+				path1 = regions.northEastLightWorld();
+			//if (items.moonpearl)
+			//	path2 = orCombinator(andCombinator(glitched("fakeflipper"), regions.northEastLightWorld()),
+			//		andCombinator(orCombinator(canBombThings() ? andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, glitched("enemyfairy_fakeflipper")), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1)));
+			path3 = andCombinator(canWaterWalk_path(), regions.northEastLightWorld());
+			if (items.moonpearl)
+				path4 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld());
+			return orCombinator(path1, path2, path3, path4);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Normal
@@ -2879,7 +2638,8 @@ chests[6] = {
 		var path1 = {}; //Get item
 		var path2 = {}; //View item
 		if (pendantCountg === 1 && pendantCountrb === 2)
-			path1 = regions.northWestLightWorld();
+			path1 = andCombinator(orCombinator(canAdvancedItems_path(), (items.book ? {ng:"a"} : {})),
+				regions.northWestLightWorld());
 		if (items.book)
 			path2 = convertView(regions.northWestLightWorld());
 		return orCombinator(path1, path2);
@@ -2893,33 +2653,20 @@ chests[7] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (items.boots) {
-						var path1 = {}; //Light world
-						var path2 = {}; //Dark world
-						if (canLiftDarkRocks())
-							path1 = regions.northWestLightWorld();
-						if (items.mirror)
-							path2 = andCombinator(regions.northWestDarkWorld(true), regions.northWestLightWorld());
-						return orCombinator(path1, path2);
-					}
-					return {};
-				default:
-					var path1 = {}; //Light world
-					var path2 = {}; //Dark world
-					var path3 = {}; //GYL
-					if (items.boots) {
-						if (canLiftDarkRocks())
-							path1 = regions.northWestLightWorld();
-						if (items.mirror)
-							path2 = andCombinator(regions.northWestDarkWorld(true), regions.northWestLightWorld());
-						path3 = andCombinator(glitched("kingtomb"), regions.westDeathMountain());
-					}
-					return orCombinator(path1, path2, path3);
+		if (optionState !== "inverted") {
+			if (items.boots) {
+				var path1 = {}; //Light world
+				var path2 = {}; //Dark world
+				var path3 = {}; //Bootsclip
+				if (canLiftDarkRocks())
+					path1 = regions.northWestLightWorld();
+				if (items.mirror && items.moonpearl)
+					path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+				path3 = canBootsClip_path();
+				return orCombinator(path1, path2, path3);
 			}
-		else
+			return {};
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftDarkRocks() && items.boots)
@@ -3119,40 +2866,23 @@ chests[14] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Fake powder
-					if (hasPowder()
-						&& (items.hammer || (items.moonpearl && items.mirror && canLiftDarkRocks())))
-						path1 = regions.northWestLightWorld();
-					if (hasMushroom() && items.somaria
-						&& (items.hammer || (items.moonpearl && items.mirror && canLiftDarkRocks())))
-						path2 = andCombinator(glitched("fakepowder"), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
-				case "owg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Fake powder
-					if (hasPowder()
-						&& (items.hammer || items.boots || (items.moonpearl && items.mirror && canLiftDarkRocks())))
-						path1 = regions.northWestLightWorld();
-					if (hasMushroom() && items.somaria
-						&& (items.hammer || items.boots || (items.moonpearl && items.mirror && canLiftDarkRocks())))
-						path2 = andCombinator(glitched("fakepowder"), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Normal
-					var path2 = {}; //Fake powder
-					if (hasPowder()
-						&& (items.hammer || items.boots || items.mirror)) //Buggy logic, need to 1f DMA, then mirrorclip DMA and mirrorwrap bat
-						path1 = regions.northWestLightWorld();
-					if (hasMushroom() && items.somaria
-						&& (items.hammer || items.boots || items.mirror)) //Buggy logic, need to 1f DMA, then mirrorclip DMA and mirrorwrap bat
-						path2 = andCombinator(glitched("fakepowder"), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Fake powder
+			var pathi = {}; //Hammer
+			var pathj = {}; //Bootsclip
+			var pathk = {}; //Mirror [V31 Bug]
+			var pathl = {}; //DarkWorld
+			if (items.hammer)
+				pathi = regions.northWestLightWorld();
+			pathj = andCombinator(canBootsClip_path(), regions.northWestLightWorld());
+			if (items.mirror)
+			//pathk = ???
+			if (items.moonpearl && items.mirror && canLiftDarkRocks())
+				pathl = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+			return andCombinator((hasPowder() ? {ng:"a"} : ((hasMushroom() && items.somaria) ? glitched("fakepowder") : {})),
+				orCombinator(pathi, pathj, pathk, pathl));
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Normal
@@ -3221,27 +2951,14 @@ chests[18] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (items.mirror && items.moonpearl)
-						return andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-					return {};
-				case "owg":
-					var path1 = {}; //DMA then teleport down (WOW)
-					var path2 = {}; //NMG
-					if (items.boots)
-						path1 = regions.northWestLightWorld();
-					if (items.mirror && items.moonpearl)
-						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
-				default:
-					if (items.boots
-						|| (items.mirror && glitchedLinkInDarkWorld())) //Buggy logic, 1f DMA, then fake flute
-						return regions.northWestLightWorld();
-					return {};
-			}
-		else {
+		if (optionState !== "inverted") {
+			var path1 = {}; //DMA then teleport down (WOW)
+			var path2 = {}; //NMG
+			path1 = andCombinator(canBootsClip_path(), regions.northWestLightWorld());
+			if (items.mirror && items.moonpearl)
+				path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+			return orCombinator(path1, path2);
+		} else {
 			if (canBombThings())
 				return regions.northWestLightWorld(true);
 			return {};
@@ -3422,25 +3139,19 @@ chests[25] = {
 	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Waterwalk
-					var path3 = {}; //Fake flipper
-					var path4 = {}; //Fairy revive
-					var path5 = {}; //Enemy RNG
-					if (items.flippers)
-						path1 = regions.SouthLightWorld();
-					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.SouthLightWorld());
-					path3 = andCombinator(glitched("fakeflipper"), regions.SouthLightWorld());
-					if (canBombThings())
-						path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-					path5 = andCombinator(canGetFairy_path(), glitched("enemyfairy_fakeflipper"), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4, path5);
-				default:
-					return regions.SouthLightWorld();
-			}
+			var path1 = {}; //Normal
+			var path2 = {}; //Waterwalk
+			var path3 = {}; //Fake flipper
+			var path4 = {}; //Fairy revive
+			var path5 = {}; //Enemy RNG
+			if (items.flippers)
+				path1 = regions.SouthLightWorld();
+			path2 = andCombinator(canWaterWalk_path(), regions.SouthLightWorld());
+			path3 = andCombinator(canFakeFlipper_path(), regions.SouthLightWorld());
+			//if (canBombThings())
+			//	path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+			//path5 = andCombinator(canGetFairy_path(), glitched("enemyfairy_fakeflipper"), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+			return orCombinator(path1, path2, path3, path4, path5);
 		} else {
 			switch (optionLogic) {
 				case "nmg":
@@ -3482,38 +3193,23 @@ chests[26] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.book
-						&& (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-						&& items.mirror)
-						path1 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-					if (items.book && items.mirror)
-						path2 = convertView(andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld()));
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Get item from light
-					var path2 = {}; //View item from light
-					var path3 = {}; //Get item from dark
-					var path4 = {}; //View item from dark
-					if (items.book) {
-						if (items.boots) {
-							if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-								path1 = regions.SouthLightWorld();
-							path2 = convertView(regions.SouthLightWorld());
-						}
-						if (items.mirror) {
-							if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-								path3 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-							path4 = convertView(andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld()));
-						}
-					}
-					return orCombinator(path1, path2, path3, path4);
+		if (optionState !== "inverted") {
+			var path1 = {}; //Get item from light
+			var path2 = {}; //View item from light
+			var path3 = {}; //Get item from dark
+			var path4 = {}; //View item from dark
+			if (items.book) {
+				if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
+					path1 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+				path2 = convertView(canBootsClip_path(), regions.SouthLightWorld());
+				if (items.mirror) {
+					if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
+						path3 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
+					path4 = convertView(andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld()));
+				}
 			}
-		else {
+			return orCombinator(path1, path2, path3, path4);
+		} else {
 			var path1 = {}; //Get item
 			var path2 = {}; //View item
 			if (items.book
@@ -3533,22 +3229,16 @@ chests[27] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (items.mirror)
-						return andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-					return {};
-				default:
-					var path1 = {}; //Light world
-					var path2 = {}; //Dark world
-					if (items.boots)
-						path1 = regions.SouthLightWorld();
-					if (items.mirror)
-						path2 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-					return orCombinator(path1, path2);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //1f
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //Dark world
+			path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
+			path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+			if (items.mirror)
+				path3 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
+			return orCombinator(path1, path2, path3);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Normal
@@ -3582,24 +3272,18 @@ chests[28] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (canLiftDarkRocks() && items.mirror)
-						return andCombinator(canFly_path(), regions.SouthLightWorld());
-					return {};
-				default:
-					var path1 = {}; //Light world
-					var path2 = {}; //Dark world
-					if (canLiftRocks()) {
-						if (items.boots)
-							path1 = regions.SouthLightWorld();
-						if (items.mirror)
-							path2 = andCombinator(regions.mire(), regions.SouthLightWorld());
-					}
-					return orCombinator(path1, path2);
+		if (optionState !== "inverted"){ 
+			var path1 = {}; //1f
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //Dark world
+			if (canLiftRocks()) {
+				path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
+				path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+				if (items.mirror)
+					path3 = andCombinator(regions.mire(), regions.SouthLightWorld());
 			}
-		else {
+			return orCombinator(path1, path2, path3);
+		} else {
 			if (canLiftRocks())
 				return regions.SouthLightWorld(true);
 			return {};
@@ -3721,50 +3405,32 @@ chests[32] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Surfing bunny from mirror, then wriggle
-					var path3 = {}; //Waterwalk
-					var pathv = {}; //View item
-					if (items.flippers && items.mirror) {
-						path1 = andCombinator(orCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true)), regions.SouthLightWorld());
-						path2 = andCombinator(glitched("surfingbunny_mirror"), glitched("wriggle"), regions.northEastDarkWorld());
-					}
-					if (items.boots && items.mirror)
-						path3 = andCombinator(glitched("waterwalk_boots"), regions.northWestDarkWorld(true));
-					pathv = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, pathv);
-				case "owg":
-					var path1 = {}; //Light world
-					var path2 = {}; //Dark world
-					var path3 = {}; //Surfing bunny from NE, then wriggle
-					var path4 = {}; //View item
-					if (items.boots)
-						path1 = regions.SouthLightWorld();
-					if (items.flippers && items.mirror) {
-						path2 = andCombinator(regions.SouthDarkWorld(true), regions.SouthLightWorld());
-						path3 = andCombinator(regions.northEastDarkWorld(), regions.SouthLightWorld());
-					}
-					path4 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, path4);
-				default:
-					var path1 = {}; //Light world
-					var path2 = {}; //Buggy logic, 1f DMA, then mirrorclip DMD, then linkstate
-					var path3 = {}; //Surfing bunny from NE
-					var path4 = {}; //View item
-					if (items.boots)
-						path1 = regions.SouthLightWorld();
-					if (items.flippers && items.mirror) {
-						if (glitchedLinkInDarkWorld())
-							path2 = regions.SouthLightWorld();
-						path3 = andCombinator(regions.northEastDarkWorld(), regions.SouthLightWorld());
-					}
-					path4 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, path4);
+		if (optionState !== "inverted") {
+			var path1 = {}; //1f
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //From NE
+			var path4 = {}; //From S
+			var pathv = {}; //View item
+			path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
+			path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+			if (items.flippers && items.mirror) {
+				path3 = andCombinator(orCombinator(canBunnySurf_path(), (items.moonpearl ? {ng:"a"} : {})),
+					regions.northEastDarkWorld(), regions.SouthLightWorld());
+				if (items.moonpearl)
+					path4 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
 			}
-		else
+			pathv = convertView(regions.SouthLightWorld());
+			return orCombinator(path1, path2, path3, path4, pathv);
+			//var path1 = {}; //Normal
+			//var path2 = {}; //Surfing bunny from mirror, then wriggle
+			//var path3 = {}; //Waterwalk
+			//if (items.flippers && items.mirror) {
+			//	path1 = andCombinator(orCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true)), regions.SouthLightWorld());
+			//	path2 = andCombinator(glitched("surfingbunny_mirror"), glitched("wriggle"), regions.northEastDarkWorld());
+			// }
+			//if (items.boots && items.mirror)
+			//	path3 = andCombinator(glitched("waterwalk_boots"), regions.northWestDarkWorld(true));
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Normal
@@ -3886,29 +3552,16 @@ chests[37] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.book
-						&& (items.mirror || (items.hammer && hasHookshot()))) {
-						if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-							path1 = regions.westDeathMountain();
-						path2 = convertView(regions.westDeathMountain());
-					}
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.book) {
-						if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-							path1 = andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain());
-						path2 = convertView(andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain()));
-					}
-					return orCombinator(path1, path2);
+		if (optionState !== "inverted") {
+			var path1 = {}; //Get item
+			var path2 = {}; //View item
+			if (items.book) {
+				if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
+					path1 = andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain());
+				path2 = convertView(andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain()));
 			}
-		else
+			return orCombinator(path1, path2);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Get item
@@ -3939,24 +3592,18 @@ chests[38] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.mirror)
-						path1 = regions.westDeathMountain();
-					path2 = convertView(regions.westDeathMountain());
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.boots || items.mirror)
-						path1 = regions.westDeathMountain();
-					path2 = convertView(regions.westDeathMountain());
-					return orCombinator(path1, path2);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Get item
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //1f
+			var pathv = {}; //View item
+			if (items.mirror)
+				path1 = regions.westDeathMountain();
+			path2 = canBootsClip_path();
+			path3 = canOneFrameClipOW_path();
+			pathv = convertView(regions.westDeathMountain());
+			return orCombinator(path1, path2, path3, pathv);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Get item
@@ -4023,7 +3670,7 @@ chests[39] = {
 			}
 	}
 };
-chests[40] = { //check dungeon[9].isAccessible assumptions
+chests[40] = { //TODO TR Key logic intelligence
 	name: "Mimic Cave",
 	hint: "<img src='images/mirror.png' class='mini'><img src='images/medallion0.png' class='mini'><img src='images/sword1.png' class='mini'><img src='images/moonpearl.png' class='mini'><img src='images/somaria.png' class='mini'><img src='images/glove2.png' class='mini'><img src='images/hammer.png' class='mini'> (possibly <img src='images/firerod.png' class='mini'>)",
 	x: "42.06%", //41.76%
@@ -4031,25 +3678,18 @@ chests[40] = { //check dungeon[9].isAccessible assumptions
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (items.mirror && items.somaria && items.hammer) {
-						if ((items.firerod && optionVariation !== "retro" && optionVariation !== "keysanity") //no SK in compass, need SK in roller room
-							|| (qtyCounter.hc_sk >= 2 && optionVariation === "retro")
-							|| (qtyCounter.ditems_sk9 >= 2 && optionVariation === "keysanity"))
-							return andCombinator(dungeons[9].isAccessible(), regions.eastDeathMountain());
-						if ((optionVariation !== "retro" && optionVariation !== "keysanity") //SK in compass and chainchomps
-							|| optionVariation === "retro") //possible, but need more keys
-							return convertPossible(andCombinator(dungeons[9].isAccessible(), regions.eastDeathMountain()));
-					}
-					return {};
-				default:
-					if (items.hammer && items.mirror)
-						return andCombinator(regions.darkEastDeathMountain(), regions.eastDeathMountain());
-					return {};
+		if (optionState !== "inverted") {
+			var path1 = {}; //Mirrorclip
+			var path2 = {}; //Bootsclip
+			var path3 = {}; //Possible through TR -- TODO: Key logic smarts
+			if (items.hammer && items.mirror) {
+				path1 = andCombinator(canMirrorClip_path(), regions.eastDeathMountain());
+				if (items.moonpearl)
+					path2 = andCombinator(canBootsClip_path(), regions.darkEastDeathMountain(), regions.eastDeathMountain());
+				path3 = convertPossible(andCombinator(dungeons[9].isAccessible(), regions.eastDeathMountain()));
 			}
-		else {
+			return orCombinator(path1, path2, path3);
+		} else {
 			var path1 = {}; //Normal
 			var path2 = {}; //Unbunny
 			if (items.hammer)
@@ -4128,37 +3768,16 @@ chests[43] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.mirror && canLiftDarkRocks() && canBombThings())
-						path1 = andCombinator(regions.darkEastDeathMountain(true), regions.eastDeathMountain());
-					path2 = convertView(regions.eastDeathMountain());
-					return orCombinator(path1, path2);
-				case "owg":
-					var path1 = {}; //Light world
-					var path2 = {}; //Dark world
-					var path3 = {}; //View item
-					if (items.boots)
-						path1 = regions.eastDeathMountain();
-					if (items.mirror && canLiftRocks() && canBombThings())
-						path2 = andCombinator(regions.darkEastDeathMountain(true), regions.eastDeathMountain());
-					path3 = convertView(regions.eastDeathMountain());
-					return orCombinator(path1, path2, path3);
-				default:
-					var path1 = {}; //Light world
-					var path2 = {}; //Buggy logic, 1f multiple times to save bottle for link state
-					var path3 = {}; //View item
-					if (items.boots)
-						path1 = regions.eastDeathMountain();
-					if (items.mirror && glitchedLinkInDarkWorld() && canLiftRocks() && canBombThings())
-						path2 = andCombinator(regions.darkEastDeathMountain(), regions.eastDeathMountain());
-					path3 = convertView(regions.eastDeathMountain());
-					return orCombinator(path1, path2, path3);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Bootsclip
+			var path2 = {}; //NMG
+			var pathv = {}; //View item
+			path1 = andCombinator(canBootsClip_path(), regions.eastDeathMountain());
+			if (items.mirror && items.moonpearl && canBombThings() && canLiftRocks())
+				path2 = andCombinator(regions.darkEastDeathMountain(), regions.eastDeathMountain());
+			pathv = convertView(regions.eastDeathMountain());
+			return orCombinator(path1, path2, pathv);
+		} else
 			return regions.eastDeathMountain();
 	}
 };
@@ -4172,26 +3791,16 @@ chests[44] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (canLiftRocks())
-						return regions.northEastDarkWorld(true);
-					return {};
-				case "owg":
-					var path1 = {}; //NE dark world
-					var path2 = {}; //From EDM
-					if (canLiftRocks() || items.boots) //instead go DMA, DMD, waterwalk, clip past rock
-						path1 = regions.northEastDarkWorld(true);
-					if (items.boots)
-						path2 = regions.darkEastDeathMountain(true);
-					return orCombinator(path1, path2);
-				default:
-					if (glitchedLinkInDarkWorld() && (canLiftRocks() || items.boots))
-						return regions.northEastDarkWorld();
-					return {};
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Bootsclip
+			if (items.moonpearl) {
+				if (canLiftRocks())
+					path1 = regions.northEastDarkWorld();
+				path2 = andCombinator(canBootsClip_path(), regions.northEastDarkWorld());
 			}
-		else
+			return orCombinator(path1, path2);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftRocks())
@@ -4234,79 +3843,28 @@ chests[46] = {
 		for(var i = 0; i < 10; i++)
 			if (qtyCounter["dungeonPrize"+i] === 2 && dungeons[i].gotPrize())
 				crystalCount++;
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal
-					var path2 = {}; //Dupe via mirror
-					var path3 = {}; //Dupe via waterwalk
-					var path4 = {}; //Dupe via swim
-					var path5 = {}; //Dupe via Qirn blob
-					if (crystalCount === 2) {
-						if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-							path1 = andCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true));
-						if (items.mirror && items.flippers)
-							path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.boots)
-							path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.flippers)
-							path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
-							path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
-					}
-					return orCombinator(path1, path2, path3, path4, path5);
-				case "owg":
-					var path1 = {}; //Screenwrap mirror portal
-					var path2 = {}; //NMG
-					var path3 = {}; //Dupe via mirror
-					var path4 = {}; //Dupe via waterwalk
-					var path5 = {}; //Dupe via swim
-					var path6 = {}; //Dupe via Qirn blob
-					var path7 = {}; //Screenwrap mirror portal
-					if (items.mirror && canSpinSpeed())
-						path1 = regions.northEastDarkWorld();
-					if (items.mirror && items.boots)
-						path7 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain());
-					if (crystalCount === 2) {
-						if ((items.hammer && items.moonpearl) || (items.mirror && dungeons[11].isBeaten()))
-							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
-						if (items.mirror && items.flippers)
-							path3 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.boots)
-							path4 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.flippers)
-							path5 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
-							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
-					}
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
-				default:
-					var path1 = {}; //Screenwrap mirror portal
-					var path2 = {}; //NMG
-					var path3 = {}; //Dupe via mirror
-					var path4 = {}; //Dupe via waterwalk
-					var path5 = {}; //Dupe via swim
-					var path6 = {}; //Dupe via Qirn blob
-					var path7 = {}; //Screenwrap mirror portal
-					if (items.mirror && canSpinSpeed())
-						path1 = regions.northEastDarkWorld();
-					if (items.mirror && items.boots)
-						path7 = andCombinator(glitched("pyramid_wrap"), regions.westDeathMountain());
-					if (crystalCount === 2) {
-						if ((items.hammer && glitchedLinkInDarkWorld()) || (items.mirror && dungeons[11].isBeaten()))
-							path2 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
-						if (items.mirror && items.flippers)
-							path3 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.boots)
-							path4 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && items.flippers)
-							path5 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
-						if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
-							path6 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
-					}
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path6), path7);
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Dupe via mirror
+			var path3 = {}; //Dupe via waterwalk
+			var path4 = {}; //Dupe via swim
+			var path5 = {}; //Dupe via Qirn blob
+			var path6 = {}; //Screenwrap mirror portal
+			if (crystalCount === 2 && items.moonpearl) {
+				if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
+					path1 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+				//if (items.mirror && items.flippers)
+				//	path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+				//if (canLiftDarkRocks() && items.boots)
+				//	path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+				//if (canLiftDarkRocks() && items.flippers)
+				//	path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+				//if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
+				//	path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 			}
-		else {
+			path6 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain(), regions.northEastDarkWorld());
+			return orCombinator(path1, path2, path3, path4, path5, path6);
+		} else {
 			if (crystalCount === 2 && items.mirror)
 				return regions.SouthLightWorld();
 			return {};
@@ -4324,20 +3882,9 @@ chests[47] = {
 	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (canBombThings())
-						return regions.northWestDarkWorld(true);
-					return {};
-				case "owg":
-					if (canBombThings())
-						return regions.northWestDarkWorld(true);
-					return {};
-				default:
-					if (glitchedLinkInDarkWorld() && canBombThings())
-						return regions.northWestDarkWorld();
-					return {};
-			}
+			if (canBombThings())
+				return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
+					regions.northWestDarkWorld());
 		else {
 			if (canBombThings())
 				return regions.northWestDarkWorld();
@@ -4352,7 +3899,8 @@ chests[48] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return regions.northWestDarkWorld();
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path()),
+			regions.northWestDarkWorld());
 	}
 };
 chests[49] = {
@@ -4363,7 +3911,8 @@ chests[49] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return regions.northWestDarkWorld();
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path()),
+			regions.northWestDarkWorld());
 	}
 };
 chests[50] = {
@@ -4374,28 +3923,16 @@ chests[50] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (items.hammer && canLiftDarkRocks())
-						return regions.northWestDarkWorld(true);
-					return {};
-				case "owg":
-					var path1 = {}; //NW
-					var path2 = {}; //NE
-					if (items.hammer) {
-						if (canLiftDarkRocks())
-							path1 = regions.northWestDarkWorld(true);
-						if (items.boots) //Don't need spinspeed
-							path2 = andCombinator(regions.northEastDarkWorld(true), regions.northWestDarkWorld());
-					}
-					return orCombinator(path1, path2);
-				default:
-					if (items.hammer && glitchedLinkInDarkWorld()) //1f clip near pyramid
-						return regions.northWestDarkWorld();
-					return {};
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Moat
+			if (items.hammer) {
+				if (canLiftDarkRocks())
+					path1 = {ng:"a"};
+				path2 = andCombinator(canFakeFlipper_path(), orCombinator(canOneFrameClipOW_path(), canBootsClip_path()));
 			}
-		else
+			return andCombinator(orCombinator(path1, path2), regions.northWestDarkWorld());
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Dark world
@@ -4424,33 +3961,16 @@ chests[51] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (canLiftRocks() && items.cape)
-						path1 = regions.northWestDarkWorld(true);
-					path2 = convertView(regions.northWestDarkWorld());
-					return orCombinator(path1, path2);
-				case "owg":
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (items.boots || (canLiftRocks() && items.cape))
-						path1 = regions.northWestDarkWorld(true);
-					path2 = convertView(regions.northWestDarkWorld());
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Get item
-					var path2 = {}; //View item
-					if (glitchedLinkInDarkWorld()
-						&& (items.boots
-							|| (canLiftRocks() && items.cape)))
-						path1 = regions.northWestDarkWorld();
-					path2 = convertView(regions.northWestDarkWorld());
-					return orCombinator(path1, path2);
-			}
-		else
+		if (optionState !== "inverted") {
+			var path1 = {}; //Normal
+			var path2 = {}; //Clip
+			var pathv = {}; //View
+			if (canLiftRocks() && items.cape)
+				path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), canAdvancedItems_path());
+			path2 = orCombinator(canOneFrameClipOW_path(), canBootsClip_path());
+			pathv = convertView(regions.northWestDarkWorld());
+			return orCombinator(andCombinator(orCombinator(path1, path2), regions.northWestDarkWorld()), pathv);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Get item
@@ -4480,42 +4000,21 @@ chests[52] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (canLiftDarkRocks())
-						return regions.northWestDarkWorld(true);
-					return {};
-				case "owg":
-					var path1 = {}; //Lift rocks
-					var path2 = {}; //Screenwrap mirror portal
-					var path3 = {}; //Mirrorjump
-					var path4 = {}; //YBA
-					if (canLiftDarkRocks())
-						path1 = regions.northWestDarkWorld(true);
-					if (items.boots && items.mirror && (canBombThings() || items.flute))
-						path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
-					if (items.mirror)
-						path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
-					if (hasABottle() && items.boots)
-						path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4);
-				default:
-					var path1 = {}; //Lift rocks
-					var path2 = {}; //Screenwrap mirror portal
-					var path3 = {}; //Mirrorjump
-					var path4 = {}; //YBA
-					if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
-						path1 = regions.northWestDarkWorld();
-					if (items.boots && items.mirror && (canBombThings() || items.flute))
-						path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
-					if (items.mirror)
-						path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
-					if (hasABottle() && items.boots)
-						path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4);
-			}
-		else
+		if (optionState !== "inverted") {
+			if (canLiftDarkRocks())
+				return andCombinator(orCombinator((items.mirror ? {ng:"a"} : {}), canAdvancedItems_path()), regions.northWestDarkWorld());
+			return {};
+			//var path2 = {}; //Screenwrap mirror portal
+			//var path3 = {}; //Mirrorjump
+			//var path4 = {}; //YBA
+			//if (items.boots && items.mirror && (canBombThings() || items.flute))
+			//	path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
+			//if (items.mirror)
+			//	path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
+			//if (hasABottle() && items.boots)
+			//	path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
+			//return orCombinator(path1, path2, path3, path4);
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftDarkRocks() || items.mirror)
@@ -4540,36 +4039,17 @@ chests[53] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (optionState !== "inverted")
-			switch (optionLogic) {
-				case "nmg":
-					if (canLiftDarkRocks())
-						return regions.northWestDarkWorld();
-					return {};
-				case "owg":
-					var path1 = {}; //NMG
-					var path2 = {}; //NE
-					var path3 = {}; //Mirrorwrap
-					if (canLiftDarkRocks())
-						path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld(true));
-					if (items.boots)
-						path2 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld(true)), regions.northWestDarkWorld(true));
-					if (items.mirror)
-						path3 = andCombinator(glitched("mirrorwrap"), chests[52].isAvailable(), regions.northWestDarkWorld());
-					return orCombinator(path1, path2, path3);
-				default:
-					var path1 = {}; //mirrorwrap
-					var path2 = {}; //NMG
-					var path3 = {}; //NE
-					if (items.mirror)
-						path1 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
-					if (glitchedLinkInDarkWorld() && canLiftDarkRocks())
-						path2 = andCombinator(chests[52].isAvailable(), regions.northWestDarkWorld());
-					if (items.boots && glitchedLinkInDarkWorld())
-						path3 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld()), regions.northWestDarkWorld());
-					return orCombinator(path1, path2, path3);
-			}
-		else
+		if (optionState !== "inverted") {
+			return andCombinator(chests[52].isAvailable(),
+				orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canFakeFlipper_path()),
+				regions.northWestDarkWorld());
+			//var path2 = {}; //NE
+			//var path3 = {}; //Mirrorwrap
+			//if (items.boots)
+			//	path2 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld(true)), regions.northWestDarkWorld(true));
+			//if (items.mirror)
+			//	path3 = andCombinator(glitched("mirrorwrap"), chests[52].isAvailable(), regions.northWestDarkWorld());
+		} else
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftDarkRocks() || items.mirror)
@@ -4593,20 +4073,8 @@ chests[54] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (canBombThings())
-					return regions.SouthDarkWorld(true);
-				return {};
-			case "owg":
-				if (canBombThings())
-					return regions.SouthDarkWorld(true);
-				return {};
-			default:
-				if (canBombThings() && glitchedLinkInDarkWorld())
-					return regions.SouthDarkWorld();
-				return {};
-		}
+		if (canBombThings())
+			return regions.SouthDarkWorld();
 	}
 };
 chests[55] = {
@@ -4616,18 +4084,7 @@ chests[55] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				return regions.SouthDarkWorld();
-			case "owg":
-				if (items.moonpearl)
-					return regions.SouthDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld())
-					return regions.SouthDarkWorld();
-				return {};
-		}
+		return regions.SouthDarkWorld();
 	}
 };
 chests[56] = {
@@ -4638,18 +4095,7 @@ chests[56] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				return regions.SouthDarkWorld();
-			case "owg":
-				if (items.moonpearl)
-					return regions.SouthDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld())
-					return regions.SouthDarkWorld();
-				return {};
-		}
+		return regions.SouthDarkWorld();
 	}
 };
 
@@ -4663,27 +4109,17 @@ chests[57] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.moonpearl)
-					return regions.mire();
-				return {};
-			case "owg":
-				if (items.moonpearl || items.mirror)
-					return regions.mire();
-				return {};
-			default:
-				var path1 = {}; //Superbunny
-				var path2 = {}; //1f DMA, then 1f DMD, then 1f into mire as Link
-				var path3 = {}; //Superbunny by enemy hit
-				if (items.moonpearl || items.mirror) //Added to get close to only mire req
-					path1 = regions.mire();
-				if (glitchedLinkInDarkWorld()) //Added, still have base mire reqs, link state outside and 1f back to mire
-					path2 = regions.mire();
-				if (qtyCounter.tunic > 1 || (qtyCounter.heart_full + (qtyCounter.heart_piece / 4) >= 4))
-					path3 = regions.mire();
-				return orCombinator(path1, path2, path3);
-		}
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
+		var path1 = {}; //Superbunny
+		var path2 = {}; //1f DMA, then 1f DMD, then 1f into mire as Link
+		var path3 = {}; //Superbunny by enemy hit
+		if (items.moonpearl || items.mirror) //Added to get close to only mire req
+			path1 = regions.mire();
+		if (glitchedLinkInDarkWorld()) //Added, still have base mire reqs, link state outside and 1f back to mire
+			path2 = regions.mire();
+		if (qtyCounter.tunic > 1 || (qtyCounter.heart_full + (qtyCounter.heart_piece / 4) >= 4))
+			path3 = regions.mire();
+		return orCombinator(path1, path2, path3);
 	}
 };
 
@@ -4696,26 +4132,11 @@ chests[58] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (items.moonpearl && items.hammer && canLiftRocks()
-					&& ((canExtendMagic() && items.cape)
-						|| (((optionVariation !== "timedohko" && optionVariation !== "ohko")
-							 || canExtendMagic())
-							&& items.byrna)))
-					return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
-				return {};
-			default:
-				if (items.hammer && canLiftRocks()
-					&& (items.moonpearl || (hasABottle() && items.boots))
-					&& ((canExtendMagic() && items.cape)
-						|| (((optionVariation !== "timedohko" && optionVariation !== "ohko")
-							 || canExtendMagic())
-							&& items.byrna)))
-					return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
-				return {};
-		}
+		if (items.moonpearl && items.hammer && canLiftRocks()
+			&& ((canExtendMagic() && items.cape)
+				|| items.byrna))
+			return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
+		return {};
 	}
 };
 
@@ -4729,14 +4150,7 @@ chests[59] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.moonpearl)
-					return regions.darkEastDeathMountain();
-				return {};
-			default:
-				return regions.darkEastDeathMountain();
-		}
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("fall")), regions.darkEastDeathMountain());
 	}
 };
 chests[60] = {
@@ -4747,16 +4161,13 @@ chests[60] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch(optionLogic) {
-			case "nmg":
-				if (items.moonpearl && (hasHookshot() || items.boots))
-					return regions.darkEastDeathMountain();
-				return {};
-			default:
-				if (items.moonpearl && (items.boots || (canLiftRocks() && hasHookshot())))
-					return regions.darkEastDeathMountain();
-				return {};
+		var path1 = {}; //gap
+		var path2 = {}; //entry
+		if (items.moonpearl) {
+			path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}), (items.boots ? canAdvancedItems_path() : {}));
+			path2 = orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
 		}
+		return andCombinator(path1, path2, regions.darkEastDeathMountain());
 	}
 };
 chests[61] = {
@@ -4768,16 +4179,13 @@ chests[61] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch(optionLogic) {
-			case "nmg":
-				if (items.moonpearl && hasHookshot())
-					return regions.darkEastDeathMountain();
-				return {};
-			default:
-				if (items.moonpearl && hasHookshot() && (canLiftRocks() || items.boots))
-					return regions.darkEastDeathMountain();
-				return {};
+		var path1 = {}; //gap
+		var path2 = {}; //entry
+		if (items.moonpearl) {
+			path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}));
+			path2 = orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
 		}
+		return andCombinator(path1, path2, regions.darkEastDeathMountain());
 	}
 };
 
@@ -4816,15 +4224,15 @@ chests[63] = {
 				if (canBombThings() || items.boots) {
 					if (canLiftRocks())
 						path1 = {ng:"a"};
-					if (items.lantern && qtyCounter.hc_sk >= 1)
-						path2 = {ng:"a"};
-					if (items.lantern && optionVariation !== "keysanity") //SK in map, dark cross, or sanctuary, or buy
-						path3 = {ng:"p"};
+					if (qtyCounter.hc_sk >= 1)
+						path2 = orCombinator((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {}))
+					if (optionVariation !== "keysanity" && optionVariation !== "mcs") //SK in map, dark cross, or sanctuary
+						path3 = convertPossible(orCombinator((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {})))
 				}
 				return orCombinator(path1, path2, path3);
 			case "standard":
 				if (canBombThings() || items.boots) //need a key, but guaranteed to get one in any mode
-					return canKillMostThings_path();
+					return canKillEscapeThings_path();
 				return {};
 			case "inverted":
 				return {};
@@ -4840,11 +4248,24 @@ chests[64] = {
 	isAvailable: function(){
 		switch (optionState) {
 			case "open":
+				var path1 = {}; //Lamp
+				var path2 = {}; //Fire rod
+				var path3 = {}; //Back fire rod
+				var path4 = {}; //Dark
+				var path5 = {}; //Dark back
 				if (items.lantern)
-					return {ng:"a"};
-				return {};
+					path1 = {ng:"a"};
+				if (items.firerod) {
+					path2 = canAdvancedItems_path();
+					if (canLiftRocks())
+						path3 = glitched("darkCross_back_fr");
+				}
+				path4 = glitched("darkCross_front");
+				if (canLiftRocks())
+					path5 = glitched("darkCross_back");
+				return orCombinator(path1, path2, path3, path4, path5);
 			case "standard":
-				return canKillMostThings_path();
+				return canKillEscapeThings_path();
 			case "inverted":
 				return {};
 		}
@@ -4863,23 +4284,19 @@ chests[65] = {
 				var path1 = {}; //Map
 				var path2 = {}; //Boomerang, Zelda
 				path1 = {ng:"a"};
-				if ((optionVariation !== "keysanity" && optionVariation !== "retro"
-					&& ((canLiftRocks() && items.lantern) || qtyCounter.hc_sk >= 1)) //SK in secret room or dark cross, or marked key
-					|| (optionVariation === "keysanity" && qtyCounter.hc_sk >= 1)
-					|| (optionVariation === "retro" && qtyCounter.hc_sk >= 1))
+				if (qtyCounter.hc_sk >= 1)
 					path2 = {ng:"a"};
-				else if ((optionVariation !== "keysanity" && optionVariation !== "retro") //Possible SK in map
-					|| optionVariation === "retro") //Possible buy SK
-					path2 = {ng:"p"};
+				else
+					path2 = anyOrAllCombinator(anyOrAllCombinator(path1, chests[63].isAvailable()), chests[64].isAvailable());
 				return multipleChests(path1, path2);
 			case "standard":
-				return canKillMostThings_path();
+				return canKillEscapeThings_path();
 			case "inverted":
 				return {};
 		}
 	}
 };
-chests[66] = { //Some funny, not understood logic regarding Sanc here, and also keys/map/compass
+chests[66] = { //Some funny, not understood logic regarding Sanc here
 	name: "Link's Uncle / Secret Passage",
 	x: "29.49%",
 	y: "41.55%",
@@ -4892,7 +4309,7 @@ chests[66] = { //Some funny, not understood logic regarding Sanc here, and also 
 			case "standard":
 				var path1 = {}; //Secret passage
 				var path2 = {}; //Link's Uncle
-				path1 = canKillMostThings_path();
+				path1 = canKillEscapeThings_path();
 				path2 = {ng:"a"};
 				return multipleChests(path1, path2);
 			case "inverted":
@@ -5145,20 +4562,9 @@ entrances[21] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.boots)
-					return regions.SouthDarkWorld();
-				return {};
-			case "owg":
-				if (items.moonpearl && items.boots) //Added -- this req is not in logic, but is bug in app, not tracker
-					return regions.SouthDarkWorld();
-				return {};
-			default:
-				if (glitchedLinkInDarkWorld() && items.boots) //Added -- this req is not in logic, but is bug in app, not tracker
-					return regions.SouthDarkWorld();
-				return {};
-		}
+		if (items.boots)
+			return regions.SouthDarkWorld();
+		return {};
 	}
 }
 entrances[22] = {
@@ -5168,14 +4574,7 @@ entrances[22] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.moonpearl)
-					return regions.mire();
-				return {};
-			default:
-				return regions.mire();
-		}
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
 	}
 }
 entrances[23] = {
@@ -5185,14 +4584,7 @@ entrances[23] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.moonpearl)
-					return regions.mire();
-				return {};
-			default:
-				return regions.mire();
-		}
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
 	}
 }
 entrances[24] = {
@@ -5237,40 +4629,37 @@ entrances[27] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.flippers && canBombThings())
-					return regions.SouthDarkWorld();
-				return {};
-			case "owg":
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 bootsclip
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (items.moonpearl && items.flippers && canBombThings()) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror && canBombThings() && items.moonpearl) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-			default:
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 1f up to ledge, citrus to map wrap, jump up to get FAWT
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (glitchedLinkInDarkWorld() && items.flippers && canBombThings()) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror && canBombThings() && glitchedLinkInDarkWorld()) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (canBombThings() && glitchedLinkInDarkWorld()) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (glitchedLinkInDarkWorld() && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-		}
+		if (items.flippers && canBombThings())
+			return regions.SouthDarkWorld();
+		return {};
+		/*case "owg":
+			var path1 = {}; //South flippers
+			var path2 = {}; //NE surfing or wriggle to transition
+			var path3 = {}; //Portal 5 bootsclip
+			var path4 = {}; //Lake Hylia setup mapwrap
+			if (items.moonpearl && items.flippers && canBombThings()) //Added -- logic bug in app says no req
+				path1 = regions.SouthDarkWorld();
+			if (items.flippers && items.mirror && canBombThings() && items.moonpearl) //Added -- surfing bunny in logic per Lake Hylia item
+				path2 = regions.northEastDarkWorld();
+			if (items.moonpearl && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
+				path3 = regions.northEastDarkWorld();
+			if (items.moonpearl && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
+				path4 = regions.SouthDarkWorld();
+			return orCombinator(path1, path2, path3, path4);
+		default:
+			var path1 = {}; //South flippers
+			var path2 = {}; //NE surfing or wriggle to transition
+			var path3 = {}; //Portal 5 1f up to ledge, citrus to map wrap, jump up to get FAWT
+			var path4 = {}; //Lake Hylia setup mapwrap
+			if (glitchedLinkInDarkWorld() && items.flippers && canBombThings()) //Added -- logic bug in app says no req
+				path1 = regions.SouthDarkWorld();
+			if (items.flippers && items.mirror && canBombThings() && glitchedLinkInDarkWorld()) //Added -- surfing bunny in logic per Lake Hylia item
+				path2 = regions.northEastDarkWorld();
+			if (canBombThings() && glitchedLinkInDarkWorld()) //Added -- maximum flexibility to get close to no req
+				path3 = regions.northEastDarkWorld();
+			if (glitchedLinkInDarkWorld() && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
+				path4 = regions.SouthDarkWorld();
+			return orCombinator(path1, path2, path3, path4);*/
 	}
 }
 entrances[28] = {
@@ -5281,40 +4670,9 @@ entrances[28] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.flippers)
-					return regions.SouthDarkWorld();
-				return {};
-			case "owg":
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 bootsclip
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (items.moonpearl && items.flippers) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-			default:
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 1f up to ledge, citrus to map wrap, jump up to get FAWT
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (glitchedLinkInDarkWorld() && items.flippers) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (true) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (glitchedLinkInDarkWorld() && items.boots) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-		}
+		if (items.flippers)
+			return regions.SouthDarkWorld();
+		return {};
 	}
 }
 entrances[29] = {
@@ -5325,40 +4683,9 @@ entrances[29] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.flippers && canLiftRocks())
-					return regions.SouthDarkWorld();
-				return {};
-			case "owg":
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 bootsclip
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (items.moonpearl && items.flippers && canLiftRocks()) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror && canLiftRocks() && items.moonpearl) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots && canLiftRocks()) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (items.moonpearl && items.boots && canLiftRocks()) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-			default:
-				var path1 = {}; //South flippers
-				var path2 = {}; //NE surfing or wriggle to transition
-				var path3 = {}; //Portal 5 1f up to ledge, citrus to map wrap, jump up to get FAWT
-				var path4 = {}; //Lake Hylia setup mapwrap
-				if (glitchedLinkInDarkWorld() && items.flippers && canLiftRocks()) //Added -- logic bug in app says no req
-					path1 = regions.SouthDarkWorld();
-				if (items.flippers && items.mirror && canLiftRocks() && glitchedLinkInDarkWorld()) //Added -- surfing bunny in logic per Lake Hylia item
-					path2 = regions.northEastDarkWorld();
-				if (canLiftRocks() && glitchedLinkInDarkWorld()) //Added -- maximum flexibility to get close to no req
-					path3 = regions.northEastDarkWorld();
-				if (glitchedLinkInDarkWorld() && items.boots && canLiftRocks()) //Added -- maximum flexibility to get close to no req
-					path4 = regions.SouthDarkWorld();
-				return orCombinator(path1, path2, path3, path4);
-		}
+		if (items.flippers && canLiftRocks())
+			return regions.SouthDarkWorld();
+		return {};
 	}
 }
 entrances[30] = {
@@ -5368,15 +4695,9 @@ entrances[30] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				if (items.moonpearl)
-					return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
-				return {};
-			default:
-				return regions.darkWestDeathMountain(); //1f DMA to get to darkWestDeathMountain
-		}
+		if (items.moonpearl)
+			return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
+		return {};
 	}
 }
 /*entrances[31] = { //This is now always a capacity store
@@ -5387,16 +4708,11 @@ entrances[30] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		if (items.flippers || optionLogic !== "nmg")
-			return "available";
-		if (glitches.fakeflippers)
-			return "available glitched";
-		return {};
+		return andCombinator(orCombinator(canFakeFlipper_path(), (items.flippers ? {ng:"a"} : {})),
+			regions.SouthLightWorld());
 	}
 }*/
 
-//Bug: Light World Death Mountain Shop is in logic without bombs for glitched modes
-//	Issue #666 filed
 //Bug: Dark world outcast shop in logic without hammer for glitched modes
 //	Issue #666 filed
 //Bug: Dark world death mountain shop is in NMG logic with no moon pearl
@@ -5432,16 +4748,9 @@ shops[2] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (canBombThings())
-					return regions.eastDeathMountain();
-				return {};
-			default:
-				if (canBombThings()) //Added this -- logic doesn't require this, but app doesn't care about bombs anyways
-					return regions.eastDeathMountain();
-				return {};
-		}
+		if (canBombThings())
+			return regions.eastDeathMountain();
+		return {};
 	}
 }
 shops[3] = {
@@ -5495,20 +4804,9 @@ shops[7] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		switch (optionLogic) {
-			case "nmg":
-				if (items.hammer)
-					return regions.northWestDarkWorld();
-				return {};
-			case "owg":
-				if (items.hammer && items.moonpearl) //Added this -- logic doesn't require this, but it is app bug, not tracker bug
-					return regions.northWestDarkWorld();
-				return {};
-			default:
-				if (items.hammer && glitchedLinkInDarkWorld()) //Added this -- logic doesn't require this, but it is app bug, not tracker bug
-					return regions.northWestDarkWorld();
-				return {};
-		}
+		if (items.hammer)
+			return regions.northWestDarkWorld();
+		return {};
 	}
 }
 shops[8] = {

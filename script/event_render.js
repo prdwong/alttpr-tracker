@@ -688,8 +688,15 @@ function refreshMap() {
 		if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
 			|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
 			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
-		else
+		else {
 			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " " + accessTranslator(dungeon.isAccessible());
+			if (accessTranslator(dungeon.isAccessible()).indexOf("majorglitched") !== -1)
+				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/majorglitched.png)";
+			else if (accessTranslator(dungeon.isAccessible()).indexOf("glitched") !== -1)
+				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/glitched.png)";
+			else
+				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "";
+		}
 		switch (dungeonNum) {
 			case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
 			case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;

@@ -1,14 +1,30 @@
-var stateSelect = document.querySelector('#state_select');
 var logicSelect = document.querySelector('#logic_select');
-var swordsSelect = document.querySelector('#swords_select');
-var goalSelect = document.querySelector('#goal_select');
-var difficultySelect = document.querySelector('#difficulty_select');
+var itemplaceSelect = document.querySelector('#itemplace_select');
 var variationSelect = document.querySelector('#variation_select');
+var goalSelect = document.querySelector('#goal_select');
+var towerSelect = document.querySelector('#tower_select');
+var ganonSelect = document.querySelector('#ganon_select');
+var stateSelect = document.querySelector('#state_select');
+var swordsSelect = document.querySelector('#swords_select');
+var difficultySelect = document.querySelector('#difficulty_select');
 var bossShuffleSelect = document.querySelector('#bossShuffle_select');
 var categorySelect = document.querySelector('#category_select');
 var itemSelect = document.querySelector('#item_select');
 var topList = document.querySelector('#top-area');
 var bottomList = document.querySelector('#bottom-area');
+
+var optionLogic = logicSelect.value;
+var optionItemplace = itemplaceSelect.value;
+var optionVariation = variationSelect.value;
+var optionGoal = goalSelect.value;
+var optionTower = towerSelect.value;
+var optionGanon = ganonSelect.value;
+var optionState = stateSelect.value;
+var optionSwords = swordsSelect.value;
+var optionDifficulty = difficultySelect.value;
+var optionBossShuffle = bossShuffleSelect.value;
+var optionCategorySelect = categorySelect.value;
+var optionItemSelect = itemSelect.value;
 
 document.querySelector('#option_button').addEventListener('click', function() {
 	if (document.querySelector('#options').style.display === "none") {
@@ -28,9 +44,9 @@ stateSelect.addEventListener('change', function() {
 	optionState = stateSelect.value;
 
 	//Zelda starts unrescued in standard mode
-	if (optionState === "standard")
+	if (optionState === "standard") {
 		qtyCounterMin.zelda = 0;
-	else {
+	} else {
 		qtyCounterMin.zelda = 1;
 		if (qtyCounter.zelda < qtyCounterMin.zelda) {
 			qtyCounter.zelda = qtyCounterMin.zelda;
@@ -106,6 +122,21 @@ logicSelect.addEventListener('change', function() {
 				updateQuadrant("dungeonPrize"+i);
 			}
 
+	refreshMap();
+});
+
+itemplaceSelect.addEventListener('change', function() {
+	optionItemplace = itemplaceSelect.value;
+	refreshMap();
+});
+
+towerSelect.addEventListener('change', function() {
+	optionTower = towerSelect.value;
+	refreshMap();
+});
+
+ganonSelect.addEventListener('change', function() {
+	optionGanon = GanonSelect.value;
 	refreshMap();
 });
 
@@ -319,19 +350,32 @@ variationSelect.addEventListener('change', function() {
 		itemsMax.chest9 = 12;
 		itemsMax.chest10 = 27;
 		itemsMax.chest11 = 2;
-	} else if (optionVariation === "retro") {
-		itemsMax.chest0 = 3;
-		itemsMax.chest1 = 3;
-		itemsMax.chest2 = 3;
-		itemsMax.chest3 = 11;
-		itemsMax.chest4 = 7;
-		itemsMax.chest5 = 5;
-		itemsMax.chest6 = 5;
-		itemsMax.chest7 = 5;
-		itemsMax.chest8 = 5;
-		itemsMax.chest9 = 9;
-		itemsMax.chest10 = 24;
+	} else if (optionVariation === "mcs") {
+		itemsMax.chest0 = 5;
+		itemsMax.chest1 = 5;
+		itemsMax.chest2 = 5;
+		itemsMax.chest3 = 13;
+		itemsMax.chest4 = 9;
+		itemsMax.chest5 = 7;
+		itemsMax.chest6 = 7;
+		itemsMax.chest7 = 7;
+		itemsMax.chest8 = 7;
+		itemsMax.chest9 = 11;
+		itemsMax.chest10 = 26;
 		itemsMax.chest11 = 2;
+	} else if (optionVariation === "mc") {
+		itemsMax.chest0 = 5;
+		itemsMax.chest1 = 4;
+		itemsMax.chest2 = 4;
+		itemsMax.chest3 = 7;
+		itemsMax.chest4 = 8;
+		itemsMax.chest5 = 4;
+		itemsMax.chest6 = 6;
+		itemsMax.chest7 = 5;
+		itemsMax.chest8 = 4;
+		itemsMax.chest9 = 7;
+		itemsMax.chest10 = 22;
+		itemsMax.chest11 = 0;
 	} else {
 		itemsMax.chest0 = 3;
 		itemsMax.chest1 = 2;
@@ -382,7 +426,7 @@ variationSelect.addEventListener('change', function() {
 	}
 
 	//Add dungeon item rows for keysanity 
-	if (optionVariation !== "keysanity") {
+	if (optionVariation === "none") {
 		document.getElementsByClassName("dungeonrow")[0].style.display = 'none';
 		document.getElementsByClassName("dungeonrow")[1].style.display = 'none';
 	} else {
@@ -404,7 +448,7 @@ variationSelect.addEventListener('change', function() {
 
 	if (document.getElementById("altMap").checked) {
 		var top_px = 512;
-		if (optionVariation === "keysanity")
+		if (optionVariation !== "none")
 			top_px += 128;
 		if (document.getElementById("sphereTracker").checked)
 			top_px += 259;

@@ -4,6 +4,16 @@ var glitches = {
 	},
 	oldMan_back: { category: "darkrooms", name: "Rescue Old Man from the back"
 	},
+	darkCross_front: { category: "darkrooms", name: "Hyrule Dark Cross from front"
+	},
+	darkCross_back: { category: "darkrooms", name: "Hyrule Dark Cross from back"
+	},
+	darkCross_back_fr: { category: "darkrooms", name: "Hyrule Dark Cross from back w/Fire Rod"
+	},
+	sewers: { category: "darkrooms", name: "Hyrule Sewers"
+	},
+	sewers_fr: { category: "darkrooms", name: "Hyrule Sewers w/Fire Rod"
+	},
 	
 	//Bomb jumps
 	qirn_jump: { category: "bj", name: "Fake flipper via bomb (Qirn jump)"
@@ -46,8 +56,12 @@ var glitches = {
 	},
 	hover: { category: "minor", name: "Hovering"
 	},
+	superqirn_jump: { category: "minor", name: "Qirn jump without bombs"
+	},
 	
 	//Misc strats
+	advanced_items: { category: "misc", name: "Advanced Item placement"
+	},
 	DM_lynels: { category: "misc", name: "Hookshot past DM Lynels in OHKO"
 	},
 	bigbomb: { category: "misc", name: "Use Big Bomb as a bomb"
@@ -60,7 +74,9 @@ var glitches = {
 	//Major glitches
 	fakeflute: { category: "major", name: "Fake Flute"
 	},
-	clip1f: { category: "major", name: "6-step 1f bootsless clips"
+	fakefluteDM: { category: "major", name: "Fake Flute to DM"
+	},
+	clip1f: { category: "major", name: "1f bootsless overworld clips"
 	},
 	kingtomb: { category: "major", name: "King's Tomb jump"
 	},
@@ -73,6 +89,8 @@ var glitches = {
 	pyramid_wrap: { category: "major", name: "Screenwrap to pyramid w/out spinspeed"
 	},
 	mirrorwrap: { category: "major", name: "Mirror wrap"
+	},
+	adv_mirrowrap: { category: "major", name: "Complicated Mirror wraps"
 	},
 	
 	//Underworld major glitches

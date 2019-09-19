@@ -71,13 +71,177 @@ function hasSword($min_level = 1) {
 function hasBottle($at_least = 1) {
 	return bottleCount() >= $at_least;
 }
+function hasArmor() {
+	return qtyCounter.tunic > 1;
+}
 function bottleCount() {
 	return items.bottle;
 }
 function hasABottle() {
 	return hasBottle()
 }
+function hasHealth(level) {
+	return level <= qtyCounter[heart_full] + (qtyCounter[heart_piece] / 4);
+}
 //Helpers returning path information
+function canOneFrameClipOW_path() {
+	switch (optionLogic) {
+		case "nmg":
+			return {};
+		case "owg":
+			return glitched("clip1f");
+		case "major":
+		case "nologic":
+			return {ng:"a"};
+	}
+}
+
+function canOneFrameClipUW_path() {
+	switch (optionLogic) {
+		case "nmg":
+		case "owg":
+			return {};
+		case "major":
+		case "nologic":
+			return {ng:"a"};
+	}
+}
+
+function canOWYBA_path(bottles = bottleCount()) {
+	if (bottles > 1)
+		switch (optionLogic) {
+			case "nmg":
+				return {};
+			case "owg":
+				return glitched("OW_YBA");
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canBootsClip_path() {
+	if (items.boots)
+		switch (optionLogic) {
+			case "nmg":
+				return {};
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canMirrorClip_path() {
+	if (items.mirror)
+		switch (optionLogic) {
+			case "nmg":
+				return {};
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canMirrorWrap_path() {
+	if (items.mirror)
+		switch (optionLogic) {
+			case "nmg":
+				return {};
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canSuperSpeed_path() {
+	if (canSpinSpeed())
+		switch (optionLogic) {
+			case "nmg":
+				return {};
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canFakeFlipper_path() {
+	switch (optionLogic) {
+		case "nmg":
+			return glitched("fakeflipper");
+		case "owg":
+		case "major":
+		case "nologic":
+			return {ng:"a"};
+	}
+}
+
+function canWaterWalk_path() {
+	if (items.boots)
+		switch (optionLogic) {
+			case "nmg":
+				return glitched("waterwalk_boots");
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canBunnySurf_path() {
+	if (items.mirror)
+		switch (optionLogic) {
+			case "nmg":
+				return glitched("surfingbunny_mirror");
+			case "owg":
+			case "major":
+			case "nologic":
+				return {ng:"a"};
+		}
+	return {};
+}
+
+function canSuperBunny_path(type = "") {
+	switch (optionLogic) {
+		case "nmg":
+			if (type === "fall")
+				return glitched("superbunny");
+			else
+				return orCombinator(glitched("superbunny_hit"), andCombinator((items.mirror ? {ng:"a"} : {}), glitched("superbunny_mirror")));
+		case "owg":
+		case "major":
+		case "nologic":
+			return {ng:"a"};
+	}
+	return {};
+}
+
+function canDungeonRevive_path() {
+	switch (optionLogic) {
+		case "nmg":
+			return glitched("dungeonrevival");
+		case "owg":
+		case "major":
+		case "nologic":
+			return {ng:"a"};
+	}
+}
+
+function canAdvancedItems_path() {
+	if (optionItemplace === "basic")
+		return glitched("advanced_items");
+	return {ng:"a"};
+}
+
 function canFly_path(from_locs = []) {
 	if (qtyCounter.flute === 2)
 		return {ng:"a"};
@@ -180,7 +344,7 @@ function canGetFairy_path(num = 1) {
 	}
 	return {};
 }
-//only used during HyruleCastleEscape, HyruleCastleTower & MiseryMire
+//only used during HyruleCastleTower & MiseryMire
 function canKillMostThings_path($enemies = 5) { //TODO some additional unknown logic here regarding swords
 	var path1 = {}; //Non-arrow
 	var path2 = {}; //Arrow
@@ -188,6 +352,21 @@ function canKillMostThings_path($enemies = 5) { //TODO some additional unknown l
 		|| items.somaria
 		|| (items.bombs && $enemies < 6)
 		|| (items.byrna && ($enemies < 6 || canExtendMagic()))
+		|| items.hammer
+		|| items.firerod)
+		path1 = {ng:"a"};
+	path2 = canShootArrows_path();
+	return orCombinator(path1, path2);
+}
+
+//Used during HyruleCastleEscape
+function canKillEscapeThings_path() {
+	var path1 = {}; //Non-arrow
+	var path2 = {}; //Arrow
+	if (hasSword()
+		|| items.somaria
+		|| canBombThings()
+		|| items.byrna
 		|| items.hammer
 		|| items.firerod)
 		path1 = {ng:"a"};
