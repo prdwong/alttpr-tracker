@@ -342,25 +342,25 @@ td {
 
 #option_button {
 	position: absolute;
-	top: 410px;
+	top: 430px;
 	left: 1214px;
 	z-index: 15;
 }
 #option_button-alt {
 	position: absolute;
-	top: 410px;
+	top: 430px;
 	left: 640px;
 	z-index: 15;
 }
 #reset_button {
 	position: absolute;
-	top: 432px;
+	top: 452px;
 	left: 1225px;
 	z-index: 15;
 }
 #reset_button-alt {
 	position: absolute;
-	top: 432px;
+	top: 452px;
 	left: 640px;
 	z-index: 15;
 }
