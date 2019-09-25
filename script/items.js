@@ -177,11 +177,11 @@ function resetItems() {
 		if (optionVariation === "keysanity") qtyCounter["dungeonPrize"+i] = 0; else qtyCounter["dungeonPrize"+i] = 1;
 		qtyCounter["gotPrize"+i] = false;
 		updateQuadrant("dungeonPrize"+i);
-		if (optionBossShuffle === "on") qtyCounter["boss"+i] = -1; else qtyCounter["boss"+i] = 0;
+		if (optionBossShuffle !== "off") qtyCounter["boss"+i] = -1; else qtyCounter["boss"+i] = 0;
 		updateTrackerItem("boss"+i);
 	}
 	for (var i = 13; i <= 15; i++) {
-		if (optionBossShuffle === "on") qtyCounter["boss"+i] = -1; else qtyCounter["boss"+i] = 0;
+		if (optionBossShuffle !== "off") qtyCounter["boss"+i] = -1; else qtyCounter["boss"+i] = 0;
 		qtyCounter["gtboss"+i] = 1;
 		updateQuadrant("gtboss"+i);
 	}

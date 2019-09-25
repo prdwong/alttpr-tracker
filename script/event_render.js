@@ -54,6 +54,8 @@ function initTracker() {
 	document.getElementById("spheres2").style.display = "none";
 	document.getElementById("spheres3").style.display = "none";
 	initSphereTracker();
+	
+	initGlitches();
 }
 
 function initSphereTracker() {
@@ -63,6 +65,19 @@ function initSphereTracker() {
 				updateSphereTracker("sphere"+i+j+k);
 			}
 		}
+	}
+}
+
+function initGlitches() {
+	for (var glitch in glitches) {
+		var option = document.createElement("option");
+		option.value = glitch;
+		option.text = glitches[glitch].name;
+		option.title = glitches[glitch].tip;
+		if (glitches[glitch].def === "top")
+		topList.add(option);
+		else if (glitches[glitch].def === "bot")
+			bottomList.add(option);
 	}
 }
 
@@ -92,10 +107,25 @@ function updateTrackerItem(itemName) {
 			document.getElementById(itemName).innerHTML = "";
 		else
 			document.getElementById(itemName).innerHTML = qtyCounter["triforce"];
-		if (optionGoal === "triforce")
+		if (optionGoal === "triforce") {
 			document.getElementById(itemName).className = "true";
-		else
-			document.getElementById(itemName).className = goModeCalc();
+			document.getElementById("go").style.backgroundImage = "url(images/triforce.png)";
+		} else {
+			var path = accessTranslator(goModeCalc());
+			if (path.indexOf("unavailable") !== -1)
+				document.getElementById(itemName).className = "false";
+			else if (path.indexOf("possible") !== -1)
+				document.getElementById(itemName).className = "half";
+			else
+				document.getElementById(itemName).className = "true";
+			if (path.indexOf("majorglitched") !== -1)
+				document.getElementById("go").style.backgroundImage = "url(images/majorglitched.png)";
+			else if (path.indexOf("glitched") !== -1)
+				document.getElementById("go").style.backgroundImage = "url(images/glitched.png)";
+			else
+				document.getElementById("go").style.backgroundImage = "url(images/blank.png)";
+			document.getElementById("go").style.backgroundImage += ", url(images/go.png)";
+		}
 		return;
 	}
 
@@ -226,7 +256,7 @@ function itemToggle(event) {
 	if (label === "stunprize") //click passthrough to hookshot
 		label = "hookshot";
 	if (label.substring(0, 12) === "dungeonPrize" || label.substring(0, 9) === "medallion" ||
-		(label.substring(0, 6) === "gtboss" && optionBossShuffle === "on")) { //send to quadrant handler for processing instead
+		(label.substring(0, 6) === "gtboss" && optionBossShuffle !== "off")) { //send to quadrant handler for processing instead
 		quadrantToggle(event);
 		return;
 	}
@@ -292,7 +322,9 @@ function itemToggle(event) {
 			qtyCounter.stunprize++;
 			if (qtyCounter.stunprize > qtyCounterMax.stunprize)
 				qtyCounter.stunprize = qtyCounterMin.stunprize;
-			updateQuadrant("stunprize");
+			window.requestAnimationFrame(function() {
+				updateQuadrant("stunprize");
+			});
 			return;
 		} else if (label.substring(0, 3) === "all") { //allx: add 1 to qty, wrap around, also update item
 			var qty = translateItem(label, event.button);
@@ -371,8 +403,14 @@ function itemToggle(event) {
 		}
 	}
 
-	updateTrackerItem(label);
-	refreshMap();
+	window.requestAnimationFrame(function() {
+		updateTrackerItem(label);
+	});
+	//setTimeout(function timeout() {
+			refreshMap();
+	//	}, 20);
+	
+
 }
 
 //event handler for clicks on cells that are divided into quadrants, updates data structure with new status of items/qty
@@ -484,8 +522,12 @@ function quadrantToggle(event) {
 			lastItem = label;
 	}
 
-	updateQuadrant(label);
-	refreshMap();
+	window.requestAnimationFrame(function() {
+		updateQuadrant(label);
+	});
+	//setTimeout(function timeout() {
+			refreshMap();
+	//	}, 20);
 }
 
 //updates className and images and innerHTML of spheres
@@ -637,13 +679,44 @@ function mapToggle(event) {
 			icon = shops[event.target.id.substring(4)];
 		icon.isHighlight = !icon.isHighlight;
 	}
-	refreshMap();
+	refreshMap("map", event.target.id);
 }
 
-function refreshMap() {
+function workerMap() {
+	//State of the world is sent through e
+	//Worker returns info for each map object
+	//  chest.isAvailable()
+	//  dungeon.isBeatable()
+	//  dungeon.canGetChests()
+	//  dungeon.isAccessible()
+	var response = "self.onmessage=function(e){\
+		console.log('Starting my task');\
+		console.log(e.data.url);\
+		var index = e.data.url.indexOf('tracker_map.html');\
+		var url = e.data.url.substring(0, index);\
+		importScripts(url + 'chests.js');\
+		var workerResult = 5;\
+		postMessage(workerResult);\
+	}";
+
+	var blob = new Blob([response], {type: 'application/javascript'});
+
+	var blobURL = window.URL.createObjectURL(blob);
+
+	var worker = new Worker(blobURL);
+	worker.onmessage = function(e) {
+		//Worker is finished
+		console.log("We are done with result: " + e.data);
+	};
+	worker.postMessage({url: document.location.href});
+}
+
+var times = [];
+function refreshMap(type = undefined, name = undefined) {
 	//Update all chests on the map, className and backgroundImage
 	var start = Date.now();
-	var times = [];
+	var start_b = start;
+	times = [];
 	var chestClass = "chest";
 	var bossClass = "boss";
 	var dungeonClass = "dungeon";
@@ -655,65 +728,95 @@ function refreshMap() {
 		dungentrClass = "dungentr-alt";
 	}
 	chests.forEach(function(chest, chestNum) {
-		if (chest.isOpened) {
-			document.getElementById("poi"+chestNum).className = chestClass + " opened";
-			document.getElementById("poi"+chestNum).style.backgroundImage = "";
-		} else {
-			document.getElementById("poi"+chestNum).className = chestClass + " " + accessTranslator(chest.isAvailable());
-			if (accessTranslator(chest.isAvailable()).indexOf("majorglitched") !== -1)
-				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";
-			else if (accessTranslator(chest.isAvailable()).indexOf("glitched") !== -1)
-				document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/glitched.png)";
-			else
+		if (type === undefined || (type === "map" && name === "poi"+chestNum)) {
+			if (chest.isOpened) {
+				document.getElementById("poi"+chestNum).className = chestClass + " opened";
 				document.getElementById("poi"+chestNum).style.backgroundImage = "";
+			} else {
+				var chestStatus = accessTranslator(chest.isAvailable());
+				document.getElementById("poi"+chestNum).className = chestClass + " " + chestStatus;
+				if (chestStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";
+				else if (chestStatus.indexOf("glitched") !== -1)
+					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/glitched.png)";
+				else
+					document.getElementById("poi"+chestNum).style.backgroundImage = "";
+			}
+			if (chest.isHighlight)
+				document.getElementById("poi"+chestNum).style.outlineColor = "gold";
+			else
+				document.getElementById("poi"+chestNum).style.outlineColor = "black";
 		}
-		if (chest.isHighlight)
-			document.getElementById("poi"+chestNum).style.outlineColor = "gold";
-		else
-			document.getElementById("poi"+chestNum).style.outlineColor = "black";
+		var newt = Date.now();
+		if (chestNum % 10 === 0)
+			times.push("*");
+		times.push(newt - start);
+		start = newt;
+	});
+	times.push("dungeons");
+	//Update all boss & dungeons on the map, className, innerText and backgroundImage
+	dungeons.forEach(function(dungeon, dungeonNum) {
+		if (type === undefined) {
+			if (dungeon.isBeaten() || (dungeonNum === 12 && (optionGoal === "triforce" || optionGoal === "pedestal"))) {
+				document.getElementById("bossMap"+dungeonNum).className = bossClass + " opened";
+				document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
+			} else {
+				var dungeonStatus = accessTranslator(dungeon.isBeatable());
+				document.getElementById("bossMap"+dungeonNum).className = bossClass + " " + dungeonStatus;
+				if (dungeonStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/majorglitched.png)";
+				else if (dungeonStatus.indexOf("glitched") !== -1)
+					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/glitched.png)";
+				else
+					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
+			}
+			if (items["chest" + dungeonNum] === 0 || (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal"))) {
+				document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " opened";
+				document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
+			} else {
+				var dungeonStatus = accessTranslator(dungeon.canGetChests());
+				document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " " + dungeonStatus;
+				if (dungeonStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/majorglitched.png)";
+				else if (dungeonStatus.indexOf("glitched") !== -1)
+					document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/glitched.png)";
+				else
+					document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
+			}
+			if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
+				|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
+				document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
+			else {
+				var dungeonStatus = accessTranslator(dungeon.isAccessible());
+				document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " " + dungeonStatus;
+				if (dungeonStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/majorglitched.png)";
+				else if (dungeonStatus.indexOf("glitched") !== -1)
+					document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/glitched.png)";
+				else
+					document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "";
+			}
+			switch (dungeonNum) {
+				case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
+				case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
+				case 12: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/ganon.png)"; break;
+				default:
+					if (qtyCounter["boss"+dungeonNum] === -1) {
+						document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss_unk2.png)";
+						document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss"+dungeonNum+"2.png)";
+					} else {
+						var bossnum = (dungeonNum + qtyCounter["boss"+dungeonNum]) % 10;
+						document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss"+bossnum+"2.png)";
+					}
+					break;
+			}
+		}
 		var newt = Date.now();
 		times.push(newt - start);
 		start = newt;
 	});
-	//Update all boss & dungeons on the map, className, innerText and backgroundImage
-	dungeons.forEach(function(dungeon, dungeonNum) {
-		if (dungeon.isBeaten() || (dungeonNum === 12 && (optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("bossMap"+dungeonNum).className = bossClass + " opened";
-		else
-			document.getElementById("bossMap"+dungeonNum).className = bossClass + " " + accessTranslator(dungeon.isBeatable());
-		if (items["chest" + dungeonNum] === 0 || (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " opened";
-		else
-			document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " " + accessTranslator(dungeon.canGetChests());
-		if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
-			|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
-			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
-		else {
-			document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " " + accessTranslator(dungeon.isAccessible());
-			if (accessTranslator(dungeon.isAccessible()).indexOf("majorglitched") !== -1)
-				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/majorglitched.png)";
-			else if (accessTranslator(dungeon.isAccessible()).indexOf("glitched") !== -1)
-				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "url(images/glitched.png)";
-			else
-				document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "";
-		}
-		switch (dungeonNum) {
-			case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
-			case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
-			case 12: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/ganon.png)"; break;
-			default:
-				if (qtyCounter["boss"+dungeonNum] === -1) {
-					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/boss_unk2.png)";
-					document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss"+dungeonNum+"2.png)";
-				} else {
-					var bossnum = (dungeonNum + qtyCounter["boss"+dungeonNum]) % 10;
-					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/boss"+bossnum+"2.png)";
-				}
-				break;
-		}
-	});
-	times.push(Date.now() - start);
 
+	/*
 	var entrClass = "entrance";
 	var shopClass = "shop";
 	if (document.getElementById("altMap").checked) {
@@ -744,7 +847,17 @@ function refreshMap() {
 			else
 				document.getElementById("shop"+shopNum).style.outlineColor = "black";
 		});
-	}
+	}*/
+	
+	window.requestAnimationFrame(function() {
+		updateTrackerItem("go");
+	});
+	times.push(Date.now() - start);
+	times.push("total");
+	var total = Date.now() - start_b;
+	times.push(total);
+//	if (total > 100)
+//		alert(times);
 }
 
 

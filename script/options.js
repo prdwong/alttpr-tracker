@@ -16,6 +16,7 @@ var bottomList = document.querySelector('#bottom-area');
 var optionLogic = logicSelect.value;
 var optionItemplace = itemplaceSelect.value;
 var optionVariation = variationSelect.value;
+var optOldVariation = variationSelect.value;
 var optionGoal = goalSelect.value;
 var optionTower = towerSelect.value;
 var optionGanon = ganonSelect.value;
@@ -25,6 +26,10 @@ var optionDifficulty = difficultySelect.value;
 var optionBossShuffle = bossShuffleSelect.value;
 var optionCategorySelect = categorySelect.value;
 var optionItemSelect = itemSelect.value;
+
+var optMapCompLogic = document.querySelector('#MapCompLogic').checked;
+var optStdKeys = document.querySelector('#std_keysanity').checked;
+var optBottleCount = document.querySelector('#optn_BottleCount').checked;
 
 document.querySelector('#option_button').addEventListener('click', function() {
 	if (document.querySelector('#options').style.display === "none") {
@@ -136,7 +141,7 @@ towerSelect.addEventListener('change', function() {
 });
 
 ganonSelect.addEventListener('change', function() {
-	optionGanon = GanonSelect.value;
+	optionGanon = ganonSelect.value;
 	refreshMap();
 });
 
@@ -299,8 +304,10 @@ difficultySelect.addEventListener('change', function() {
 });
 
 variationSelect.addEventListener('change', function() {
+	optOldVariation = optionVariation;
 	optionVariation = variationSelect.value;
 
+	/*
 	//Addition of wooden arrows in retro mode
 	if (optionVariation === "retro") {
 		qtyCounterMax.arrow = 3;
@@ -334,7 +341,7 @@ variationSelect.addEventListener('change', function() {
 		qtyCounterMax.heart_full += 3;
 	if (qtyCounter.heart_full > qtyCounterMax.heart_full)
 		qtyCounter.heart_full = qtyCounterMax.heart_full;
-	updateQuadrant("heart_full"); //may need update to fix lime max
+	updateQuadrant("heart_full"); //may need update to fix lime max*/
 
 	//Update max chest counts for keysanity/retro
 	if (optionVariation === "keysanity") {
@@ -397,6 +404,7 @@ variationSelect.addEventListener('change', function() {
 		}
 	}
 
+	/*
 	//Remove small key collection in retro
 	if (optionVariation === "retro") {
 		for (var i = 1; i < 12; i++) {
@@ -423,10 +431,10 @@ variationSelect.addEventListener('change', function() {
 			qtyCounter.hc_sk = qtyCounterMax.hc_sk;
 			updateQuadrant("hc_sk");
 		}
-	}
+	}*/
 
 	//Add dungeon item rows for keysanity 
-	if (optionVariation === "none") {
+	if (optionVariation === "none" && optStdKeys === false) {
 		document.getElementsByClassName("dungeonrow")[0].style.display = 'none';
 		document.getElementsByClassName("dungeonrow")[1].style.display = 'none';
 	} else {
@@ -434,6 +442,7 @@ variationSelect.addEventListener('change', function() {
 		document.getElementsByClassName("dungeonrow")[1].style.display = '';
 	}
 
+	/*
 	//Update all entrances on the map, className and backgroundImage
 	entrances.forEach(function(entrance, entranceNum) {
 		if (optionVariation !== "retro")
@@ -444,26 +453,47 @@ variationSelect.addEventListener('change', function() {
 	shops.forEach(function(shop, shopNum) {
 		if (optionVariation !== "retro")
 			document.getElementById("shop"+shopNum).className = "shop no-show";
-	});
+	});*/
 
 	if (document.getElementById("altMap").checked) {
 		var top_px = 512;
-		if (optionVariation !== "none")
+		if (optionVariation !== "none" || optStdKeys === true)
 			top_px += 128;
 		if (document.getElementById("sphereTracker").checked)
 			top_px += 259;
 		document.getElementById("map").style.top = top_px + "px";
 	}
 
+	var old = [];
+	var now = [];
+	switch (optOldVariation) {
+		case "none": old = [3, 2, 2, 5, 6, 2, 4, 3, 2, 5, 20, 0]; break;
+		case "mc": old = [5, 4, 4, 7, 8, 4, 6, 5, 4, 7, 22, 0]; break;
+		case "mcs": old = [5, 5, 5, 13, 9, 7, 7, 7, 7, 11, 26, 2]; break;
+		case "keysanity": old = [6, 6, 6, 14, 10, 8, 8, 8, 8, 12, 27, 2]; break;
+	}
+	switch (optionVariation) {
+		case "none": now = [3, 2, 2, 5, 6, 2, 4, 3, 2, 5, 20, 0]; break;
+		case "mc": now = [5, 4, 4, 7, 8, 4, 6, 5, 4, 7, 22, 0]; break;
+		case "mcs": now = [5, 5, 5, 13, 9, 7, 7, 7, 7, 11, 26, 2]; break;
+		case "keysanity": now = [6, 6, 6, 14, 10, 8, 8, 8, 8, 12, 27, 2]; break;
+	}
+	for (var i = 0; i < 12; i++) {
+		var diff = now[i] - old[i];
+		if (diff > 0) {
+			items["chest"+i] += diff;
+			updateTrackerItem("chest"+i);
+		}
+	}
+
 	setOptionBlankHeight();
-	resetItems();
 	refreshMap();
 });
 
 bossShuffleSelect.addEventListener('change', function() {
 	optionBossShuffle = bossShuffleSelect.value;
 
-	if (optionBossShuffle === "on") {
+	if (optionBossShuffle !== "off") {
 		for (var i = 0; i < 10; i++) {
 			qtyCounterMin["boss"+i] = -1;
 			qtyCounterMax["boss"+i] = 9;
@@ -492,13 +522,12 @@ bossShuffleSelect.addEventListener('change', function() {
 		document.getElementById("gtboss15").style.display = "none";
 	}
 	resetItems();
-	refreshMap();
 });
 
 categorySelect.addEventListener('change', function() {
 	filterChange();
 });
-	
+
 function filterChange() {
 	optionCategorySelect = categorySelect.value;
 	var size = itemSelect.length;
@@ -512,6 +541,7 @@ function filterChange() {
 		if (glitches[key].category === optionCategorySelect || optionCategorySelect === "all") {
 			var option = document.createElement("option");
 			option.value = key;
+			option.title = glitches[key].tip;
 			option.text = glitches[key].name;
 			itemSelect.add(option);
 		}
@@ -671,8 +701,8 @@ function handleOptionClick(cb) {
 					top_px += 259;
 				document.getElementById("map").style.top = top_px + "px";
 				document.getElementById("caption").id = "caption-alt";
-				document.getElementById("option_button").id = "option_button-alt";
-				document.getElementById("reset_button").id = "reset_button-alt";
+				//document.getElementById("option_button").id = "option_button-alt";
+				//document.getElementById("reset_button").id = "reset_button-alt";
 				var chestlist = document.getElementsByClassName("chest");
 				while (chestlist.length > 0) {
 					chestlist[0].classList.add("chest-alt");
@@ -707,8 +737,8 @@ function handleOptionClick(cb) {
 				document.getElementById("map").className = "map";
 				document.getElementById("map").style.top = "0px";
 				document.getElementById("caption-alt").id = "caption";
-				document.getElementById("option_button-alt").id = "option_button";
-				document.getElementById("reset_button-alt").id = "reset_button";
+				//document.getElementById("option_button-alt").id = "option_button";
+				//document.getElementById("reset_button-alt").id = "reset_button";
 				var chestlist = document.getElementsByClassName("chest-alt");
 				while (chestlist.length > 0) {
 					chestlist[0].classList.add("chest");
@@ -741,5 +771,22 @@ function handleOptionClick(cb) {
 				}
 			}
 			break;
+		case "MapCompLogic":
+			optMapCompLogic = cb.checked;
+			break;
+		case "std_keysanity":
+			optStdKeys = cb.checked;
+			if (optionVariation === "none" && optStdKeys === false) {
+				document.getElementsByClassName("dungeonrow")[0].style.display = 'none';
+				document.getElementsByClassName("dungeonrow")[1].style.display = 'none';
+			} else {
+				document.getElementsByClassName("dungeonrow")[0].style.display = '';
+				document.getElementsByClassName("dungeonrow")[1].style.display = '';
+			}
+			break;
+		case "optn_BottleCount":
+			optBottleCount = cb.checked;
+			break;
 	}
+	refreshMap();
 }

@@ -20,8 +20,6 @@ path.mgva - is location viewable considering major glitches and if aga is defeat
 Nonexistent/undefined values are equivalent to unavailable
 */
 
-//Glitch reminders: Can use big bomg as a regular bomb
-
 //Bug: Pretty sure MG logic here (dark EDM) is wrong, and they meant to put in (pearl || bottle) && boots
 //	Issue #664 filed
 //Bug: MG logic needs bottle to get up DM and then another bottle to other dark world areas
@@ -29,14 +27,14 @@ Nonexistent/undefined values are equivalent to unavailable
 //Bug: MG logic should be able to get to NE darkworld from S darkworld
 //	Issue #664 filed
 //Some WOW paths seem incorrect
-//Bug: Can't you get to NE overworld in MG using kikiskip?
 
-//must_be_link -- only return routes that end with Link state
+//must_be_link -- only return routes that end with Link state.
+//	false = bunny, superbunny or link; true = link; 2 = superbunny or link
 //from_locs -- route has already been through these regions, don't go through here again or it will be infinite loop
-//bottles -- # of bottles remaining that can be used (for fake fluting)
+//bottles -- # of bottles remaining that can be used (e.g. for fake fluting)
 //TODO: Add OBR and unbunny+superbunny-item and superbunny-item+pull and unbunny+fake flute as possible Link states
 var regions = {
-	westDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) { //Later: Add 1f access to owg+ (all regions)
+	westDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
 		if (from_locs.indexOf("westDeathMountain") !== -1)
 			return {};
 		var new_locs = from_locs.slice(0);
@@ -69,23 +67,14 @@ var regions = {
 					return orCombinator(path1, path2, path3, path4);
 			}
 		} else {
-			var path1 = {}; //Flute
-			var path2 = {}; //1f
-			var path3 = {}; //Fake Flute
-			var path4 = {}; //Bootsclip
-			var path5 = {}; //Old man cave 
-			var path6 = {}; //Dark room - DW logic
-			if (rescueZelda()) {
-				path1 = canFly_path(new_locs);
-				path2 = canOneFrameClipOW_path();
-				path3 = canOWYBA_path();
-				path4 = canBootsClip_path();
-				if (canLiftRocks() && items.lantern)
-					path5 = {ng:"a"};
-				if (canLiftRocks())
-					path6 = glitched("oldMan");
-			}
-			return orCombinator(path1, path2, path3, path4, path5, path6);
+			return andCombinator([rescueZelda(),
+				orCombinator([canFly_path(new_locs), //Flute
+					canOneFrameClipOW_path(), //1f
+					canOWYBA_path(bottles), //Fake flute
+					canBootsClip_path(), //Bootsclip
+					canLiftRocks() && items.lantern, //Old man cave
+					andCombinator([canLiftRocks(), glitched("oldMan")]), //Dark room
+					andCombinator([glitched("true"), canSuperSpeed_path()])])]); //Spinspeed only, screenwrap on DM to enter Hera [V31 bug]
 		}
 	},
 	eastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -118,21 +107,15 @@ var regions = {
 					return orCombinator(path1, path2);
 			}
 		} else {
-			path1 = {}; //1f
-			path2 = {}; //Mirror clip
-			path3 = {}; //Bootsclip
-			path4 = {}; //Hammer+Mirror, Hookshot
-			path5 = {}; //Mirrorwrap [V31 bug]
-			if (rescueZelda()) {
-				path1 = canOneFrameClipOW_path();
-				path2 = canMirrorClip_path();
-				path3 = canBootsClip_path();
-				if ((items.hammer && items.mirror)
-					|| hasHookshot())
-					path4 = {ng:"a"};
-				//path5 = andCombinator(glitched("true"), canMirrorWrap_path());
-			}
-			return andCombinator(regions.westDeathMountain(), orCombinator(path1, path2, path3, path4));
+			return andCombinator([rescueZelda(),
+				AccurateLogic(regions.westDeathMountain(), regions.westDeathMountain(undefined, from_locs, bottles)),
+					orCombinator([canOneFrameClipOW_path(), //1f
+						canMirrorClip_path(), //Mirror clip
+						canBootsClip_path(), //Bootsclip
+						(items.hammer && items.mirror)
+						|| hasHookshot(),
+						andCombinator([glitched("true"), canMirrorWrap_path()]), //Mirrorwarp [V31 bug]
+						andCombinator([glitched("true"), canSuperSpeed_path()])])]); //Superspeed [V31 bug]
 		}
 	},
 	darkEastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -168,43 +151,24 @@ var regions = {
 					return orCombinator(path1, path2, path3);
 			}
 		} else {
-			var path1 = {}; //eDM + mitts
-			var path2 = {}; //Bootsclip
-			var path3 = {}; //1f
-			if (rescueZelda()) {
-				if (canLiftDarkRocks())
-					path1 = regions.eastDeathMountain();
-				if (items.moonpearl || items.hammer)
-					path2 = canBootsClip_path();
-				path3 = canOneFrameClipOW_path();
-			}
-			return orCombinator(path1, path2, path3);
-			var path1 = {}; //eDM + mitts
-			var path2 = {}; //Bootsclip TR
-			var path3 = {}; //Bootsclip from wDM
-			var path4 = {}; //1f
-			var path5 = {}; //Mirrorclip [V31 bug]
-			var path6 = {}; //Mirrorwrap [V31 bug]
-			if (rescueZelda()) {
-				if (canLiftDarkRocks()
-					&& ((items.moonpearl && must_be_link) || !must_be_link))
-					path1 = regions.eastDeathMountain(undefined, new_locs, bottles);
-				if (items.hammer && ((items.moonpearl && must_be_link) || !must_be_link))
-					path2 = andCombinator(canBootsClip_path(), regions.eastDeathMountain(undefined, new_locs, bottles));
-				if (must_be_link)
-					//TR climb involves a jump, so need to be Link even if you only care about superbunny
-					path3 = andCombinator(canBootsClip_path(), regions.darkWestDeathMountain(true, new_locs, bottles));
-				if (!must_be_link)
-					//If you don't care at all, then TR climb as superbunny is allowable
-					path3 = andCombinator(canBootsClip_path(), regions.darkWestDeathMountain(2, new_locs, bottles));
-				//1f/mirror clip involves a jump, so need to be Link even if you only care about superbunny.
-				//  If you don't care at all, then 1f/mirror clip as bunny is allowable
-				path4 = andCombinator(canOneFrameClipOW_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles));
-				//path5 = andCombinator(glitched("true"), canMirrorClip_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles), glitched("true"));
-				//Mirror wrap preserves state of Link, but the only down there is superbunny (which doesn't matter), so you'll be bunny on top of dEDM
-				//path6 = andCombinator(glitched("true"), canMirrorWrap_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles), glitched("true"));
-			}
-			return orCombinator(path1, path2, path3, path4);
+			var eDMs = regions.eastDeathMountain();
+			var eDMa = regions.eastDeathMountain(undefined, new_locs, bottles);
+			var dWDMa = regions.darkWestDeathMountain(must_be_link === false ? 2 : true, new_locs, bottles);
+			var dWDMa2 = regions.darkWestDeathMountain(must_be_link !== false, new_locs, bottles);
+			var dWDMa3 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+			return andCombinator([rescueZelda(),
+				orCombinator([andCombinator([canLiftDarkRocks(), //eDM + mitts pearl->true, pearl->sb, any->false
+						AccurateLogic(eDMs,
+							andCombinator([items.moonpearl || must_be_link === false, eDMa]))]),
+					andCombinator([canBootsClip_path(), //Bootsclip
+						AccurateLogic(items.moonpearl || items.hammer,
+							orCombinator([dWDMa, //true->true, true->sb, true/sb->false
+								andCombinator([items.hammer && (items.moonpearl || must_be_link === false), eDMa])]))]), //pearl->true, pearl->sb, any->false
+					AccurateLogic(canOneFrameClipOW_path(), //1f true->true, true->sb, any->false
+						andCombinator([canOneFrameClipOW_path(), dWDMa2])),
+					andCombinator([glitched("true"), canMirrorClip_path(), items.moonpearl || must_be_link === false, dWDMa3]), //Mirrorclip [V31 bug] pearl->true, pearl->sb, any->false
+					andCombinator([glitched("true"), canMirrorWrap_path(), dWDMa2]), //Mirrorwrap [V31 bug] true->true, true->sb, any->false
+					andCombinator([glitched("true"), canSuperSpeed_path(), dWDMa])])]); //Spinspeed [V31 bug] true->true, true->sb, true/sb->false
 		}
 	},
 	darkWestDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
@@ -240,7 +204,7 @@ var regions = {
 					return orCombinator(path1, path2, path3, path4);
 			}
 		} else {
-			return rescueZelda();
+			return bool2path(rescueZelda());
 			var path1 = {}; //From WDM
 			var path2 = {}; //DMA to get to DM with Link State
 			var path3 = {}; //Fake flute to boulders, to get superbunny state
@@ -329,10 +293,11 @@ var regions = {
 					|| (items.moonpearl && items.hammer && canLiftRocks())) {
 					return {ng:"a"}; //path2
 				}
-				if (canLiftDarkRocks() && items.moonpearl)
+				if (canLiftDarkRocks() && items.moonpearl) {
 					if (items.flippers)
 						return {ng:"a"}; //path3
 					path3 = orCombinator(andCombinator(canBootsClip_path(), canFakeFlipper_path()), canWaterWalk_path());
+				}
 				if (bottles >= 1) { //Can always pull pyramid statue for link state
 					//var temp_locs = new_locs.slice(0);
 					//temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
@@ -407,6 +372,8 @@ var regions = {
 				if ((items.hammer && canLiftRocks()) || canLiftDarkRocks())
 					path4 = {ng:"a"};
 			}
+			//What about mapwrap from TR?
+
 			return orCombinator(path1, andCombinator(path2, orCombinator(path3, path4)));
 			var path1 = {}; //1f
 			var path2 = {}; //Stupid logic [V31 bug]
@@ -598,68 +565,39 @@ dungeons[0] = {
 	},
 	kChestCount: 6,
 	isAccessible: function(){
-		if (rescueZelda())
-			return {ng:"a"};
-		return {};
+		return bool2path(rescueZelda());
 	},
 	canGetPrize: function(){
-		return this.isBeatable();
+		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
-	isBeatable: function(){
-		if (isEmpty(this.isAccessible()))
+	isBeatable: function(ignore_entry = false){
+		if (!ignore_entry && isEmpty(this.isAccessible()))
 			return {};
-		//Compass, big, cannonball, big key, map, boss
-		//Big: BK
-		//Big key: lantern
-		//Boss: arrow, lantern, BK, boss, compass, map
-		switch (optionVariation) {
-			case "keysanity":
-				if (items.lantern && qtyCounter.ditems_bk0
-					&& qtyCounter.ditems_comp0 && qtyCounter.ditems_map0)
-					return andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss0));
-				return {};
-			default:
-				//Case where it is always beatable
-				if (items.lantern) { //BK is always accessible with this item set
-					return andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss0));
-				}
-				//No case where it might be beatable
-				return {};
-		}
+		//Boss: arrow, darkness, BK, boss, MC
+		var path1 = {}; //Dark back
+		var path2 = {}; //Big Key
+		var path3 = {}; //MC
+		path1 = orCombinator([items.lantern, andCombinator([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
+		path2 = this.big();
+		path3 = (qtyCounter.ditems_comp0 && qtyCounter.ditems_map0) || optMapCompLogic === false || optionVariation === "none";
+		return andCombinator([canShootArrows_path(), path1, path2, canBeatBoss(0), path3]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		switch (optionVariation) {
-			case "keysanity":
-				var path1 = {ng:"a"}; //Free
-				var path2 = {}; //Big
-				var path3 = {}; //BK
-				var path4 = {}; //Boss
-				if (qtyCounter.ditems_bk0)
-					path2 = {ng:"a"};
-				if (items.lantern)
-					path3 = {ng:"a"};
-				if (items.lantern && qtyCounter.ditems_bk0
-					&& qtyCounter.ditems_comp0 && qtyCounter.ditems_map0)
-					path4 = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss0));
-				return multipleChests(path1, path2, path3, path4);
-			default:
-				var path1 = {ng:"a"}; //Free
-				var path2 = {}; //Big
-				var path3 = {}; //BK
-				var path4 = {}; //Boss
-				var p_bk = {}; //BK availability, can only be path1 or path3
-				if (items.lantern)
-					path3 = {ng:"a"};
-				p_bk = anyOrAllCombinator(path1, path3);
-				path2 = p_bk;
-				if (items.lantern)
-					path4 = andCombinator(canShootArrows_path(), p_bk, canBeatBoss(0, qtyCounter.boss0));
-				var always = andCombinator(path1, path2, path3, path4);
-				var possible = {ng:"p"}; //Lucky items in compass, cannonball, map
-				return orCombinator(always, possible);
-		}
+		var hope = orCombinator([andCombinator([this.big(), this.bigkey(), this.isBeatable()]),
+			convertPossible(threshCombinator(items.maxChest0, [{ng:"a"}, this.big(), {ng:"a"}, this.bigkey(), {ng:"a"}, this.isBeatable()]))]);
+		if (isEmpty(hope))
+			return multipleChests({ng:"a"}, this.big(), this.bigkey(), this.isBeatable());
+		return hope;
+	},
+	big: function(){ //BK
+		return orCombinator([qtyCounter.ditems_bk0,
+			andCombinator([optionVariation !== "keysanity",
+				anyOrAllCombinator([{ng:"a"}, this.bigkey()])])]);
+	},
+	bigkey: function(){ //Lamp
+		return orCombinator([items.lantern, glitched("ep_dark")]);
 	}
 };
 dungeons[1] = {
@@ -684,136 +622,64 @@ dungeons[1] = {
 	},
 	kChestCount: 6,
 	isAccessible: function(){ //isAccessible only gets you to the front
-		var path1 = {}; //Front
-		var path2 = {}; //Bootsclip
-		var path3 = {}; //Fake Flute [V31 bug]
-		var path4 = {}; //Dark world
-		if (rescueZelda()) {
-			if (items.book)
-				path1 = {ng:"a"};
-			path2 = canBootsClip_path();
-			if (items.mirror && hasABottle())
-				path3 = canOWYBA_path();
-			if (items.mirror && canLiftDarkRocks())
-				path4 = canFly_path();
-		}
-		return orCombinator(path1, path2, path3, path4);
+		return andCombinator([rescueZelda(),
+			orCombinator([items.book, //Front
+				canBootsClip_path(), //Bootsclip
+				andCombinator([items.mirror, AccurateLogic(canOWYBA_path(), regions.mire())]), //Fake Flute [V31 bug]
+				andCombinator([items.mirror && canLiftDarkRocks(), canFly_path()]), //Dark world
+				andCombinator([glitched("true"), canOneFrameClipOW_path()])])]); //1f
 	},
 	canGetPrize: function(){
-		return this.isBeatable();
+		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
-	isBeatable: function(){
-		if (isEmpty(this.isAccessible()))
+	isBeatable: function(ignore_entry = false){
+		if (!ignore_entry && isEmpty(this.isAccessible()))
 			return {};
-		//Big, map, torch, big key, compass, boss
-		//Big: BK
-		//Big key, compass: SK
-		//Torch: boots
-		//Boss: glove, torch, BK, SK, boss, compass, map
-		//BossOWG: torch, BK, SK, boss, modified entry
-		//Dungeon notes:
-		//SK must be in big/map/torch. If SK is in Big, then BK cannot be in compass/BK
-		//  Access to big/map/torch = guaranteed SK.
-		switch (optionLogic) {
-			case "nmg":
-				switch (optionVariation) {
-					case "keysanity":
-						if (canLiftRocks()
-							&& canLightTorches() && qtyCounter.ditems_bk1 && qtyCounter.ditems_sk1
-							&& qtyCounter.ditems_map1 && qtyCounter.ditems_comp1)
-							return canBeatBoss(1, qtyCounter.boss1);
-						return {};
-					default:
-						var path1 = {}; //Always
-						var path2 = {}; //Possible
-						if (canLiftRocks() && canLightTorches()) {
-							if (items.boots //Guaranteed SK and hence guaranteed BK
-								&& (optionVariation !== "retro" || qtyCounter.hc_sk >= 1)) //BK might be on right side
-								path1 = canBeatBoss(1, qtyCounter.boss1);
-							path2 = convertPossible(canBeatBoss(1, qtyCounter.boss1)); //BK at map, SK in big chest
-						}
-						return orCombinator(path1, path2);
-				}
-			default:
-				switch (optionVariation) {
-					case "keysanity":
-						var path1 = {}; //Light world
-						var path2 = {}; //Dark world
-						if (canLightTorches() && qtyCounter.ditems_bk1 && qtyCounter.ditems_sk1) {
-							if ((items.book && canLiftRocks())
-								|| items.boots)
-								path1 = canBeatBoss(1, qtyCounter.boss1);
-							if (items.mirror)
-								path2 = andCombinator(regions.mire(), canBeatBoss(1, qtyCounter.boss1));
-						}
-						return orCombinator(path1, path2);
-					default:
-						var path1 = {}; //Always
-						var path2 = {}; //Possible from light world
-						var path3 = {}; //Possible from dark world
-						if (canLightTorches()) {
-							if (items.boots //Guaranteed SK and hence guaranteed BK, also fulfills modified entry
-								&& (optionVariation !== "retro" || qtyCounter.hc_sk >= 1)) //BK might be right side
-								path1 = canBeatBoss(1, qtyCounter.boss1);
-							if ((items.book && canLiftRocks()) //BK at map, SK in big chest
-								|| items.boots)
-								path2 = convertPossible(canBeatBoss(1, qtyCounter.boss1));
-							if (items.mirror) //BK at map, SK in big chest
-								path3 = convertPossible(andCombinator(regions.mire(), canBeatBoss(1, qtyCounter.boss1)));
-						}
-						return orCombinator(path1, path2, path3);
-				}
-		}
+		//Boss: glove/clip, torches, bk, sk, boss, MC
+		var path1 = {}; //Entry
+		var path2 = {}; //BK
+		var path3 = {}; //SK, min req nothing
+		var path4 = {}; //MC
+		path1 = orCombinator([canLiftRocks(), canBootsClip_path(),
+			andCombinator([glitched("true"), canOneFrameClipOW_path()])]);
+		path2 = this.big();
+		path3 = this.bigkey();
+		path4 = (qtyCounter.ditems_comp1 && qtyCounter.ditems_map1) || optMapCompLogic === false || optionVariation === "none";
+		return andCombinator([path1, canLightTorches(), path2, path3, canBeatBoss(1), path4]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		//Big, map, torch, big key, compass, boss
-		//Big: BK
-		//Big key, compass: SK
-		//Torch: boots
-		//Boss: glove, torch, BK, SK, boss, compass, map
-		//BossOWG: torch, BK, SK, boss, modified entry
-		//Dungeon notes:
-		//SK must be in big/map/torch. If SK is in Big, then BK cannot be in compass/BK
-		//  Access to big/map/torch = guaranteed SK.
-		switch (optionVariation) {
-			case "keysanity":
-				var path1 = {ng:"a"}; //Free map
-				var path2 = {}; //Big
-				var path3 = {}; //BK, compass
-				var path4 = {}; //Torch
-				var path5 = {}; //Boss
-				if (qtyCounter.ditems_bk1)
-					path2 = {ng:"a"};
-				if (qtyCounter.ditems_sk1 >= 1)
-					path3 = {ng:"a"};
-				if (items.boots)
-					path4 = {ng:"a"};
-				path5 = this.isBeatable();
-				return multipleChests(path1, path2, path3, path4, path5);
-			default:
-				var path1 = {ng:"a"}; //Free map
-				var path2 = {}; //Big
-				var path3 = {}; //BK, compass
-				var path4 = {}; //Torch
-				var path5 = {}; //Boss
-				var p_sk = {}; //SK availability, must be torch/map/big (only can be big if BK is map/torch)
-				if (items.boots)
-					path4 = {ng:"a"};
-				p_sk = anyOrAllCombinator(path1, path4);
-				if (optionVariation === "retro" && qtyCounter.hc_sk >= 1)
-					path3 = {ng:"a"};
-				else if (optionVariation === "retro")
-					path3 = {ng:"p"}; //Can buy key
-				else
-					path3 = p_sk;
-				path2 = anyOrAllCombinator(anyOrAllCombinator(path1, path4), path3);
-				path5 = this.isBeatable();
-				var always = andCombinator(path1, path2, path3, path4, path5);
-				var possible = {ng:"p"}; //SK/item in map, items on BK/compass
-				return orCombinator(always, possible);
-		}
+		var hope = orCombinator([andCombinator([this.big(), this.torch(), this.bigkey(), this.isBeatable()]),
+			convertPossible(threshCombinator(itemsMax.chest1, [this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.bigkey(), this.isBeatable()]))]);
+		if (isEmpty(hope))
+			return multipleChests(this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.isBeatable());
+		return hope;
+	},
+	big: function(from_locs = [], type = false){ //BK
+		if (from_locs.indexOf("big") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("big");
+		return orCombinator([qtyCounter.ditems_bk1,
+			andCombinator([optionVariation !== "keysanity",
+				anyOrAllCombinator([{ng:"a"}, this.torch(), this.bigkey(new_locs, true)])])]);
+	},
+	torch: function(){ //Boots
+		return orCombinator([items.boots, {ngv:"a"}]);
+	},
+	bigkey: function(from_locs = [], type = false){ //SK, min req nothing
+		if (from_locs.indexOf("bigkey") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("bigkey");
+		return orCombinator([
+			orCombinator([qtyCounter.ditems_sk1 >= 1,
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
+					anyOrAllCombinator([{ng:"a"}, this.torch(), this.big(new_locs, true)])])]),
+			{ng:"p"}]);
 	}
 };
 dungeons[2] = {
@@ -847,13 +713,7 @@ dungeons[2] = {
 		return orCombinator(path1, path2);
 	},
 	canGetPrize: function(){
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				return this.isBeatable();
-			default:
-				return this.isBeatable(); //Changed because app function is wrong, you can't dupe Hera in SP
-		}
+		return this.isBeatable();
 	},
 	isBeatable: function(){
 		if (isEmpty(this.isAccessible()))
@@ -1001,6 +861,43 @@ dungeons[2] = {
 		if (optionVariation !== "keysanity" || qtyCounter.ditems_sk8 >= 2) //Can buy keys in retro -- could be keys in bridge, lobby, left side for normal
 			path3 = convertPossible(dungeons[8].isAccessible());
 		return orCombinator(path1, path2, path3);
+	},
+	bigkey: function(from_locs = [], type = false){ //Torch, SK
+		if (from_locs.indexOf("bigkey") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("bigkey");
+		return andCombinator(bool2path(canLightTorches()),
+			orCombinator(bool2path(qtyCounter.ditems_sk2 >= 1),
+				andCombinator(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
+					anyOrAllCombinator([this.cage(), this.compass(new_locs, true), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
+	},
+	cage: function(){
+		return {ng:"a"};
+	},
+	map: function(){
+		return {ng:"a"};
+	},
+	compass: function(from_locs = [], type = false){ //main+BK || mire
+		if (from_locs.indexOf("compass") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("compass");
+		path1 = {}; //main
+		path2 = {}; //mire
+		path3 = {}; //Herapot
+		path1 = andCombinator(bool2path(!isEmpty(this.main())),
+			orCombinator(bool2path(qtyCounter.ditems_bk2 >= 1),
+				andCombinator(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
+					anyOrAllCombinator([this.bigkey(new_locs, true), this.cage(), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
+		path2 = bool2path(!isEmpty(this.mire()));
+		if (!isEmpty(this.main()) && hasHookshot())
+			path3 = glitched("herapot");
+		return orCombinator(path1, path2, path3);
+	},
+	big: function(from_locs = [], type = false){ //main+BK || mire+BK/BK2
 	}
 };
 dungeons[3] = {
@@ -1290,7 +1187,7 @@ dungeons[4] = {
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
 						var result = orCombinator(always, possible);
 						if (isEmpty(result)) {
-							return orCombinator(!isEmpty(this.mire()) ? {ng:"au"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"au"} : {}); //map in normal mode, entrance in retro mode
+							return orCombinator(!isEmpty(this.mire()) ? {ng:"a"/*u"*/} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"/*u"*/} : {}); //map in normal mode, entrance in retro mode
 						}
 						return result;
 				}
@@ -1343,77 +1240,89 @@ dungeons[5] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){ //isAccessible is only for the front
-		path1 = {}; //Basic
-		path2 = {}; //Entry
-		if (rescueZelda()) {
-			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
-				path1 = {ng:"a"};
-			else
-				path1 = canAdvancedItems_path();
-			path2 = andCombinator(orCombinator(canDungeonRevive_path(), (items.moonpearl ? {ng:"a"} : {})), regions.northWestDarkWorld());
-		}
-		return andCombinator(path1, path2);
+		return andCombinator([rescueZelda(),
+			orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
+			AccurateLogic(andCombinator([orCombinator([canDungeonRevive_path(), items.moonpearl]),
+					regions.northWestDarkWorld()]),
+				orCombinator([this.front(2), this.middle(2), this.back()]))]);
 	},
 	canGetPrize: function(){
-		return this.isBeatable();
+		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
-	isBeatable: function(){
-		if (isEmpty(this.isAccessible()))
+	isBeatable: function(ignore_entry = false, from_locs = [], type = false){
+		if (!ignore_entry && isEmpty(this.isAccessible()))
 			return {};
-		//Big, BK, compass, map, bridge, prison, pinball, boss
-		//Big: BK
-		//Bridge: pearl, firerod
-		//Pinball: always has SK
+		if (from_locs.indexOf("boss") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("boss");
 		//Boss: pearl, firerod, swordless/sword, 3SK, boss, compass, map
-		switch (optionVariation) {
-			case "keysanity":
-				if (items.moonpearl && items.firerod
-					&& (optionSwords === "swordless" || hasSword())
-					&& qtyCounter.ditems_sk5 >= 2 && qtyCounter.ditems_comp5 && qtyCounter.ditems_map5)
-					return canBeatBoss(5, qtyCounter.boss5);
-				return {};
-			default:
-				var path1 = {}; //Always
-				var path2 = {}; //Possible
-				if (items.moonpearl && items.firerod
-					&& (optionSwords === "swordless" || hasSword())) {
-					if ((optionVariation === "retro" && qtyCounter.hc_sk >= 2)
-						|| optionVariation !== "retro")
-						path1 = canBeatBoss(5, qtyCounter.boss5);
-					path2 = convertPossible(5, qtyCounter.boss5); //Can buy keys
-				}
-				return orCombinator(path1, path2);
-		}
+		var path1 = {}; //SK, min req nothing
+		var path2 = {}; //MC
+		path1 = orCombinator([
+			orCombinator([qtyCounter.ditems_sk5 >= 3,
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
+					anyOrAllCombinator([this.big(new_locs, true), {ng:"a"}, this.bridge()])])]), //3 chests are always accessible
+			{ng:"p"}]);
+		path2 = (qtyCounter.ditems_comp5 && qtyCounter.ditems_map5) || optMapCompLogic === false || optionVariation === "none";
+		return andCombinator([AccurateLogic(items.moonpearl && items.firerod, this.bridge()),
+			optionSwords === "swordless" || hasSword(),
+			path1, canBeatBoss(5), path2]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		switch (optionVariation) {
-			case "keysanity":
-				var path1 = {ng:"a"}; //Free BK, compass, map, prison, pinball(SK)
-				var path2 = {}; //Big
-				var path3 = {}; //Bridge
-				var path4 = {}; //Boss
-				if (qtyCounter.ditems_bk5)
-					path2 = {ng:"a"};
-				if (items.moonpearl && items.firerod)
-					path3 = {ng:"a"};
-				path4 = this.isBeatable();
-				return multipleChests(path1, path2, path3, path4);
-			default:
-				var path1 = {ng:"a"}; //Free BK, compass, map, prison, pinball(SK)
-				var path2 = {}; //Big
-				var path3 = {}; //Bridge
-				var path4 = {}; //Boss
-				if (items.moonpearl && items.firerod)
-					path3 = {ng:"a"};
-				path4 = this.isBeatable();
-				path2 = anyOrAllCombinator(anyOrAllCombinator(path1, path3), path4);
-				var always = andCombinator(path1, path2, path3, path4);
-				var possible = {ng:"p"}; //Items in BK, compass, map, prison, pinball(SK)
-				return orCombinator(always, possible);
-		}
-	}
+		var hope = orCombinator([andCombinator([this.big(), this.bridge(), this.isBeatable()]),
+			convertPossible(threshCombinator(itemsMax.chest5, [this.big(), {ng:"a"}, {ng:"a"}, {ng:"a"}, this.bridge(), {ng:"a"}, {ng:"a"}, this.isBeatable()]))]);
+		if (isEmpty(hope))
+			return multipleChests(this.big(), {ng:"a"}, this.bridge(), this.isBeatable());
+		return hope;
+	},
+	front: function(must_be_link = false){
+		if (must_be_link === true) {
+			return orCombinator([regions.northWestDarkWorld(true),
+				andCombinator([regions.northWestDarkWorld(), canDungeonRevive_path()])]);
+		} else if (must_be_link === 2) {
+			return orCombinator([regions.northWestDarkWorld(true),
+				andCombinator([regions.northWestDarkWorld(),
+					orCombinator([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("fall"), canSuperBunny_path("hit")])])]);
+		} else
+			return regions.northWestDarkWorld();
+	},
+	middle: function(must_be_link = false){
+		if (must_be_link === true) {
+			return orCombinator([regions.northWestDarkWorld(true),
+				andCombinator([regions.northWestDarkWorld(), canDungeonRevive_path()])]);
+		} else if (must_be_link === 2) {
+			return orCombinator([regions.northWestDarkWorld(true),
+				andCombinator([regions.northWestDarkWorld(),
+					orCombinator([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("hit")])])]);
+		} else
+			return regions.northWestDarkWorld();
+	},
+	back: function(){
+		return andCombinator([items.firerod,
+			orCombinator([andCombinator([items.moonpearl, this.middle()]), //Pearl to preserve Link state
+				andCombinator([glitched("true"), this.middle(true), !dungeons[11].isBeaten()]), //Fake dark world, as long as Aga not dead
+				andCombinator([glitched("mapwrap"), regions.darkEastDeathMountain(true), orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])])])]); //Map wrap
+	},
+	big: function(from_locs = [], type = false){ //BK, but allowed to have BK if accessibility !== locations
+		if (from_locs.indexOf("big") !== -1)
+			if (type === false) return {};
+			else return {ng:"a"};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("big");
+		return andCombinator([orCombinator([qtyCounter.ditems_bk5,
+				andCombinator([optionVariation !== "keysanity",
+					anyOrAllCombinator([{ng:"a"}, this.bridge(), this.isBeatable(undefined, new_locs, true)])])]),
+			AccurateLogic(true,
+				orCombinator([!isEmpty(this.front(true)),
+					andCombinator([!isEmpty(this.front(2)), glitched("hover")])]))]);
+	},
+	bridge: function(){ //Pearl && Firerod
+		return AccurateLogic(items.moonpearl && items.firerod, this.back());
+	},
 };
 dungeons[6] = {
 	name: "Thieves' Town",
@@ -1437,85 +1346,69 @@ dungeons[6] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){
-		path1 = {}; //Basic
-		path2 = {}; //Entry
-		if (rescueZelda()) {
-			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
-				path1 = {ng:"a"};
-			else
-				path1 = canAdvancedItems_path();
-			path2 = andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()), regions.northWestDarkWorld());
-		}
-		return andCombinator(path1, path2);
+		return andCombinator([rescueZelda(),
+			orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
+			AccurateLogic(andCombinator([orCombinator([items.moonpearl, canOWYBA_path()]),
+					regions.northWestDarkWorld()]),
+				regions.northWestDarkWorld(true))]);
 	},
 	canGetPrize: function(){
-		return this.isBeatable();
+		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
-	isBeatable: function(){
-		if (isEmpty(this.isAccessible()))
+	isBeatable: function(ignore_entry = false){
+		if (!ignore_entry && isEmpty(this.isAccessible()))
 			return {};
-		//Attic, BK, map, compass, ambush, big, cell, boss
-		//Attic: SK, BK
-		//Big: Hammer, SK, BK (if SK then hammer, BK)
-		//Cell: BK
 		//Boss: SK, BK, boss, compass, map
-		switch (optionVariation) {
-			case "keysanity":
-				if (qtyCounter.ditems_sk6 >= 1 && qtyCounter.ditems_bk6 && qtyCounter.ditems_comp6 && qtyCounter.ditems_map6)
-					return canBeatBoss(6, qtyCounter.boss6);
-				return {};
-			default:
-				//BK is always in a free chest -> Cell is free too
-				//SK could be in big chest
-				var path1 = {}; //Always
-				var path2 = {}; //Possible
-				if ((optionVariation === "retro" && qtyCounter.hc_sk >= 1)
-					|| (optionVariation !== "retro" && items.hammer)) //SK could be in big chest, meaning we need hammer to get SK
-					path1 = canBeatBoss(6, qtyCounter.boss6);
-				path2 = convertPossible(canBeatBoss(6, qtyCounter.boss6)); //BK and SK could be free
-				return orCombinator(path1, path2);
-		}
+		var path1 = {}; //SK, min req nothing
+		var path2 = {}; //BK
+		var path3 = {}; //MC
+		path1 = orCombinator([
+			orCombinator([qtyCounter.ditems_sk6 >= 1,
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
+					anyOrAllCombinator([{ng:"a"}, this.cell(), this.big()])])]),
+			{ng:"p"}]);
+		path2 = this.cell();
+		path3 = (qtyCounter.ditems_comp6 && qtyCounter.ditems_map6) || optMapCompLogic === false || optionVariation === "none";
+		return andCombinator(path1, path2, canBeatBoss(6), path3);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		switch (optionVariation) {
-			case "keysanity":
-				var path1 = {ng:"a"}; //BK, map, compass, ambush free
-				var path2 = {}; //Attic
-				var path3 = {}; //Big
-				var path4 = {}; //Cell
-				var path5 = {}; //Boss
-				if (qtyCounter.ditems_bk6 && qtyCounter.ditems_sk6 >= 1)
-					path2 = {ng:"a"};
-				if (items.hammer && qtyCounter.ditems_bk6 && qtyCounter.ditems_sk6 >= 1)
-					path3 = {ng:"a"};
-				if (qtyCounter.ditems_bk6)
-					path4 = {ng:"a"};
-				path5 = this.isBeatable();
-				return multipleChests(path1, path2, path3, path4, path5);
-			default:
-				var path1 = {ng:"a"}; //BK, map, compass, ambush free
-				var path2 = {}; //Attic
-				var path3 = {}; //Big
-				var path4 = {}; //Cell
-				var path5 = {}; //Boss
-				path4 = path1; //BK always free
-				if (items.hammer) {
-					if (optionVariation === "retro" && qtyCounter.hc_sk >= 1)
-						path3 = {ng:"a"};
-					else if (optionVariation === "retro") //Can buy key
-						path3 = {ng:"p"};
-					else
-						path3 = {ng:"a"}; //Already have SK from other locations, if SK here, then only need hammer+BK
-				}
-				path2 = anyOrAllCombinator(path1, path3); //SK location, BK location is free
-				path5 = this.isBeatable();
-				var always = andCombinator(path1, path2, path3, path4, path5);
-				var possible = {ng:"p"} //3 items+BK in front, 1 item/SK in cell, 1 item in attic
-				return orCombinator(always, possible);
-		}
+		var hope = orCombinator([andCombinator([this.attic(), this.big(), this.cell(), this.isBeatable()]),
+			convertPossible(threshCombinator(itemsMax.chest6, [this.attic(), {ng:"a"}, {ng:"a"}, {ng:"a"}, {ng:"a"}, this.big(), this.cell(), this.isBeatable()]))]);
+		if (isEmpty(hope))
+			return multipleChests({ng:"a"}, this.attic(), this.big(), this.cell(), this.isBeatable());
+		return hope;
 	},
+	attic: function(){ //SK, BK -- min req BK
+		var path1 = {}; //BK
+		var path2 = {}; //SK
+		path1 = this.cell();
+		path2 = orCombinator([
+			orCombinator([qtyCounter.ditems_sk6 >= 1,
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
+					anyOrAllCombinator([{ng:"a"}, this.cell(), this.big()])])]),
+			{ng:"p"}]);
+		return andCombinator(path1, path2);
+	},
+	big: function(){ //hammer+BK + SK if SK not inside (accessibility) -- min req hammer+BK
+		var path1 = {}; //BK
+		var path2 = {}; //SK
+		path1 = this.cell();
+		path2 = orCombinator([
+			orCombinator([qtyCounter.ditems_sk6 >= 1,
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
+					anyOrAllCombinator([{ng:"a"}, this.cell()])])]),
+			{ng:"p"}]);
+		var path3 = {}; //SK outside
+		var path4 = {}; //SK inside
+		path3 = andCombinator([items.hammer, path1, path2]);
+		path4 = andCombinator([items.hammer, path1]);
+		return anyOrAllCombinator([path3, path4]);
+	},
+	cell: function(){ //BK
+		return qtyCounter.ditems_bk6 || optionVariation !== "keysanity";
+	}
 };
 dungeons[7] = {
 	name: "Ice Palace",
@@ -1539,28 +1432,23 @@ dungeons[7] = {
 	},
 	kChestCount: 8,
 	isAccessible: function(){
-		path1 = {}; //Basic
-		path2 = {}; //First room
-		path3 = {}; //Normal
-		path4 = {}; //Glitched
-		if (rescueZelda()) {
-			if ((optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle())
-				path1 = {ng:"a"};
-			else
-				path1 = canAdvancedItems_path();
-			path2 = orCombinator((canMeltThings() ? {ng:"a"} : {}), canOneFrameClipUW_path());
-			path3 = andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canDungeonRevive_path()),
-				orCombinator((items.flippers ? {ng:"a"} : {}), canFakeFlipper_path()),
-				(canLiftDarkRocks() ? {ng:"a"} : {}));
-			path4 = andCombinator(canMirrorWrap_path(),
-				orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
-				orCombinator(canOneFrameClipOW_path(), canBootsClip_path()),
-				regions.SouthDarkWorld());
-		}
-		return andCombinator(path1, path2, orCombinator(path3, path4));
+		var path1 = {}; //Basic
+		var path2 = {}; //First room
+		var path3 = {}; //Pearl + swim + lift
+		var path4 = {}; //MirrorWrap + Linkstate + 1f/bootsclip + South
+		path1 = orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor())])
+		path2 = AccurateLogic(orCombinator([canMeltThings(), canOneFrameClipUW_path()]), true);
+		path3 = andCombinator([orCombinator([items.moonpearl, canDungeonRevive_path()]),
+			orCombinator([items.flippers, canFakeFlipper_path()]),
+			canLiftDarkRocks()]);
+		path4 = andCombinator([canMirrorWrap_path(),
+			orCombinator([items.moonpearl, canOWYBA_path()]),
+			orCombinator([canOneFrameClipOW_path(), canBootsClip_path()]),
+			regions.SouthDarkWorld()]);
+		return andCombinator([rescueZelda(), path1, path2, orCombinator([path3, path4])]);
 	},
 	canGetPrize: function(){
-		return this.isBeatable();
+		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
 	isBeatable: function(){
 		if (isEmpty(this.isAccessible()))
@@ -1602,121 +1490,40 @@ dungeons[7] = {
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		switch (optionLogic) {
-			case "nmg":
-			case "owg":
-				switch (optionVariation) {
-					case "keysanity":
-						var path1 = {}; //Compass, icedT, freezor
-						var path2 = {}; //Spike
-						var path3 = {}; //BK, map
-						var path4 = {}; //Big
-						var path5 = {}; //Boss
-						if (canMeltThings())
-							path1 = {ng:"a"};
-						if (canMeltThings()
-							&& (hasHookshot() || qtyCounter.ditems_sk7 >= 1))
-							path2 = {ng:"a"};
-						if (canMeltThings() && items.hammer && canLiftRocks())
-							path3 = path2;
-						if (canMeltThings() && qtyCounter.ditems_bk7)
-							path4 = {ng:"a"};
-						path5 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4, path5);
-					default:
-						var path1 = {}; //Compass, icedT, freezor
-						var path2 = {}; //Spike
-						var path3 = {}; //BK, map
-						var path4 = {}; //Big
-						var path5 = {}; //Boss
-						if (canMeltThings())
-							path1 = {ng:"a"};
-						if (canMeltThings() && hasHookshot())
-							path2 = {ng:"a"};
-						else if (canMeltThings()
-								&& ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-									|| items.byrna || items.cape))
-							path2 = {ng:"p"}; //Could be SK outside/bought and BK on right side
-						if (canMeltThings() && items.hammer && canLiftRocks()
-							&& ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-								|| items.byrna || items.cape || hasHookshot()))
-							path3 = path2;
-						if (canMeltThings())
-							path4 = anyOrAllCombinator(anyOrAllCombinator(path1, path2), path3);
-						path5 = this.isBeatable();
-						var always = andCombinator(path1, path2, path3, path4, path5);
-						var possible = {};
-						if (canMeltThings() && optionVariation !== "retro")
-							possible = {ng:"p"}; //Lucky items in compass, icedT, freezor
-						else if (optionVariation === "retro" && canMeltThings() //Lucky 2 more items & BK in spike+BK+compass
-							&& items.hammer && items.glove)
-							possible = {ng:"p"};
-						var result = orCombinator(always, possible);
-						if (isEmpty(result)) {
-							if (canMeltThings())
-								return {ng:"au"};
-							return {};
-						}
-						return result;
-				}
-			default:
-				switch (optionVariation) {
-					case "keysanity":
-						var path1 = {ng:"a"}; //Compass, icedT free
-						var path2 = {}; //Spike
-						var path3 = {}; //BK, map
-						var path4 = {}; //Big
-						var path5 = {}; //Boss
-						var path6 = {}; //Freezor
-						if (canMeltThings())
-							path6 = {ng:"a"};
-						if (hasHookshot() || qtyCounter.ditems_sk7 >= 1)
-							path2 = {ng:"a"};
-						if (items.hammer && canLiftRocks())
-							path3 = path2;
-						if (qtyCounter.ditems_bk7)
-							path4 = {ng:"a"};
-						path5 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4, path5, path6);
-					default:
-						var path1 = {ng:"a"}; //Compass, icedT free
-						var path2 = {}; //Spike
-						var path3 = {}; //BK, map
-						var path4 = {}; //Big
-						var path5 = {}; //Boss
-						var path6 = {}; //Freezor
-						if (hasHookshot())
-							path2 = {ng:"a"};
-						else if ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-									|| items.byrna || items.cape)
-							path2 = {ng:"p"}; //Could be SK outside/bought and BK on right side
-						if (items.hammer && canLiftRocks()
-							&& ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-								|| items.byrna || items.cape || hasHookshot()))
-							path3 = path2;
-						path4 = anyOrAllCombinator(anyOrAllCombinator(path1, path2), path3);
-						path5 = this.isBeatable();
-						if (canMeltThings())
-							path6 = {ng:"a"};
-						var always = andCombinator(path1, path2, path3, path4, path5, path6);
-						var possible = {};
-						if (canMeltThings() && optionVariation !== "retro")
-							possible = {ng:"p"}; //Lucky items in compass, icedT, freezor
-						else if (optionVariation !== "retro" //Lucky items in compass, icedT, spike
-							&& ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-								|| items.byrna || items.cape || hasHookshot()))
-							possible = {ng:"p"};
-						//Lucky items in compass, icedT, boss no good, because need BK from elsewhere
-						else if (optionVariation === "retro" //Lucky items in compass, icedT, spike, compass, big (BK in BK)
-							&& items.hammer && items.glove)
-							possible = {ng:"p"};
-						var result = orCombinator(always, possible);
-						if (isEmpty(result)) {
-							return {ng:"au"};
-						}
-						return result;
-				}
-		}
+		var hope = orCombinator([andCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable()]),
+			convertPossible(threshCombinator(itemsMax.chest7, [this.bigkey(), this.compass(), this.bigkey(), this.spike(), this.freezor(), this.compass(), this.big, this.isBeatable()]))]);
+		if (isEmpty(hope))
+			return multipleChests(this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable());
+		return hope;
+	},
+	bigkey: function(){ //hammer+glove+spike room
+		return andCombinator([items.hammer && canLiftRocks(), this.spike()]);
+	},
+	compass: function(){
+		return AccurateLogic(true, orCombinator([canMeltThings(), canOneFrameClipUW_path()]));
+	},
+	spike: function(){ //hookshot or if no BK avail first, then 1SK
+		//Hookshot guarantees, min req Hookshot OR SK (which can be gotten from below, so min req possible is nothing
+		//If you found the BK first (keysanity), then it must be Hookshot
+		//Hookshot
+		//keysanity BK, then hookshot
+		//kesanity no BK, then 1SK
+		//mcs BK
+		//mcs no BK
+		//BK
+		//no BK
+		
+		return orCombinator([hasHookshot(),
+			(qtyCounter.ditems_bk7 ? hasHookshot() : true)]);
+	},
+	freezor: function(){ //Melt
+		return canMeltThings();
+	},
+	big: function(){ //BK
+		return andCombinator([this.compass(),
+			orCombinator([qtyCounter.ditems_bk7,
+				andCombinator([optionVariation !== "keysanity",
+					anyOrAllCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor()])])])]);
 	}
 };
 dungeons[8] = {
@@ -2002,6 +1809,7 @@ dungeons[9] = {
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
+		return {};
 		switch (optionLogic) {
 			case "nmg":
 				switch (optionVariation) {
@@ -2095,7 +1903,7 @@ dungeons[10] = {
 		}
 	},
 	kChestCount: 27,
-	isAccessible: function(){
+	isAccessible: function(){ //Needs to handle crystal requirements specially for goModeCalc (may not have all crystals yet)
 		var crystalCount = 0;
 		for(var i = 0; i < 10; i++)
 			if ((qtyCounter["dungeonPrize"+i] === 2 || qtyCounter["dungeonPrize"+i] === 1) && dungeons[i].gotPrize())
@@ -2116,7 +1924,7 @@ dungeons[10] = {
 	canGetPrize: function(){
 		return this.isBeatable();
 	},
-	isBeatable: function(){
+	isBeatable: function(){ //Need isBeatable calculation for gomode when isAccessible might be missing...
 		if (isEmpty(this.isAccessible()))
 			return {};
 		switch (optionVariation) {
@@ -2226,7 +2034,8 @@ dungeons[11] = {
 	canGetPrize: function(){
 		return this.isBeatable();
 	},
-	isBeatable: function(){
+	isBeatable: function(goModeCalc = true){
+		//TODO: Ignore this if doing goModeCalc
 		if (isEmpty(this.isAccessible()))
 			return {};
 		//Room3, darkmaze, boss
@@ -2286,28 +2095,8 @@ dungeons[12] = {
 	canGetPrize: function(){
 		return this.isBeatable();
 	},
-	isBeatable: function(){
-		switch (optionGoal) {
-			case "alldungeons":
-				for (var i = 0; i < 10; i++)
-					if (!dungeons[i].gotPrize())
-						return {};
-				if (!dungeons[10].isBeaten() || !dungeons[11].isBeaten())
-					return {};
-				break;
-			case "ganon":
-				var count = 0;
-				for (var i = 0; i < 10; i++)
-					if (qtyCounter["dungeonPrize"+i] >= 1 && qtyCounter["dungeonPrize"+i] <= 2) {
-						count++;
-						if (!dungeons[i].gotPrize())
-							return {};
-					}
-				if (count !== 7)
-					return {};
-				break;
-		}
-		if (items.moonpearl && dungeons[10].isBeaten()
+	isBeatable: function(goModeCalc = false){
+		if (items.moonpearl && (dungeons[10].isBeaten() || goModeCalc)
 			&& ((optionSwords === "swordless" && items.hammer)
 				|| (optionDifficulty !== "easy" && (hasSword(2) && (items.lantern || (items.firerod && canExtendMagic(3)))))
 				|| (hasSword(3) && (items.lantern || (items.firerod && canExtendMagic(2)))))) {
@@ -2319,6 +2108,9 @@ dungeons[12] = {
 	},
 	canGetChests: function(){
 		return this.isBeatable();
+	},
+	canReachHole: function(){ //for go mode calcs, TODO it needs to understand bunny states
+		return regions.northEastDarkWorld();
 	}
 };
 
@@ -4075,6 +3867,7 @@ chests[54] = {
 	isAvailable: function(){
 		if (canBombThings())
 			return regions.SouthDarkWorld();
+		return {};
 	}
 };
 chests[55] = {
