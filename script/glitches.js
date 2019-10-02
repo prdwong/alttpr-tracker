@@ -20,7 +20,7 @@ var glitches = {
 	},
 
 	//Bomb jumps
-	qirn_jump: { category: "bj", name: "Fake flipper via bomb (Qirn jump)"
+	qirn_jump: { category: "bj", name: "Qirn Jump", tip: "Bomb jump into fake flipper from North West Dark World to North East Dark World"
 	},
 	
 	//Minor glitches
@@ -36,13 +36,17 @@ var glitches = {
 	},
 	dungeonrevival: { category: "minor", name: "Dungeon Bunny Revival", tip: "Die or get Wallmastered in a dungeon", def:"top"
 	},
+	fairy_fakeflipper: { category: "minor", name: "Fairy Revive in Water", tip: "Fake flipper and/or Link state from fairy revive"
+	},
 	surfingbunny_mirror: { category: "minor", name: "Mirror Surfing Bunny", tip: "Land in mirror portal over deep water"
 	},
 	hover: { category: "minor", name: "Hovering"
 	},
-
-	bombfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive"
+	hoverDM: { category: "minor", name: "DM Bridge Hover", tip: "Hover across DM bridge after fairy revive"
 	},
+	superqirn_jump: { category: "minor", name: "Qirn Jump via Slime", tip: "Freeze Hinox then quake it into a slime"
+	},
+	
 	wriggle: { category: "minor", name: "Wriggling bunny"
 	},
 	fakeflipper_zora: { category: "minor", name: "Fake flipper through Zora's Domain"
@@ -51,7 +55,7 @@ var glitches = {
 	},
 	fakepowder: { category: "minor", name: "Fake Powder"
 	},
-	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG"
+	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG" //combined with fairy_fakeflipper
 	},
 	bigbombdupe_mirror: { category: "minor", name: "Dupe big bomb using mirror"
 	},
@@ -61,8 +65,7 @@ var glitches = {
 	},
 	bigbombdupe_hinox: { category: "minor", name: "Dupe big bomb via Hinox blob"
 	},
-	superqirn_jump: { category: "minor", name: "Qirn jump without bombs"
-	},
+
 	herapot: { category: "minor", name: "Herapot"
 	},
 	
@@ -129,15 +132,25 @@ var glitches = {
 	//Major glitches
 	fakeflute: { category: "major", name: "Fake Flute", tip: "Blue YBA"
 	},
+	fakefluteDM: { category: "major", name: "Fake Flute to Dark DM", tip: "Dodge boulders/deadrocks to get to dark West Death Mountain with superbunny status intact"
+	},
 	clip1f: { category: "major", name: "One Frame Overworld Clips", tip: "Clips without boots/pearl"
 	},
 	mapwrap: { category: "major", name: "Map Wraps", tip: "Skull Woods from Turtle Rock"
 	},
 	fakeworld: { category: "major", name: "Fake World", tip: "Avoid turning back into a bunny on screens with a dungeon"
 	},
-	
-	fakefluteDM: { category: "major", name: "Fake Flute to DM"
+	bombclipOW: { category: "major", name: "Overworld bomb Clips", tip: "Dash into bomb explosion to clip into upper slope"
 	},
+	superjump_mire: { category: "major", name: "Mire Superjump", tip: "Find your way around mire area after doing Death Mountain superjump"
+	},
+	mirhambri: { category: "major", name: "Hammer Bridge Mirrorclip", tip: "Mirrorclip into the side of hammer peg bridge to go from south dark world to northeast dark world"
+	},
+	mireclip: { category: "major", name: "Mire mirrorclip", tip: "Clip into slope near Cave 45 area to enter mire"
+	},
+	mirewrap: { category: "major", name: "Mire mirrorwrap", tip: "Mirrorwrap near digging game to enter mire from above"
+	},
+	
 	kingtomb: { category: "major", name: "King's Tomb jump"
 	},
 	blacksmith_wrap: { category: "major", name: "Blacksmith screenwrap portal"

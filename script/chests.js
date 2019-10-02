@@ -32,505 +32,419 @@ Nonexistent/undefined values are equivalent to unavailable
 //	false = bunny, superbunny or link; true = link; 2 = superbunny or link
 //from_locs -- route has already been through these regions, don't go through here again or it will be infinite loop
 //bottles -- # of bottles remaining that can be used (e.g. for fake fluting)
+//newcalc -- recalculate from scratch, or grab from region cache to avoid expensive computation
 //TODO: Add OBR and unbunny+superbunny-item and superbunny-item+pull and unbunny+fake flute as possible Link states
-var regions = {
-	westDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("westDeathMountain") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("westDeathMountain");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					if ((items.moonpearl && must_be_link)
-						|| !must_be_link)
-						return regions.darkWestDeathMountain(undefined, new_locs, bottles);
-					return {};
-				default:
-					var path1 = {}; //From dark WDM
-					var path2 = {}; //From eastDeathMountain
-					var path3 = {}; //From light NW
-					var path4 = {}; //Fake flute will stay same state as before fluting
-					if ((items.moonpearl && must_be_link)
-						|| !must_be_link)
-						path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-					if (items.hammer || hasHookshot() || items.boots) //top path, lower path, or boots to clip
-						path2 = regions.eastDeathMountain(true, new_locs, bottles);
-					if (items.boots)
-						path3 = regions.northWestLightWorld(true, new_locs, bottles);
-					if (bottles >= 1)
-						path4 = andCombinator(glitched("fakeflute"),
-							orCombinator(regions.eastDeathMountain(must_be_link, new_locs, bottles - 1),
-							regions.northEastLightWorld(must_be_link, new_locs, bottles - 1),
-							regions.northWestLightWorld(must_be_link, new_locs, bottles - 1),
-							regions.SouthLightWorld(must_be_link, new_locs, bottles - 1)));
-					return orCombinator(path1, path2, path3, path4);
-			}
-		} else {
-			return andCombinator([rescueZelda(),
-				orCombinator([canFly_path(new_locs), //Flute
-					canOneFrameClipOW_path(), //1f
-					canOWYBA_path(bottles), //Fake flute
-					canBootsClip_path(), //Bootsclip
-					canLiftRocks() && items.lantern, //Old man cave
-					andCombinator([canLiftRocks(), glitched("oldMan")]), //Dark room
-					andCombinator([glitched("true"), canSuperSpeed_path()])])]); //Spinspeed only, screenwrap on DM to enter Hera [V31 bug]
-		}
-	},
-	eastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("eastDeathMountain") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("eastDeathMountain");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //From dark EDM
-					var path2 = {}; //From wDM
-					if (canLiftDarkRocks()
-						&& ((items.moonpearl && must_be_link)
-							|| !must_be_link))
-						path1 = regions.darkEastDeathMountain(undefined, new_locs, bottles);
-					if (hasHookshot())
-						path2 = regions.westDeathMountain(true, new_locs, bottles);
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //From dark EDM
-					var path2 = {}; //From wDM
-					if (canLiftDarkRocks()
-						&& ((items.moonpearl && must_be_link)
-							|| !must_be_link))
-						path1 = regions.darkEastDeathMountain(undefined, new_locs, bottles);
-					if (hasHookshot() || items.boots)
-						path2 = regions.westDeathMountain(true, new_locs, bottles);
-					//Can boots climb from NE light world, but if you can do that, you have west DM access anyways
-					return orCombinator(path1, path2);
-			}
-		} else {
-			return andCombinator([rescueZelda(),
-				AccurateLogic(regions.westDeathMountain(), regions.westDeathMountain(undefined, from_locs, bottles)),
-					orCombinator([canOneFrameClipOW_path(), //1f
-						canMirrorClip_path(), //Mirror clip
-						canBootsClip_path(), //Bootsclip
-						(items.hammer && items.mirror)
-						|| hasHookshot(),
-						andCombinator([glitched("true"), canMirrorWrap_path()]), //Mirrorwarp [V31 bug]
-						andCombinator([glitched("true"), canSuperSpeed_path()])])]); //Superspeed [V31 bug]
-		}
-	},
-	darkEastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("darkEastDeathMountain") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("darkEastDeathMountain");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Lynels
-					var path2 = {}; //EDM
-					var path3 = {}; //Hookshot Lynels
-					if ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-						|| items.byrna || items.cape)
-						path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-					if (items.mirror)
-						path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
-					if (hasHookshot())
-						path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-					return orCombinator(path1, path2, path3);
-				default:
-					var path1 = {}; //Lynels
-					var path2 = {}; //EDM
-					var path3 = {}; //Hookshot Lynels
-					if (items.boots || (optionVariation !== "ohko" && optionVariation !== "timedohko")
-						|| items.byrna || items.cape)
-						path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-					if (items.mirror)
-						path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
-					if (hasHookshot())
-						path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-					return orCombinator(path1, path2, path3);
-			}
-		} else {
-			var eDMs = regions.eastDeathMountain();
-			var eDMa = regions.eastDeathMountain(undefined, new_locs, bottles);
-			var dWDMa = regions.darkWestDeathMountain(must_be_link === false ? 2 : true, new_locs, bottles);
-			var dWDMa2 = regions.darkWestDeathMountain(must_be_link !== false, new_locs, bottles);
-			var dWDMa3 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
-			return andCombinator([rescueZelda(),
-				orCombinator([andCombinator([canLiftDarkRocks(), //eDM + mitts pearl->true, pearl->sb, any->false
-						AccurateLogic(eDMs,
-							andCombinator([items.moonpearl || must_be_link === false, eDMa]))]),
-					andCombinator([canBootsClip_path(), //Bootsclip
-						AccurateLogic(items.moonpearl || items.hammer,
-							orCombinator([dWDMa, //true->true, true->sb, true/sb->false
-								andCombinator([items.hammer && (items.moonpearl || must_be_link === false), eDMa])]))]), //pearl->true, pearl->sb, any->false
-					AccurateLogic(canOneFrameClipOW_path(), //1f true->true, true->sb, any->false
-						andCombinator([canOneFrameClipOW_path(), dWDMa2])),
-					andCombinator([glitched("true"), canMirrorClip_path(), items.moonpearl || must_be_link === false, dWDMa3]), //Mirrorclip [V31 bug] pearl->true, pearl->sb, any->false
-					andCombinator([glitched("true"), canMirrorWrap_path(), dWDMa2]), //Mirrorwrap [V31 bug] true->true, true->sb, any->false
-					andCombinator([glitched("true"), canSuperSpeed_path(), dWDMa])])]); //Spinspeed [V31 bug] true->true, true->sb, true/sb->false
-		}
-	},
-	darkWestDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("darkWestDeathMountain") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("darkWestDeathMountain");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Old man cave
-					var path2 = {}; //Flute
-					var path3 = {}; //Dark room glitch
-					if (canLiftRocks() && items.lantern)
-						path1 = {ng:"a"};
-					path2 = canFly_path(new_locs);
-					if (canLiftRocks())
-						path3 = glitched("oldMan");
-					return orCombinator(path1, path2, path3);
-				default:
-					var path1 = {}; //Old man cave
-					var path2 = {}; //Flute
-					var path3 = {}; //Dark room glitch
-					var path4 = {}; //Fake flute
-					if ((canLiftRocks() && items.lantern)
-						|| items.boots)
-						path1 = {ng:"a"};
-					path2 = canFly_path(new_locs);
-					if (canLiftRocks())
-						path3 = glitched("oldMan");
-					if (hasABottle() && bottles >= 1)
-						path4 = glitched("fakeflute");
-					return orCombinator(path1, path2, path3, path4);
-			}
-		} else {
-			return bool2path(rescueZelda());
-			var path1 = {}; //From WDM
-			var path2 = {}; //DMA to get to DM with Link State
-			var path3 = {}; //Fake flute to boulders, to get superbunny state
-			if (rescueZelda()) {
-				if ((items.moonpearl && must_be_link) || !must_be_link)
-					path1 = regions.westDeathMountain(undefined, new_locs, bottles);
-				path2 = andCombinator(canBootsClip_path(), regions.northWestDarkWorld(true, new_locs, bottles));
-				if (bottles >= 1 && must_be_link != true) { //Can't get Link State by fake fluting here, only superbunny
-//					var temp_locs = new_locs.slice(0);
-//					temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-//					var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-					var temp_locs = new_locs.slice(0);
-					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-					var ff2 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-//					var temp_locs = new_locs.slice(0);
-//					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-//					var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
-//					var temp_locs = new_locs.slice(0);
-//					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("northWestDarkWorld");
-//					var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
-					path3 = andCombinator(canOWYBA_path(bottles), glitched("fakefluteDM"), orCombinator(ff2, {}));
-				}
-			}
-			return orCombinator(path1, path2, path3);
-		}
-	},
-	northEastDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) { //Later: Add aga info
-		if (from_locs.indexOf("northEastDarkWorld") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("northEastDarkWorld");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Normal access
-					var path2 = {}; //Mirror from light world
-					var path3 = {}; //Waterwalk from NW
-					var path4 = {}; //Qirn jump
-					if (items.hammer || items.flippers)
-						path1 = {ng:"a"};
-					if (items.mirror)
-						path2 = regions.northEastLightWorld(undefined, new_locs, bottles);
-					if (items.boots)
-						path3 = glitched("waterwalk_boots");
-					if (canBombThings())
-						path4 = glitched("qirn_jump");
-					return orCombinator(path1, path2, path3, path4);
-				default:
-					var path1 = {}; //Normal access
-					var path2 = {}; //Mirror from light world
-					var path3 = {}; //Qirn jump
-					var path4 = {}; //Fake flute
-					if (items.hammer || items.flippers || items.boots)
-						path1 = {ng:"a"};
-					if (items.mirror)
-						path2 = regions.northEastLightWorld(undefined, new_locs, bottles);
-					if (canBombThings())
-						path3 = glitched("qirn_jump");
-					if (hasABottle() && bottles >= 1)
-						path4 = glitched("fakeflute");
-					return orCombinator(path1, path2, path3, path4);
-			}
-		} else {
-			var path1 = {}; //fake flute
-			var path2 = {}; //Aga or Portal 5
-			var path3 = {}; //NW Portal to NE
-			var path4 = {}; //Pyramid Mirror Portal
-			var path5 = {}; //NW Portal [V31 Bug]
-			var path5a = {}; //NW Portal - DW [V31 Bug], flippers
-			var path5b = {}; //NW Portal - DW [V31 Bug], waterwalk
-			var path5c = {}; //NW Portal - DW [V31 Bug], qirnjump
-			var path5d = {}; //S Portal - DW [V31 Bug], clip+fake flipper
-			var path5e = {}; //Qirn crazy jump - DW [V31 Bug]
-			var path6 = {}; //Pyramid portal [V31 Bug]
-			var path6a = {}; //Pyramid portal - DW [V31 Bug]
-			var path6b = {}; //Pyramid portal - DW [V31 Bug], no spinspeed
-			var path7 = {}; //Potion shop DMD - DW [V31 Bug]
-			var path7a = {}; //Potion shop DMD - DW [V31 Bug], fake flippers
-			var path7b = {}; //Potion shop FAWT - DW [V31 Bug]
-			var path8 = {}; //Catfish DMD - DW [V31 Bug]
-			var path9 = {}; //Moatclip - DW [V31 Bug]
-			var path10 = {}; //Fake flipper fairy revive
-			var path11 = {}; //Mirror wrap
-			if (rescueZelda()) {
-				if ((dungeons[11].isBeaten())// && ((items.moonpearl && must_be_link) || !must_be_link))
-					|| (items.moonpearl && items.hammer && canLiftRocks())) {
-					return {ng:"a"}; //path2
-				}
-				if (canLiftDarkRocks() && items.moonpearl) {
-					if (items.flippers)
-						return {ng:"a"}; //path3
-					path3 = orCombinator(andCombinator(canBootsClip_path(), canFakeFlipper_path()), canWaterWalk_path());
-				}
-				if (bottles >= 1) { //Can always pull pyramid statue for link state
-					//var temp_locs = new_locs.slice(0);
-					//temp_locs.push("darkEastDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-					//var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-					//if (canBootsClip_path().ng === "a") { ff1 = {}; ff3 = {}; ff4 = {}; } //always go via DM
-					//else {
-					//	var temp_locs = new_locs.slice(0);
-					//	temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld"); temp_locs.push("SouthDarkWorld");
-					//	var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-					//	var temp_locs = new_locs.slice(0);
-					//	temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-					//	var ff3 = regions.northWestDarkWorld(undefined, temp_locs, bottles - 1);
-					//	var temp_locs = new_locs.slice(0);
-					//	temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northWestDarkWorld");
-					//	var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
-					// }
-					path1 = canOWYBA_path();
-				}
-				//if ((items.moonpearl && must_be_link) || !must_be_link)
-				path4 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain());
-				/*
-				if (items.flippers)
-					path5a = regions.northWestDarkWorld(true, new_locs, bottles);
-				path5b = andCombinator(canWaterWalk_path(), regions.northWestDarkWorld(true, new_locs, bottles));
-				path5c = andCombinator(glitched("qirn_jump"), canBombThings(), regions.northWestDarkWorld(true, new_locs, bottles));
-				path5d = andCombinator(orCombinator(canBootsClip_path(), canOneFrameClipOW_path()),
-					canFakeFlipper_path(), regions.SouthDarkWorld(true, new_locs, bottles));
-				if ((items.icerod || items.ether) && items.quake && hasSword())
-					path5e = andCombinator(glitched("superqirn_jump"), regions.northWestDarkWorld(true, new_locs, bottles));
-				path5 = andCombinator(glitched("true"), orCombinator(path5a, path5b, path5c, path5d, path5e));
-				if ((items.moonpearl && must_be_link) || !must_be_link) {
-					path6a = andCombinator(glitched("true"), canMirrorClip_path(), canSuperSpeed_path(), regions.westDeathMountain(undefined, new_locs, bottles));
-					path6b = andCombinator(glitched("pyramid_wrap"), canMirrorClip_path(), canBootsClip_path(), regions.westDeathMountain(undefined, new_locs, bottles));
-				}
-				path6 = orCombinator(path6a, path6b);
-				path7a = andCombinator(glitched("true"),
-					orCombinator(canMirrorClip_path(), canBootsClip_path(), canSuperSpeed_path()),
-					canFakeFlipper_path(), regions.darkWestDeathMountain(true, new_locs, bottles));
-				path7b = andCombinator(glitched("true"), canBootsClip_path(), regions.darkEastDeathMountain(true, new_locs, bottles));
-				path7 = orCombinator(path7a, path7b);
-				path8z = andCombinator(canSuperSpeed_path(), ((canLiftRocks() || items.flippers) ? {ng:"a"} : canFakeFlipper_path()));
-				path8 = andCombinator(glitched("true"), orCombinator(canBootsClip_path(), path8z), regions.darkEastDeathMountain(true, new_locs, bottles));
-				if (items.mirror)
-					path9 = andCombinator(glitched("true"), canBootsClip_path(), regions.northWestDarkWorld(true, new_locs, bottles));
-				if (bottles > 0)
-					path10 = andCombinator(glitched("true"),
-						orCombinator(glitched("enemyfairy_fakeflipper"), (canBombThings() ? glitched("bombfairy_fakeflipper") : {})),
-						canGetFairy_path(), regions.SouthDarkWorld(true, new_locs, bottles - 1));
-				path11 = andCombinator(glitched("adv_mirrorwrap"), canMirrorWrap_path(), regions.northWestDarkWorld(undefined, new_locs, bottles));
-				*/
-			}
-			return orCombinator(path1, path2, path3, path4);
-		}
-	},
-	northWestDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("northWestDarkWorld") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("northWestDarkWorld");
-		if (optionState === "inverted") {
-			return {ng:"a"};
-		} else {
-			var path1 = {}; //1f
-			var path2 = {}; //Link state
-			var path3 = {}; //NE
-			var path4 = {}; //Portal
-			if (rescueZelda()) {
-				path1 = canOneFrameClipOW_path();
-				path2 = orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path());
-				if (hasHookshot() && (items.flippers || canLiftRocks() || items.hammer))
-					path3 = regions.northEastDarkWorld();
-				if ((items.hammer && canLiftRocks()) || canLiftDarkRocks())
-					path4 = {ng:"a"};
-			}
-			//What about mapwrap from TR?
 
-			return orCombinator(path1, andCombinator(path2, orCombinator(path3, path4)));
-			var path1 = {}; //1f
-			var path2 = {}; //Stupid logic [V31 bug]
-			var path2a = {}; //Moonpearl
-			var path2b = {}; //Fake Flute
-			var path2c = {}; //From NE
-			var path2d = {}; //Portal
-			var path4 = {}; //From NE
-			var path5 = {}; //Mirrorclip DMD
-			var path6 = {}; //Bootsclip DMD (at bridge)
-			var path7 = {}; //Fake Flute
-			if (rescueZelda()) {
-				path1 = canOneFrameClipOW_path();
-				if (items.moonpearl)
-					path2a = {ng:"a"};
-				path2b = canOWYBA_path(bottles);
-				if (hasHookshot() && (items.flippers || canLiftRocks() || items.hammer))
-					path2c = regions.northEastDarkWorld(true, new_locs, (items.moonpearl ? bottles : bottles - 1));
-				if ((items.hammer && canLiftRocks())
-					|| canLiftDarkRocks())
-					path2d = {ng:"a"};
-				path2 = andCombinator(orCombinator(path2a, path2b), orCombinator(path2c, path2d));
-				if (hasHookshot() && (items.hammer || canLiftRocks() || items.flippers))
-					path4 = andCombinator(glitched("true"), regions.northEastDarkWorld(true, new_locs, bottles));
-				path5 = andCombinator(glitched("true"), canMirrorClip_path(), regions.darkWestDeathMountain(must_be_link != false, new_locs, bottles));
-				path6 = andCombinator(glitched("true"), canBootsClip_path(), regions.darkWestDeathMountain((must_be_link ? true : 2), new_locs, bottles));
-				if (hasABottle() && bottles >= 1) {
-					var temp_locs = new_locs.slice(0);
-					temp_locs.push("darkEastDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-					var ff2 = regions.darkWestDeathMountain(undefined, temp_locs, bottles - 1);
-					if (items.boots) { ff1 = {}; ff3 = {}; ff4 = {}; } //With boots, can get to dWDM, no need to check others
-					else {
-						var temp_locs = new_locs.slice(0);
-						temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld"); temp_locs.push("SouthDarkWorld");
-						var ff1 = regions.darkEastDeathMountain(undefined, temp_locs, bottles - 1);
-						var temp_locs = new_locs.slice(0);
-						temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("SouthDarkWorld");
-						var ff3 = regions.northEastDarkWorld(undefined, temp_locs, bottles - 1);
-						var temp_locs = new_locs.slice(0);
-						temp_locs.push("darkEastDeathMountain"); temp_locs.push("darkWestDeathMountain"); temp_locs.push("northEastDarkWorld");
-						var ff4 = regions.SouthDarkWorld(undefined, temp_locs, bottles - 1);
-					}
-					path7 = andCombinator(glitched("true"), canOWYBA_path(), orCombinator(ff1, ff2, ff3, ff4));
+//Standard/Open Logic Assumptions:
+//  Any route to get up to dark west DM can also get you to west DM (eDM and deDM route simplification)
+//  Only ways to be link in dark world is: moonpearl,
+//    bottle (fake flute): only from dwDM or dNE -- deDM->dwDM; mire portal access = DM portal; dNW/dS no access w/out pearl or dwDM/dNE,
+//    bottle (OBR)
+//    mirror wrap to stumpy: only at dS
+//    1f to bumper ledge: only at dNW
+//  Superbunny only matters on dark west DM -- any other area there is a pullable object to be Link instead
+//    Only way to be superbunny is fake flute which makes it useless for mire
+//  No route uses dwDM as an intermediary step (never call regions.dwDM)
+
+
+//change infinite recursion so it allows to recurse with different states
+var regions_cache;
+var regions = {
+	westDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) { //0-1 bottles
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("westDeathMountain", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("westDeathMountain") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("westDeathMountain"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				return andCombinator([rescueZelda(),
+					orCombinator([canFly_path(), //Flute
+						canOneFrameClipOW_path(), //1f
+						canOWYBA_path(bottles), //Fake flute
+						canBootsClip_path(), //Bootsclip
+						canLiftRocks() && items.lantern, //Old man cave
+						andCombinator([canLiftRocks(), glitched("oldMan")]), //Dark room
+						AccurateLogic(false, canSuperSpeed_path())])]); //Spinspeed only, screenwrap on DM to enter Hera [V31 bug]
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						if ((items.moonpearl && must_be_link)
+							|| !must_be_link)
+							return regions.darkWestDeathMountain(undefined, new_locs, bottles);
+						return {};
+					default:
+						var path1 = {}; //From dark WDM
+						var path2 = {}; //From eastDeathMountain
+						var path3 = {}; //From light NW
+						var path4 = {}; //Fake flute will stay same state as before fluting
+						if ((items.moonpearl && must_be_link)
+							|| !must_be_link)
+							path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+						if (items.hammer || hasHookshot() || items.boots) //top path, lower path, or boots to clip
+							path2 = regions.eastDeathMountain(true, new_locs, bottles);
+						if (items.boots)
+							path3 = regions.northWestLightWorld(true, new_locs, bottles);
+						if (bottles >= 1)
+							path4 = andCombinator(glitched("fakeflute"),
+								orCombinator(regions.eastDeathMountain(must_be_link, new_locs, bottles - 1),
+								regions.northEastLightWorld(must_be_link, new_locs, bottles - 1),
+								regions.northWestLightWorld(must_be_link, new_locs, bottles - 1),
+								regions.SouthLightWorld(must_be_link, new_locs, bottles - 1)));
+						return orCombinator(path1, path2, path3, path4);
 				}
-			}
-			return orCombinator(path1, path2, path3, path4, path5, orCombinator(path6, path7));
+			case "retro":
 		}
 	},
-	SouthDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("SouthDarkWorld") !== -1)
+	eastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) { //0-2 bottles
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("eastDeathMountain", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("eastDeathMountain") !== -1) //already visited
 			return {};
 		var new_locs = from_locs.slice(0);
-		new_locs.push("SouthDarkWorld");
-		if (optionState === "inverted") {
-			return {ng:"a"};
-		} else {
-			var path1 = {}; //Fake flute
-			var path2 = {}; //NE
-			var path3 = {}; //Portal
-			if (rescueZelda()) {
-				path1 = canOWYBA_path();
-				if (items.moonpearl && (items.hammer || (hasHookshot() && (items.flippers || canLiftRocks()))))
-					path2 = regions.northEastDarkWorld();
-				if (items.moonpearl && ((items.hammer && canLiftRocks()) || canLiftDarkRocks()))
-					path3 = {ng:"a"};
-			}
-			return orCombinator(path1, path2, path3);
-		}
-	},
-	mire: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("mire") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("mire");
-		if (optionState === "inverted") {
-			switch (optionLogic) {
-				case "nmg":
-					var path1 = {}; //Fly
-					var path2 = {}; //Mirror
-					path1 = canFly_path(new_locs);
-					if (items.mirror)
-						path2 = regions.SouthLightWorld(undefined, new_locs, bottles);
-					return orCombinator(path1, path2);
-				default:
-					var path1 = {}; //Fly
-					var path2 = {}; //Mirror
-					var path3 = {}; //Boots
-					var path4 = {}; //Fake flute
-					path1 = canFly_path(new_locs);
-					if (items.mirror)
-						path2 = regions.SouthLightWorld(undefined, new_locs, bottles);
-					if (items.boots)
-						path3 = {ng:"a"};
-					if (hasABottle())
-						path4 = glitched("fakeflute");
-					return orCombinator(path1, path2, path3, path4);
-			}
-		} else {
-			var path1 = {}; //Fly
-			var path2 = {}; //Clip
-			var path3 = {}; //Fake flute
-			if (rescueZelda()) {
-				if (canLiftDarkRocks())
-					path1 = orCombinator(canFly_path(), canBootsClip_path());
-				if (items.moonpearl)
-					path2 = andCombinator(canBootsClip_path(), regions.SouthDarkWorld());
-				path3 = canOWYBA_path();
-			}
-			return orCombinator(path1, path2, path3);
-		}
-	},
-	northEastLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) { //Later: Add aga info
-		if (from_locs.indexOf("northEastLightWorld") !== -1)
-			return {};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("northEastLightWorld");
-		switch (optionLogic) {
-			case "nmg":
-				if ((optionState !== "inverted" && rescueZelda())
-					|| (optionState === "inverted"
-						&& ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && (canLiftDarkRocks() || (items.hammer && canLiftRocks()))))))
-					return {ng:"a"};
-				return {};
-			default:
-				if (optionState !== "inverted" && rescueZelda())
-					return {ng:"a"};
-				if (optionState === "inverted") {
-					var path1 = {}; //Normal
-					var path2 = {}; //Fake flute
-					if ((dungeons[11].isBeaten() && ((items.moonpearl && must_be_link) || !must_be_link))
-							|| (items.moonpearl && (canLiftDarkRocks() || (items.hammer && canLiftRocks())))
-							|| (items.moonpearl && items.boots)
-							|| ((items.boots && items.mirror) && ((items.moonpearl && must_be_link) || !must_be_link)))
-						path1 = {ng:"a"};
-					if (hasABottle() && bottles >= 1)
-						path2 = andCombinator(glitched("fakeflute"),
-							orCombinator(regions.westDeathMountain(undefined, new_locs, bottles - 1),
-							regions.eastDeathMountain(undefined, new_locs, bottles - 1)));
-					return orCombinator(path1, path2);
+		new_locs.push("eastDeathMountain"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				//Mirror wrap/clip goes from dwDM, but just use portal instead (any route up dDM works on DM)
+				//  Only difference is being Link without moon pearl in dwDM, but this doesn't matter for light world endstate
+				return andCombinator([rescueZelda(), orCombinator([
+						andCombinator([AccurateLogic(regions.westDeathMountain(), regions.westDeathMountain(undefined, new_locs, bottles)),
+							orCombinator([canOneFrameClipOW_path(), //1f
+								canMirrorClip_path(), //Mirror clip
+								canBootsClip_path(), //Bootsclip
+								(items.hammer && items.mirror)
+								|| hasHookshot(),
+								AccurateLogic(false, orCombinator([canMirrorWrap_path(), canSuperSpeed_path()])), //Superspeed/mirror wrap [V31 bug]
+								AccurateLogic(false, andCombinator([canBombClipOW_path(), items.hammer]))])]), //bombclip
+					AccurateLogic(false, andCombinator([regions.westDeathMountain(undefined, new_locs, bottles - 1),
+							canGetFairy_path(), glitched("hoverDM")]))])]); //hover across bridge
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						var path1 = {}; //From dark EDM
+						var path2 = {}; //From wDM
+						if (canLiftDarkRocks()
+							&& ((items.moonpearl && must_be_link)
+								|| !must_be_link))
+							path1 = regions.darkEastDeathMountain(undefined, new_locs, bottles);
+						if (hasHookshot())
+							path2 = regions.westDeathMountain(true, new_locs, bottles);
+						return orCombinator(path1, path2);
+					default:
+						var path1 = {}; //From dark EDM
+						var path2 = {}; //From wDM
+						if (canLiftDarkRocks()
+							&& ((items.moonpearl && must_be_link)
+								|| !must_be_link))
+							path1 = regions.darkEastDeathMountain(undefined, new_locs, bottles);
+						if (hasHookshot() || items.boots)
+							path2 = regions.westDeathMountain(true, new_locs, bottles);
+						//Can boots climb from NE light world, but if you can do that, you have west DM access anyways
+						return orCombinator(path1, path2);
 				}
-				return {};
+			case "retro":
 		}
 	},
-	northWestLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("northWestLightWorld") !== -1)
+	darkWestDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("darkWestDeathMountain", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("darkWestDeathMountain") !== -1) //already visited
 			return {};
 		var new_locs = from_locs.slice(0);
-		new_locs.push("northWestLightWorld");
-		return regions.northEastLightWorld(must_be_link, new_locs, bottles);
+		new_locs.push("darkWestDeathMountain"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				return andCombinator([rescueZelda(),
+					AccurateLogic(true, false)]); //Assume no path uses dwDM
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						var path1 = {}; //Old man cave
+						var path2 = {}; //Flute
+						var path3 = {}; //Dark room glitch
+						if (canLiftRocks() && items.lantern)
+							path1 = {ng:"a"};
+						path2 = canFly_path(new_locs);
+						if (canLiftRocks())
+							path3 = glitched("oldMan");
+						return orCombinator(path1, path2, path3);
+					default:
+						var path1 = {}; //Old man cave
+						var path2 = {}; //Flute
+						var path3 = {}; //Dark room glitch
+						var path4 = {}; //Fake flute
+						if ((canLiftRocks() && items.lantern)
+							|| items.boots)
+							path1 = {ng:"a"};
+						path2 = canFly_path(new_locs);
+						if (canLiftRocks())
+							path3 = glitched("oldMan");
+						if (hasABottle() && bottles >= 1)
+							path4 = glitched("fakeflute");
+						return orCombinator(path1, path2, path3, path4);
+				}
+			case "retro":
+		}
 	},
-	SouthLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount()) {
-		if (from_locs.indexOf("SouthLightWorld") !== -1)
+	darkEastDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) { //0-3 bottles
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("darkEastDeathMountain", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("darkEastDeathMountain") !== -1) //already visited
 			return {};
 		var new_locs = from_locs.slice(0);
-		new_locs.push("SouthLightWorld");
-		return regions.northEastLightWorld(must_be_link, new_locs, bottles);
+		new_locs.push("darkEastDeathMountain"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				if (!rescueZelda()) return {};
+				var superbunny_at_dwDM = andCombinator([rgn_fakeflute2link(new_locs, bottles), //fake flute to DM instead of linkstate (1-2 bottles)
+					glitched("fakefluteDM")]); //preserve superbunny state by dodging boulders
+				return AccurateLogic(orCombinator([andCombinator([canLiftDarkRocks(),
+							regions.eastDeathMountain(undefined, new_locs)]),
+						andCombinator([canBootsClip_path(),
+							items.moonpearl || items.hammer]),
+						canOneFrameClipOW_path()]),
+					orCombinator([rgn_link2here("darkEastDeathMountain", new_locs, bottles),
+						must_be_link ? false : rgn_bunny2here("darkEastDeathMountain", new_locs, bottles)]));
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						var path1 = {}; //Lynels
+						var path2 = {}; //EDM
+						var path3 = {}; //Hookshot Lynels
+						if ((optionVariation !== "ohko" && optionVariation !== "timedohko")
+							|| items.byrna || items.cape)
+							path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+						if (items.mirror)
+							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
+						if (hasHookshot())
+							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+						return orCombinator(path1, path2, path3);
+					default:
+						var path1 = {}; //Lynels
+						var path2 = {}; //EDM
+						var path3 = {}; //Hookshot Lynels
+						if (items.boots || (optionVariation !== "ohko" && optionVariation !== "timedohko")
+							|| items.byrna || items.cape)
+							path1 = regions.darkWestDeathMountain(undefined, new_locs, bottles);
+						if (items.mirror)
+							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
+						if (hasHookshot())
+							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+						return orCombinator(path1, path2, path3);
+				}
+			case "retro":
+		}
+	},
+	northEastDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("northEastDarkWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("northEastDarkWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("northEastDarkWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				if (!rescueZelda()) return {};
+				return AccurateLogic(orCombinator([canOWYBA_path(bottles),
+						dungeons[11].isBeaten(), convertAga(dungeons[11].canGetPrize()),
+						items.hammer && canLiftRocks() && items.moonpearl,
+						andCombinator([canLiftDarkRocks(),
+							orCombinator([items.flippers,
+								andCombinator([canBootsClip_path(), canFakeFlipper_path()]),
+								canWaterWalk_path()]),
+							items.moonpearl]),
+						andCombinator([canSuperSpeed_path(), canMirrorClip_path(),
+							regions.westDeathMountain(undefined, new_locs)])]),
+					orCombinator([rgn_link2here("northEastDarkWorld", new_locs, bottles),
+						must_be_link ? false : rgn_bunny2here("northEastDarkWorld", new_locs, bottles)]));
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						var path1 = {}; //Normal access
+						var path2 = {}; //Mirror from light world
+						var path3 = {}; //Waterwalk from NW
+						var path4 = {}; //Qirn jump
+						if (items.hammer || items.flippers)
+							path1 = {ng:"a"};
+						if (items.mirror)
+							path2 = regions.northEastLightWorld(undefined, new_locs, bottles);
+						if (items.boots)
+							path3 = glitched("waterwalk_boots");
+						if (canBombThings())
+							path4 = glitched("qirn_jump");
+						return orCombinator(path1, path2, path3, path4);
+					default:
+						var path1 = {}; //Normal access
+						var path2 = {}; //Mirror from light world
+						var path3 = {}; //Qirn jump
+						var path4 = {}; //Fake flute
+						if (items.hammer || items.flippers || items.boots)
+							path1 = {ng:"a"};
+						if (items.mirror)
+							path2 = regions.northEastLightWorld(undefined, new_locs, bottles);
+						if (canBombThings())
+							path3 = glitched("qirn_jump");
+						if (hasABottle() && bottles >= 1)
+							path4 = glitched("fakeflute");
+						return orCombinator(path1, path2, path3, path4);
+				}
+			case "retro":
+		}
+	},
+	northWestDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("northWestDarkWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("northWestDarkWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("northWestDarkWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				if (!rescueZelda()) return {};
+				return AccurateLogic(orCombinator([canOneFrameClipOW_path(),
+						andCombinator([orCombinator([items.moonpearl, canOWYBA_path(bottles)]),
+							orCombinator([andCombinator([regions.northEastDarkWorld(undefined, new_locs),
+									hasHookshot() && (items.flippers || canLiftRocks() || items.hammer)]),
+								(items.hammer && canLiftRocks)
+								|| canLiftDarkRocks()])])]),
+					orCombinator([rgn_link2here("northWestDarkWorld", new_locs, bottles),
+						must_be_link ? false : rgn_bunny2here("northWestDarkWorld", new_locs, bottles)]));
+			case "inverted":
+				return {ng:"a"};
+			case "retro":
+		}
+	},
+	SouthDarkWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("SouthDarkWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("SouthDarkWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("SouthDarkWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				if (!rescueZelda()) return {};
+				return AccurateLogic(orCombinator([canOWYBA_path(bottles),
+						andCombinator([items.moonpearl,
+							orCombinator([andCombinator([regions.northEastDarkWorld(undefined, new_locs), items.hammer
+										|| (hasHookshot() && (items.flippers || canLiftRocks()))]),
+								(items.hammer && canLiftRocks())
+								|| canLiftDarkRocks()])])]),
+					orCombinator([rgn_link2here("SouthDarkWorld", new_locs, bottles),
+						must_be_link ? false : rgn_bunny2here("SouthDarkWorld", new_locs, bottles)]));
+			case "inverted":
+				return {ng:"a"};
+			case "retro":
+		}
+	},
+	mire: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("mire", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("mire") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("mire"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				if (!rescueZelda()) return {};
+				return AccurateLogic(orCombinator([andCombinator([canLiftDarkRocks(), orCombinator([canFly_path(), canBootsClip_path()])]),
+						andCombinator([items.moonpearl, canBootsClip_path(), regions.SouthDarkWorld(undefined, from_locs)]),
+						canOWYBA_path(bottles)]),
+					orCombinator([rgn_link2here("mire", new_locs, bottles),
+						must_be_link ? false : rgn_bunny2here("mire", new_locs, bottles)]));
+			case "inverted":
+				switch (optionLogic) {
+					case "nmg":
+						var path1 = {}; //Fly
+						var path2 = {}; //Mirror
+						path1 = canFly_path(new_locs);
+						if (items.mirror)
+							path2 = regions.SouthLightWorld(undefined, new_locs, bottles);
+						return orCombinator(path1, path2);
+					default:
+						var path1 = {}; //Fly
+						var path2 = {}; //Mirror
+						var path3 = {}; //Boots
+						var path4 = {}; //Fake flute
+						path1 = canFly_path(new_locs);
+						if (items.mirror)
+							path2 = regions.SouthLightWorld(undefined, new_locs, bottles);
+						if (items.boots)
+							path3 = {ng:"a"};
+						if (hasABottle())
+							path4 = glitched("fakeflute");
+						return orCombinator(path1, path2, path3, path4);
+				}
+			case "retro":
+		}
+	},
+	northEastLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("northEastLightWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("northEastLightWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("northEastLightWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				return bool2path(rescueZelda());
+				break;
+			case "inverted": //Later: Add aga info
+			case "retro":
+		}
+	},
+	northWestLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("northWestLightWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("northWestLightWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("northWestLightWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				return bool2path(rescueZelda());
+				break;
+			case "inverted":
+			case "retro":
+		}
+	},
+	SouthLightWorld: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) {
+		if (bottles < 0) return {}; //Used too many bottles
+		if (!newcalc) //return cache
+			return region_cache_lookup("SouthLightWorld", must_be_link, from_locs, bottles);
+		if (from_locs.indexOf("SouthLightWorld") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("SouthLightWorld"); //new array of visited locations (prevent infinite recursion)
+		switch (optionState) {
+			case "standard":
+			case "open":
+				return bool2path(rescueZelda());
+				break;
+			case "inverted":
+			case "retro":
+		}
 	}
 };
 
@@ -563,15 +477,14 @@ dungeons[0] = {
 				return qtyCounter.gotPrize0;
 		}
 	},
-	kChestCount: 6,
 	isAccessible: function(){
 		return bool2path(rescueZelda());
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
+		return andCombinator([this.isAccessible(), this.isBeatable()]);
 	},
-	isBeatable: function(ignore_entry = false){
-		if (!ignore_entry && isEmpty(this.isAccessible()))
+	isBeatable: function(){
+		if (isEmpty(this.isAccessible()))
 			return {};
 		//Boss: arrow, darkness, BK, boss, MC
 		var path1 = {}; //Dark back
@@ -1436,56 +1349,42 @@ dungeons[7] = {
 		var path2 = {}; //First room
 		var path3 = {}; //Pearl + swim + lift
 		var path4 = {}; //MirrorWrap + Linkstate + 1f/bootsclip + South
-		path1 = orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor())])
+		var path5 = {}; //YBA
+		var path6 = {}; //Flippers
+		path1 = orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor())]);
 		path2 = AccurateLogic(orCombinator([canMeltThings(), canOneFrameClipUW_path()]), true);
 		path3 = andCombinator([orCombinator([items.moonpearl, canDungeonRevive_path()]),
-			orCombinator([items.flippers, canFakeFlipper_path()]),
+			orCombinator([items.flippers, canFakeFlipper_path(), AccurateLogic(false, orCombinator([canWaterWalk_path(), canBunnyRevive_path()]))]),
 			canLiftDarkRocks()]);
 		path4 = andCombinator([canMirrorWrap_path(),
-			orCombinator([items.moonpearl, canOWYBA_path()]),
-			orCombinator([canOneFrameClipOW_path(), canBootsClip_path()]),
-			regions.SouthDarkWorld()]);
-		return andCombinator([rescueZelda(), path1, path2, orCombinator([path3, path4])]);
+			AccurateLogic(orCombinator([items.moonpearl, canOWYBA_path()]),
+					orCombinator([canOneFrameClipOW_path(), canBootsClip_path()]),
+					regions.SouthDarkWorld(),
+				orCombinator([andCombinator([canOneFrameClipOW_path(), regions.SouthDarkWorld(false)]),
+					andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path()]), regions.SouthDarkWorld(true)])]))]);
+		path5 = andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path(), andCombinator([canOneFrameClipOW_path(), items.boots])]), canOWYBA_path(), regions.SouthDarkWorld(true)]);
+		path6 = andCombinator([items.flippers, orCombinator([andCombinator([canBootsClip_path(), regions.SouthDarkWorld(true)]),
+						andCombinator([canOneFrameClipOW_path(), regions.SouthDarkWorld()])])]);
+		return andCombinator([rescueZelda(), path1, path2, orCombinator([path3, path4, AccurateLogic(false, orCombinator([path5, path6]))])]);
 	},
 	canGetPrize: function(){
 		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
 	},
-	isBeatable: function(){
-		if (isEmpty(this.isAccessible()))
+	isBeatable: function(ignore_entry = false){
+		if (!ignore_entry && isEmpty(this.isAccessible()))
 			return {};
-		//BK, compass, map, spike, freezor, icedT, big, boss
-		//BK, map: melt, hammer, glove, non-ohko/byrna/cape/hookshot, spike
-		//Compass, icedT: melt
-		//Spike: melt, non-ohko/byrna/cape/hookshot, hookshot/BK+hookshot/noBK+SK
-		//Freezor: melt*
-		//Big: melt, BK
-		//Boss: hammer, melt*, glove, boss, BK, (somaria+SK)/2SK, compass, map
-		switch (optionVariation) {
-			case "keysanity":
-				if (items.hammer && canMeltThings() && canLiftRocks() && qtyCounter.ditems_bk7
-					&& ((items.somaria && qtyCounter.ditems_sk7 >= 1)
-						|| qtyCounter.ditems_sk7 >= 2)
-					&& qtyCounter.ditems_comp7 && qtyCounter.ditems_map7)
-					return canBeatBoss(7, qtyCounter.boss7);
-				return {};
-			default:
-				var path1 = {}; //Always
-				var path2 = {}; //Possible
-				if (items.hammer && canMeltThings() && canLiftRocks()) {
-					if ((optionVariation !== "retro"
-						&& items.somaria //if Kholdstare has SK
-						&& hasHookshot()) //if BK and both SK are hookshot locked
-						|| (optionVariation === "retro"
-							&& ((items.somaria && qtyCounter.hc_sk >= 1) || qtyCounter.hc_sk >= 2)
-							//Now if BK is outside of right, we can already get it
-							&& ((hasHookshot() || qtyCounter.hc_sk >= 1) //If BK is right side
-								&& ((optionVariation !== "ohko" && optionVariation !== "timedohko")
-									|| items.byrna || items.cape || hasHookshot())))) //BK in spike/BK/map
-						path1 = canBeatBoss(7, qtyCounter.boss7);
-					path2 = convertPossible(canBeatBoss(7, qtyCounter.boss7)); //BK in freezor, SK in big and compass
-				}
-				return orCombinator(path1, path2);
-		}
+		//Boss: hammer, melt, glove, boss, BK, (somaria+SK)/2SK || basic+2sk), mc
+		var path1 = {}; //BK
+		var path2 = {}; //keys
+		var path3 = {}; //MC
+		path1 = orCombinator([
+			orCombinator([qtyCounter.ditems_bk7,
+				andCombinator([optionVariation !== "keysanity",
+					anyOrAllCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor()])])]),
+			{ng:"p"}]);
+		path2 = 
+		path3 = (qtyCounter.ditems_comp7 && qtyCounter.ditems_map7) || optMapCompLogic === false || optionVariation === "none";
+		return andCombinator([items.hammer && canMeltThings(), canLiftRocks(), path1, path2, path3]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
@@ -1507,14 +1406,18 @@ dungeons[7] = {
 		//If you found the BK first (keysanity), then it must be Hookshot
 		//Hookshot
 		//keysanity BK, then hookshot
-		//kesanity no BK, then 1SK
-		//mcs BK
-		//mcs no BK
-		//BK
-		//no BK
+		//kesanity no BK, then hookshot or 1SK OR possible with nothing
+		//mcs BK, then hookshot
+		//mcs no BK, hookshot or 1SK OR possible with nothing
+		//BK, then hookshot
+		//no BK, hookshot or look for a key
 		
-		return orCombinator([hasHookshot(),
-			(qtyCounter.ditems_bk7 ? hasHookshot() : true)]);
+		return andCombinator([this.compass(),
+			orCombinator([hasHookshot(),
+				andCombinator([(optionVariation === "keysanity" || optionVariation === "mcs") && !qtyCounter.ditems_bk7,
+					orCombinator([anyOrAllCombinator([hasHookshot(), qtyCounter.ditems_sk7 >= 1]), {ng:"p"}])]),
+				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs" && !qtyCounter.ditems_bk7,
+					orCombinator([hasHookshot(), {ng:"p"}])])])]);
 	},
 	freezor: function(){ //Melt
 		return canMeltThings();
@@ -2363,13 +2266,13 @@ chests[5] = {
 			var path3 = {}; //Waterwalk
 			var path4 = {}; //regular Fake flipper
 			if (items.flippers)
-				path1 = regions.northEastLightWorld();
+				path1 = regions.northEastLightWorld(undefined, undefined, undefined, true);
 			//if (items.moonpearl)
 			//	path2 = orCombinator(andCombinator(glitched("fakeflipper"), regions.northEastLightWorld()),
 			//		andCombinator(orCombinator(canBombThings() ? andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, glitched("enemyfairy_fakeflipper")), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1)));
-			path3 = andCombinator(canWaterWalk_path(), regions.northEastLightWorld());
+			path3 = andCombinator(canWaterWalk_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
 			if (items.moonpearl)
-				path4 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld());
+				path4 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
 			return orCombinator(path1, path2, path3, path4);
 		} else
 			switch (optionLogic) {
@@ -3583,13 +3486,16 @@ chests[44] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
+		/*from deDM
+  spinspeed/bootsclip/(1f?)
+  (to catfish)*/
 		if (optionState !== "inverted") {
 			var path1 = {}; //Normal
 			var path2 = {}; //Bootsclip
 			if (items.moonpearl) {
 				if (canLiftRocks())
-					path1 = regions.northEastDarkWorld();
-				path2 = andCombinator(canBootsClip_path(), regions.northEastDarkWorld());
+					path1 = {};//regions.northEastDarkWorld();
+				path2 = andCombinator(canBootsClip_path(), {});//regions.northEastDarkWorld());
 			}
 			return orCombinator(path1, path2);
 		} else
@@ -3630,7 +3536,14 @@ chests[46] = {
 	y: "49.60%", //48.61%
 	isOpened: false,
 	isHighlight: false,
-	isAvailable: function(){
+	isAvailable: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false){
+		if (bottles < 0) return {}; //Used too many bottles
+	//	if (!newcalc) //return cache
+	//		return region_cache_lookup("dNE", must_be_link, bottles);
+		if (from_locs.indexOf("fatfairy") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("fatfairy"); //new array of visited locations (prevent infinite recursion)
 		var crystalCount = 0;
 		for(var i = 0; i < 10; i++)
 			if (qtyCounter["dungeonPrize"+i] === 2 && dungeons[i].gotPrize())
@@ -3644,7 +3557,7 @@ chests[46] = {
 			var path6 = {}; //Screenwrap mirror portal
 			if (crystalCount === 2 && items.moonpearl) {
 				if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-					path1 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+					path1 = andCombinator(regions.SouthDarkWorld(undefined, new_locs, undefined, true), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
 				//if (items.mirror && items.flippers)
 				//	path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
 				//if (canLiftDarkRocks() && items.boots)
@@ -3654,7 +3567,7 @@ chests[46] = {
 				//if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
 				//	path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 			}
-			path6 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain(), regions.northEastDarkWorld());
+			path6 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain(), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
 			return orCombinator(path1, path2, path3, path4, path5, path6);
 		} else {
 			if (crystalCount === 2 && items.mirror)
@@ -3691,7 +3604,7 @@ chests[48] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path()),
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
 			regions.northWestDarkWorld());
 	}
 };
@@ -3703,7 +3616,7 @@ chests[49] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path()),
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
 			regions.northWestDarkWorld());
 	}
 };
@@ -3743,7 +3656,7 @@ chests[50] = {
 						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
 					return orCombinator(path1, path2);
 			}
-	}
+	},
 };
 chests[51] = {
 	name: "Bumper Cave",
@@ -3902,7 +3815,7 @@ chests[57] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 		var path1 = {}; //Superbunny
 		var path2 = {}; //1f DMA, then 1f DMD, then 1f into mire as Link
 		var path3 = {}; //Superbunny by enemy hit
@@ -4367,7 +4280,7 @@ entrances[22] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 	}
 }
 entrances[23] = {
@@ -4377,7 +4290,7 @@ entrances[23] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path()), regions.mire());
+		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 	}
 }
 entrances[24] = {
@@ -4553,11 +4466,40 @@ shops[3] = {
 	y: "33.76%",
 	isOpened: false,
 	isHighlight: false,
-	isAvailable: function(){
-		if (items.moonpearl && (canLiftRocks() || items.hammer || items.flippers))
-			return regions.northEastDarkWorld();
-		return {};
+	isAvailable: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false){
+		if (bottles < 0) return {}; //Used too many bottles
+		//if (!newcalc) //return cache
+		//	return region_cache_lookup("wDM", must_be_link, bottles);
+		if (from_locs.indexOf("darkPotionShop") !== -1) //already visited
+			return {};
+		var new_locs = from_locs.slice(0);
+		new_locs.push("darkPotionShop"); //new array of visited locations (prevent infinite recursion)
+		return AccurateLogic(andCombinator([items.moonpearl && (canLiftRocks() || items.hammer || items.flippers),
+				regions.northEastDarkWorld(undefined, new_locs, undefined, newcalc)]),
+			orCombinator([andCombinator([canLiftRocks(), regions.northEastDarkWorld(2, new_locs, bottles, newcalc)]),
+				andCombinator([items.hammer, regions.northEastDarkWorld(true, new_locs, bottles, newcalc)]),
+				andCombinator([orCombinator([items.flippers, canFakeFlipper_path()]),
+					orCombinator([regions.northEastDarkWorld(true, new_locs, bottles, newcalc),
+						regions.SouthDarkWorld(true, new_locs, bottles, newcalc),
+						chests[44].isAvailable(true, new_locs, bottles, newcalc)])]),
+				andCombinator([canBunnyRevive_path(), canGetFairy_path(1, true, new_locs),
+					orCombinator([regions.northEastDarkWorld(undefined, new_locs, bottles - 1, newcalc),
+						regions.SouthDarkWorld(undefined, new_locs, bottles - 1, newcalc),
+						chests[44].isAvailable(undefined, new_locs, bottles - 1, newcalc)])]),
+				andCombinator([canMirrorWrap_path(), must_be_link !== false ? items.moonpearl : true,
+					regions.northWestDarkWorld(undefined, new_locs, bottles, newcalc)]),
+				andCombinator([orCombinator([canSuperSpeed_path(), canBootsClip_path()]),
+					regions.darkEastDeathMountain(true, new_locs, bottles, newcalc)]),
+				andCombinator([canOneFrameClipOW_path(), regions.darkEastDeathMountain(must_be_link !== false, new_locs, bottles, newcalc)]),
+				andCombinator([canBootsClip_path(), items.mirror && must_be_link === false,
+					regions.darkEastDeathMountain(false, new_locs, bottles, newcalc)])]));
 	}
+/*from NW
+  mirror wrap (to potion shop)
+from deDM
+  spinspeed/bootsclip/1f fawt
+  (to potion shop)
+  from catfish?*/
 }
 shops[4] = {
 	name: "Dark World Forest Shop",

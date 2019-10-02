@@ -1,4 +1,5 @@
 function initTracker() {
+	clear_region_cache();
 	//Init all className and backgroundImage
 	Object.keys(items).forEach(function(itemName) {
 		if (itemName === "bottle" || itemName === "hcitems" || itemName.substring(0, 6) === "ditems" || itemName.substring(0, 5) === "blank") //these have no images (covered by quadrants)
@@ -717,6 +718,7 @@ function refreshMap(type = undefined, name = undefined) {
 	var start = Date.now();
 	var start_b = start;
 	times = [];
+	clear_region_cache();
 	var chestClass = "chest";
 	var bossClass = "boss";
 	var dungeonClass = "dungeon";
@@ -735,12 +737,14 @@ function refreshMap(type = undefined, name = undefined) {
 			} else {
 				var chestStatus = accessTranslator(chest.isAvailable());
 				document.getElementById("poi"+chestNum).className = chestClass + " " + chestStatus;
-				if (chestStatus.indexOf("majorglitched") !== -1)
-					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/majorglitched.png)";
-				else if (chestStatus.indexOf("glitched") !== -1)
-					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/glitched.png)";
+				if (chestStatus.indexOf("aga") !== -1)
+					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/aga.png)";
 				else
-					document.getElementById("poi"+chestNum).style.backgroundImage = "";
+					document.getElementById("poi"+chestNum).style.backgroundImage = "url(images/blank.png)";
+				if (chestStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("poi"+chestNum).style.backgroundImage += ", url(images/majorglitched.png)";
+				else if (chestStatus.indexOf("glitched") !== -1)
+					document.getElementById("poi"+chestNum).style.backgroundImage += ", url(images/glitched.png)";
 			}
 			if (chest.isHighlight)
 				document.getElementById("poi"+chestNum).style.outlineColor = "gold";
@@ -748,14 +752,15 @@ function refreshMap(type = undefined, name = undefined) {
 				document.getElementById("poi"+chestNum).style.outlineColor = "black";
 		}
 		var newt = Date.now();
-		if (chestNum % 10 === 0)
-			times.push("*");
-		times.push(newt - start);
+		if ((newt - start) > 2) {
+			times.push("#"+chestNum+":"+(newt-start));
+		}
 		start = newt;
 	});
 	times.push("dungeons");
 	//Update all boss & dungeons on the map, className, innerText and backgroundImage
 	dungeons.forEach(function(dungeon, dungeonNum) {
+		times.push("#"+dungeonNum);
 		if (type === undefined) {
 			if (dungeon.isBeaten() || (dungeonNum === 12 && (optionGoal === "triforce" || optionGoal === "pedestal"))) {
 				document.getElementById("bossMap"+dungeonNum).className = bossClass + " opened";
@@ -770,6 +775,9 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
 			}
+			var newt = Date.now();
+			times.push(newt - start);
+			start = newt;
 			if (items["chest" + dungeonNum] === 0 || (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal"))) {
 				document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " opened";
 				document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
@@ -783,6 +791,9 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
 			}
+			var newt = Date.now();
+			times.push(newt - start);
+			start = newt;
 			if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
 				|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
 				document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
@@ -796,6 +807,9 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "";
 			}
+			var newt = Date.now();
+			times.push(newt - start);
+			start = newt;
 			switch (dungeonNum) {
 				case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
 				case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
@@ -811,9 +825,6 @@ function refreshMap(type = undefined, name = undefined) {
 					break;
 			}
 		}
-		var newt = Date.now();
-		times.push(newt - start);
-		start = newt;
 	});
 
 	/*
@@ -858,6 +869,7 @@ function refreshMap(type = undefined, name = undefined) {
 	times.push(total);
 //	if (total > 100)
 //		alert(times);
+	console.log(times);
 }
 
 
@@ -924,6 +936,42 @@ function accessTranslator(path) {
 		return "possible majorglitched";
 	if (path.mgv === "p")
 		return "possible majorglitched";
+	if (path.nga === "a")
+		return "available aga";
+	if (path.ga === "a")
+		return "available glitched aga";
+	if (path.nga === "p" || path.nga === "ap")
+		return "possible aga";
+	if (path.ga === "p" || path.ga === "ap")
+		return "possible glitched aga";
+	if (path.nga === "au" || path.nga === "apu")
+		return "some aga";
+	if (path.ga === "au" || path.ga === "apu")
+		return "some glitched aga";
+	if (path.nga === "pu")
+		return "some aga";
+	if (path.ga === "pu")
+		return "some glitched aga";
+	if (path.ngva === "a")
+		return "possible aga";
+	if (path.gva === "a")
+		return "possible glitched aga";
+	if (path.ngva === "p")
+		return "possible aga";
+	if (path.gva === "p")
+		return "possible glitched aga";
+	if (path.mga === "a")
+		return "available majorglitched aga";
+	if (path.mga === "p" || path.mga === "ap")
+		return "possible majorglitched aga";
+	if (path.mga === "au" || path.mga === "apu")
+		return "some majorglitched aga";
+	if (path.mga === "pu")
+		return "some majorglitched aga";
+	if (path.mgva === "a")
+		return "possible majorglitched aga";
+	if (path.mgva === "p")
+		return "possible majorglitched aga";
 	if (isEmpty(path))
 		return "unavailable";
 	return undefined;
