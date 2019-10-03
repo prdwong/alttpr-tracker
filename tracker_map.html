@@ -121,8 +121,8 @@ while (k < itemList.length) {
 			document.write("<td id='"+x+"' class='true' style='position:relative'>");
 			document.write("<div id='ditems_sk"+d+"' class='corner' style='font-weight:bold; text-align:right; direction:rtl; text-indent:2px; line-height: 48px; position:absolute; top:0px'></div>");
 			document.write("<div id='ditems_bk"+d+"' class='corner' style='position:absolute; top:0px; right:0px'></div>");
-			document.write("<div id='ditems_map"+d+"' class='corner' style='position:absolute;'></div>");
-			document.write("<div id='ditems_comp"+d+"' class='corner' style='position:absolute; right:0px'></div>");
+			document.write("<div id='ditems_map"+d+"' class='corner' style='position:absolute; bottom:0px'></div>");
+			document.write("<div id='ditems_comp"+d+"' class='corner' style='position:absolute; bottom:0px; right:0px'></div>");
 			document.querySelector('#ditems_sk'+d).addEventListener('mousedown', quadrantToggle);
 			document.querySelector('#ditems_bk'+d).addEventListener('mousedown', quadrantToggle);
 			document.querySelector('#ditems_map'+d).addEventListener('mousedown', quadrantToggle);
@@ -217,6 +217,12 @@ for (var i = 0; i < shops.length; i++) {
 	<option value="mc">Maps/Compasses</option>
 	<option value="mcs">Maps/Compasses/Small Keys</option>
 	<option value="keysanity">Keysanity</option>
+</select>
+<select name="accessibility" id="accessibility_select">
+	<option value="title" disabled>Accessibility:</option>
+	<option value="inv" selected>100% Inventory</option>
+	<option value="loc">100% Locations</option>
+	<option value="beatable">Beatable</option>
 </select>
 <select name="goal" id="goal_select">
 	<option value="title" disabled>Goal:</option>

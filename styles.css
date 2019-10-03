@@ -293,6 +293,12 @@ td {
 	left: 448px;
 	top: 470px;
 }
+#accessibility_select {
+	position: absolute;
+	z-index: 5;
+	left: 448px;
+	top: 490px;
+}
 
 #goal_select {
 	position: absolute;
