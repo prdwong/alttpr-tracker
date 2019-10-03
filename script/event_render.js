@@ -715,7 +715,7 @@ function workerMap() {
 var times = [];
 function refreshMap(type = undefined, name = undefined) {
 	//Update all chests on the map, className and backgroundImage
-	var start = Date.now();
+	var start = window.performance.now();
 	var start_b = start;
 	times = [];
 	clear_region_cache();
@@ -751,16 +751,15 @@ function refreshMap(type = undefined, name = undefined) {
 			else
 				document.getElementById("poi"+chestNum).style.outlineColor = "black";
 		}
-		var newt = Date.now();
+		var newt = window.performance.now();
 		if ((newt - start) > 2) {
-			times.push("#"+chestNum+":"+(newt-start));
+			times.push("#"+chestNum+":"+((newt-start).toFixed(2)));
 		}
 		start = newt;
 	});
 	times.push("dungeons");
 	//Update all boss & dungeons on the map, className, innerText and backgroundImage
 	dungeons.forEach(function(dungeon, dungeonNum) {
-		times.push("#"+dungeonNum);
 		if (type === undefined) {
 			if (dungeon.isBeaten() || (dungeonNum === 12 && (optionGoal === "triforce" || optionGoal === "pedestal"))) {
 				document.getElementById("bossMap"+dungeonNum).className = bossClass + " opened";
@@ -775,9 +774,6 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
 			}
-			var newt = Date.now();
-			times.push(newt - start);
-			start = newt;
 			if (items["chest" + dungeonNum] === 0 || (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal"))) {
 				document.getElementById("dungeon"+dungeonNum).className = dungeonClass + " opened";
 				document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
@@ -791,9 +787,6 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("dungeon"+dungeonNum).style.backgroundImage = "url(images/blank.png)";
 			}
-			var newt = Date.now();
-			times.push(newt - start);
-			start = newt;
 			if ((items["chest" + dungeonNum] === 0 && dungeons[dungeonNum].isBeaten() && dungeons[dungeonNum].gotPrize())
 				|| (dungeonNum === 12 && (dungeons[12].isBeaten() || optionGoal === "triforce" || optionGoal === "pedestal")))
 				document.getElementById("dungentr"+dungeonNum).className = dungentrClass + " opened";
@@ -807,9 +800,6 @@ function refreshMap(type = undefined, name = undefined) {
 				else
 					document.getElementById("dungentr"+dungeonNum).style.backgroundImage = "";
 			}
-			var newt = Date.now();
-			times.push(newt - start);
-			start = newt;
 			switch (dungeonNum) {
 				case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
 				case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
@@ -824,6 +814,9 @@ function refreshMap(type = undefined, name = undefined) {
 					}
 					break;
 			}
+			var newt = window.performance.now();
+			times.push((newt - start).toFixed(2));
+			start = newt;
 		}
 	});
 
@@ -863,9 +856,8 @@ function refreshMap(type = undefined, name = undefined) {
 	window.requestAnimationFrame(function() {
 		updateTrackerItem("go");
 	});
-	times.push(Date.now() - start);
 	times.push("total");
-	var total = Date.now() - start_b;
+	var total = (window.performance.now() - start_b).toFixed(2);
 	times.push(total);
 //	if (total > 100)
 //		alert(times);

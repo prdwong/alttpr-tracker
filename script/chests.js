@@ -48,7 +48,6 @@ Nonexistent/undefined values are equivalent to unavailable
 
 
 //change infinite recursion so it allows to recurse with different states
-var regions_cache;
 var regions = {
 	westDeathMountain: function(must_be_link = false, from_locs = [], bottles = bottleCount(), newcalc = false) { //0-1 bottles
 		if (bottles < 0) return {}; //Used too many bottles
@@ -61,13 +60,13 @@ var regions = {
 		switch (optionState) {
 			case "standard":
 			case "open":
-				return andCombinator([rescueZelda(),
-					orCombinator([canFly_path(), //Flute
+				return andCombiner([rescueZelda(),
+					orCombiner([canFly_path(), //Flute
 						canOneFrameClipOW_path(), //1f
 						canOWYBA_path(bottles), //Fake flute
 						canBootsClip_path(), //Bootsclip
 						canLiftRocks() && items.lantern, //Old man cave
-						andCombinator([canLiftRocks(), glitched("oldMan")]), //Dark room
+						andCombiner([canLiftRocks(), glitched("oldMan")]), //Dark room
 						AccurateLogic(false, canSuperSpeed_path())])]); //Spinspeed only, screenwrap on DM to enter Hera [V31 bug]
 			case "inverted":
 				switch (optionLogic) {
@@ -89,12 +88,12 @@ var regions = {
 						if (items.boots)
 							path3 = regions.northWestLightWorld(true, new_locs, bottles);
 						if (bottles >= 1)
-							path4 = andCombinator(glitched("fakeflute"),
-								orCombinator(regions.eastDeathMountain(must_be_link, new_locs, bottles - 1),
+							path4 = andCombiner(glitched("fakeflute"),
+								orCombiner(regions.eastDeathMountain(must_be_link, new_locs, bottles - 1),
 								regions.northEastLightWorld(must_be_link, new_locs, bottles - 1),
 								regions.northWestLightWorld(must_be_link, new_locs, bottles - 1),
 								regions.SouthLightWorld(must_be_link, new_locs, bottles - 1)));
-						return orCombinator(path1, path2, path3, path4);
+						return orCombiner(path1, path2, path3, path4);
 				}
 			case "retro":
 		}
@@ -112,16 +111,16 @@ var regions = {
 			case "open":
 				//Mirror wrap/clip goes from dwDM, but just use portal instead (any route up dDM works on DM)
 				//  Only difference is being Link without moon pearl in dwDM, but this doesn't matter for light world endstate
-				return andCombinator([rescueZelda(), orCombinator([
-						andCombinator([AccurateLogic(regions.westDeathMountain(), regions.westDeathMountain(undefined, new_locs, bottles)),
-							orCombinator([canOneFrameClipOW_path(), //1f
+				return andCombiner([rescueZelda(), orCombiner([
+						andCombiner([AccurateLogic(regions.westDeathMountain(), regions.westDeathMountain(undefined, new_locs, bottles)),
+							orCombiner([canOneFrameClipOW_path(), //1f
 								canMirrorClip_path(), //Mirror clip
 								canBootsClip_path(), //Bootsclip
 								(items.hammer && items.mirror)
 								|| hasHookshot(),
-								AccurateLogic(false, orCombinator([canMirrorWrap_path(), canSuperSpeed_path()])), //Superspeed/mirror wrap [V31 bug]
-								AccurateLogic(false, andCombinator([canBombClipOW_path(), items.hammer]))])]), //bombclip
-					AccurateLogic(false, andCombinator([regions.westDeathMountain(undefined, new_locs, bottles - 1),
+								AccurateLogic(false, orCombiner([canMirrorWrap_path(), canSuperSpeed_path()])), //Superspeed/mirror wrap [V31 bug]
+								AccurateLogic(false, andCombiner([canBombClipOW_path(), items.hammer]))])]), //bombclip
+					AccurateLogic(false, andCombiner([regions.westDeathMountain(undefined, new_locs, bottles - 1),
 							canGetFairy_path(), glitched("hoverDM")]))])]); //hover across bridge
 			case "inverted":
 				switch (optionLogic) {
@@ -134,7 +133,7 @@ var regions = {
 							path1 = regions.darkEastDeathMountain(undefined, new_locs, bottles);
 						if (hasHookshot())
 							path2 = regions.westDeathMountain(true, new_locs, bottles);
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 					default:
 						var path1 = {}; //From dark EDM
 						var path2 = {}; //From wDM
@@ -145,7 +144,7 @@ var regions = {
 						if (hasHookshot() || items.boots)
 							path2 = regions.westDeathMountain(true, new_locs, bottles);
 						//Can boots climb from NE light world, but if you can do that, you have west DM access anyways
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 			case "retro":
 		}
@@ -161,7 +160,7 @@ var regions = {
 		switch (optionState) {
 			case "standard":
 			case "open":
-				return andCombinator([rescueZelda(),
+				return andCombiner([rescueZelda(),
 					AccurateLogic(true, false)]); //Assume no path uses dwDM
 			case "inverted":
 				switch (optionLogic) {
@@ -174,7 +173,7 @@ var regions = {
 						path2 = canFly_path(new_locs);
 						if (canLiftRocks())
 							path3 = glitched("oldMan");
-						return orCombinator(path1, path2, path3);
+						return orCombiner(path1, path2, path3);
 					default:
 						var path1 = {}; //Old man cave
 						var path2 = {}; //Flute
@@ -188,7 +187,7 @@ var regions = {
 							path3 = glitched("oldMan");
 						if (hasABottle() && bottles >= 1)
 							path4 = glitched("fakeflute");
-						return orCombinator(path1, path2, path3, path4);
+						return orCombiner(path1, path2, path3, path4);
 				}
 			case "retro":
 		}
@@ -205,14 +204,14 @@ var regions = {
 			case "standard":
 			case "open":
 				if (!rescueZelda()) return {};
-				var superbunny_at_dwDM = andCombinator([rgn_fakeflute2link(new_locs, bottles), //fake flute to DM instead of linkstate (1-2 bottles)
+				var superbunny_at_dwDM = andCombiner([rgn_fakeflute2link(new_locs, bottles), //fake flute to DM instead of linkstate (1-2 bottles)
 					glitched("fakefluteDM")]); //preserve superbunny state by dodging boulders
-				return AccurateLogic(orCombinator([andCombinator([canLiftDarkRocks(),
+				return AccurateLogic(orCombiner([andCombiner([canLiftDarkRocks(),
 							regions.eastDeathMountain(undefined, new_locs)]),
-						andCombinator([canBootsClip_path(),
+						andCombiner([canBootsClip_path(),
 							items.moonpearl || items.hammer]),
 						canOneFrameClipOW_path()]),
-					orCombinator([rgn_link2here("darkEastDeathMountain", new_locs, bottles),
+					orCombiner([rgn_link2here("darkEastDeathMountain", new_locs, bottles),
 						must_be_link ? false : rgn_bunny2here("darkEastDeathMountain", new_locs, bottles)]));
 			case "inverted":
 				switch (optionLogic) {
@@ -226,8 +225,8 @@ var regions = {
 						if (items.mirror)
 							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
 						if (hasHookshot())
-							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-						return orCombinator(path1, path2, path3);
+							path3 = andCombiner(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+						return orCombiner(path1, path2, path3);
 					default:
 						var path1 = {}; //Lynels
 						var path2 = {}; //EDM
@@ -238,8 +237,8 @@ var regions = {
 						if (items.mirror)
 							path2 = regions.eastDeathMountain(undefined, new_locs, bottles);
 						if (hasHookshot())
-							path3 = andCombinator(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
-						return orCombinator(path1, path2, path3);
+							path3 = andCombiner(regions.darkWestDeathMountain(undefined, new_locs, bottles), glitched("DM_lynels"));
+						return orCombiner(path1, path2, path3);
 				}
 			case "retro":
 		}
@@ -256,17 +255,17 @@ var regions = {
 			case "standard":
 			case "open":
 				if (!rescueZelda()) return {};
-				return AccurateLogic(orCombinator([canOWYBA_path(bottles),
+				return AccurateLogic(orCombiner([canOWYBA_path(bottles),
 						dungeons[11].isBeaten(), convertAga(dungeons[11].canGetPrize()),
 						items.hammer && canLiftRocks() && items.moonpearl,
-						andCombinator([canLiftDarkRocks(),
-							orCombinator([items.flippers,
-								andCombinator([canBootsClip_path(), canFakeFlipper_path()]),
+						andCombiner([canLiftDarkRocks(),
+							orCombiner([items.flippers,
+								andCombiner([canBootsClip_path(), canFakeFlipper_path()]),
 								canWaterWalk_path()]),
 							items.moonpearl]),
-						andCombinator([canSuperSpeed_path(), canMirrorClip_path(),
+						andCombiner([canSuperSpeed_path(), canMirrorClip_path(),
 							regions.westDeathMountain(undefined, new_locs)])]),
-					orCombinator([rgn_link2here("northEastDarkWorld", new_locs, bottles),
+					orCombiner([rgn_link2here("northEastDarkWorld", new_locs, bottles),
 						must_be_link ? false : rgn_bunny2here("northEastDarkWorld", new_locs, bottles)]));
 			case "inverted":
 				switch (optionLogic) {
@@ -283,7 +282,7 @@ var regions = {
 							path3 = glitched("waterwalk_boots");
 						if (canBombThings())
 							path4 = glitched("qirn_jump");
-						return orCombinator(path1, path2, path3, path4);
+						return orCombiner(path1, path2, path3, path4);
 					default:
 						var path1 = {}; //Normal access
 						var path2 = {}; //Mirror from light world
@@ -297,7 +296,7 @@ var regions = {
 							path3 = glitched("qirn_jump");
 						if (hasABottle() && bottles >= 1)
 							path4 = glitched("fakeflute");
-						return orCombinator(path1, path2, path3, path4);
+						return orCombiner(path1, path2, path3, path4);
 				}
 			case "retro":
 		}
@@ -314,13 +313,13 @@ var regions = {
 			case "standard":
 			case "open":
 				if (!rescueZelda()) return {};
-				return AccurateLogic(orCombinator([canOneFrameClipOW_path(),
-						andCombinator([orCombinator([items.moonpearl, canOWYBA_path(bottles)]),
-							orCombinator([andCombinator([regions.northEastDarkWorld(undefined, new_locs),
+				return AccurateLogic(orCombiner([canOneFrameClipOW_path(),
+						andCombiner([orCombiner([items.moonpearl, canOWYBA_path(bottles)]),
+							orCombiner([andCombiner([regions.northEastDarkWorld(undefined, new_locs),
 									hasHookshot() && (items.flippers || canLiftRocks() || items.hammer)]),
-								(items.hammer && canLiftRocks)
+								(items.hammer && canLiftRocks())
 								|| canLiftDarkRocks()])])]),
-					orCombinator([rgn_link2here("northWestDarkWorld", new_locs, bottles),
+					orCombiner([rgn_link2here("northWestDarkWorld", new_locs, bottles),
 						must_be_link ? false : rgn_bunny2here("northWestDarkWorld", new_locs, bottles)]));
 			case "inverted":
 				return {ng:"a"};
@@ -339,13 +338,13 @@ var regions = {
 			case "standard":
 			case "open":
 				if (!rescueZelda()) return {};
-				return AccurateLogic(orCombinator([canOWYBA_path(bottles),
-						andCombinator([items.moonpearl,
-							orCombinator([andCombinator([regions.northEastDarkWorld(undefined, new_locs), items.hammer
+				return AccurateLogic(orCombiner([canOWYBA_path(bottles),
+						andCombiner([items.moonpearl,
+							orCombiner([andCombiner([regions.northEastDarkWorld(undefined, new_locs), items.hammer
 										|| (hasHookshot() && (items.flippers || canLiftRocks()))]),
 								(items.hammer && canLiftRocks())
 								|| canLiftDarkRocks()])])]),
-					orCombinator([rgn_link2here("SouthDarkWorld", new_locs, bottles),
+					orCombiner([rgn_link2here("SouthDarkWorld", new_locs, bottles),
 						must_be_link ? false : rgn_bunny2here("SouthDarkWorld", new_locs, bottles)]));
 			case "inverted":
 				return {ng:"a"};
@@ -364,10 +363,10 @@ var regions = {
 			case "standard":
 			case "open":
 				if (!rescueZelda()) return {};
-				return AccurateLogic(orCombinator([andCombinator([canLiftDarkRocks(), orCombinator([canFly_path(), canBootsClip_path()])]),
-						andCombinator([items.moonpearl, canBootsClip_path(), regions.SouthDarkWorld(undefined, from_locs)]),
+				return AccurateLogic(orCombiner([andCombiner([canLiftDarkRocks(), orCombiner([canFly_path(), canBootsClip_path()])]),
+						andCombiner([items.moonpearl, canBootsClip_path(), regions.SouthDarkWorld(undefined, from_locs)]),
 						canOWYBA_path(bottles)]),
-					orCombinator([rgn_link2here("mire", new_locs, bottles),
+					orCombiner([rgn_link2here("mire", new_locs, bottles),
 						must_be_link ? false : rgn_bunny2here("mire", new_locs, bottles)]));
 			case "inverted":
 				switch (optionLogic) {
@@ -377,7 +376,7 @@ var regions = {
 						path1 = canFly_path(new_locs);
 						if (items.mirror)
 							path2 = regions.SouthLightWorld(undefined, new_locs, bottles);
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 					default:
 						var path1 = {}; //Fly
 						var path2 = {}; //Mirror
@@ -390,7 +389,7 @@ var regions = {
 							path3 = {ng:"a"};
 						if (hasABottle())
 							path4 = glitched("fakeflute");
-						return orCombinator(path1, path2, path3, path4);
+						return orCombiner(path1, path2, path3, path4);
 				}
 			case "retro":
 		}
@@ -481,7 +480,7 @@ dungeons[0] = {
 		return bool2path(rescueZelda());
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable()]);
+		return andCombiner([this.isAccessible(), this.isBeatable()]);
 	},
 	isBeatable: function(){
 		if (isEmpty(this.isAccessible()))
@@ -490,27 +489,27 @@ dungeons[0] = {
 		var path1 = {}; //Dark back
 		var path2 = {}; //Big Key
 		var path3 = {}; //MC
-		path1 = orCombinator([items.lantern, andCombinator([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
+		path1 = orCombiner([items.lantern, andCombiner([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
 		path2 = this.big();
 		path3 = (qtyCounter.ditems_comp0 && qtyCounter.ditems_map0) || optMapCompLogic === false || optionVariation === "none";
-		return andCombinator([canShootArrows_path(), path1, path2, canBeatBoss(0), path3]);
+		return andCombiner([canShootArrows_path(), path1, path2, canBeatBoss(0), path3]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		var hope = orCombinator([andCombinator([this.big(), this.bigkey(), this.isBeatable()]),
-			convertPossible(threshCombinator(items.maxChest0, [{ng:"a"}, this.big(), {ng:"a"}, this.bigkey(), {ng:"a"}, this.isBeatable()]))]);
+		var hope = orCombiner([andCombiner([this.big(), this.bigkey(), this.isBeatable()]),
+			convertPossible(threshCombiner(items.maxChest0, [{ng:"a"}, this.big(), {ng:"a"}, this.bigkey(), {ng:"a"}, this.isBeatable()]))]);
 		if (isEmpty(hope))
-			return multipleChests({ng:"a"}, this.big(), this.bigkey(), this.isBeatable());
+			return multipleChests([{ng:"a"}, this.big(), this.bigkey(), this.isBeatable()]);
 		return hope;
 	},
 	big: function(){ //BK
-		return orCombinator([qtyCounter.ditems_bk0,
-			andCombinator([optionVariation !== "keysanity",
-				anyOrAllCombinator([{ng:"a"}, this.bigkey()])])]);
+		return orCombiner([qtyCounter.ditems_bk0,
+			andCombiner([optionVariation !== "keysanity",
+				anyOrAllCombiner([{ng:"a"}, this.bigkey()])])]);
 	},
 	bigkey: function(){ //Lamp
-		return orCombinator([items.lantern, glitched("ep_dark")]);
+		return orCombiner([items.lantern, glitched("ep_dark")]);
 	}
 };
 dungeons[1] = {
@@ -533,65 +532,54 @@ dungeons[1] = {
 				return qtyCounter.gotPrize1;
 		}
 	},
-	kChestCount: 6,
 	isAccessible: function(){ //isAccessible only gets you to the front
-		return andCombinator([rescueZelda(),
-			orCombinator([items.book, //Front
+		return andCombiner([rescueZelda(),
+			orCombiner([items.book, //Front
 				canBootsClip_path(), //Bootsclip
-				andCombinator([items.mirror, AccurateLogic(canOWYBA_path(), regions.mire())]), //Fake Flute [V31 bug]
-				andCombinator([items.mirror && canLiftDarkRocks(), canFly_path()]), //Dark world
-				andCombinator([glitched("true"), canOneFrameClipOW_path()])])]); //1f
+				andCombiner([items.mirror, AccurateLogic(canOWYBA_path(), regions.mire())]), //Fake Flute [V31 bug]
+				andCombiner([items.mirror && canLiftDarkRocks(), canFly_path()]), //Dark world
+				AccurateLogic(false, canOneFrameClipOW_path())])]); //1f
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
+		return andCombiner([this.isAccessible(), this.isBeatable()]);
 	},
-	isBeatable: function(ignore_entry = false){
-		if (!ignore_entry && isEmpty(this.isAccessible()))
+	isBeatable: function(){
+		if (isEmpty(this.isAccessible()))
 			return {};
 		//Boss: glove/clip, torches, bk, sk, boss, MC
 		var path1 = {}; //Entry
 		var path2 = {}; //BK
 		var path3 = {}; //SK, min req nothing
 		var path4 = {}; //MC
-		path1 = orCombinator([canLiftRocks(), canBootsClip_path(),
-			andCombinator([glitched("true"), canOneFrameClipOW_path()])]);
+		path1 = orCombiner([canLiftRocks(), canBootsClip_path(),
+			andCombiner([false, orCombiner([canSuperSpeed_path(), canOneFrameClipOW_path()])])]);
 		path2 = this.big();
 		path3 = this.bigkey();
 		path4 = (qtyCounter.ditems_comp1 && qtyCounter.ditems_map1) || optMapCompLogic === false || optionVariation === "none";
-		return andCombinator([path1, canLightTorches(), path2, path3, canBeatBoss(1), path4]);
+		return andCombiner([path1, canLightTorches(), path2, path3, canBeatBoss(1), path4]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		var hope = orCombinator([andCombinator([this.big(), this.torch(), this.bigkey(), this.isBeatable()]),
-			convertPossible(threshCombinator(itemsMax.chest1, [this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.bigkey(), this.isBeatable()]))]);
+		var hope = orCombiner([andCombiner([this.big(), this.torch(), this.bigkey(), this.isBeatable()]),
+			convertPossible(threshCombiner(itemsMax.chest1, [this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.bigkey(), this.isBeatable()]))]);
 		if (isEmpty(hope))
-			return multipleChests(this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.isBeatable());
+			return multipleChests([this.big(), {ng:"a"}, this.torch(), this.bigkey(), this.isBeatable()]);
 		return hope;
 	},
-	big: function(from_locs = [], type = false){ //BK
-		if (from_locs.indexOf("big") !== -1)
-			if (type === false) return {};
-			else return {ng:"a"};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("big");
-		return orCombinator([qtyCounter.ditems_bk1,
-			andCombinator([optionVariation !== "keysanity",
-				anyOrAllCombinator([{ng:"a"}, this.torch(), this.bigkey(new_locs, true)])])]);
+	big: function(){ //BK
+		return orCombiner([qtyCounter.ditems_bk1,
+			andCombiner([optionVariation !== "keysanity",
+				anyOrAllCombiner([{ng:"a"}, this.torch(), this.bigkey()])])]);
 	},
 	torch: function(){ //Boots
-		return orCombinator([items.boots, {ngv:"a"}]);
+		return orCombiner([items.boots, {ngv:"a"}]);
 	},
-	bigkey: function(from_locs = [], type = false){ //SK, min req nothing
-		if (from_locs.indexOf("bigkey") !== -1)
-			if (type === false) return {};
-			else return {ng:"a"};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("bigkey");
-		return orCombinator([
-			orCombinator([qtyCounter.ditems_sk1 >= 1,
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
-					anyOrAllCombinator([{ng:"a"}, this.torch(), this.big(new_locs, true)])])]),
+	bigkey: function(){ //SK, min req nothing
+		//SK could be in big, but then BK can only be on torch or map
+		return orCombiner([qtyCounter.ditems_sk1 >= 1,
+			andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs",
+				anyOrAllCombiner([{ng:"a"}, this.torch()])]),
 			{ng:"p"}]);
 	}
 };
@@ -615,7 +603,6 @@ dungeons[2] = {
 				return qtyCounter.gotPrize2;
 		}
 	},
-	kChestCount: 6,
 	isAccessible: function(){
 		var path1 = {}; //Main
 		var path2 = {}; //Mire
@@ -623,7 +610,7 @@ dungeons[2] = {
 			path1 = this.main();
 			path2 = this.mire();
 		}
-		return orCombinator(path1, path2);
+		return orCombiner(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -649,7 +636,7 @@ dungeons[2] = {
 						if (canLightTorches()) //BK in BK
 							path1 = canBeatBoss(2, qtyCounter.boss2);
 						path2 = convertPossible(canBeatBoss(2, qtyCounter.boss2));
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 			default:
 		//BK: torch, SK
@@ -664,15 +651,15 @@ dungeons[2] = {
 							path1 = canBeatBoss(2, qtyCounter.boss2);
 						if (!isEmpty(this.mire()))
 							path2 = canBeatBoss(2, qtyCounter.boss2);
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 					default:
 						var path1 = {}; //Can always access boss from mire
 										//From main, might not be able to access boss, which means mire access needed
 						var path2 = {}; //Possible lucky BK in map from main entrance
 						if (!isEmpty(this.mire()))
 							path1 = canBeatBoss(2, qtyCounter.boss2);
-						path2 = convertPossible(andCombinator(!isEmpty(this.main()) ? {ng:"a"} : {}, canBeatBoss(2, qtyCounter.boss2)));
-						return orCombinator(path1, path2);
+						path2 = convertPossible(andCombiner(!isEmpty(this.main()) ? {ng:"a"} : {}, canBeatBoss(2, qtyCounter.boss2)));
+						return orCombiner(path1, path2);
 				}
 		}
 	},
@@ -693,7 +680,7 @@ dungeons[2] = {
 						if (qtyCounter.ditems_bk2)
 							path3 = {ng:"a"};
 						path4 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4);
+						return multipleChests([path1, path2, path3, path4]);
 					default:
 						var path1 = {ng:"a"}; //Free basement, map
 						var path2 = {}; //BK
@@ -702,11 +689,11 @@ dungeons[2] = {
 						if (canLightTorches()
 							&& (optionVariation !== "retro" || qtyCounter.hc_sk >= 1))
 							path2 = {ng:"a"};
-						path3 = anyOrAllCombinator(path1, path2);
+						path3 = anyOrAllCombiner([path1, path2]);
 						path4 = this.isBeatable();
-						var always = andCombinator(path1, path2, path3, path4);
+						var always = andCombiner(path1, path2, path3, path4);
 						var possible = {ng:"p"}; //BK in basement, items on map, compass, big
-						return orCombinator(always, possible);
+						return orCombiner(always, possible);
 				}
 		//BK: torch, SK
 		//Compass: main&BK || mire
@@ -729,7 +716,7 @@ dungeons[2] = {
 							|| (!isEmpty(this.mire()) && (qtyCounter.ditems_bk2 || qtyCounter.ditems_bk8)))
 							path4 = {ng:"a"};
 						path5 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4, path5);
+						return multipleChests([path1, path2, path3, path4, path5]);
 					default: //BK and SK can be anywhere, so main&BK is not guaranteed -- mire gives access to compass/boss/map/basement
 						var path1 = {ng:"a"}; //Basement, map
 						var path2 = {}; //BK
@@ -738,14 +725,14 @@ dungeons[2] = {
 						var path5 = {}; //Boss
 						if (!isEmpty(this.mire()))
 							path3 = {ng:"a"};
-						if (!isEmpty(this.mire())) //Sloppy, but andCombinator will take care of BK in BK or boss
+						if (!isEmpty(this.mire())) //Sloppy, but andCombiner will take care of BK in BK or boss
 							path4 = {ng:"a"};
 						path5 = this.isBeatable();
 						if (canLightTorches())
-							path2 = andCombinator(path1, path3, path4, path5);
-						var always = andCombinator(path1, path2, path3, path4, path5);
+							path2 = andCombiner(path1, path3, path4, path5);
+						var always = andCombiner(path1, path2, path3, path4, path5);
 						var possible = {ng:"p"}; //BK in basement, items on map, compass, big
-						return orCombinator(always, possible);
+						return orCombiner(always, possible);
 				}
 		}
 	},
@@ -755,10 +742,10 @@ dungeons[2] = {
 		path1 = canBootsClip_path();
 		if (items.mirror || (hasHookshot() && items.hammer))
 			path2 = regions.westDeathMountain();
-		return orCombinator(path1, path2);
+		return orCombiner(path1, path2);
 	},
 	mire: function(){ //TODO -- Add MM key logic smarts
-		return convertPossible(andCombinator(canOneFrameClipUW_path(), dungeons[8].isAccessible()));
+		return convertPossible(andCombiner(canOneFrameClipUW_path(), dungeons[8].isAccessible()));
 		var path1 = {}; //Mire w/all keys
 		var path2 = {}; //Mire w/all keys, normal (need to get keys in spike chest and Vitty)
 						//  If SK in left side, then BK also in left side, then we only need 2 keys, and they can't be in big/Vitty
@@ -770,10 +757,10 @@ dungeons[2] = {
 			&& ((optionVariation !== "timedohko" && optionVariation !== "ohko")
 				|| items.byrna || items.cape)
 			&& (items.somaria && items.lantern)) //gives access to every MM location for keys
-			path2 = andCombinator(dungeons[8].isAccessible(), canBeatBoss(8, qtyCounter.boss8));
+			path2 = andCombiner(dungeons[8].isAccessible(), canBeatBoss(8, qtyCounter.boss8));
 		if (optionVariation !== "keysanity" || qtyCounter.ditems_sk8 >= 2) //Can buy keys in retro -- could be keys in bridge, lobby, left side for normal
 			path3 = convertPossible(dungeons[8].isAccessible());
-		return orCombinator(path1, path2, path3);
+		return orCombiner(path1, path2, path3);
 	},
 	bigkey: function(from_locs = [], type = false){ //Torch, SK
 		if (from_locs.indexOf("bigkey") !== -1)
@@ -781,10 +768,10 @@ dungeons[2] = {
 			else return {ng:"a"};
 		var new_locs = from_locs.slice(0);
 		new_locs.push("bigkey");
-		return andCombinator(bool2path(canLightTorches()),
-			orCombinator(bool2path(qtyCounter.ditems_sk2 >= 1),
-				andCombinator(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
-					anyOrAllCombinator([this.cage(), this.compass(new_locs, true), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
+		return andCombiner(bool2path(canLightTorches()),
+			orCombiner(bool2path(qtyCounter.ditems_sk2 >= 1),
+				andCombiner(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
+					anyOrAllCombiner([this.cage(), this.compass(new_locs, true), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
 	},
 	cage: function(){
 		return {ng:"a"};
@@ -801,14 +788,14 @@ dungeons[2] = {
 		path1 = {}; //main
 		path2 = {}; //mire
 		path3 = {}; //Herapot
-		path1 = andCombinator(bool2path(!isEmpty(this.main())),
-			orCombinator(bool2path(qtyCounter.ditems_bk2 >= 1),
-				andCombinator(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
-					anyOrAllCombinator([this.bigkey(new_locs, true), this.cage(), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
+		path1 = andCombiner(bool2path(!isEmpty(this.main())),
+			orCombiner(bool2path(qtyCounter.ditems_bk2 >= 1),
+				andCombiner(bool2path(optionVariation !== "keysanity" && optionVariation !== "mcs"),
+					anyOrAllCombiner([this.bigkey(new_locs, true), this.cage(), this.big(new_locs, true), this.isBeatable(new_locs, true)]))));
 		path2 = bool2path(!isEmpty(this.mire()));
 		if (!isEmpty(this.main()) && hasHookshot())
 			path3 = glitched("herapot");
-		return orCombinator(path1, path2, path3);
+		return orCombiner(path1, path2, path3);
 	},
 	big: function(from_locs = [], type = false){ //main+BK || mire+BK/BK2
 	}
@@ -833,7 +820,6 @@ dungeons[3] = {
 				return qtyCounter.gotPrize3;
 		}
 	},
-	kChestCount: 14,
 	isAccessible: function(){ //isAccessible also considers kikiskip
 		path1 = {}; //Basic
 		path2 = {}; //Entry
@@ -842,11 +828,11 @@ dungeons[3] = {
 				path1 = {ng:"a"};
 			else
 				path1 = canAdvancedItems_path();
-			path2 = orCombinator(andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
+			path2 = orCombiner(andCombiner(orCombiner((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
 									regions.northEastDarkWorld()),
-								andCombinator(canOneFrameClipUW_path(), regions.westDeathMountain()));
+								andCombiner(canOneFrameClipUW_path(), regions.westDeathMountain()));
 		}
-		return andCombinator(path1, path2);
+		return andCombiner(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -868,7 +854,7 @@ dungeons[3] = {
 			case "keysanity":
 				if (items.hammer && items.lantern && qtyCounter.ditems_bk3 && items.moonpearl
 					&& qtyCounter.ditems_sk3 >= 6 && qtyCounter.ditems_comp3 && qtyCounter.ditems_map3)
-					return andCombinator(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3));
+					return andCombiner(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3));
 				return {};
 			default:
 				var path1 = {}; //Always
@@ -876,10 +862,10 @@ dungeons[3] = {
 				if (items.hammer && items.lantern && items.moonpearl) { //pearl in case kikiskip and you need to spawn crystal switches
 					if ((optionVariation === "retro" && qtyCounter.hc_sk >= 6)
 						|| optionVariation !== "retro")
-						path1 = andCombinator(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3));
-					path2 = convertPossible(andCombinator(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3))); //BK and SK on ledge/map
+						path1 = andCombiner(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3));
+					path2 = convertPossible(andCombiner(canShootArrows_path(), canBeatBoss(3, qtyCounter.boss3))); //BK and SK on ledge/map
 				}
-				return orCombinator(path1, path2);
+				return orCombiner(path1, path2);
 		}
 	},
 	canGetChests: function(){
@@ -887,13 +873,13 @@ dungeons[3] = {
 			return {};
 		switch (optionVariation) {
 			case "keysanity":
-				return multipleChests({ng:"a"}, this.isBeatable()); //Lazy
+				return multipleChests([{ng:"a"}, this.isBeatable()]); //Lazy
 			default: //Also lazy
 				var always = this.isBeatable(); //Always
 				var possible = {}; //Possible
 				if (items.lantern) //SK in shooter, stalfos, compass, items in ledge, basement L/R, maze U/D 
 					possible = convertPossible(canShootArrows_path());
-				var result = orCombinator(always, possible);
+				var result = orCombiner(always, possible);
 				if (isEmpty(result))
 					return {ng:"au"};
 				return result;
@@ -920,7 +906,6 @@ dungeons[4] = {
 				return qtyCounter.gotPrize4;
 		}
 	},
-	kChestCount: 10,
 	isAccessible: function(){ //Entrance does not require pearl/mirror/flippers. MG entrance could also be from mire
 		path1 = {}; //Basic
 		path2 = {}; //Entry
@@ -929,9 +914,9 @@ dungeons[4] = {
 				path1 = {ng:"a"};
 			else
 				path1 = canAdvancedItems_path();
-			path2 = orCombinator(this.main(), this.mire());
+			path2 = orCombiner(this.main(), this.mire());
 		}
-		return andCombinator(path1, path2);
+		return andCombiner(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -967,7 +952,7 @@ dungeons[4] = {
 							if (optionVariation === "retro")
 								path2 = convertPossible(canBeatBoss(4, qtyCounter.boss4)); //Can buy keys
 						}
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 			default:
 		//Entrance: must have SK, because all other locations require it
@@ -1017,7 +1002,7 @@ dungeons[4] = {
 						if (qtyCounter.ditems_sk4 && items.hammer && hasHookshot() && items.flippers && items.mirror && items.moonpearl)
 							path5 = {ng:"a"};
 						path6 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4, path5, path6);
+						return multipleChests([path1, path2, path3, path4, path5, path6]);
 					default:
 						var path1 = {}; //Entrance
 						var path2 = {}; //Big
@@ -1036,12 +1021,12 @@ dungeons[4] = {
 							path5 = {ng:"a"};
 						path6 = this.isBeatable();
 						if (items.hammer && items.flippers && items.mirror && items.moonpearl)
-							path2 = anyOrAllCombinator(path1, path3, path5, path6);
-						var always = andCombinator(path1, path2, path3, path4, path5, path6);
+							path2 = anyOrAllCombiner([path1, path3, path5, path6]);
+						var always = andCombiner(path1, path2, path3, path4, path5, path6);
 						var possible = {};
 						if (items.hammer && hasHookshot() && items.flippers && items.mirror && items.moonpearl)
 							possible = {ng:"p"}; //SK in entrance, items in map, BK, west, compass, flooded L/R, buy key
-						var result = orCombinator(always, possible);
+						var result = orCombiner(always, possible);
 						if (isEmpty(result)) {
 							if (items.flippers && items.mirror && items.moonpearl)
 								return {ng:"au"}; //map in normal mode, entrance in retro mode
@@ -1064,43 +1049,43 @@ dungeons[4] = {
 						var path4 = {}; //Map
 						var path5 = {}; //Flooded, waterfall
 						var path6 = {}; //Boss
-						path1 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
+						path1 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
 						if (qtyCounter.ditems_sk4)
-							path4 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
+							path4 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
 						if (qtyCounter.ditems_sk4 && items.flippers)
-							path3 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {},
+							path3 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {},
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
 						if (qtyCounter.ditems_sk4 && items.flippers)
-							path2 = orCombinator((!isEmpty(this.mire()) && (qtyCounter.ditems_bk2 || qtyCounter.ditems_bk4 || qtyCounter.ditems_bk8)) ? {ng:"a"} : {},
+							path2 = orCombiner((!isEmpty(this.mire()) && (qtyCounter.ditems_bk2 || qtyCounter.ditems_bk4 || qtyCounter.ditems_bk8)) ? {ng:"a"} : {},
 								(qtyCounter.ditems_bk4 && items.hammer && items.moonpearl && items.flippers && items.mirror && !isEmpty(this.main())) ? {ng:"a"} : {});
 						if (qtyCounter.ditems_sk4 && items.flippers && hasHookshot())
-							path5 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {},
+							path5 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {},
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
 						path6 = this.isBeatable();
-						return multipleChests(path1, path2, path3, path4, path5, path6);
+						return multipleChests([path1, path2, path3, path4, path5, path6]);
 					default:
 						var path1 = {}; //Entrance, map free
 						var path2 = {}; //Big
 						var path3 = {}; //BK, west, compass
 						var path5 = {}; //Flooded, waterfall
 						var path6 = {}; //Boss
-						path1 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
+						path1 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"} : {});
 						if (items.flippers)
-							path3 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {},
+							path3 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {},
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
 						if (items.flippers && hasHookshot())
-							path5 = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {},
+							path5 = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {},
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
 						path6 = this.isBeatable();
-						path2 = andCombinator(path1, path3, path5, path6); //This is sloppy (only finds BK4), but this is for "always" calculation anyways...
-						var always = andCombinator(path1, path2, path3, path5, path6);
+						path2 = andCombiner(path1, path3, path5, path6); //This is sloppy (only finds BK4), but this is for "always" calculation anyways...
+						var always = andCombiner(path1, path2, path3, path5, path6);
 						var possible = {};
 						if (items.flippers && hasHookshot())
-							possible = orCombinator(!isEmpty(this.mire()) ? {ng:"a"} : {},
+							possible = orCombiner(!isEmpty(this.mire()) ? {ng:"a"} : {},
 								(!isEmpty(this.main()) && items.hammer && items.moonpearl && items.mirror && items.flippers) ? {ng:"a"} : {});
-						var result = orCombinator(always, possible);
+						var result = orCombiner(always, possible);
 						if (isEmpty(result)) {
-							return orCombinator(!isEmpty(this.mire()) ? {ng:"a"/*u"*/} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"/*u"*/} : {}); //map in normal mode, entrance in retro mode
+							return orCombiner(!isEmpty(this.mire()) ? {ng:"a"/*u"*/} : {}, (items.moonpearl && items.mirror && items.flippers && !isEmpty(this.main())) ? {ng:"a"/*u"*/} : {}); //map in normal mode, entrance in retro mode
 						}
 						return result;
 				}
@@ -1112,7 +1097,7 @@ dungeons[4] = {
 		return {};
 	},
 	mire: function() { //TODO -- Add MM key logic smarts
-		return andCombinator(canOneFrameClipUW_path(), regions.mire());
+		return andCombiner(canOneFrameClipUW_path(), regions.mire());
 		var path1 = {}; //Mire w/all keys
 		var path2 = {}; //Mire w/all keys, normal (need to get keys in spike chest and Vitty)
 						//  If SK in left side, then BK also in left side, and SKs can't be in big/Vitty
@@ -1124,11 +1109,11 @@ dungeons[4] = {
 			&& ((optionVariation !== "timedohko" && optionVariation !== "ohko")
 				|| items.byrna || items.cape)
 			&& (items.somaria && items.lantern)) //Lantern also gives access if need to get SK on left side
-			path2 = andCombinator(dungeons[8].isAccessible(), canBeatBoss(8, qtyCounter.boss8));
+			path2 = andCombiner(dungeons[8].isAccessible(), canBeatBoss(8, qtyCounter.boss8));
 		//Retro -- Can buy keys
 		//Normal -- could be keys in bridge and lobby and map
 		path3 = convertPossible(dungeons[8].isAccessible());
-		return orCombinator(path1, path2, path3);
+		return orCombiner(path1, path2, path3);
 	}
 };
 dungeons[5] = {
@@ -1151,91 +1136,86 @@ dungeons[5] = {
 				return qtyCounter.gotPrize5;
 		}
 	},
-	kChestCount: 8,
 	isAccessible: function(){ //isAccessible is only for the front
-		return andCombinator([rescueZelda(),
-			orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
-			AccurateLogic(andCombinator([orCombinator([canDungeonRevive_path(), items.moonpearl]),
+		return andCombiner([rescueZelda(),
+			orCombiner([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
+			AccurateLogic(andCombiner([orCombiner([canDungeonRevive_path(), items.moonpearl]),
 					regions.northWestDarkWorld()]),
-				orCombinator([this.front(2), this.middle(2), this.back()]))]);
+				orCombiner([this.front(2), this.middle(2), this.back()]))]);
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
+		return andCombiner([this.isAccessible(), this.isBeatable()]);
 	},
-	isBeatable: function(ignore_entry = false, from_locs = [], type = false){
-		if (!ignore_entry && isEmpty(this.isAccessible()))
+	isBeatable: function(){
+		if (isEmpty(this.isAccessible()))
 			return {};
-		if (from_locs.indexOf("boss") !== -1)
-			if (type === false) return {};
-			else return {ng:"a"};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("boss");
 		//Boss: pearl, firerod, swordless/sword, 3SK, boss, compass, map
-		var path1 = {}; //SK, min req nothing
+		var path1 = {}; //SK, min req nothing, presence of forced SK doesn't matter
 		var path2 = {}; //MC
-		path1 = orCombinator([
-			orCombinator([qtyCounter.ditems_sk5 >= 3,
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
-					anyOrAllCombinator([this.big(new_locs, true), {ng:"a"}, this.bridge()])])]), //3 chests are always accessible
+		path1 = orCombiner([qtyCounter.ditems_sk5 >= 3,
+			andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs",
+				anyOrAllCombiner([threshAllCombiner(3, [this.bigkey(), this.compass(), this.compass(), this.compass(), this.compass(), this.bridge()]), //BK in boss or big
+					threshAllCombiner(3, [this.big("boss"), this.bigkey(), this.compass(), this.compass(), this.compass(), this.compass(), this.bridge()])])]), //BK elsewhere, might need to open big chest for last key
 			{ng:"p"}]);
 		path2 = (qtyCounter.ditems_comp5 && qtyCounter.ditems_map5) || optMapCompLogic === false || optionVariation === "none";
-		return andCombinator([AccurateLogic(items.moonpearl && items.firerod, this.bridge()),
+		return andCombiner([AccurateLogic(items.moonpearl && items.firerod, this.bridge()),
 			optionSwords === "swordless" || hasSword(),
 			path1, canBeatBoss(5), path2]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		var hope = orCombinator([andCombinator([this.big(), this.bridge(), this.isBeatable()]),
-			convertPossible(threshCombinator(itemsMax.chest5, [this.big(), {ng:"a"}, {ng:"a"}, {ng:"a"}, this.bridge(), {ng:"a"}, {ng:"a"}, this.isBeatable()]))]);
+		var hope = orCombiner([andCombiner([this.big(), this.bigkey(), this.compass(), this.bridge(), this.isBeatable()]),
+			convertPossible(threshCombiner(itemsMax.chest5, [this.big(), this.bigkey(), this.compass(), this.compass(),
+						this.bridge(), this.compass(), this.compass(), this.isBeatable()]))]);
 		if (isEmpty(hope))
-			return multipleChests(this.big(), {ng:"a"}, this.bridge(), this.isBeatable());
+			return multipleChests([this.big(), this.bigkey(), this.compass(), this.bridge(), this.isBeatable()]);
 		return hope;
 	},
 	front: function(must_be_link = false){
 		if (must_be_link === true) {
-			return orCombinator([regions.northWestDarkWorld(true),
-				andCombinator([regions.northWestDarkWorld(), canDungeonRevive_path()])]);
+			return orCombiner([regions.northWestDarkWorld(true),
+				andCombiner([regions.northWestDarkWorld(), canDungeonRevive_path()])]);
 		} else if (must_be_link === 2) {
-			return orCombinator([regions.northWestDarkWorld(true),
-				andCombinator([regions.northWestDarkWorld(),
-					orCombinator([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("fall"), canSuperBunny_path("hit")])])]);
+			return orCombiner([regions.northWestDarkWorld(true),
+				andCombiner([regions.northWestDarkWorld(),
+					orCombiner([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("fall"), canSuperBunny_path("hit")])])]);
 		} else
 			return regions.northWestDarkWorld();
 	},
 	middle: function(must_be_link = false){
-		if (must_be_link === true) {
-			return orCombinator([regions.northWestDarkWorld(true),
-				andCombinator([regions.northWestDarkWorld(), canDungeonRevive_path()])]);
-		} else if (must_be_link === 2) {
-			return orCombinator([regions.northWestDarkWorld(true),
-				andCombinator([regions.northWestDarkWorld(),
-					orCombinator([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("hit")])])]);
+		if (must_be_link === 2) {
+			return orCombiner([regions.northWestDarkWorld(true),
+				andCombiner([regions.northWestDarkWorld(),
+					orCombiner([canDungeonRevive_path(), canSuperBunny_path("mirror"), canSuperBunny_path("hit")])])]);
 		} else
-			return regions.northWestDarkWorld();
+			return this.front(must_be_link);
 	},
 	back: function(){
-		return andCombinator([items.firerod,
-			orCombinator([andCombinator([items.moonpearl, this.middle()]), //Pearl to preserve Link state
-				andCombinator([glitched("true"), this.middle(true), !dungeons[11].isBeaten()]), //Fake dark world, as long as Aga not dead
-				andCombinator([glitched("mapwrap"), regions.darkEastDeathMountain(true), orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])])])]); //Map wrap
+		return andCombiner([items.firerod,
+			orCombiner([andCombiner([items.moonpearl, this.middle()]), //Pearl to preserve Link state
+				andCombiner([this.middle(true), !dungeons[11].isBeaten()]), //Fake dark world, as long as Aga not dead
+				andCombiner([glitched("mapwrap"), regions.darkEastDeathMountain(true), orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])])])]); //Map wrap
 	},
-	big: function(from_locs = [], type = false){ //BK, but allowed to have BK if accessibility !== locations
-		if (from_locs.indexOf("big") !== -1)
-			if (type === false) return {};
-			else return {ng:"a"};
-		var new_locs = from_locs.slice(0);
-		new_locs.push("big");
-		return andCombinator([orCombinator([qtyCounter.ditems_bk5,
-				andCombinator([optionVariation !== "keysanity",
-					anyOrAllCombinator([{ng:"a"}, this.bridge(), this.isBeatable(undefined, new_locs, true)])])]),
-			AccurateLogic(true,
-				orCombinator([!isEmpty(this.front(true)),
-					andCombinator([!isEmpty(this.front(2)), glitched("hover")])]))]);
+	big: function(source){ //BK, but allowed to have BK if accessibility !== locations
+		var recur_boss = (source === "boss" ? true : this.isBeatable());
+		return andCombiner([orCombiner([qtyCounter.ditems_bk5,
+				andCombiner([optionVariation !== "keysanity",
+					anyOrAllCombiner([this.bigkey(), this.compass(), this.bridge(), recur_boss])])]),
+			AccurateLogic(orCombiner([canBombThings(), glitched("hover")]),
+				orCombiner([andCombiner([!isEmpty(this.front(true)),
+						orCombiner([canBombThings(), glitched("hover")])]),
+					andCombiner([!isEmpty(this.front(2)), glitched("hover")])]))]);
+	},
+	bigkey: function(){
+		return AccurateLogic({ng:"a"}, !isEmpty(this.middle(2)));
+	},
+	compass: function(){
+		return AccurateLogic({ng:"a"}, !isEmpty(this.front(2)));
 	},
 	bridge: function(){ //Pearl && Firerod
 		return AccurateLogic(items.moonpearl && items.firerod, this.back());
-	},
+	}
 };
 dungeons[6] = {
 	name: "Thieves' Town",
@@ -1257,67 +1237,61 @@ dungeons[6] = {
 				return qtyCounter.gotPrize6;
 		}
 	},
-	kChestCount: 8,
 	isAccessible: function(){
-		return andCombinator([rescueZelda(),
-			orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
-			AccurateLogic(andCombinator([orCombinator([items.moonpearl, canOWYBA_path()]),
+		return andCombiner([rescueZelda(),
+			orCombiner([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword()) && hasHealth(7) && hasBottle()]),
+			AccurateLogic(andCombiner([orCombiner([items.moonpearl, canOWYBA_path()]),
 					regions.northWestDarkWorld()]),
 				regions.northWestDarkWorld(true))]);
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
+		return andCombiner([this.isAccessible(), this.isBeatable()]);
 	},
-	isBeatable: function(ignore_entry = false){
-		if (!ignore_entry && isEmpty(this.isAccessible()))
+	isBeatable: function(){
+		if (isEmpty(this.isAccessible()))
 			return {};
 		//Boss: SK, BK, boss, compass, map
 		var path1 = {}; //SK, min req nothing
 		var path2 = {}; //BK
 		var path3 = {}; //MC
-		path1 = orCombinator([
-			orCombinator([qtyCounter.ditems_sk6 >= 1,
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
-					anyOrAllCombinator([{ng:"a"}, this.cell(), this.big()])])]),
+		path1 = orCombiner([qtyCounter.ditems_sk6 >= 1,
+			andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs",
+				anyOrAllCombiner([{ng:"a"}, this.cell(), this.big()])]),
 			{ng:"p"}]);
 		path2 = this.cell();
 		path3 = (qtyCounter.ditems_comp6 && qtyCounter.ditems_map6) || optMapCompLogic === false || optionVariation === "none";
-		return andCombinator(path1, path2, canBeatBoss(6), path3);
+		return andCombiner(path1, path2, canBeatBoss(6), path3);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		var hope = orCombinator([andCombinator([this.attic(), this.big(), this.cell(), this.isBeatable()]),
-			convertPossible(threshCombinator(itemsMax.chest6, [this.attic(), {ng:"a"}, {ng:"a"}, {ng:"a"}, {ng:"a"}, this.big(), this.cell(), this.isBeatable()]))]);
+		var hope = orCombiner([andCombiner([this.attic(), this.big(), this.cell(), this.isBeatable()]),
+			convertPossible(threshCombiner(itemsMax.chest6, [this.attic(), {ng:"a"}, {ng:"a"}, {ng:"a"}, {ng:"a"}, this.big(), this.cell(), this.isBeatable()]))]);
 		if (isEmpty(hope))
-			return multipleChests({ng:"a"}, this.attic(), this.big(), this.cell(), this.isBeatable());
+			return multipleChests([{ng:"a"}, this.attic(), this.big(), this.cell(), this.isBeatable()]);
 		return hope;
 	},
 	attic: function(){ //SK, BK -- min req BK
 		var path1 = {}; //BK
 		var path2 = {}; //SK
 		path1 = this.cell();
-		path2 = orCombinator([
-			orCombinator([qtyCounter.ditems_sk6 >= 1,
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
-					anyOrAllCombinator([{ng:"a"}, this.cell(), this.big()])])]),
+		path2 = orCombiner([qtyCounter.ditems_sk6 >= 1,
+			andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs",
+				anyOrAllCombiner([{ng:"a"}, this.cell(), this.big()])]),
 			{ng:"p"}]);
-		return andCombinator(path1, path2);
+		return andCombiner(path1, path2);
 	},
 	big: function(){ //hammer+BK + SK if SK not inside (accessibility) -- min req hammer+BK
 		var path1 = {}; //BK
 		var path2 = {}; //SK
 		path1 = this.cell();
-		path2 = orCombinator([
-			orCombinator([qtyCounter.ditems_sk6 >= 1,
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs",
-					anyOrAllCombinator([{ng:"a"}, this.cell()])])]),
+		path2 = orCombiner([qtyCounter.ditems_sk6 >= 1,
+			andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs",
+				anyOrAllCombiner([{ng:"a"}, this.cell()])]),
 			{ng:"p"}]);
-		var path3 = {}; //SK outside
-		var path4 = {}; //SK inside
-		path3 = andCombinator([items.hammer, path1, path2]);
-		path4 = andCombinator([items.hammer, path1]);
-		return anyOrAllCombinator([path3, path4]);
+		var path3 = andCombiner([items.hammer, path1, path2]); //SK outside
+		var path4 = andCombiner([items.hammer, path1, optionAccessibility !== "loc"]); //SK inside
+		return anyOrAllCombiner([path3, path4]);
 	},
 	cell: function(){ //BK
 		return qtyCounter.ditems_bk6 || optionVariation !== "keysanity";
@@ -1343,7 +1317,6 @@ dungeons[7] = {
 				return qtyCounter.gotPrize7;
 		}
 	},
-	kChestCount: 8,
 	isAccessible: function(){
 		var path1 = {}; //Basic
 		var path2 = {}; //First room
@@ -1351,24 +1324,24 @@ dungeons[7] = {
 		var path4 = {}; //MirrorWrap + Linkstate + 1f/bootsclip + South
 		var path5 = {}; //YBA
 		var path6 = {}; //Flippers
-		path1 = orCombinator([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor())]);
-		path2 = AccurateLogic(orCombinator([canMeltThings(), canOneFrameClipUW_path()]), true);
-		path3 = andCombinator([orCombinator([items.moonpearl, canDungeonRevive_path()]),
-			orCombinator([items.flippers, canFakeFlipper_path(), AccurateLogic(false, orCombinator([canWaterWalk_path(), canBunnyRevive_path()]))]),
+		path1 = orCombiner([canAdvancedItems_path(), (optionSwords === "swordless" || hasSword(2)) && hasHealth(12) && (hasBottle(2) || hasArmor())]);
+		path2 = AccurateLogic(orCombiner([canMeltThings(), canOneFrameClipUW_path()]), true);
+		path3 = andCombiner([orCombiner([items.moonpearl, canDungeonRevive_path()]),
+			orCombiner([items.flippers, canFakeFlipper_path(), AccurateLogic(false, orCombiner([canWaterWalk_path(), canBunnyRevive_path()]))]),
 			canLiftDarkRocks()]);
-		path4 = andCombinator([canMirrorWrap_path(),
-			AccurateLogic(orCombinator([items.moonpearl, canOWYBA_path()]),
-					orCombinator([canOneFrameClipOW_path(), canBootsClip_path()]),
+		path4 = andCombiner([canMirrorWrap_path(),
+			AccurateLogic(orCombiner([items.moonpearl, canOWYBA_path()]),
+					orCombiner([canOneFrameClipOW_path(), canBootsClip_path()]),
 					regions.SouthDarkWorld(),
-				orCombinator([andCombinator([canOneFrameClipOW_path(), regions.SouthDarkWorld(false)]),
-					andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path()]), regions.SouthDarkWorld(true)])]))]);
-		path5 = andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path(), andCombinator([canOneFrameClipOW_path(), items.boots])]), canOWYBA_path(), regions.SouthDarkWorld(true)]);
-		path6 = andCombinator([items.flippers, orCombinator([andCombinator([canBootsClip_path(), regions.SouthDarkWorld(true)]),
-						andCombinator([canOneFrameClipOW_path(), regions.SouthDarkWorld()])])]);
-		return andCombinator([rescueZelda(), path1, path2, orCombinator([path3, path4, AccurateLogic(false, orCombinator([path5, path6]))])]);
+				orCombiner([andCombiner([canOneFrameClipOW_path(), regions.SouthDarkWorld(false)]),
+					andCombiner([orCombiner([canBootsClip_path(), canSuperSpeed_path()]), regions.SouthDarkWorld(true)])]))]);
+		path5 = andCombiner([orCombiner([canBootsClip_path(), canSuperSpeed_path(), andCombiner([canOneFrameClipOW_path(), items.boots])]), canOWYBA_path(), regions.SouthDarkWorld(true)]);
+		path6 = andCombiner([items.flippers, orCombiner([andCombiner([canBootsClip_path(), regions.SouthDarkWorld(true)]),
+						andCombiner([canOneFrameClipOW_path(), regions.SouthDarkWorld()])])]);
+		return andCombiner([rescueZelda(), path1, path2, orCombiner([path3, path4, AccurateLogic(false, orCombiner([path5, path6]))])]);
 	},
 	canGetPrize: function(){
-		return andCombinator([this.isAccessible(), this.isBeatable(true)]);
+		return andCombiner([this.isAccessible(), this.isBeatable(true)]);
 	},
 	isBeatable: function(ignore_entry = false){
 		if (!ignore_entry && isEmpty(this.isAccessible()))
@@ -1377,29 +1350,29 @@ dungeons[7] = {
 		var path1 = {}; //BK
 		var path2 = {}; //keys
 		var path3 = {}; //MC
-		path1 = orCombinator([
-			orCombinator([qtyCounter.ditems_bk7,
-				andCombinator([optionVariation !== "keysanity",
-					anyOrAllCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor()])])]),
+		path1 = orCombiner([
+			orCombiner([qtyCounter.ditems_bk7,
+				andCombiner([optionVariation !== "keysanity",
+					anyOrAllCombiner([this.bigkey(), this.compass(), this.spike(), this.freezor()])])]),
 			{ng:"p"}]);
 		path2 = 
 		path3 = (qtyCounter.ditems_comp7 && qtyCounter.ditems_map7) || optMapCompLogic === false || optionVariation === "none";
-		return andCombinator([items.hammer && canMeltThings(), canLiftRocks(), path1, path2, path3]);
+		return andCombiner([items.hammer && canMeltThings(), canLiftRocks(), path1, path2, path3]);
 	},
 	canGetChests: function(){
 		if (isEmpty(this.isAccessible()))
 			return {};
-		var hope = orCombinator([andCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable()]),
-			convertPossible(threshCombinator(itemsMax.chest7, [this.bigkey(), this.compass(), this.bigkey(), this.spike(), this.freezor(), this.compass(), this.big, this.isBeatable()]))]);
+		var hope = orCombiner([andCombiner([this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable()]),
+			convertPossible(threshCombiner(itemsMax.chest7, [this.bigkey(), this.compass(), this.bigkey(), this.spike(), this.freezor(), this.compass(), this.big, this.isBeatable()]))]);
 		if (isEmpty(hope))
-			return multipleChests(this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable());
+			return multipleChests([this.bigkey(), this.compass(), this.spike(), this.freezor(), this.big(), this.isBeatable()]);
 		return hope;
 	},
 	bigkey: function(){ //hammer+glove+spike room
-		return andCombinator([items.hammer && canLiftRocks(), this.spike()]);
+		return andCombiner([items.hammer && canLiftRocks(), this.spike()]);
 	},
 	compass: function(){
-		return AccurateLogic(true, orCombinator([canMeltThings(), canOneFrameClipUW_path()]));
+		return AccurateLogic(true, orCombiner([canMeltThings(), canOneFrameClipUW_path()]));
 	},
 	spike: function(){ //hookshot or if no BK avail first, then 1SK
 		//Hookshot guarantees, min req Hookshot OR SK (which can be gotten from below, so min req possible is nothing
@@ -1412,21 +1385,21 @@ dungeons[7] = {
 		//BK, then hookshot
 		//no BK, hookshot or look for a key
 		
-		return andCombinator([this.compass(),
-			orCombinator([hasHookshot(),
-				andCombinator([(optionVariation === "keysanity" || optionVariation === "mcs") && !qtyCounter.ditems_bk7,
-					orCombinator([anyOrAllCombinator([hasHookshot(), qtyCounter.ditems_sk7 >= 1]), {ng:"p"}])]),
-				andCombinator([optionVariation !== "keysanity" && optionVariation !== "mcs" && !qtyCounter.ditems_bk7,
-					orCombinator([hasHookshot(), {ng:"p"}])])])]);
+		return andCombiner([this.compass(),
+			orCombiner([hasHookshot(),
+				andCombiner([(optionVariation === "keysanity" || optionVariation === "mcs") && !qtyCounter.ditems_bk7,
+					orCombiner([anyOrAllCombiner([hasHookshot(), qtyCounter.ditems_sk7 >= 1]), {ng:"p"}])]),
+				andCombiner([optionVariation !== "keysanity" && optionVariation !== "mcs" && !qtyCounter.ditems_bk7,
+					orCombiner([hasHookshot(), {ng:"p"}])])])]);
 	},
 	freezor: function(){ //Melt
 		return canMeltThings();
 	},
 	big: function(){ //BK
-		return andCombinator([this.compass(),
-			orCombinator([qtyCounter.ditems_bk7,
-				andCombinator([optionVariation !== "keysanity",
-					anyOrAllCombinator([this.bigkey(), this.compass(), this.spike(), this.freezor()])])])]);
+		return andCombiner([this.compass(),
+			orCombiner([qtyCounter.ditems_bk7,
+				andCombiner([optionVariation !== "keysanity",
+					anyOrAllCombiner([this.bigkey(), this.compass(), this.spike(), this.freezor()])])])]);
 	}
 };
 dungeons[8] = {
@@ -1448,7 +1421,6 @@ dungeons[8] = {
 				return qtyCounter.gotPrize8;
 		}
 	},
-	kChestCount: 8,
 	isAccessible: function(){ //isAccessible includes boots/hookshot for entry
 		path1 = {}; //Basic
 		path2 = {}; //Medallion
@@ -1470,7 +1442,7 @@ dungeons[8] = {
 					path3 = {};
 			}
 		}
-		return andCombinator(path1, path2, path3, canKillMostThings_path(8), regions.mire());
+		return andCombiner(path1, path2, path3, canKillMostThings_path(8), regions.mire());
 	},
 	canGetPrize: function(){
 		switch (optionLogic) {
@@ -1490,10 +1462,10 @@ dungeons[8] = {
 				var path_hera = {}; //Get to Hera
 				path1 = this.isBeatable();
 				path_hera = dungeons[2].mire();
-				path2 = andCombinator(path_hera, canBeatBoss(2, qtyCounter.boss2));
+				path2 = andCombiner(path_hera, canBeatBoss(2, qtyCounter.boss2));
 				if (hasHookshot() && items.flippers)
-					path3 = andCombinator(path_hera, canBeatBoss(4, qtyCounterr.boss4));
-				return orCombinator(path1, path2, path3);
+					path3 = andCombiner(path_hera, canBeatBoss(4, qtyCounterr.boss4));
+				return orCombiner(path1, path2, path3);
 		}
 	},
 	isBeatable: function(){
@@ -1525,7 +1497,7 @@ dungeons[8] = {
 						path1 = canBeatBoss(8, qtyCounter.boss8);
 					path2 = convertPossible(canBeatBoss(8, qtyCounter.boss8)); //BK could be free
 				}
-				return orCombinator(path1, path2);
+				return orCombiner(path1, path2);
 		}
 	},
 	canGetChests: function(){
@@ -1545,7 +1517,7 @@ dungeons[8] = {
 				if (qtyCounter.ditems_sk8 >= 3)
 					path4 = {ng:"a"};
 				path5 = canBeatBoss(8, qtyCounter.boss8);
-				return multipleChests(path1, path2, path3, path4, path5);
+				return multipleChests([path1, path2, path3, path4, path5]);
 			default:
 				var path1 = {ng:"a"}; //Bridge free
 				var path2 = {}; //Big
@@ -1559,15 +1531,15 @@ dungeons[8] = {
 				//BK in left, then at least two SK in bridge, spike, lobby, map --> must be at least one SK in bridge or spike
 				//BK in lobby/map, then 3SK in bridge,big,lm,boss,spike --> must be at least one SK in bridge or spike
 				//BK in bridge/spike
-				path3 = anyOrAllCombinator(path1, path6); //If I can access both then I'm guaranteed SK or BK
+				path3 = anyOrAllCombiner([path1, path6]); //If I can access both then I'm guaranteed SK or BK
 				if (canLightTorches() && (optionVariation !== "retro" || qtyCounter.hc_sk >= 3))
 					path4 = {ng:"a"};
-				var always = andCombinator(path1, path3, path4, path5, path6); //This is sloppy
+				var always = andCombiner(path1, path3, path4, path5, path6); //This is sloppy
 				var possible = {};
 				if ((optionVariation !== "retro") //SK on bridge, items on map+lobby
 					|| (canLightTorches()))		//Retro buy keys, items on bridge, map, lobby, BK+compass/boss+spike
 					possible = {ng:"p"};
-				var result = orCombinator(always, possible);
+				var result = orCombiner(always, possible);
 				if (isEmpty(result)) {
 					return {ng:"au"};
 				}
@@ -1595,7 +1567,6 @@ dungeons[9] = {
 				return qtyCounter.gotPrize9;
 		}
 	},
-	kChestCount: 12,
 	isAccessible: function(){ //isAccessible doesn't have somaria as req
 		path1 = {}; //Basic
 		path2 = {}; //Entry
@@ -1604,9 +1575,9 @@ dungeons[9] = {
 				path1 = {ng:"a"};
 			else
 				path1 = canAdvancedItems_path();
-			path2 = orCombinator(this.lower(), this.middle(), this.upper());
+			path2 = orCombiner(this.lower(), this.middle(), this.upper());
 		}
-		return andCombinator(path1, path2);
+		return andCombiner(path1, path2);
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1640,7 +1611,7 @@ dungeons[9] = {
 								path1 = canBeatBoss(9, qtyCounter.boss9);
 							path2 = convertPossible(canBeatBoss(9, qtyCounter.boss9)); //SK in compass/chomps, BK in BK, SK in big/crystaroller
 						}
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 		//Chomps: Upper+somaria+SK || middle
 		//Roller L/R: firerod, somaria, upper || middle+(BKtop->2SK/4SK)
@@ -1668,7 +1639,7 @@ dungeons[9] = {
 							//BK in BK, SK in chomps/crystaroller/compass/big
 							path2 = convertPossible(canBeatBoss(9, qtyCounter.boss9));
 						}
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 		//Chomps: Upper+somaria+SK || middle || lower+lamp+somaria
 		//Roller L/R: firerod, somaria, upper || middle+(BKtop->2SK/4SK) || lower+lamp+4SK
@@ -1705,7 +1676,7 @@ dungeons[9] = {
 							if ((!isEmpty(this.middle()) || !isEmpty(this.upper())) && items.lantern)
 								path2 = {ng:"p"};
 						}
-						return orCombinator(path1, path2);
+						return orCombiner(path1, path2);
 				}
 		}
 	},
@@ -1769,20 +1740,20 @@ dungeons[9] = {
 		if ((optionSwords === "swordless" || hasSword())
 			&& items.moonpearl && items.somaria) {
 			if (items.hammer)
-				path1 = andCombinator(orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path()), regions.eastDeathMountain());
-			path2 = andCombinator(canBootsClip_path(), regions.darkEastDeathMountain());
+				path1 = andCombiner(orCombiner((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path()), regions.eastDeathMountain());
+			path2 = andCombiner(canBootsClip_path(), regions.darkEastDeathMountain());
 		}
-		return andCombinator(medallionCheck_path(9), orCombinator(path1, path2));
+		return andCombiner(medallionCheck_path(9), orCombiner(path1, path2));
 	},
 	middle: function(){
-		return andCombinator(orCombinator(canMirrorClip_path(), andCombinator(canSuperSpeed_path(), (items.moonpearl ? {ng:"a"} : {})), andCombinator(canOneFrameClipOW_path(), canOWYBA_path())),
+		return andCombiner(orCombiner(canMirrorClip_path(), andCombiner(canSuperSpeed_path(), (items.moonpearl ? {ng:"a"} : {})), andCombiner(canOneFrameClipOW_path(), canOWYBA_path())),
 			(items.boots || items.somaria || hasHookshot() || items.cape || items.byrna ? {ng:"a"} : {}),
 			regions.darkEastDeathMountain());
 	},
 	lower: function(){
-		return andCombinator(canMirrorClip_path(),
-			orCombinator((items.moonpearl ? {ng:"a"} : {}), andCombinator(canOWYBA_path(), canBootsClip_path())),
-			orCombinator(canBootsClip_path(), canOneFrameClipOW_path()),
+		return andCombiner(canMirrorClip_path(),
+			orCombiner((items.moonpearl ? {ng:"a"} : {}), andCombiner(canOWYBA_path(), canBootsClip_path())),
+			orCombiner(canBootsClip_path(), canOneFrameClipOW_path()),
 			regions.westDeathMountain());
 	}
 };
@@ -1805,7 +1776,6 @@ dungeons[10] = {
 				return this.isBeaten();
 		}
 	},
-	kChestCount: 27,
 	isAccessible: function(){ //Needs to handle crystal requirements specially for goModeCalc (may not have all crystals yet)
 		var crystalCount = 0;
 		for(var i = 0; i < 10; i++)
@@ -1818,11 +1788,11 @@ dungeons[10] = {
 				path1 = {ng:"a"};
 			else
 				path1 = canAdvancedItems_path();
-			path2 = orCombinator(canOneFrameClipOW_path(),
-				andCombinator((items.moonpearl ? {ng:"a"} : {}),
-					orCombinator(canBootsClip_path(), (optionTower === "random" ? {ng:"p"} : (crystalCount >= optionTower ? {ng:"a"} : {})))));
+			path2 = orCombiner(canOneFrameClipOW_path(),
+				andCombiner((items.moonpearl ? {ng:"a"} : {}),
+					orCombiner(canBootsClip_path(), (optionTower === "random" ? {ng:"p"} : (crystalCount >= optionTower ? {ng:"a"} : {})))));
 		}
-		return andCombinator(path1, path2, regions.darkEastDeathMountain());
+		return andCombiner(path1, path2, regions.darkEastDeathMountain());
 	},
 	canGetPrize: function(){
 		return this.isBeatable();
@@ -1833,7 +1803,7 @@ dungeons[10] = {
 		switch (optionVariation) {
 			case "keysanity":
 				if (hasHookshot() && canLightTorches() && qtyCounter.ditems_bk10 && qtyCounter.ditems_sk10 >= 4)
-					return andCombinator(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14));
+					return andCombiner(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14));
 				return {};
 			default:
 				var always = {};
@@ -1841,10 +1811,10 @@ dungeons[10] = {
 				if (hasHookshot() && canLightTorches()
 					&& items.boots && items.firerod && items.somaria && items.hammer
 					&& (optionVariation !== "retro" || qtyCounter.hc_sk >= 4))
-					always = andCombinator(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(0, qtyCounter.boss13));
+					always = andCombiner(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(0, qtyCounter.boss13));
 				if (hasHookshot() && canLightTorches())
-					possible = convertPossible(andCombinator(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
-				return orCombinator(always, possible);
+					possible = convertPossible(andCombiner(canBeatBoss(2, qtyCounter.boss15), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
+				return orCombiner(always, possible);
 		}
 	},
 	canGetChests: function(){
@@ -1860,7 +1830,7 @@ dungeons[10] = {
 					&& items.somaria //Tile Room BK
 					&& items.firerod //Compass Room BK
 					&& qtyCounter.ditems_bk10 && qtyCounter.ditems_sk10 >= 4)
-					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+					i = andCombiner(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
 				if (isEmpty(i))
 					return {ng:"au"};
 				return i;
@@ -1872,14 +1842,14 @@ dungeons[10] = {
 					&& items.somaria //Tile Room BK
 					&& items.firerod //Compass Room BK
 					&& qtyCounter.hc_sk >= 4)
-					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+					i = andCombiner(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
 				if (!isEmpty(i))
 					return i;
 				if (hasHookshot() && canLightTorches()
 					&& items.hammer && items.somaria && items.firerod
 					&& (items.boots //mc in Moldorm+pre-moldorm
 						|| qtyCounter.hc_sk >= 1)) //mc in torch/moldorm
-					i = convertPossible(andCombinator(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
+					i = convertPossible(andCombiner(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
 				if (!isEmpty(i))
 					return i;
 				return {ng:"au"};
@@ -1890,7 +1860,7 @@ dungeons[10] = {
 					&& items.hammer //DMs Room BK
 					&& items.somaria //Tile Room BK
 					&& items.firerod) //Compass Room BK
-					i = andCombinator(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
+					i = andCombiner(canShootArrows_path(), canBeatBoss(0, qtyCounter.boss13), canBeatBoss(1, qtyCounter.boss14), canBeatBoss(2, qtyCounter.boss15));
 				if (!isEmpty(i))
 					return i;
 				//must have hammer & hookshot for left
@@ -1902,7 +1872,7 @@ dungeons[10] = {
 					&& items.hammer //DMs Room BK
 					&& items.somaria //Tile Room BK
 					&& items.firerod) //Compass Room BK
-					i = convertPossible(andCombinator(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
+					i = convertPossible(andCombiner(canBeatBoss(0, qtyCounter.boss13), canShootArrows_path(), canBeatBoss(1, qtyCounter.boss14)));
 				if (!isEmpty(i))
 					return i;
 				return {ng:"au"};
@@ -1928,10 +1898,9 @@ dungeons[11] = {
 				return this.isBeaten();
 		}
 	},
-	kChestCount: 2,
 	isAccessible: function(){ //isAccessible also contains canKillMostThings -- OK because you can't do anything otherwise
 		if (rescueZelda() && (items.cape || hasSword(2) || (optionSwords === "swordless" && items.hammer)))
-			return canKillMostThings_path(8);
+			return canKillMostThings_path(10);
 		return {};
 	},
 	canGetPrize: function(){
@@ -1966,7 +1935,7 @@ dungeons[11] = {
 			path2 = {ng:"a"};
 		if (items.lantern && optionVariation === "retro") //Can buy keys
 			path2 = {ng:"p"};
-		return multipleChests(path1, path2); //only for keysanity and retro
+		return multipleChests([path1, path2]); //only for keysanity and retro
 	}
 };
 dungeons[12] = {
@@ -1988,7 +1957,6 @@ dungeons[12] = {
 				return this.isBeaten();
 		}
 	},
-	kChestCount: 0,
 	isAccessible: function(){
 		if (optionGoal === "fastganon"
 			|| dungeons[10].isBeaten())
@@ -2052,12 +2020,12 @@ chests[0] = {
 					if (canBombThings() || items.boots)
 						path1 = regions.northEastLightWorld(true);
 					if (items.boots && items.mirror)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.northEastLightWorld());
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.northEastLightWorld());
 					if (items.boots && optionVariation !== "ohko" && optionVariation !== "timedohko")
-						path3 = andCombinator(glitched("superbunny_hit"), regions.northEastLightWorld());
+						path3 = andCombiner(glitched("superbunny_hit"), regions.northEastLightWorld());
 					if ((canBombThings() || items.boots) && items.mirror)
-						path4 = andCombinator(glitched("unbunny"), glitched("superbunny_mirror"), regions.northEastLightWorld());
-					return orCombinator(path1, path2, path3, path4);
+						path4 = andCombiner(glitched("unbunny"), glitched("superbunny_mirror"), regions.northEastLightWorld());
+					return orCombiner(path1, path2, path3, path4);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny
@@ -2067,8 +2035,8 @@ chests[0] = {
 					if (items.boots && (items.mirror || (optionVariation !== "ohko" && optionVariation !== "timedohko")))
 						path2 = regions.northEastLightWorld();
 					if ((canBombThings() || items.boots) && items.mirror)
-						path3 = andCombinator(glitched("unbunny"), regions.northEastLightWorld());
-					return orCombinator(path1, path2, path3);
+						path3 = andCombiner(glitched("unbunny"), regions.northEastLightWorld());
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -2107,13 +2075,13 @@ chests[2] = {
 			if (canLiftRocks() || items.flippers)
 				path1 = regions.northEastLightWorld();
 			//if (items.boots)
-			//	path2 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld());
-			path3 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld());
+			//	path2 = andCombiner(glitched("waterwalk_boots"), regions.northEastLightWorld());
+			path3 = andCombiner(canFakeFlipper_path(), regions.northEastLightWorld());
 			//if (canBombThings())
-			//	path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-			//path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-			path6 = andCombinator(canBootsClip_path(), regions.northEastLightWorld());
-			return orCombinator(path1, path2, path3, path4, path5, path6);
+			//	path4 = andCombiner(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			//path5 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			path6 = andCombiner(canBootsClip_path(), regions.northEastLightWorld());
+			return orCombiner(path1, path2, path3, path4, path5, path6);
 		} else {
 			switch (optionLogic) {
 				case "nmg":
@@ -2126,23 +2094,23 @@ chests[2] = {
 					if (canLiftRocks() || items.flippers)
 						path1 = regions.northEastLightWorld(true);
 					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld(true));
-					path3 = andCombinator(glitched("fakeflipper"), regions.northEastLightWorld(true));
+						path2 = andCombiner(glitched("waterwalk_boots"), regions.northEastLightWorld(true));
+					path3 = andCombiner(glitched("fakeflipper"), regions.northEastLightWorld(true));
 					if (canBombThings())
-						path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
+						path4 = andCombiner(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
 					if (items.mirror && items.flippers)
-						path5 = andCombinator(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
-					path6 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4, path5, path6);
+						path5 = andCombiner(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
+					path6 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3, path4, path5, path6);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Surfing bunny via mirror
 					var path3 = {}; //Fairy revive via enemy RNG
 					path1 = regions.northEastLightWorld(true);
 					if (items.mirror && items.flippers)
-						path2 = andCombinator(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
-					path3 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3);
+						path2 = andCombiner(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
+					path3 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3);
 			}
 		}
 	}
@@ -2165,8 +2133,8 @@ chests[3] = {
 			if (hasMushroom())
 				path1 = regions.northEastLightWorld(true);
 			if (hasMushroom() && items.flippers)
-				path2 = andCombinator(glitched("wriggle"), regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(glitched("wriggle"), regions.SouthLightWorld());
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -2191,18 +2159,18 @@ chests[4] = {
 			if (items.flippers)
 				path1 = regions.northEastLightWorld();
 			//if (items.boots)
-			//	path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld());
+			//	path2 = andCombiner(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld());
 			//if (items.moonpearl && items.boots)
-			//	path3 = andCombinator(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld());
+			//	path3 = andCombiner(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld());
 			//if (items.moonpearl && canBombThings())
-			//	path4 = andCombinator(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			//	path4 = andCombiner(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
 			//if (items.moonpearl && canBombThings())
-			//	path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 2));
+			//	path5 = andCombiner(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 2));
 			//if (items.boots && canBombThings())
-			//	path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-			path8 = andCombinator(canWaterWalk_path(), orCombinator(canFakeFlipper_path(), canBootsClip_path()));
+			//	path7 = andCombiner(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+			path8 = andCombiner(canWaterWalk_path(), orCombiner(canFakeFlipper_path(), canBootsClip_path()));
 			pathv = convertView(chests[2].isAvailable());
-			return orCombinator(orCombinator(path1, path2, path3, path4, path5, path7), path8, pathv);
+			return orCombiner(orCombiner(path1, path2, path3, path4, path5, path7), path8, pathv);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -2217,17 +2185,17 @@ chests[4] = {
 					if (items.flippers)
 						path1 = regions.northEastLightWorld(true);
 					if (items.boots)
-						path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
+						path2 = andCombiner(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
 					if (items.moonpearl && items.boots)
-						path3 = andCombinator(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
+						path3 = andCombiner(glitched("fakeflipper"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
 					if (items.moonpearl && canBombThings())
-						path4 = andCombinator(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
+						path4 = andCombiner(glitched("fakeflipper"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
 					if (items.moonpearl && canBombThings())
-						path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 2));
+						path5 = andCombiner(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 2));
 					if (items.boots && canBombThings())
-						path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
+						path7 = andCombiner(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
 					pathv = convertView(chests[2].isAvailable());
-					return orCombinator(orCombinator(path1, path2, path3, path4, path5, path7), pathv);
+					return orCombiner(orCombiner(path1, path2, path3, path4, path5, path7), pathv);
 				default:
 					var path1 = {}; //Get item
 					var path2 = {}; //Fake flipper w/waterwalk through Zora's Domain (setup at fairy cave if no pearl)
@@ -2239,15 +2207,15 @@ chests[4] = {
 					if (items.flippers || (items.boots && items.moonpearl))
 						path1 = regions.northEastLightWorld(true);
 					if (items.boots)
-						path2 = andCombinator(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
+						path2 = andCombiner(glitched("fakeflipper_zora"), glitched("waterwalk_boots"), regions.northEastLightWorld(true));
 					if (items.moonpearl && canBombThings())
-						path4 = andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
+						path4 = andCombiner(canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
 					if (items.moonpearl && canBombThings())
-						path5 = andCombinator(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 2));
+						path5 = andCombiner(canGetFairy_path(2), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 2));
 					if (items.boots && canBombThings())
-						path7 = andCombinator(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
+						path7 = andCombiner(glitched("waterwalk_boots"), canGetFairy_path(), glitched("bombfairy_fakeflipper"), regions.northEastLightWorld(true, undefined, bottleCount() - 1));
 					pathv = convertView(chests[2].isAvailable());
-					return orCombinator(path1, path2, path4, path5, path7, pathv);
+					return orCombiner(path1, path2, path4, path5, path7, pathv);
 			}
 	}
 };
@@ -2268,12 +2236,12 @@ chests[5] = {
 			if (items.flippers)
 				path1 = regions.northEastLightWorld(undefined, undefined, undefined, true);
 			//if (items.moonpearl)
-			//	path2 = orCombinator(andCombinator(glitched("fakeflipper"), regions.northEastLightWorld()),
-			//		andCombinator(orCombinator(canBombThings() ? andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, glitched("enemyfairy_fakeflipper")), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1)));
-			path3 = andCombinator(canWaterWalk_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
+			//	path2 = orCombiner(andCombiner(glitched("fakeflipper"), regions.northEastLightWorld()),
+			//		andCombiner(orCombiner(canBombThings() ? andCombiner(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, glitched("enemyfairy_fakeflipper")), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1)));
+			path3 = andCombiner(canWaterWalk_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
 			if (items.moonpearl)
-				path4 = andCombinator(canFakeFlipper_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
-			return orCombinator(path1, path2, path3, path4);
+				path4 = andCombiner(canFakeFlipper_path(), regions.northEastLightWorld(undefined, undefined, undefined, true));
+			return orCombiner(path1, path2, path3, path4);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -2285,18 +2253,18 @@ chests[5] = {
 					var path6 = {}; //Enemy RNG fairy revive and swim in with flippers
 					if (items.flippers)
 						path1 = regions.northEastLightWorld(true);
-					path2 = orCombinator(andCombinator(glitched("fakeflipper"), regions.northEastLightWorld(true)),
-						andCombinator(orCombinator(canBombThings() ? andCombinator(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, andCombinator(canGetFairy_path(), glitched("enemyfairy_fakeflipper"))),
+					path2 = orCombiner(andCombiner(glitched("fakeflipper"), regions.northEastLightWorld(true)),
+						andCombiner(orCombiner(canBombThings() ? andCombiner(canGetFairy_path(), glitched("bombfairy_fakeflipper")) : {}, andCombiner(canGetFairy_path(), glitched("enemyfairy_fakeflipper"))),
 						regions.northEastLightWorld(true, undefined, bottleCount() - 1)));
 					if (items.boots)
-						path3 = andCombinator(glitched("waterwalk_boots"), regions.northEastLightWorld(true));
+						path3 = andCombiner(glitched("waterwalk_boots"), regions.northEastLightWorld(true));
 					if (items.mirror && items.flippers)
-						path4 = andCombinator(glitched("surfingbunny_mirror"), glitched("superbunny_mirror"), regions.northEastLightWorld());
+						path4 = andCombiner(glitched("surfingbunny_mirror"), glitched("superbunny_mirror"), regions.northEastLightWorld());
 					if (items.mirror)
-						path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), glitched("superbunny_mirror"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+						path5 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), glitched("superbunny_mirror"), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
 					if (items.flippers)
-						path6 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4, path5, path6);
+						path6 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3, path4, path5, path6);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Surf and superbunny
@@ -2304,12 +2272,12 @@ chests[5] = {
 					var path4 = {}; //Enemy RNG fairy revive and swim in with flippers
 					path1 = regions.northEastLightWorld(true);
 					if (items.mirror && items.flippers)
-						path2 = andCombinator(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
+						path2 = andCombiner(glitched("surfingbunny_mirror"), regions.northEastLightWorld());
 					if (items.mirror)
-						path3 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+						path3 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
 					if (items.flippers)
-						path4 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4);
+						path4 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.northEastLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3, path4);
 			}
 	}
 };
@@ -2333,11 +2301,11 @@ chests[6] = {
 		var path1 = {}; //Get item
 		var path2 = {}; //View item
 		if (pendantCountg === 1 && pendantCountrb === 2)
-			path1 = andCombinator(orCombinator(canAdvancedItems_path(), (items.book ? {ng:"a"} : {})),
+			path1 = andCombiner(orCombiner(canAdvancedItems_path(), (items.book ? {ng:"a"} : {})),
 				regions.northWestLightWorld());
 		if (items.book)
 			path2 = convertView(regions.northWestLightWorld());
-		return orCombinator(path1, path2);
+		return orCombiner(path1, path2);
 	}
 };
 chests[7] = {
@@ -2356,9 +2324,9 @@ chests[7] = {
 				if (canLiftDarkRocks())
 					path1 = regions.northWestLightWorld();
 				if (items.mirror && items.moonpearl)
-					path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
+					path2 = andCombiner(regions.northWestDarkWorld(), regions.northWestLightWorld());
 				path3 = canBootsClip_path();
-				return orCombinator(path1, path2, path3);
+				return orCombiner(path1, path2, path3);
 			}
 			return {};
 		} else
@@ -2375,10 +2343,10 @@ chests[7] = {
 						if (canLiftDarkRocks())
 							path1 = regions.northWestLightWorld(true);
 						if (items.mirror)
-							path2 = andCombinator(regions.westDeathMountain(true), regions.northWestLightWorld(true));
-						path3 = andCombinator(glitched("kingtomb"), regions.westDeathMountain(true));
+							path2 = andCombiner(regions.westDeathMountain(true), regions.northWestLightWorld(true));
+						path3 = andCombiner(glitched("kingtomb"), regions.westDeathMountain(true));
 					}
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -2400,10 +2368,10 @@ chests[8] = {
 					//No unbunny because it's the same req as mirror superbunny
 					path1 = regions.northWestLightWorld(true);
 					if (items.mirror)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.northWestLightWorld());
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.northWestLightWorld());
 					if (optionVariation !== "ohko" && optionVariation !== "timedohko")
-						path3 = andCombinator(glitched("superbunny_hit"), regions.northWestLightWorld());
-					return orCombinator(path1, path2, path3);
+						path3 = andCombiner(glitched("superbunny_hit"), regions.northWestLightWorld());
+					return orCombiner(path1, path2, path3);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny
@@ -2411,7 +2379,7 @@ chests[8] = {
 					if (items.mirror
 						|| (optionVariation !== "ohko" && optionVariation !== "timedohko"))
 						path2 = regions.northWestLightWorld();
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -2433,8 +2401,8 @@ chests[9] = {
 			if (canBombThings())
 				path1 = regions.northWestLightWorld(true);
 			if (items.mirror && canBombThings())
-				path2 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.northWestLightWorld());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.northWestLightWorld());
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -2451,7 +2419,7 @@ chests[10] = {
 			if (canBombThings())
 				return regions.northWestLightWorld();
 			else
-				return multipleChests(regions.northWestLightWorld(), {});
+				return multipleChests([regions.northWestLightWorld(), {}]);
 			return {};
 		} else
 			switch (optionLogic) {
@@ -2463,10 +2431,10 @@ chests[10] = {
 					if (canBombThings())
 						path1 = regions.northWestLightWorld(true);
 					if (canBombThings() && items.mirror)
-						path2 = andCombinator(glitched("unbunny"), regions.northWestLightWorld());
+						path2 = andCombiner(glitched("unbunny"), regions.northWestLightWorld());
 					path3 = regions.northWestLightWorld(true);
-					path4 = andCombinator(glitched("superbunny"), regions.northWestLightWorld());
-					return multipleChests(orCombinator(path1, path2), orCombinator(path3, path4));
+					path4 = andCombiner(glitched("superbunny"), regions.northWestLightWorld());
+					return multipleChests([orCombiner(path1, path2), orCombiner(path3, path4)]);
 				default:
 					var path1 = {}; //Top Chest
 					var path2 = {}; //Unbunny
@@ -2475,9 +2443,9 @@ chests[10] = {
 					if (canBombThings())
 						path1 = regions.northWestLightWorld(true);
 					if (canBombThings() && items.mirror)
-						path2 = andCombinator(glitched("unbunny"), regions.northWestLightWorld());
+						path2 = andCombiner(glitched("unbunny"), regions.northWestLightWorld());
 					path3 = regions.northWestLightWorld();
-					return multipleChests(orCombinator(path1, path2), path3);
+					return multipleChests([orCombiner(path1, path2), path3]);
 			}
 	}
 };
@@ -2494,7 +2462,7 @@ chests[11] = {
 			if (canBombThings())
 				return regions.northWestLightWorld();
 			else
-				return multipleChests(regions.northWestLightWorld(), {});
+				return multipleChests([regions.northWestLightWorld(), {}]);
 			return {};
 		} else
 			switch (optionLogic) {
@@ -2507,11 +2475,11 @@ chests[11] = {
 					if (canBombThings())
 						path1 = regions.northWestLightWorld(true);
 					if (canBombThings() && items.mirror)
-						path2 = andCombinator(glitched("unbunny"), glitched("superbunny_mirror"), regions.northWestLightWorld());
+						path2 = andCombiner(glitched("unbunny"), glitched("superbunny_mirror"), regions.northWestLightWorld());
 					path3 = regions.northWestLightWorld(true);
 					if (items.mirror)
-						path4 = andCombinator(glitched("superbunny_mirror"), regions.northWestLightWorld());
-					return multipleChests(orCombinator(path1, path2), orCombinator(path3, path4));
+						path4 = andCombiner(glitched("superbunny_mirror"), regions.northWestLightWorld());
+					return multipleChests([orCombiner(path1, path2), orCombiner(path3, path4)]);
 				default:
 					var path1 = {}; //Top
 					var path2 = {}; //Unbunny
@@ -2521,11 +2489,11 @@ chests[11] = {
 					if (canBombThings())
 						path1 = regions.northWestLightWorld(true);
 					if (canBombThings() && items.mirror)
-						path2 = andCombinator(glitched("unbunny"), regions.northWestLightWorld());
+						path2 = andCombiner(glitched("unbunny"), regions.northWestLightWorld());
 					path3 = regions.northWestLightWorld(true);
 					if (items.mirror)
 						path4 = regions.northWestLightWorld();
-					return multipleChests(orCombinator(path1, path2), orCombinator(path3, path4));
+					return multipleChests([orCombiner(path1, path2), orCombiner(path3, path4)]);
 			}
 	}
 };
@@ -2570,13 +2538,13 @@ chests[14] = {
 			var pathl = {}; //DarkWorld
 			if (items.hammer)
 				pathi = regions.northWestLightWorld();
-			pathj = andCombinator(canBootsClip_path(), regions.northWestLightWorld());
+			pathj = andCombiner(canBootsClip_path(), regions.northWestLightWorld());
 			if (items.mirror)
 			//pathk = ???
 			if (items.moonpearl && items.mirror && canLiftDarkRocks())
-				pathl = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-			return andCombinator((hasPowder() ? {ng:"a"} : ((hasMushroom() && items.somaria) ? glitched("fakepowder") : {})),
-				orCombinator(pathi, pathj, pathk, pathl));
+				pathl = andCombiner(regions.northWestDarkWorld(), regions.northWestLightWorld());
+			return andCombiner((hasPowder() ? {ng:"a"} : ((hasMushroom() && items.somaria) ? glitched("fakepowder") : {})),
+				orCombiner(pathi, pathj, pathk, pathl));
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -2585,16 +2553,16 @@ chests[14] = {
 					if (hasPowder() && items.hammer)
 						path1 = regions.northWestLightWorld(true);
 					if (hasMushroom() && items.somaria && items.hammer)
-						path2 = andCombinator(glitched("fakepowder"), regions.northWestLightWorld(true));
-					return orCombinator(path1, path2);
+						path2 = andCombiner(glitched("fakepowder"), regions.northWestLightWorld(true));
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Fake powder
 					if (hasPowder() && (items.hammer || items.boots))
 						path1 = regions.northWestLightWorld(true);
 					if (hasMushroom() && items.somaria && (items.hammer || items.boots))
-						path2 = andCombinator(glitched("fakepowder"), regions.northWestLightWorld(true));
-					return orCombinator(path1, path2);
+						path2 = andCombiner(glitched("fakepowder"), regions.northWestLightWorld(true));
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -2622,7 +2590,7 @@ chests[16] = {
 		var path2 = {}; //View
 		path1 = regions.northWestLightWorld(true);
 		path2 = convertView(regions.northWestLightWorld());
-		return orCombinator(path1, path2);
+		return orCombiner(path1, path2);
 	}
 };
 chests[17] = {
@@ -2649,10 +2617,10 @@ chests[18] = {
 		if (optionState !== "inverted") {
 			var path1 = {}; //DMA then teleport down (WOW)
 			var path2 = {}; //NMG
-			path1 = andCombinator(canBootsClip_path(), regions.northWestLightWorld());
+			path1 = andCombiner(canBootsClip_path(), regions.northWestLightWorld());
 			if (items.mirror && items.moonpearl)
-				path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(regions.northWestDarkWorld(), regions.northWestLightWorld());
+			return orCombiner(path1, path2);
 		} else {
 			if (canBombThings())
 				return regions.northWestLightWorld(true);
@@ -2671,7 +2639,7 @@ chests[19] = {
 		var path2 = {}; //View
 		path1 = regions.northWestLightWorld(true);
 		path2 = convertView(regions.northWestLightWorld());
-		return orCombinator(path1, path2);
+		return orCombiner(path1, path2);
 	}
 };
 
@@ -2692,15 +2660,15 @@ chests[20] = {
 					var path2 = {}; //Mirror via superbunny
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.SouthLightWorld());
-					return orCombinator(path1, path2);
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.SouthLightWorld());
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Mirror via superbunny
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror)
 						path2 = regions.SouthLightWorld();
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -2732,8 +2700,8 @@ chests[22] = {
 			if (canBombThings())
 				path1 = regions.SouthLightWorld(true);
 			if (items.mirror && canBombThings())
-				path2 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.SouthLightWorld());
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -2766,8 +2734,8 @@ chests[23] = {
 					var kill2 = {};
 					if (hasHookshot() || items.icerod) //Bombos/ether req sword anyways
 						kill2 = {ng:"a"};
-					killpath = orCombinator(kill1, kill2);
-					path3 = andCombinator(glitched("bigbomb"), glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, killpath, regions.SouthLightWorld());
+					killpath = orCombiner(kill1, kill2);
+					path3 = andCombiner(glitched("bigbomb"), glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, killpath, regions.SouthLightWorld());
 				}
 				var superb1 = {};
 				if (items.mirror)
@@ -2775,7 +2743,7 @@ chests[23] = {
 				var superb2 = {};
 				if (optionVariation !== "ohko" && optionVariation !== "timedohko")
 					superb2 = optionLogic === "nmg" ? glitched("superbunny_hit") : {ng:"a"};
-				superb_path = orCombinator(superb1, superb2);
+				superb_path = orCombiner(superb1, superb2);
 				var kill1 = {}; //Sword beams
 				var kill2 = canGetBee_path(); //Bee
 				var kill3 = {}; //Hover
@@ -2783,13 +2751,13 @@ chests[23] = {
 					kill1 = {ng:"a"};
 				if (hasSword())
 					kill3 = glitched("hover");
-				killpath = orCombinator(kill1, kill2, kill3);
-				path2 = orCombinator(andCombinator(glitched("bigbomb"), superb_path, kill1, regions.SouthLightWorld()),
-					andCombinator(glitched("bigbomb"), superb_path, kill2, regions.SouthLightWorld(undefined, undefined, bottleCount() - 1)));
+				killpath = orCombiner(kill1, kill2, kill3);
+				path2 = orCombiner(andCombiner(glitched("bigbomb"), superb_path, kill1, regions.SouthLightWorld()),
+					andCombiner(glitched("bigbomb"), superb_path, kill2, regions.SouthLightWorld(undefined, undefined, bottleCount() - 1)));
 				if (must_be_link)
 					path2 = {};
 			}
-			return orCombinator(path1, path2, path3);
+			return orCombiner(path1, path2, path3);
 		}
 	}
 };
@@ -2817,11 +2785,11 @@ chests[24] = {
 					crystalCount++;
 			if (crystalCount === 2) { //Can bomb cave open
 				if (items.mirror)
-					path2 = andCombinator(glitched("bigbomb"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.SouthLightWorld());
+					path2 = andCombiner(glitched("bigbomb"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.SouthLightWorld());
 				if (optionVariation !== "ohko" && optionVariation !== "timedohko")
-					path3 = andCombinator(glitched("bigbomb"), optionLogic === "nmg" ? glitched("superbunny_hit") : {ng:"a"}, regions.SouthLightWorld());
+					path3 = andCombiner(glitched("bigbomb"), optionLogic === "nmg" ? glitched("superbunny_hit") : {ng:"a"}, regions.SouthLightWorld());
 			}
-			return orCombinator(path1, path2, path3);
+			return orCombiner(path1, path2, path3);
 		}
 	}
 };
@@ -2841,12 +2809,12 @@ chests[25] = {
 			var path5 = {}; //Enemy RNG
 			if (items.flippers)
 				path1 = regions.SouthLightWorld();
-			path2 = andCombinator(canWaterWalk_path(), regions.SouthLightWorld());
-			path3 = andCombinator(canFakeFlipper_path(), regions.SouthLightWorld());
+			path2 = andCombiner(canWaterWalk_path(), regions.SouthLightWorld());
+			path3 = andCombiner(canFakeFlipper_path(), regions.SouthLightWorld());
 			//if (canBombThings())
-			//	path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-			//path5 = andCombinator(canGetFairy_path(), glitched("enemyfairy_fakeflipper"), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-			return orCombinator(path1, path2, path3, path4, path5);
+			//	path4 = andCombiner(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+			//path5 = andCombiner(canGetFairy_path(), glitched("enemyfairy_fakeflipper"), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+			return orCombiner(path1, path2, path3, path4, path5);
 		} else {
 			switch (optionLogic) {
 				case "nmg":
@@ -2859,23 +2827,23 @@ chests[25] = {
 					if (items.flippers)
 						path1 = regions.SouthLightWorld(true);
 					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.SouthLightWorld(true));
-					path3 = andCombinator(glitched("fakeflipper"), regions.SouthLightWorld(true));
+						path2 = andCombiner(glitched("waterwalk_boots"), regions.SouthLightWorld(true));
+					path3 = andCombiner(glitched("fakeflipper"), regions.SouthLightWorld(true));
 					if (canBombThings())
-						path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(true, undefined, bottleCount() - 1));
+						path4 = andCombiner(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(true, undefined, bottleCount() - 1));
 					if (items.mirror && items.flippers)
-						path5 = andCombinator(glitched("surfingbunny_mirror"), regions.SouthLightWorld());
-					path6 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3, path4, path5, path6);
+						path5 = andCombiner(glitched("surfingbunny_mirror"), regions.SouthLightWorld());
+					path6 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3, path4, path5, path6);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Surfing bunny via mirror
 					var path3 = {}; //Surfing bunny via enemy RNG
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror && items.flippers)
-						path2 = andCombinator(glitched("surfingbunny_mirror"), regions.SouthLightWorld());
-					path3 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2, path3);
+						path2 = andCombiner(glitched("surfingbunny_mirror"), regions.SouthLightWorld());
+					path3 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2, path3);
 			}
 		}
 	}
@@ -2895,15 +2863,15 @@ chests[26] = {
 			var path4 = {}; //View item from dark
 			if (items.book) {
 				if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-					path1 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+					path1 = andCombiner(canBootsClip_path(), regions.SouthLightWorld());
 				path2 = convertView(canBootsClip_path(), regions.SouthLightWorld());
 				if (items.mirror) {
 					if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-						path3 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-					path4 = convertView(andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld()));
+						path3 = andCombiner(regions.SouthDarkWorld(), regions.SouthLightWorld());
+					path4 = convertView(andCombiner(regions.SouthDarkWorld(), regions.SouthLightWorld()));
 				}
 			}
-			return orCombinator(path1, path2, path3, path4);
+			return orCombiner(path1, path2, path3, path4);
 		} else {
 			var path1 = {}; //Get item
 			var path2 = {}; //View item
@@ -2912,7 +2880,7 @@ chests[26] = {
 				path1 = regions.SouthLightWorld();
 			if (items.book)
 				path2 = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -2928,11 +2896,11 @@ chests[27] = {
 			var path1 = {}; //1f
 			var path2 = {}; //Bootsclip
 			var path3 = {}; //Dark world
-			path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
-			path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+			path1 = andCombiner(canOneFrameClipOW_path(), regions.SouthLightWorld());
+			path2 = andCombiner(canBootsClip_path(), regions.SouthLightWorld());
 			if (items.mirror)
-				path3 = andCombinator(regions.SouthDarkWorld(), regions.SouthLightWorld());
-			return orCombinator(path1, path2, path3);
+				path3 = andCombiner(regions.SouthDarkWorld(), regions.SouthLightWorld());
+			return orCombiner(path1, path2, path3);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -2942,11 +2910,11 @@ chests[27] = {
 					var path4 = {}; //View
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.SouthLightWorld());
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.SouthLightWorld());
 					if (optionVariation !== "ohko" && optionVariation !== "timedohko")
-						path3 = andCombinator(glitched("superbunny_hit"), regions.SouthLightWorld());
+						path3 = andCombiner(glitched("superbunny_hit"), regions.SouthLightWorld());
 					path4 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, path4);
+					return orCombiner(path1, path2, path3, path4);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny
@@ -2955,7 +2923,7 @@ chests[27] = {
 					if (items.mirror || (optionVariation !== "ohko" && optionVariation !== "timedohko"))
 						path2 = regions.SouthLightWorld();
 					path3 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -2972,12 +2940,12 @@ chests[28] = {
 			var path2 = {}; //Bootsclip
 			var path3 = {}; //Dark world
 			if (canLiftRocks()) {
-				path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
-				path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+				path1 = andCombiner(canOneFrameClipOW_path(), regions.SouthLightWorld());
+				path2 = andCombiner(canBootsClip_path(), regions.SouthLightWorld());
 				if (items.mirror)
-					path3 = andCombinator(regions.mire(), regions.SouthLightWorld());
+					path3 = andCombiner(regions.mire(), regions.SouthLightWorld());
 			}
-			return orCombinator(path1, path2, path3);
+			return orCombiner(path1, path2, path3);
 		} else {
 			if (canLiftRocks())
 				return regions.SouthLightWorld(true);
@@ -2999,7 +2967,7 @@ chests[29] = {
 			if (items.boots)
 				path1 = regions.SouthLightWorld();
 			path2 = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3010,11 +2978,11 @@ chests[29] = {
 					if (items.boots)
 						path1 = regions.SouthLightWorld(true);
 					if (items.mirror && items.boots)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.SouthLightWorld());
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.SouthLightWorld());
 					if (items.boots && optionVariation !== "ohko" && optionVariation !== "timedohko" && dungeons[11].isBeaten())
-						path3 = andCombinator(glitched("superbunny_hit"), regions.SouthLightWorld());
+						path3 = andCombiner(glitched("superbunny_hit"), regions.SouthLightWorld());
 					path4 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, path4);
+					return orCombiner(path1, path2, path3, path4);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny via mirror
@@ -3025,9 +2993,9 @@ chests[29] = {
 					if (items.mirror && items.boots)
 						path2 = regions.SouthLightWorld();
 					if (items.boots && optionVariation !== "ohko" && optionVariation !== "timedohko" && dungeons[11].isBeaten())
-						path3 = andCombinator(glitched("library"), regions.SouthLightWorld());
+						path3 = andCombiner(glitched("library"), regions.SouthLightWorld());
 					path4 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3, path4);
+					return orCombiner(path1, path2, path3, path4);
 			}
 	}
 };
@@ -3045,14 +3013,14 @@ chests[30] = {
 			if (canBombThings() || items.boots)
 				path1 = regions.SouthLightWorld();
 			path2 = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		} else {
 			var path1 = {}; //Get item
 			var path2 = {}; //View item
 			if (canBombThings() || items.boots)
 				path1 = regions.SouthLightWorld(true);
 			path2 = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -3067,28 +3035,28 @@ chests[31] = {
 		if (optionState !== "inverted") {
 			var path1 = {}; //Get item
 			var path2 = {}; //View item
-			path1 = andCombinator(dungeons[1].isAccessible(), regions.SouthLightWorld());
+			path1 = andCombiner(dungeons[1].isAccessible(), regions.SouthLightWorld());
 			path2 = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		} else
 			switch (optionLogic) {
 				case "nmg":
 					var path1 = {}; //Get item
 					var path2 = {}; //Bunny
 					var path3 = {}; //View item
-					path1 = andCombinator(dungeons[1].isAccessible(), regions.SouthLightWorld(true));
-					path2 = andCombinator(glitched("dungeonrevival"), dungeons[1].isAccessible(), regions.SouthLightWorld());
+					path1 = andCombiner(dungeons[1].isAccessible(), regions.SouthLightWorld(true));
+					path2 = andCombiner(glitched("dungeonrevival"), dungeons[1].isAccessible(), regions.SouthLightWorld());
 					path3 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 				default:
 					var path1 = {}; //Get item
 					var path2 = {}; //Bootclip
 					var path3 = {}; //View item
-					path1 = andCombinator(dungeons[1].isAccessible(), regions.SouthLightWorld());
+					path1 = andCombiner(dungeons[1].isAccessible(), regions.SouthLightWorld());
 					if (items.boots)
 						path2 = regions.SouthLightWorld(true);
 					path3 = convertView(regions.SouthLightWorld());
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -3106,25 +3074,25 @@ chests[32] = {
 			var path3 = {}; //From NE
 			var path4 = {}; //From S
 			var pathv = {}; //View item
-			path1 = andCombinator(canOneFrameClipOW_path(), regions.SouthLightWorld());
-			path2 = andCombinator(canBootsClip_path(), regions.SouthLightWorld());
+			path1 = andCombiner(canOneFrameClipOW_path(), regions.SouthLightWorld());
+			path2 = andCombiner(canBootsClip_path(), regions.SouthLightWorld());
 			if (items.flippers && items.mirror) {
-				path3 = andCombinator(orCombinator(canBunnySurf_path(), (items.moonpearl ? {ng:"a"} : {})),
+				path3 = andCombiner(orCombiner(canBunnySurf_path(), (items.moonpearl ? {ng:"a"} : {})),
 					regions.northEastDarkWorld(), regions.SouthLightWorld());
 				if (items.moonpearl)
-					path4 = andCombinator(regions.SouthDarkWorld(), regions.northEastDarkWorld());
+					path4 = andCombiner(regions.SouthDarkWorld(), regions.northEastDarkWorld());
 			}
 			pathv = convertView(regions.SouthLightWorld());
-			return orCombinator(path1, path2, path3, path4, pathv);
+			return orCombiner(path1, path2, path3, path4, pathv);
 			//var path1 = {}; //Normal
 			//var path2 = {}; //Surfing bunny from mirror, then wriggle
 			//var path3 = {}; //Waterwalk
 			//if (items.flippers && items.mirror) {
-			//	path1 = andCombinator(orCombinator(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true)), regions.SouthLightWorld());
-			//	path2 = andCombinator(glitched("surfingbunny_mirror"), glitched("wriggle"), regions.northEastDarkWorld());
+			//	path1 = andCombiner(orCombiner(regions.SouthDarkWorld(true), regions.northEastDarkWorld(true)), regions.SouthLightWorld());
+			//	path2 = andCombiner(glitched("surfingbunny_mirror"), glitched("wriggle"), regions.northEastDarkWorld());
 			// }
 			//if (items.boots && items.mirror)
-			//	path3 = andCombinator(glitched("waterwalk_boots"), regions.northWestDarkWorld(true));
+			//	path3 = andCombiner(glitched("waterwalk_boots"), regions.northWestDarkWorld(true));
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3137,21 +3105,21 @@ chests[32] = {
 					if (items.flippers)
 						path1 = regions.SouthLightWorld(true);
 					if (items.boots)
-						path2 = andCombinator(glitched("waterwalk_boots"), regions.SouthLightWorld(true));
-					path3 = andCombinator(glitched("fakeflipper"), regions.SouthLightWorld(true));
+						path2 = andCombiner(glitched("waterwalk_boots"), regions.SouthLightWorld(true));
+					path3 = andCombiner(glitched("fakeflipper"), regions.SouthLightWorld(true));
 					if (canBombThings())
-						path4 = andCombinator(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(true, undefined, bottleCount() - 1));
-					path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+						path4 = andCombiner(glitched("bombfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(true, undefined, bottleCount() - 1));
+					path5 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
 					pathv = regions.SouthLightWorld();
-					return orCombinator(path1, path2, path3, path4, path5, pathv);
+					return orCombiner(path1, path2, path3, path4, path5, pathv);
 				default:
 					var path3 = {}; //Fake flippers
 					var path5 = {}; //RNG fairy revive
 					var pathv = {}; //View item
 					path3 = regions.SouthLightWorld(true);
-					path5 = andCombinator(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
+					path5 = andCombiner(glitched("enemyfairy_fakeflipper"), canGetFairy_path(), regions.SouthLightWorld(undefined, undefined, bottleCount() - 1));
 					pathv = regions.SouthLightWorld();
-					return orCombinator(path3, path5, pathv);
+					return orCombiner(path3, path5, pathv);
 			}
 	}
 };
@@ -3171,15 +3139,15 @@ chests[33] = {
 					var path2 = {}; //Superbunny via mirror
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror)
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.SouthLightWorld());
-					return orCombinator(path1, path2);
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.SouthLightWorld());
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny via mirror
 					path1 = regions.SouthLightWorld(true);
 					if (items.mirror)
 						path2 = regions.SouthLightWorld();
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -3212,20 +3180,20 @@ chests[35] = {
 			var path3 = {}; //Dark front
 			if (items.lantern)
 				path1 = regions.westDeathMountain();
-			path2 = andCombinator(glitched("oldMan_back"), regions.westDeathMountain());
+			path2 = andCombiner(glitched("oldMan_back"), regions.westDeathMountain());
 			if (canLiftRocks())
-				path3 = andCombinator(glitched("oldMan"), regions.northWestLightWorld());
-			return orCombinator(path1, path2, path3);
+				path3 = andCombiner(glitched("oldMan"), regions.northWestLightWorld());
+			return orCombiner(path1, path2, path3);
 		} else {
 			var path1 = {}; //Normal
 			var path2 = {}; //Dark back
 			var path3 = {}; //Dark front
 			if (items.lantern)
 				path1 = regions.westDeathMountain();
-			path2 = andCombinator(glitched("oldMan_back"), regions.darkWestDeathMountain());
+			path2 = andCombiner(glitched("oldMan_back"), regions.darkWestDeathMountain());
 			if (canLiftRocks())
-				path3 = andCombinator(glitched("oldMan"), regions.northWestDarkWorld());
-			return orCombinator(path1, path2, path3);
+				path3 = andCombiner(glitched("oldMan"), regions.northWestDarkWorld());
+			return orCombiner(path1, path2, path3);
 		}
 	}
 };
@@ -3252,10 +3220,10 @@ chests[37] = {
 			var path2 = {}; //View item
 			if (items.book) {
 				if (hasSword(2) || (optionSwords === "swordless" && items.hammer))
-					path1 = andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain());
-				path2 = convertView(andCombinator(dungeons[2].isAccessible(), regions.westDeathMountain()));
+					path1 = andCombiner(dungeons[2].isAccessible(), regions.westDeathMountain());
+				path2 = convertView(andCombiner(dungeons[2].isAccessible(), regions.westDeathMountain()));
 			}
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3265,7 +3233,7 @@ chests[37] = {
 						path1 = regions.eastDeathMountain(true);
 					if (items.book && items.hammer)
 						path2 = convertView(regions.eastDeathMountain(true));
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Get item
 					var path2 = {}; //View item
@@ -3275,7 +3243,7 @@ chests[37] = {
 					if (items.book && ((optionSwords === "swordless" && items.hammer)
 						|| (optionSwords !== "swordless" && (items.hammer || items.boots))))
 						path2 = convertView(regions.eastDeathMountain(true));
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -3297,7 +3265,7 @@ chests[38] = {
 			path2 = canBootsClip_path();
 			path3 = canOneFrameClipOW_path();
 			pathv = convertView(regions.westDeathMountain());
-			return orCombinator(path1, path2, path3, pathv);
+			return orCombiner(path1, path2, path3, pathv);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3306,14 +3274,14 @@ chests[38] = {
 					if (items.hammer)
 						path1 = regions.eastDeathMountain(true);
 					path2 = convertView(regions.westDeathMountain());
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Get item
 					var path2 = {}; //View item
 					if (items.hammer || items.boots)
 						path1 = regions.eastDeathMountain(true);
 					path2 = convertView(regions.westDeathMountain());
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -3338,14 +3306,14 @@ chests[39] = {
 					var path5 = {}; //Unbunny via middle of TR
 					path1 = regions.eastDeathMountain(true);
 					if (items.mirror && hasSword())
-						path2 = andCombinator(glitched("superbunny_mirror"), regions.eastDeathMountain());
+						path2 = andCombiner(glitched("superbunny_mirror"), regions.eastDeathMountain());
 					if (items.mirror)
-						path3 = andCombinator(glitched("superbunny_mirror"), canGetBee_path(), regions.eastDeathMountain(undefined, undefined, bottleCount() - 1));
+						path3 = andCombiner(glitched("superbunny_mirror"), canGetBee_path(), regions.eastDeathMountain(undefined, undefined, bottleCount() - 1));
 					if (items.mirror)
-						path4 = andCombinator(glitched("superbunny_mirror"), glitched("spiralcave"), regions.eastDeathMountain());
+						path4 = andCombiner(glitched("superbunny_mirror"), glitched("spiralcave"), regions.eastDeathMountain());
 					if (items.mirror)
-						path5 = andCombinator(glitched("unbunny"), glitched("superbunny_mirror"), regions.eastDeathMountain());
-					return orCombinator(path1, path2, path3, path4, path5);
+						path5 = andCombiner(glitched("unbunny"), glitched("superbunny_mirror"), regions.eastDeathMountain());
+					return orCombiner(path1, path2, path3, path4, path5);
 				default:
 					var path1 = {}; //Normal
 					var path2 = {}; //Superbunny via mirror w/sword
@@ -3356,12 +3324,12 @@ chests[39] = {
 					if (items.mirror && hasSword())
 						path2 = regions.eastDeathMountain();
 					if (items.mirror)
-						path3 = andCombinator(glitched("true"), canGetBee_path(), regions.eastDeathMountain(undefined, undefined, bottleCount() - 1));
+						path3 = andCombiner(glitched("true"), canGetBee_path(), regions.eastDeathMountain(undefined, undefined, bottleCount() - 1));
 					if (items.mirror)
-						path4 = andCombinator(glitched("spiralcave"), regions.eastDeathMountain());
+						path4 = andCombiner(glitched("spiralcave"), regions.eastDeathMountain());
 					if (items.mirror)
-						path5 = andCombinator(glitched("unbunny"), regions.eastDeathMountain());
-					return orCombinator(path1, path2, path3, path4, path5);
+						path5 = andCombiner(glitched("unbunny"), regions.eastDeathMountain());
+					return orCombiner(path1, path2, path3, path4, path5);
 			}
 	}
 };
@@ -3378,20 +3346,20 @@ chests[40] = { //TODO TR Key logic intelligence
 			var path2 = {}; //Bootsclip
 			var path3 = {}; //Possible through TR -- TODO: Key logic smarts
 			if (items.hammer && items.mirror) {
-				path1 = andCombinator(canMirrorClip_path(), regions.eastDeathMountain());
+				path1 = andCombiner(canMirrorClip_path(), regions.eastDeathMountain());
 				if (items.moonpearl)
-					path2 = andCombinator(canBootsClip_path(), regions.darkEastDeathMountain(), regions.eastDeathMountain());
-				path3 = convertPossible(andCombinator(dungeons[9].isAccessible(), regions.eastDeathMountain()));
+					path2 = andCombiner(canBootsClip_path(), regions.darkEastDeathMountain(), regions.eastDeathMountain());
+				path3 = convertPossible(andCombiner(dungeons[9].isAccessible(), regions.eastDeathMountain()));
 			}
-			return orCombinator(path1, path2, path3);
+			return orCombiner(path1, path2, path3);
 		} else {
 			var path1 = {}; //Normal
 			var path2 = {}; //Unbunny
 			if (items.hammer)
 				path1 = regions.eastDeathMountain(true);
 			if (items.hammer)
-				path2 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -3414,8 +3382,8 @@ chests[41] = {
 			if (canBombThings())
 				path1 = regions.eastDeathMountain(true);
 			if (items.mirror && canBombThings())
-				path2 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
-			return orCombinator(path1, path2);
+				path2 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
+			return orCombiner(path1, path2);
 		}
 	}
 };
@@ -3434,8 +3402,8 @@ chests[42] = {
 			if (hasSword(2) || hasBoomerang() || canBombThings()
 				|| items.firerod || items.icerod || items.somaria)
 				path1 = regions.eastDeathMountain();
-			path2 = andCombinator(canShootArrows_path(), regions.eastDeathMountain());
-			return orCombinator(path1, path2);
+			path2 = andCombiner(canShootArrows_path(), regions.eastDeathMountain());
+			return orCombiner(path1, path2);
 		} else {
 			var path1 = {}; //Non-arrow
 			var path2 = {}; //Arrow
@@ -3444,14 +3412,14 @@ chests[42] = {
 			if (hasSword(2) || hasBoomerang() || canBombThings()
 				|| items.firerod || items.icerod || items.somaria)
 				path1 = regions.eastDeathMountain(true);
-			path2 = andCombinator(canShootArrows_path(), regions.eastDeathMountain(true));
+			path2 = andCombiner(canShootArrows_path(), regions.eastDeathMountain(true));
 			if (items.mirror) {
 				if (hasSword(2) || hasBoomerang() || canBombThings()
 					|| items.firerod || items.icerod || items.somaria)
-					path3 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
-				path4 = andCombinator(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, canShootArrows_path(), regions.eastDeathMountain());
+					path3 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, regions.eastDeathMountain());
+				path4 = andCombiner(glitched("unbunny"), optionLogic === "nmg" ? glitched("superbunny_mirror") : {ng:"a"}, canShootArrows_path(), regions.eastDeathMountain());
 			}
-			return orCombinator(path1, path2, path3, path4);
+			return orCombiner(path1, path2, path3, path4);
 		}
 	}
 };
@@ -3467,11 +3435,11 @@ chests[43] = {
 			var path1 = {}; //Bootsclip
 			var path2 = {}; //NMG
 			var pathv = {}; //View item
-			path1 = andCombinator(canBootsClip_path(), regions.eastDeathMountain());
+			path1 = andCombiner(canBootsClip_path(), regions.eastDeathMountain());
 			if (items.mirror && items.moonpearl && canBombThings() && canLiftRocks())
-				path2 = andCombinator(regions.darkEastDeathMountain(), regions.eastDeathMountain());
+				path2 = andCombiner(regions.darkEastDeathMountain(), regions.eastDeathMountain());
 			pathv = convertView(regions.eastDeathMountain());
-			return orCombinator(path1, path2, pathv);
+			return orCombiner(path1, path2, pathv);
 		} else
 			return regions.eastDeathMountain();
 	}
@@ -3495,9 +3463,9 @@ chests[44] = {
 			if (items.moonpearl) {
 				if (canLiftRocks())
 					path1 = {};//regions.northEastDarkWorld();
-				path2 = andCombinator(canBootsClip_path(), {});//regions.northEastDarkWorld());
+				path2 = andCombiner(canBootsClip_path(), {});//regions.northEastDarkWorld());
 			}
-			return orCombinator(path1, path2);
+			return orCombiner(path1, path2);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3514,7 +3482,7 @@ chests[44] = {
 						path2 = regions.northEastLightWorld(true);
 					if (items.mirror)
 						path3 = chests[2].isAvailable();
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -3557,18 +3525,18 @@ chests[46] = {
 			var path6 = {}; //Screenwrap mirror portal
 			if (crystalCount === 2 && items.moonpearl) {
 				if (items.hammer || (items.mirror && dungeons[11].isBeaten()))
-					path1 = andCombinator(regions.SouthDarkWorld(undefined, new_locs, undefined, true), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
+					path1 = andCombiner(regions.SouthDarkWorld(undefined, new_locs, undefined, true), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
 				//if (items.mirror && items.flippers)
-				//	path2 = andCombinator(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
+				//	path2 = andCombiner(glitched("bigbombdupe_mirror"), regions.SouthDarkWorld(true));
 				//if (canLiftDarkRocks() && items.boots)
-				//	path3 = andCombinator(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
+				//	path3 = andCombiner(glitched("bigbombdupe_transition"), glitched("waterwalk_boots"), regions.SouthDarkWorld(true));
 				//if (canLiftDarkRocks() && items.flippers)
-				//	path4 = andCombinator(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
+				//	path4 = andCombiner(glitched("bigbombdupe_swim"), regions.SouthDarkWorld(true));
 				//if (canLiftDarkRocks() && (items.icerod || items.ether) && items.quake)
-				//	path5 = andCombinator(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
+				//	path5 = andCombiner(glitched("bigbombdupe_hinox"), regions.SouthDarkWorld(true));
 			}
-			path6 = andCombinator(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain(), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
-			return orCombinator(path1, path2, path3, path4, path5, path6);
+			path6 = andCombiner(canSuperSpeed_path(), canMirrorClip_path(), regions.westDeathMountain(), regions.northEastDarkWorld(undefined, new_locs, undefined, true));
+			return orCombiner(path1, path2, path3, path4, path5, path6);
 		} else {
 			if (crystalCount === 2 && items.mirror)
 				return regions.SouthLightWorld();
@@ -3588,7 +3556,7 @@ chests[47] = {
 	isAvailable: function(){
 		if (optionState !== "inverted")
 			if (canBombThings())
-				return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
+				return andCombiner(orCombiner((items.moonpearl ? {ng:"a"} : {}), canOWYBA_path()),
 					regions.northWestDarkWorld());
 		else {
 			if (canBombThings())
@@ -3604,7 +3572,7 @@ chests[48] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
 			regions.northWestDarkWorld());
 	}
 };
@@ -3616,7 +3584,7 @@ chests[49] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("mirror")),
 			regions.northWestDarkWorld());
 	}
 };
@@ -3634,9 +3602,9 @@ chests[50] = {
 			if (items.hammer) {
 				if (canLiftDarkRocks())
 					path1 = {ng:"a"};
-				path2 = andCombinator(canFakeFlipper_path(), orCombinator(canOneFrameClipOW_path(), canBootsClip_path()));
+				path2 = andCombiner(canFakeFlipper_path(), orCombiner(canOneFrameClipOW_path(), canBootsClip_path()));
 			}
-			return andCombinator(orCombinator(path1, path2), regions.northWestDarkWorld());
+			return andCombiner(orCombiner(path1, path2), regions.northWestDarkWorld());
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3645,16 +3613,16 @@ chests[50] = {
 					if (items.hammer && canLiftDarkRocks())
 						path1 = regions.northWestDarkWorld();
 					if (items.hammer && items.mirror)
-						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
+						path2 = andCombiner(regions.northWestDarkWorld(), regions.northWestLightWorld());
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Dark world
 					var path2 = {}; //Light world
 					if (items.hammer && (canLiftDarkRocks() || items.boots))
 						path1 = regions.northWestDarkWorld();
 					if (items.hammer && items.mirror)
-						path2 = andCombinator(regions.northWestDarkWorld(), regions.northWestLightWorld());
-					return orCombinator(path1, path2);
+						path2 = andCombiner(regions.northWestDarkWorld(), regions.northWestLightWorld());
+					return orCombiner(path1, path2);
 			}
 	},
 };
@@ -3671,10 +3639,10 @@ chests[51] = {
 			var path2 = {}; //Clip
 			var pathv = {}; //View
 			if (canLiftRocks() && items.cape)
-				path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), canAdvancedItems_path());
-			path2 = orCombinator(canOneFrameClipOW_path(), canBootsClip_path());
+				path1 = orCombiner((hasHookshot() ? {ng:"a"} : {}), canAdvancedItems_path());
+			path2 = orCombiner(canOneFrameClipOW_path(), canBootsClip_path());
 			pathv = convertView(regions.northWestDarkWorld());
-			return orCombinator(andCombinator(orCombinator(path1, path2), regions.northWestDarkWorld()), pathv);
+			return orCombiner(andCombiner(orCombiner(path1, path2), regions.northWestDarkWorld()), pathv);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3683,7 +3651,7 @@ chests[51] = {
 					if (canLiftRocks() && items.cape && items.mirror)
 						path1 = regions.northWestLightWorld(true);
 					path2 = convertView(regions.northWestDarkWorld());
-					return orCombinator(path1, path2);
+					return orCombiner(path1, path2);
 				default:
 					var path1 = {}; //Get item
 					var path2 = {}; //Clip
@@ -3693,7 +3661,7 @@ chests[51] = {
 					if (items.boots)
 						path2 = regions.northWestDarkWorld();
 					path3 = convertView(regions.northWestDarkWorld());
-					return orCombinator(path1, path2, path3);
+					return orCombiner(path1, path2, path3);
 			}
 	}
 };
@@ -3707,18 +3675,18 @@ chests[52] = {
 	isAvailable: function(){
 		if (optionState !== "inverted") {
 			if (canLiftDarkRocks())
-				return andCombinator(orCombinator((items.mirror ? {ng:"a"} : {}), canAdvancedItems_path()), regions.northWestDarkWorld());
+				return andCombiner(orCombiner((items.mirror ? {ng:"a"} : {}), canAdvancedItems_path()), regions.northWestDarkWorld());
 			return {};
 			//var path2 = {}; //Screenwrap mirror portal
 			//var path3 = {}; //Mirrorjump
 			//var path4 = {}; //YBA
 			//if (items.boots && items.mirror && (canBombThings() || items.flute))
-			//	path2 = andCombinator(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
+			//	path2 = andCombiner(glitched("blacksmith_wrap"), regions.northWestDarkWorld(true));
 			//if (items.mirror)
-			//	path3 = andCombinator(glitched("mirrorjump"), regions.northWestDarkWorld());
+			//	path3 = andCombiner(glitched("mirrorjump"), regions.northWestDarkWorld());
 			//if (hasABottle() && items.boots)
-			//	path4 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
-			//return orCombinator(path1, path2, path3, path4);
+			//	path4 = andCombiner(glitched("OW_YBA"), regions.northWestDarkWorld(true, undefined, bottleCount() - 1));
+			//return orCombiner(path1, path2, path3, path4);
 		} else
 			switch (optionLogic) {
 				case "nmg":
@@ -3731,8 +3699,8 @@ chests[52] = {
 					if (canLiftDarkRocks() || items.mirror)
 						path1 = regions.northWestLightWorld();
 					if (hasABottle() && items.boots)
-						path2 = andCombinator(glitched("OW_YBA"), regions.northWestDarkWorld(undefined, undefined, bottleCount() - 1));
-					return orCombinator(path1, path2);
+						path2 = andCombiner(glitched("OW_YBA"), regions.northWestDarkWorld(undefined, undefined, bottleCount() - 1));
+					return orCombiner(path1, path2);
 			}
 	}
 };
@@ -3745,24 +3713,24 @@ chests[53] = {
 	isHighlight: false,
 	isAvailable: function(){
 		if (optionState !== "inverted") {
-			return andCombinator(chests[52].isAvailable(),
-				orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canFakeFlipper_path()),
+			return andCombiner(chests[52].isAvailable(),
+				orCombiner((canLiftDarkRocks() ? {ng:"a"} : {}), canFakeFlipper_path()),
 				regions.northWestDarkWorld());
 			//var path2 = {}; //NE
 			//var path3 = {}; //Mirrorwrap
 			//if (items.boots)
-			//	path2 = andCombinator(andCombinator(chests[52].isAvailable(), regions.northEastDarkWorld(true)), regions.northWestDarkWorld(true));
+			//	path2 = andCombiner(andCombiner(chests[52].isAvailable(), regions.northEastDarkWorld(true)), regions.northWestDarkWorld(true));
 			//if (items.mirror)
-			//	path3 = andCombinator(glitched("mirrorwrap"), chests[52].isAvailable(), regions.northWestDarkWorld());
+			//	path3 = andCombiner(glitched("mirrorwrap"), chests[52].isAvailable(), regions.northWestDarkWorld());
 		} else
 			switch (optionLogic) {
 				case "nmg":
 					if (canLiftDarkRocks() || items.mirror)
-						return andCombinator(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
+						return andCombiner(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
 					return {};
 				default:
 					if (canLiftDarkRocks() || items.mirror || items.boots)
-						return andCombinator(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
+						return andCombiner(chests[52].isAvailable(), regions.northWestLightWorld(), regions.SouthLightWorld());
 					return {};
 			}
 	}
@@ -3815,7 +3783,7 @@ chests[57] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 		var path1 = {}; //Superbunny
 		var path2 = {}; //1f DMA, then 1f DMD, then 1f into mire as Link
 		var path3 = {}; //Superbunny by enemy hit
@@ -3825,7 +3793,7 @@ chests[57] = {
 			path2 = regions.mire();
 		if (qtyCounter.tunic > 1 || (qtyCounter.heart_full + (qtyCounter.heart_piece / 4) >= 4))
 			path3 = regions.mire();
-		return orCombinator(path1, path2, path3);
+		return orCombiner(path1, path2, path3);
 	}
 };
 
@@ -3841,7 +3809,7 @@ chests[58] = {
 		if (items.moonpearl && items.hammer && canLiftRocks()
 			&& ((canExtendMagic() && items.cape)
 				|| items.byrna))
-			return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
+			return andCombiner(regions.westDeathMountain(), regions.darkWestDeathMountain());
 		return {};
 	}
 };
@@ -3856,7 +3824,7 @@ chests[59] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("fall")), regions.darkEastDeathMountain());
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"} : {}), canSuperBunny_path("fall")), regions.darkEastDeathMountain());
 	}
 };
 chests[60] = {
@@ -3870,10 +3838,10 @@ chests[60] = {
 		var path1 = {}; //gap
 		var path2 = {}; //entry
 		if (items.moonpearl) {
-			path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}), (items.boots ? canAdvancedItems_path() : {}));
-			path2 = orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
+			path1 = orCombiner((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}), (items.boots ? canAdvancedItems_path() : {}));
+			path2 = orCombiner((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
 		}
-		return andCombinator(path1, path2, regions.darkEastDeathMountain());
+		return andCombiner(path1, path2, regions.darkEastDeathMountain());
 	}
 };
 chests[61] = {
@@ -3888,10 +3856,10 @@ chests[61] = {
 		var path1 = {}; //gap
 		var path2 = {}; //entry
 		if (items.moonpearl) {
-			path1 = orCombinator((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}));
-			path2 = orCombinator((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
+			path1 = orCombiner((hasHookshot() ? {ng:"a"} : {}), (items.boots ? glitched("hover") : {}));
+			path2 = orCombiner((canLiftDarkRocks() ? {ng:"a"} : {}), canBootsClip_path());
 		}
-		return andCombinator(path1, path2, regions.darkEastDeathMountain());
+		return andCombiner(path1, path2, regions.darkEastDeathMountain());
 	}
 };
 
@@ -3931,11 +3899,11 @@ chests[63] = {
 					if (canLiftRocks())
 						path1 = {ng:"a"};
 					if (qtyCounter.hc_sk >= 1)
-						path2 = orCombinator((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {}))
+						path2 = orCombiner((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {}))
 					if (optionVariation !== "keysanity" && optionVariation !== "mcs") //SK in map, dark cross, or sanctuary
-						path3 = convertPossible(orCombinator((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {})))
+						path3 = convertPossible(orCombiner((items.lantern ? {ng:"a"} : {}), glitched("sewers"), (items.firerod ? glitched("sewers_fr") : {})))
 				}
-				return orCombinator(path1, path2, path3);
+				return orCombiner(path1, path2, path3);
 			case "standard":
 				if (canBombThings() || items.boots) //need a key, but guaranteed to get one in any mode
 					return canKillEscapeThings_path();
@@ -3969,7 +3937,7 @@ chests[64] = {
 				path4 = glitched("darkCross_front");
 				if (canLiftRocks())
 					path5 = glitched("darkCross_back");
-				return orCombinator(path1, path2, path3, path4, path5);
+				return orCombiner(path1, path2, path3, path4, path5);
 			case "standard":
 				return canKillEscapeThings_path();
 			case "inverted":
@@ -3993,8 +3961,8 @@ chests[65] = {
 				if (qtyCounter.hc_sk >= 1)
 					path2 = {ng:"a"};
 				else
-					path2 = anyOrAllCombinator(anyOrAllCombinator(path1, chests[63].isAvailable()), chests[64].isAvailable());
-				return multipleChests(path1, path2);
+					path2 = anyOrAllCombiner([path1, chests[63].isAvailable(), chests[64].isAvailable()]);
+				return multipleChests([path1, path2]);
 			case "standard":
 				return canKillEscapeThings_path();
 			case "inverted":
@@ -4017,7 +3985,7 @@ chests[66] = { //Some funny, not understood logic regarding Sanc here
 				var path2 = {}; //Link's Uncle
 				path1 = canKillEscapeThings_path();
 				path2 = {ng:"a"};
-				return multipleChests(path1, path2);
+				return multipleChests([path1, path2]);
 			case "inverted":
 				return {};
 		}
@@ -4280,7 +4248,7 @@ entrances[22] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 	}
 }
 entrances[23] = {
@@ -4290,7 +4258,7 @@ entrances[23] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
+		return andCombiner(orCombiner((items.moonpearl ? {ng:"a"}:{}), canSuperBunny_path("mirror")), regions.mire());
 	}
 }
 entrances[24] = {
@@ -4351,7 +4319,7 @@ entrances[27] = {
 				path3 = regions.northEastDarkWorld();
 			if (items.moonpearl && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
 				path4 = regions.SouthDarkWorld();
-			return orCombinator(path1, path2, path3, path4);
+			return orCombiner(path1, path2, path3, path4);
 		default:
 			var path1 = {}; //South flippers
 			var path2 = {}; //NE surfing or wriggle to transition
@@ -4365,7 +4333,7 @@ entrances[27] = {
 				path3 = regions.northEastDarkWorld();
 			if (glitchedLinkInDarkWorld() && items.boots && canBombThings()) //Added -- maximum flexibility to get close to no req
 				path4 = regions.SouthDarkWorld();
-			return orCombinator(path1, path2, path3, path4);*/
+			return orCombiner(path1, path2, path3, path4);*/
 	}
 }
 entrances[28] = {
@@ -4402,7 +4370,7 @@ entrances[30] = {
 	isHighlight: false,
 	isAvailable: function(){
 		if (items.moonpearl)
-			return andCombinator(regions.westDeathMountain(), regions.darkWestDeathMountain());
+			return andCombiner(regions.westDeathMountain(), regions.darkWestDeathMountain());
 		return {};
 	}
 }
@@ -4414,7 +4382,7 @@ entrances[30] = {
 	isOpened: false,
 	isHighlight: false,
 	isAvailable: function(){
-		return andCombinator(orCombinator(canFakeFlipper_path(), (items.flippers ? {ng:"a"} : {})),
+		return andCombiner(orCombiner(canFakeFlipper_path(), (items.flippers ? {ng:"a"} : {})),
 			regions.SouthLightWorld());
 	}
 }*/
@@ -4474,24 +4442,24 @@ shops[3] = {
 			return {};
 		var new_locs = from_locs.slice(0);
 		new_locs.push("darkPotionShop"); //new array of visited locations (prevent infinite recursion)
-		return AccurateLogic(andCombinator([items.moonpearl && (canLiftRocks() || items.hammer || items.flippers),
+		return AccurateLogic(andCombiner([items.moonpearl && (canLiftRocks() || items.hammer || items.flippers),
 				regions.northEastDarkWorld(undefined, new_locs, undefined, newcalc)]),
-			orCombinator([andCombinator([canLiftRocks(), regions.northEastDarkWorld(2, new_locs, bottles, newcalc)]),
-				andCombinator([items.hammer, regions.northEastDarkWorld(true, new_locs, bottles, newcalc)]),
-				andCombinator([orCombinator([items.flippers, canFakeFlipper_path()]),
-					orCombinator([regions.northEastDarkWorld(true, new_locs, bottles, newcalc),
+			orCombiner([andCombiner([canLiftRocks(), regions.northEastDarkWorld(2, new_locs, bottles, newcalc)]),
+				andCombiner([items.hammer, regions.northEastDarkWorld(true, new_locs, bottles, newcalc)]),
+				andCombiner([orCombiner([items.flippers, canFakeFlipper_path()]),
+					orCombiner([regions.northEastDarkWorld(true, new_locs, bottles, newcalc),
 						regions.SouthDarkWorld(true, new_locs, bottles, newcalc),
 						chests[44].isAvailable(true, new_locs, bottles, newcalc)])]),
-				andCombinator([canBunnyRevive_path(), canGetFairy_path(1, true, new_locs),
-					orCombinator([regions.northEastDarkWorld(undefined, new_locs, bottles - 1, newcalc),
+				andCombiner([canBunnyRevive_path(), canGetFairy_path(1, true, new_locs),
+					orCombiner([regions.northEastDarkWorld(undefined, new_locs, bottles - 1, newcalc),
 						regions.SouthDarkWorld(undefined, new_locs, bottles - 1, newcalc),
 						chests[44].isAvailable(undefined, new_locs, bottles - 1, newcalc)])]),
-				andCombinator([canMirrorWrap_path(), must_be_link !== false ? items.moonpearl : true,
+				andCombiner([canMirrorWrap_path(), must_be_link !== false ? items.moonpearl : true,
 					regions.northWestDarkWorld(undefined, new_locs, bottles, newcalc)]),
-				andCombinator([orCombinator([canSuperSpeed_path(), canBootsClip_path()]),
+				andCombiner([orCombiner([canSuperSpeed_path(), canBootsClip_path()]),
 					regions.darkEastDeathMountain(true, new_locs, bottles, newcalc)]),
-				andCombinator([canOneFrameClipOW_path(), regions.darkEastDeathMountain(must_be_link !== false, new_locs, bottles, newcalc)]),
-				andCombinator([canBootsClip_path(), items.mirror && must_be_link === false,
+				andCombiner([canOneFrameClipOW_path(), regions.darkEastDeathMountain(must_be_link !== false, new_locs, bottles, newcalc)]),
+				andCombiner([canBootsClip_path(), items.mirror && must_be_link === false,
 					regions.darkEastDeathMountain(false, new_locs, bottles, newcalc)])]));
 	}
 /*from NW
@@ -4554,5 +4522,3 @@ shops[8] = {
 		return regions.darkEastDeathMountain();
 	}
 }
-
-

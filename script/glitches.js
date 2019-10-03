@@ -72,6 +72,10 @@ var glitches = {
 	//Misc strats
 	advanced_items: { category: "misc", name: "Advanced Item Placement", tip: "Show advanced logic as sequence breaks in basic item placement setting", def:"top"
 	},
+	mire_byrnkill: { category: "misc", name: "Misery Mire Byrna Killroom", tip: "Enter Misery Mire using byrna without any magic extensions"
+	},
+	castle_byrnkill: { category: "misc", name: "Castle Tower Byrna Kills", tip: "Clear Castle Tower using byrna with minimal magic extensions"
+	},
 	
 	DM_lynels: { category: "misc", name: "Hookshot past DM Lynels in OHKO"
 	},

@@ -1,6 +1,9 @@
+//TODO: Kholdstare is fixed in IP for swordless mode
+
 var logicSelect = document.querySelector('#logic_select');
 var itemplaceSelect = document.querySelector('#itemplace_select');
 var variationSelect = document.querySelector('#variation_select');
+var accessibilitySelect = document.querySelector('#accessibility_select');
 var goalSelect = document.querySelector('#goal_select');
 var towerSelect = document.querySelector('#tower_select');
 var ganonSelect = document.querySelector('#ganon_select');
@@ -17,6 +20,7 @@ var optionLogic = logicSelect.value;
 var optionItemplace = itemplaceSelect.value;
 var optionVariation = variationSelect.value;
 var optOldVariation = variationSelect.value;
+var optionAccessibility = accessibilitySelect.value;
 var optionGoal = goalSelect.value;
 var optionTower = towerSelect.value;
 var optionGanon = ganonSelect.value;
@@ -551,6 +555,9 @@ function filterChange() {
 
 itemSelect.addEventListener('change', function() {
 	optionItemSelect = itemSelect.value;
+});
+accessibilitySelect.addEventListener('change', function() {
+	optionAccessibility = accessibilitySelect.value;
 });
 
 document.querySelector('#add_top').addEventListener('click', function() {

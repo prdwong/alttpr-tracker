@@ -1,9 +1,10 @@
 //TODO: Getting good bee might use up a bottle that's needed for dungeon entrance...
 //TODO: Regular bee damages Mothula
 //TODO: Track bottles (AgaPossible_path) for barrier revive
-//TODO: canExtendMagic for higher difficulties
 
 //TODO: Some major glitches will sneak into nmg logic
+
+//TODO: Convert all Combiners to using only arrays
 
 
 /*rgn bunny functions rely on this reasoning
@@ -28,61 +29,61 @@
 	  for potion, mirrorwrap to dNW (but just fake flute to dNW instead) or surfing bunny to dNE (but just pyramid portal instead)
 */
 function rgn_obr2link_ne(locs = [], bottles = bottleCount()) { //all paths to get linkstate via obr in Lake Hylia (1-2 bottles used)
-	return andCombinator([canBunnyRevive_path(bottles),
-		orCombinator([canOneFrameClipOW_path(), //1f DMA->portal->DMD
-			andCombinator([canMirrorClip_path(), regions.westDeathMountain(undefined, locs, bottles - 1)]), //mirrorclip DMD
-			orCombinator([canSuperSpeed_path(), canBootsClip_path()]), //DMA->fast DMD
+	return andCombiner([canBunnyRevive_path(bottles),
+		orCombiner([canOneFrameClipOW_path(), //1f DMA->portal->DMD
+			andCombiner([canMirrorClip_path(), regions.westDeathMountain(undefined, locs, bottles - 1)]), //mirrorclip DMD
+			orCombiner([canSuperSpeed_path(), canBootsClip_path()]), //DMA->fast DMD
 			AgaPossible_path()])]); //Aga portal
 }
 function rgn_obr2link_mire(locs = [], bottles = bottleCount()) { //Paths to get linkstate via obr in Mire (1-3 bottles used)
-	return andCombinator([canBunnyRevive_path(bottles), rgn_bunny2here("mire", locs, bottles - 1)]);
+	return andCombiner([canBunnyRevive_path(bottles), rgn_bunny2here("mire", locs, bottles - 1)]);
 }
 function rgn_bumper2link() { //all paths to get linkstate via bumper ledge. Ends up in dNW
-	return andCombinator([canOneFrameClipOW_path(), !chests[51].isOpened]);
+	return andCombiner([canOneFrameClipOW_path(), !chests[51].isOpened]);
 }
 function rgn_fakeflute2link(locs = [], bottles = bottleCount()) { //all paths to get linkstate via fake fluting. Ends up in dNE, dNW, or dS (1-2 bottles used)
-	return andCombinator([canOWYBA_path(bottles), //fake flute
-		orCombinator([AgaPossible_path(), //from dNE, through Aga portal
+	return andCombiner([canOWYBA_path(bottles), //fake flute
+		orCombiner([AgaPossible_path(), //from dNE, through Aga portal
 			regions.westDeathMountain(undefined, locs, bottles - 1)])]); //from DM portal (same as 1f from mire; less req than screenwrapped portal)
 }
 function rgn_stumpy2link(locs = [], bottles = bottleCount()) { //all paths to get linkstate via stumpy. Ends up in dS (0-1 bottles)
-	return andCombinator([rgn_bunny2here("SouthDarkWorld", locs, bottles), //dS as bunny
+	return andCombiner([rgn_bunny2here("SouthDarkWorld", locs, bottles), //dS as bunny
 		canMirrorWrap_path(), !chests[55].isOpened]); //linkstate from stumpy
 }
 function rgn_bunny2here(region, locs = [], bottles = bottleCount()) { //all paths to get to this region as a bunny
 	switch (region) {
 		case "darkWestDeathMountain":
-			return orCombinator([canOneFrameClipOW_path(), //1f
+			return orCombiner([canOneFrameClipOW_path(), //1f
 				regions.westDeathMountain(undefined, locs, bottles)]); //portal
 		case "darkEastDeathMountain":
-			return orCombinator([canOneFrameClipOW_path(), //1f
-				andCombinator([orCombinator([canMirrorClip_path(), canMirrorWrap_path()]), //mirrorclip/wrap from dwDM
+			return orCombiner([canOneFrameClipOW_path(), //1f
+				andCombiner([orCombiner([canMirrorClip_path(), canMirrorWrap_path()]), //mirrorclip/wrap from dwDM
 					rgn_bunny2here("darkWestDeathMountain", locs, bottles)]),
-				andCombinator([orCombinator([canLiftDarkRocks(), //lower eDM portal
-						andCombinator([items.hammer, canBootsClip_path()])]), //TR portal
+				andCombiner([orCombiner([canLiftDarkRocks(), //lower eDM portal
+						andCombiner([items.hammer, canBootsClip_path()])]), //TR portal
 					regions.eastDeathMountain(undefined, locs, bottles)]),
-				andCombinator([canOWYBA_path(bottles), glitched("fakefluteDM"), canBootsClip_path(), //fake flute to DM and preserve superbunny
-					orCombinator([rgn_bunny2here("darkWestDeathMountain", locs, bottles - 1), AgaPossible_path()])])]);
+				andCombiner([canOWYBA_path(bottles), glitched("fakefluteDM"), canBootsClip_path(), //fake flute to DM and preserve superbunny
+					orCombiner([rgn_bunny2here("darkWestDeathMountain", locs, bottles - 1), AgaPossible_path()])])]);
 		case "northEastDarkWorld":
-			return orCombinator([canOneFrameClipOW_path(), //1f
-				andCombinator([items.mirror, orCombinator([canBootsClip_path(), canSuperSpeed_path()])]), //pyramid portal
+			return orCombiner([canOneFrameClipOW_path(), //1f
+				andCombiner([items.mirror, orCombiner([canBootsClip_path(), canSuperSpeed_path()])]), //pyramid portal
 				AgaPossible_path(), //Aga portal
-				andCombinator([rgn_bunny2here("darkWestDeathMountain", locs, bottles), canMirrorClip_path(), glitched("mirhambri")])]); //mirror clip DMD then clip past hammer bridge
+				andCombiner([rgn_bunny2here("darkWestDeathMountain", locs, bottles), canMirrorClip_path(), glitched("mirhambri")])]); //mirror clip DMD then clip past hammer bridge
 			//DM->mirror clip DMD->mirrorwrap to potion->surfing bunny->dNE requires 1f/bootsclip to surf, which is redundant path
 		case "northWestDarkWorld":
 		case "SouthDarkWorld": //jump from dNW, no other new paths for dS
-			return orCombinator([canOneFrameClipOW_path(), //1f
-				andCombinator([canMirrorClip_path(), rgn_bunny2here("darkWestDeathMountain", locs, bottles)]), //mirrorclip DMD
-				andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path()]), items.mirror]), //screenwrapped fast transition
-				andCombinator([canBunnySurf_path(), canMirrorWrap_path(), //NE->surfing bunny->mirrorwrap
+			return orCombiner([canOneFrameClipOW_path(), //1f
+				andCombiner([canMirrorClip_path(), rgn_bunny2here("darkWestDeathMountain", locs, bottles)]), //mirrorclip DMD
+				andCombiner([orCombiner([canBootsClip_path(), canSuperSpeed_path()]), items.mirror]), //screenwrapped fast transition
+				andCombiner([canBunnySurf_path(), canMirrorWrap_path(), //NE->surfing bunny->mirrorwrap
 					rgn_bunny2here("northEastDarkWorld", locs, bottles)])]);
 		case "mire":
-			return orCombinator([canOneFrameClipOW_path(), //1f
-				andCombinator([canLiftDarkRocks(), orCombinator([canBootsClip_path(), canFly_path(), canOWYBA_path(bottles)])]), //portal
-				andCombinator([canOWYBA_path(bottles), orCombinator([rgn_bunny2here("darkWestDeathMountain", locs, bottles - 1), //fake flute
+			return orCombiner([canOneFrameClipOW_path(), //1f
+				andCombiner([canLiftDarkRocks(), orCombiner([canBootsClip_path(), canFly_path(), canOWYBA_path(bottles)])]), //portal
+				andCombiner([canOWYBA_path(bottles), orCombiner([rgn_bunny2here("darkWestDeathMountain", locs, bottles - 1), //fake flute
 						rgn_bunny2here("northEastDarkWorld", locs, bottles - 1)])]), //screenwrap/fast portal is same as dDM
-				andCombinator([orCombinator([andCombinator([canMirrorClip_path(), glitched("mireclip")]), //mireclip from dS
-						orCombinator([andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]), //mirewrap from dS
+				andCombiner([orCombiner([andCombiner([canMirrorClip_path(), glitched("mireclip")]), //mireclip from dS
+						orCombiner([andCombiner([canMirrorWrap_path(), glitched("mirewrap")])])]), //mirewrap from dS
 					rgn_bunny2here("SouthDarkWorld", locs, bottles)])]); 
 	}
 }
@@ -148,40 +149,41 @@ function rgn_bunny2here(region, locs = [], bottles = bottleCount()) { //all path
 //  mirrorwrap* / hookshot->dNW
 
 function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths to get to this region as link
+	if (bottles < 0) return {};
 	switch (region) {
 		case "darkWestDeathMountain": //(0-4 bottles)
-			return orCombinator([andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles)]), //pearl DM portal (0-1 bottles)
+			return orCombiner([andCombiner([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles)]), //pearl DM portal (0-1 bottles)
 					//with pearl, just enter DM portal (any path going up dDM is the same as going up in light world first)
 					//rest of options starts as bunny and needs to get linkstate
 				rgn_bumper2link(), //1f link state from bumper ledge, then 1f DMA
-				andCombinator([orCombinator([rgn_stumpy2link(locs, bottles - 1), //get link state somewhere, then fake flute to DM (1-4 bottles)
+				andCombiner([orCombiner([rgn_stumpy2link(locs, bottles - 1), //get link state somewhere, then fake flute to DM (1-4 bottles)
 						rgn_fakeflute2link(locs, bottles - 1),
 						rgn_obr2link_ne(locs, bottles - 1)]), //obr2mire needs bootsclip/1f to get out
 					canOWYBA_path(bottles)]),
-				andCombinator([orCombinator([rgn_stumpy2link(locs, bottles), //get link state somewhere, then DMA (0-3 bottles)
+				andCombiner([orCombiner([rgn_stumpy2link(locs, bottles), //get link state somewhere, then DMA (0-3 bottles)
 						rgn_fakeflute2link(locs, bottles),
-						andCombinator([rgn_obr2link_ne(locs, bottles), //need to get from Lake Hylia to dNW
-							orCombinator([items.hammer, //hammer pegs->dS->dNW
+						andCombiner([rgn_obr2link_ne(locs, bottles), //need to get from Lake Hylia to dNW
+							orCombiner([items.hammer, //hammer pegs->dS->dNW
 								canFakeFlipper_path(), items.flippers, //moat->dS->dNW
 								hasHookshot()])]), //dark potion shop->hookshot across->dNW
 						rgn_obr2link_mire(locs, bottles)]),
-					orCombinator([canOneFrameClipOW_path(), canBootsClip_path])])]);
+					orCombiner([canOneFrameClipOW_path(), canBootsClip_path])])]);
 		case "darkEastDeathMountain": //(0-4 bottles)
-			return orCombinator([andCombinator([rgn_link2here("darkWestDeathMountain", locs, bottles), //bombclip/bootsclip/1f
-					orCombinator([canBombClipOW_path(), canBootsClip_path(), canOneFrameClipOW_path()])]),
-				andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles), //mirrorclip/mirrorwrap
-					orCombinator([canMirrorClip_path(), canMirrorWrap_path()])]),
-				andCombinator([items.moonpearl && canLiftDarkRocks(), regions.eastDeathMountain(undefined, locs, bottles)])]); //eDM portal
+			return orCombiner([andCombiner([rgn_link2here("darkWestDeathMountain", locs, bottles), //bombclip/bootsclip/1f
+					orCombiner([canBombClipOW_path(), canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles), //mirrorclip/mirrorwrap
+					orCombiner([canMirrorClip_path(), canMirrorWrap_path()])]),
+				andCombiner([items.moonpearl && canLiftDarkRocks(), regions.eastDeathMountain(undefined, locs, bottles)])]); //eDM portal
 					//For TR portal with pearl, do TR climb instead
 		case "northEastDarkWorld":
-			return orCombinator([
+			return orCombiner([
 			//Direct
 			//	(pearl+hammer+glove)
 				items.moonpearl && items.hammer && canLiftRocks(),
 			//	(pearl+Aga)
-				andCombinator([items.moonpearl, AgaPossible_path()]),
+				andCombiner([items.moonpearl, AgaPossible_path()]),
 			//	(pearl+mirror[clip]+spinspeed)
-				andCombinator([items.moonpearl && items.mirror, canSuperSpeed_path()]),
+				andCombiner([items.moonpearl && items.mirror, canSuperSpeed_path()]),
 			//	(fakeflute2link)
 				rgn_fakeflute2link(locs, bottles),
 			//	(obr2lake)
@@ -189,13 +191,13 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//From dDM
 			//	(pearl+wDM)
 			//	(pearl) + bootsclip/1f <-- dNEgo
-				andCombinator([items.moonpearl, orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([items.moonpearl, orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//	(pearl+wDM) + mirrorclip+ffflipper <-- dNEgo
-				andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles),
-					canMirrorClip_path(), orCombinator([items.flippers, canFakeFlipper_path()])]),
+				andCombiner([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles),
+					canMirrorClip_path(), orCombiner([items.flippers, canFakeFlipper_path()])]),
 			//	(pearl) + spinspeed + ffflipper <-- dNEgo
-				andCombinator([items.moonpearl, canSuperSpeed_path(),
-					orCombinator([items.flippers, canFakeFlipper_path()])]),
+				andCombiner([items.moonpearl, canSuperSpeed_path(),
+					orCombiner([items.flippers, canFakeFlipper_path()])]),
 			//	(pearl) + spinspeed + mirrorclip + glove/hammer/obr -- reject**
 			//	(pearl+wDM) + fakeflute -- reject
 			//	(pearl+wDM) + fakeflute/mirrorclip/bootsclip/spinspeed/1f to dNW
@@ -204,7 +206,7 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(pearl+mitts) + fakeflute/bootsclip/1f to dDM -- reject
 			//	(pearl+mitts) + fakeflute/waterwalk/qirn -- combine qirn, split fakeflute
 			//	(pearl+mitts) + fakeflute <-- dNEgo
-				andCombinator([items.moonpearl && canLiftDarkRocks(), orCombinator([canOWYBA_path(bottles),
+				andCombiner([items.moonpearl && canLiftDarkRocks(), orCombiner([canOWYBA_path(bottles),
 			//	(pearl+mitts) + mirrorwrap <-- dNEgo
 						canMirrorWrap_path()])]),
 			//	(bumper2link) <-- dNEgo
@@ -214,46 +216,46 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(pearl+spinspeed/(wDM+mirrorclip)) + fakeflute/waterwalk/qirn -- reject fakeflute, combine qirn
 			//	(pearl+spinspeed/(wDM+mirrorclip)) + mirrorwrap + glove/hammer/ffflipper/obr -- reject spinspeed**
 			//	(pearl+wDM+mirrorclip) + mirrorwrap + glove/hammer/ffflipper/obr -- reject obr (obr2link), ffflipper <-- dNEgo
-				andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles),
+				andCombiner([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles),
 					canMirrorClip_path(), canMirrorWrap_path(), canLiftRocks() || items.hammer]),
 			//	send inits to dS
 			//	(stumpy2link+mitts) from dS + waterwalk/qirn -- combine qirn
 			//	(pearl+mitts/spinspeed/(wDM+mirrorclip))/(stumpy2link+mitts) + waterwalk/qirn <-- dNEgo
-				andCombinator([orCombinator([andCombinator([items.moonpearl,
-							orCombinator([canLiftDarkRocks(), canSuperSpeed_path(),
-								andCombinator([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
-						andCombinator([rgn_stumpy2link(locs, bottles), canLiftDarkRocks()])]),
-					orCombinator([canWaterWalk_path(),
-						andCombinator([canBombThings(), canFakeFlipper_path()]),
-						andCombinator([(items.icerod || items.ether) && hasSword() && items.quake, glitched("superqirn_jump"), canFakeFlipper_path()])])]),
+				andCombiner([orCombiner([andCombiner([items.moonpearl,
+							orCombiner([canLiftDarkRocks(), canSuperSpeed_path(),
+								andCombiner([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
+						andCombiner([rgn_stumpy2link(locs, bottles), canLiftDarkRocks()])]),
+					orCombiner([canWaterWalk_path(),
+						andCombiner([canBombThings(), canFakeFlipper_path()]),
+						andCombiner([(items.icerod || items.ether) && hasSword() && items.quake, glitched("superqirn_jump"), canFakeFlipper_path()])])]),
 			//From Mire
 			//	(mitts+pearl+flute/fakeflute/bootsclip/1f) + bootsclip/1f -- reject
 			//	(pearl+bootsclip/spinspeed/1f***) -- reject
 			//	(obr2mire) + bootsclip/1f to dS
 			//From dS
 			//	(stumpy2link) + hammer/flipper/obr <-- dNEgo
-				andCombinator([rgn_stumpy2link(locs, bottles - 1), orCombinator([canBunnyRevive_path(bottles), canOWYBA_path(bottles)])]),
-				andCombinator([rgn_stumpy2link(locs, bottles),
-					orCombinator([items.hammer || items.flippers,
+				andCombiner([rgn_stumpy2link(locs, bottles - 1), orCombiner([canBunnyRevive_path(bottles), canOWYBA_path(bottles)])]),
+				andCombiner([rgn_stumpy2link(locs, bottles),
+					orCombiner([items.hammer || items.flippers,
 			//	(stumpy2link) + spinspeed + fakeflipper <-- dNEgo
-						andCombinator([canSuperSpeed_path(), canFakeFlipper_path()]),
+						andCombiner([canSuperSpeed_path(), canFakeFlipper_path()]),
 			//	(stumpy2link) + mitts -> to dNW
 			//	(stumpy2link) + bootsclip/1f/fakeflute -- already to dNE <-- dNEgo
 						canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//	(obr2mire+bootsclip/1f) -- already to dNE <-- dNEgo
-				andCombinator([rgn_obr2link_mire(locs, bottles), orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([rgn_obr2link_mire(locs, bottles), orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//	(pearl+mitts) + fakeflute/hammer/flipper/obr/mirhambri -- reject fakeflute
 			//	(pearl+mitts) + hammer/flipper/obr/mirhambri <-- dNEgo
 			//	(pearl+mitts) + bootsclip/1f/spinspeed + fakeflipper -- reject
 			//	(pearl+spinspeed/(wDM+mirrorclip)) + fakeflute/hammer/flipper/obr/mirhambri -- reject fakeflute
 			//	(pearl+spinspeed/(wDM+mirrorclip)) + hammer/flipper/obr/mirhambri <-- dNEgo
-				andCombinator([items.moonpearl, orCombinator([canLiftDarkRocks(), canSuperSpeed_path(),
-						andCombinator([canMirrorClip_path(), regions.westDeathMountain(undefined, locs, bottles)])]),
-					orCombinator([items.hammer || items.flippers, canBunnyRevive_path(bottles),
-						andCombinator([canMirrorClip_path(), glitched("mirhambri")])])])]);
+				andCombiner([items.moonpearl, orCombiner([canLiftDarkRocks(), canSuperSpeed_path(),
+						andCombiner([canMirrorClip_path(), regions.westDeathMountain(undefined, locs, bottles)])]),
+					orCombiner([items.hammer || items.flippers, canBunnyRevive_path(bottles),
+						andCombiner([canMirrorClip_path(), glitched("mirhambri")])])])]);
 			//	(pearl+spinspeed/(wDM+mirrorclip)) + bootsclip/1f/spinspeed + fakeflipper -- reject
 		case "northWestDarkWorld":
-			return orCombinator([
+			return orCombiner([
 			//Direct
 			//	(pearl+hammer+glove/mitts)
 				items.moonpearl && ((items.hammer && canLiftRocks()) || canLiftDarkRocks()),
@@ -264,9 +266,9 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//From dDM
 			//	(pearl+wDM) + fakeflute/mirrorclip/bootsclip/spinspeed/1f -- reject fakeflute
 			//	pearl+bootsclip/spinspeed/1f/(wDM+mirrorclip) <-- dNWgo
-				andCombinator([items.moonpearl,
-					orCombinator([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path(),
-						andCombinator([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
+				andCombiner([items.moonpearl,
+					orCombiner([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path(),
+						andCombiner([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
 			//	(pearl+wDM) + bootsclip/1f to dNE -- reject
 			//	(pearl+wDM) + mirrorclip+ffflipper -- reject
 			//	(pearl+wDM) + spinspeed + x -- reject
@@ -274,22 +276,22 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(mitts+pearl+flute/fakeflute/bootsclip/1f) + bootsclip/1f -- reject
 			//	(pearl+bootsclip/spinspeed/1f**) -- reject
 			//	(obr2mire) + bootsclip/1f <-- dNWgo
-				andCombinator([rgn_obr2link_mire(locs, bottles), orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([rgn_obr2link_mire(locs, bottles), orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//From dS
 			//	(stumpy2link) + hammer to dNE
 			//	(stumpy2link) + flipper/obr to potion
 			//	(stumpy2link) + bootsclip/1f -- reject
 			//	(stumpy2link) + spinspeed+fakeflipper to potion
 			//	(stumpy2link) + mitts/bootsclip/1f/fakeflute -- reject fakeflute <-- dNWgo
-				andCombinator([rgn_stumpy2link(locs, bottles),
-					orCombinator([canLiftDarkRocks(), canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([rgn_stumpy2link(locs, bottles),
+					orCombiner([canLiftDarkRocks(), canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//From dNE
 			//	(pearl+Aga) + fakeflute -- reject
 			//	(pearl+Aga) + mirrorwrap/hookshot + glove/hammer/ffflipper/obr -- reject obr
 			//	(pearl+Aga) + mirrorwrap/hookshot + glove/hammer/ffflipper <-- dNWgo
-				andCombinator([items.moonpearl, AgaPossible_path(),
-					orCombinator([canMirrorWrap_path(), hasHookshot()]),
-					orCombinator([canLiftRocks() || items.hammer || items.flippers, canFakeFlipper_path()])]),
+				andCombiner([items.moonpearl, AgaPossible_path(),
+					orCombiner([canMirrorWrap_path(), hasHookshot()]),
+					orCombiner([canLiftRocks() || items.hammer || items.flippers, canFakeFlipper_path()])]),
 			//	(pearl+Aga) + mitts+bootsclip/spinspeed/1f+ffflipper -- reject
 			//	(pearl+Aga) + bootsclip/spinspeed/1f+ffflipper -- reject
 			//	(pearl+Aga) + hammer -> dS + mitts/bootsclip/1f/fakeflute -- reject
@@ -297,28 +299,28 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(fakeflute2link) -- reject
 			//	(obr2lake) + fakeflute -- reject
 			//	(obr2lake) + hookshot <-- dNWgo
-				andCombinator([rgn_obr2link_ne(locs, bottles),
-					orCombinator([hasHookshot(),
+				andCombiner([rgn_obr2link_ne(locs, bottles),
+					orCombiner([hasHookshot(),
 			//	(obr2lake) + mitts+bootsclip/spinspeed/1f+ffflipper -- reject
 			//	(obr2lake) + bootsclip/spinspeed/1f+ffflipper to dS
 			//	(obr2lake+bootsclip/spinspeed/1f+ffflipper)+mitts/bootsclip/1f -- split mitts
 			//	(obr2lake) + hammer to dS
 			//	(obr2lake) + hammer + mitts/bootsclip/1f -- combine
 			//	(obr2lake) + bootsclip/1f + ffflipper/hammer <-- dNWgo
-						andCombinator([orCombinator([canBootsClip_path(), canOneFrameClipOW_path()]),
-							orCombinator([items.flippers || items.hammer, canFakeFlipper_path()])]),
+						andCombiner([orCombiner([canBootsClip_path(), canOneFrameClipOW_path()]),
+							orCombiner([items.flippers || items.hammer, canFakeFlipper_path()])]),
 			//	(obr2lake) + mitts + (spinspeed+ffflipper)/hammer <-- dNWgo
-						andCombinator([canLiftDarkRocks(),
-							orCombinator([andCombinator([canSuperSpeed_path(), orCombinator([items.flippers, canFakeFlipper_path()])]),
+						andCombiner([canLiftDarkRocks(),
+							orCombiner([andCombiner([canSuperSpeed_path(), orCombiner([items.flippers, canFakeFlipper_path()])]),
 								items.hammer])])])]),
 			//	(stumpy2link+hammer) + hookshot
-				andCombinator([rgn_stumpy2link(locs, bottles), hasHookshot(),
-					orCombinator([items.hammer,
+				andCombiner([rgn_stumpy2link(locs, bottles), hasHookshot(),
+					orCombiner([items.hammer,
 			//	(stumpy2link+hammer) + mitts + xxx -- reject
 			//	(stumpy2link+(flipper/(spinspeed+fakeflipper))) + hookshot
-						items.flippers, andCombinator([canSuperSpeed_path(), canFakeFlipper_path()])])])]);
+						items.flippers, andCombiner([canSuperSpeed_path(), canFakeFlipper_path()])])])]);
 		case "SouthDarkWorld":
-			return orCombinator([
+			return orCombiner([
 			//Direct
 			//	(pearl+hammer+glove/mitts)
 				items.moonpearl && ((items.hammer && canLiftRocks()) || canLiftDarkRocks()),
@@ -331,8 +333,8 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//From DM
 			//	(pearl+wDM) + fakeflute/mirrorclip/bootsclip/spinspeed/1f -- reject fakeflute
 			//	=(pearl+bootsclip/spinspeed/1f/(wDM+mirrorclip) <-- dSgo
-				andCombinator([items.moonpearl, orCombinator([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path(),
-						andCombinator([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
+				andCombiner([items.moonpearl, orCombiner([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path(),
+						andCombiner([regions.westDeathMountain(undefined, locs, bottles), canMirrorClip_path()])])]),
 			//	(pearl+wDM) + bootsclip/1f -- reject
 			//	(pearl+wDM) + mirrorclip+ffflipper -- reject
 			//	(pearl+wDM) + spinspeed+mirrorclip+pearl + ~~ -- reject
@@ -340,15 +342,15 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(mitts+pearl+flute/fakeflute/bootsclip/1f) + bootsclip/1f -- reject
 			//	(pearl+bootsclip/spinspeed/1f**) -- reject
 			//	(obr2mire) + bootsclip/1f <-- dSgo
-				andCombinator([rgn_obr2link_mire(), orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([rgn_obr2link_mire(), orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//From dNE
 			//	(pearl+hammer+glove) -- reject
 			//	(pearl+Aga) + fakeflute -- reject
 			//	(pearl+Aga) + mirrorwrap/hookshot + glove/hammer/ffflipper/obr -- reject obr/hammer
 			//	(pearl+Aga) + mirrorwrap/hookshot + glove/ffflipper <-- dSgo
-				andCombinator([items.moonpearl, AgaPossible_path(),
-					orCombinator([andCombinator([orCombinator([canMirrorWrap_path(), hasHookshot()]),
-							orCombinator([canLiftRocks() || items.flippers, canFakeFlipper_path()])]),
+				andCombiner([items.moonpearl, AgaPossible_path(),
+					orCombiner([andCombiner([orCombiner([canMirrorWrap_path(), hasHookshot()]),
+							orCombiner([canLiftRocks() || items.flippers, canFakeFlipper_path()])]),
 			//	(pearl+Aga) + mitts+~~~ -- reject
 			//	(pearl+Aga) + bootsclip/superspeed/1f + ffflipper -- reject
 			//	(pearl+Aga) + hammer <-- dSgo
@@ -357,91 +359,38 @@ function rgn_link2here(region, locs = [], bottles = bottleCount()) { //all paths
 			//	(fakeflute2link) -- reject
 			//	(obr2lake) + fakeflute -- reject
 			//	(obr2lake) + hookshot <-- dSgo
-				andCombinator([rgn_obr2link_ne(locs, bottles),
-					orCombinator([hasHookshot(),
+				andCombiner([rgn_obr2link_ne(locs, bottles),
+					orCombiner([hasHookshot(),
 			//	(obr2lake) + mitts + bootsclip/spinspeed/1f + ffflipper -- reject
 			//	(obr2lake) + bootsclip/superspeed/1f + ffflipper <-- dSgo
-						andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path()]),
-							orCombinator([items.flippers, canFakeFlipper_path()])]),
+						andCombiner([orCombiner([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path()]),
+							orCombiner([items.flippers, canFakeFlipper_path()])]),
 			//	(obr2lake) + hammer <-- dSgo
 						items.hammer])])]);
 		case "mire":
-			return orCombinator([
+			return orCombiner([
 			//Direct
 			//	(pearl+mitts+flute/fakeflute/bootsclip/1f) -- reject bootsclip/1f
 			//	(pearl+mitts+flute/fakeflute)
-				andCombinator([items.moonpearl && canLiftDarkRocks(), orCombinator([canFly_path(), canOWYBA_path(bottles)])]),
+				andCombiner([items.moonpearl && canLiftDarkRocks(), orCombiner([canFly_path(), canOWYBA_path(bottles)])]),
 			//	(pearl+bootsclip/superspeed/1f**) -- split out
 			//	(pearl+bootsclip/1f)
-				andCombinator([items.moonpearl, orCombinator([canBootsClip_path(), canOneFrameClipOW_path()])]),
+				andCombiner([items.moonpearl, orCombiner([canBootsClip_path(), canOneFrameClipOW_path()])]),
 			//	(pearl+superspeedjump)
-				andCombinator([items.moonpearl, canSuperSpeed_path(), glitched("superjump_mire")]),
+				andCombiner([items.moonpearl, canSuperSpeed_path(), glitched("superjump_mire")]),
 			//	(obr2mire)
 				rgn_obr2link_mire(locs, bottles),
 			//From dS
-			//	(stumpy2link) + fakeflute/bootsclip/1f/mirewrap
-				andCombinator([rgn_stumpy2link(locs, bottles - 1), canOWYBA_path(bottles)]),
-				andCombinator([rgn_stumpy2link(locs, bottles),
-					orCombinator([canBootsClip_path(), canOneFrameClipOW_path(), andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//From dNW
-			//	(pearl+ham+glo/mit) + fakeflute/bootsclip/1f/mireclip/mirewrap -- reject bootsclip/1f; split out/reject mitts+fakeflute
-			//	(pearl+hammer+glove) + fakeflute/mireclip/mirewrap
-				andCombinator([items.moonpearl && items.hammer && canLiftRocks(),
-					orCombinator([canOWYBA_path(bottles), andCombinator([canMirrorClip_path(), glitched("mireclip")]),
-						andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//	(pearl+mitts) + mireclip/mirewrap
-				andCombinator([items.moonpearl && canLiftDarkRocks(),
-					orCombinator([andCombinator([canMirrorClip_path(), glitched("mireclip")]),
-						andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//	(bumper2link)
-				rgn_bumper2link(),
-			//	(fakeflute2link) + fakeflute/bootsclip/1f/mirewrap
-				andCombinator([rgn_fakeflute2link(locs, bottles - 1), canOWYBA_path(bottles)]),
-				andCombinator([rgn_fakeflute2link(locs, bottles), orCombinator([canBootsClip_path(), canOneFrameClipOW_path(),
-						andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//From dDM
-			//	(pearl+wDM) + bootsclip/1f -- reject
-			//	(pearl+wDM) + mirrorclip/spinspeed + ffflipper to dNE -- reject mirrorclip/spinspeed (goes to dNW instead)
-			//	(pearl+wDM) + spinspeed+mirrorclip + glove/hammer/obr to dNE -- reject spinspeed
-			//	(pearl+wDM) + mirrorclip/bootsclip/spinspeed/1f to dNW -- reject bootsclip/1f
-			//	(pearl+wDM) + mirrorclip/spinspeed + mireclip/mirewrap
-				andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles),
-					orCombinator([canMirrorClip_path(), canSuperSpeed_path()]),
-					orCombinator([andCombinator([canMirrorClip_path(), glitched("mireclip")]),
-						andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//	(pearl+wDM) + fakeflute
-				andCombinator([items.moonpearl, regions.westDeathMountain(undefined, locs, bottles - 1), canOWYBA_path(bottles)]),
-			//From dNE
-			//	(pearl+hammer+glove) -- reject
-			//	(pearl+Aga) + ??? + fakeflute/bootsclip/1f/mireclip/mirewrap -- reject bootsclip/1f
-			//	(pearl+Aga) + fakeflute
-				andCombinator([items.moonpearl, AgaPossible_path(), canOWYBA_path(bottles)]),
-			//	(pearl+Aga) + ??? + mireclip/mirewrap
-			//	(pearl+Aga) + mirrorwrap/hookshot + glove/hammer/flipper/fakeflipper/obr + mireclip/mirewrap -- reject hammer/obr
-			//	(pearl+Aga) + mirrorwrap/hookshot + glove/ffflipper + mireclip/mirewrap
-				andCombinator([items.moonpearl, AgaPossible_path(),
-					orCombinator([canMirrorWrap_path(), hasHookshot()]),
-					orCombinator([canLiftRocks() || items.flippers, canFakeFlipper_path()]),
-					orCombinator([andCombinator([canMirrorClip_path(), glitched("mireclip")]),
-						andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])]),
-			//	(pearl+Aga) + mitts+~~~  -- reject
-			//	(pearl+Aga) + bootsclip/superspeed/1f + ffflipper + mireclip/mirewrap -- reject
-			//	(pearl+Aga) + hammer + mireclip/mirewrap
-			//	(pearl+mirror+superspeed) -- reject
-			//	(fakeflute2link) -- reject
-			//	(obr2lake) + ??? + fakeflute/bootsclip/1f/mireclip/mirewrap -- reject mireclip
-			//	(obr2lake) + fakeflute
-				andCombinator([rgn_obr2link_ne(locs, bottles - 1), canOWYBA_path(bottles)]),
-			//	(obr2lake) + hookshot + bootsclip/1f/mirewrap
-				andCombinator([rgn_obr2link_ne(locs, bottles),
-					orCombinator([hasHookshot(),
-			//	(obr2lake) + mitts + bootsclip/spinspeed/1f + ffflipper -- reject
-			//	(obr2lake) + bootsclip/spinspeed/1f + ffflipper + bootsclip/1f/mirewrap
-						andCombinator([orCombinator([canBootsClip_path(), canSuperSpeed_path(), canOneFrameClipOW_path()]),
-							orCombinator([items.flippers, canFakeFlipper_path()])]),
-			//	(obr2lake) + hammer + bootsclip/1f/mirewrap
-						items.hammer]),
-					orCombinator([canBootsClip_path(), canOneFrameClipOW_path(), andCombinator([canMirrorWrap_path(), glitched("mirewrap")])])])]);
+			//	(link2here_dS) + fakeflute/bootsclip/1f/mirewrap
+				andCombiner([rgn_link2here("SouthDarkWorld", locs, bottles),
+					orCombiner([canBootsClip_path(), canOneFrameClipOW_path(), andCombiner([canMirrorWrap_path(), glitched("mirewrap")])]),
+			//	(link2here_dS) + pearl + mireclip
+						andCombiner([items.moonpearl, canMirrorClip_path(), glitched("mireclip")])]),
+			//Fake flute
+				andCombiner([canOWYBA_path(bottles),
+					orCombiner([rgn_link2here("SouthDarkWorld", locs, bottles - 1)]),
+					orCombiner([rgn_link2here("northEastDarkWorld", locs, bottles - 1)]),
+					orCombiner([rgn_link2here("darkWestDeathMountain", locs, bottles - 1)])])]);
 	}
 }
 
@@ -451,32 +400,32 @@ function goModeCalc() {
 		case "ganon":
 			for (var i = 0; i < 10; i++)
 				if (qtyCounter["dungeonPrize"+i] === 1 || qtyCounter["dungeonPrize"+i] === 2)
-					list.push(orCombinator([dungeons[i].isBeaten(), andCombinator([dungeons[i].isAccessible(), dungeons[i].isBeatable()])]));
+					list.push(orCombiner([dungeons[i].isBeaten(), dungeons[i].canGetPrize()]));
 			if (optionGanon === "random") {
-				return andCombinator([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].isAccessible(true), dungeons[10].isBeatable(true),
-					anyOrAllCombinator([threshCombinator(0, list), threshCombinator(1, list), threshCombinator(2, list), threshCombinator(3, list),
-						threshCombinator(4, list), threshCombinator(5, list), threshCombinator(6, list), threshCombinator(7, list)])]);
+				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].canGetPrize(true),
+					anyOrAllCombiner([threshCombiner(0, list), threshCombiner(1, list), threshCombiner(2, list), threshCombiner(3, list),
+						threshCombiner(4, list), threshCombiner(5, list), threshCombiner(6, list), threshCombiner(7, list)])]);
 			} else
-				return andCombinator([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].isAccessible(true), dungeons[10].isBeatable(true), threshCombinator(optionGanon, list)]);
+				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].canGetPrize(true), threshCombiner(optionGanon, list)]);
 		case "fastganon":
 			for (var i = 0; i < 10; i++)
 				if (qtyCounter["dungeonPrize"+i] === 1 || qtyCounter["dungeonPrize"+i] === 2)
-					list.push(orCombinator([dungeons[i].isBeaten(), andCombinator([dungeons[i].isAccessible(), dungeons[i].isBeatable()])]));
+					list.push(orCombiner([dungeons[i].isBeaten(), dungeons[i].canGetPrize()]));
 			if (optionGanon === "random") {
-				return andCombinator([dungeons[12].canReachHole(), dungeons[12].isBeatable(true),
-					anyOrAllCombinator([threshCombinator(0, list), threshCombinator(1, list), threshCombinator(2, list), threshCombinator(3, list),
-						threshCombinator(4, list), threshCombinator(5, list), threshCombinator(6, list), threshCombinator(7, list)])]);
+				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true),
+					anyOrAllCombiner([threshCombiner(0, list), threshCombiner(1, list), threshCombiner(2, list), threshCombiner(3, list),
+						threshCombiner(4, list), threshCombiner(5, list), threshCombiner(6, list), threshCombiner(7, list)])]);
 			} else
-				return andCombinator([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), threshCombinator(optionGanon, list)]);
+				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), threshCombiner(optionGanon, list)]);
 		case "alldungeons":
 			for (var i = 0; i < 12; i++)
-				list.push(orCombinator([dungeons[i].isBeaten(), andCombinator([dungeons[i].isAccessible(true), dungeons[i].isBeatable(true)])]));
-			return andCombinator(dungeons[12].canReachHole(), dungeons[12].isBeatable(true), threshCombinator(12, list));
+				list.push(orCombiner([dungeons[i].isBeaten(), dungeons[i].canGetPrize(true)]));
+			return andCombiner(dungeons[12].canReachHole(), dungeons[12].isBeatable(true), threshCombiner(12, list));
 		case "pedestal":
 			for (var i = 0; i < 10; i++)
 				if (qtyCounter["dungeonPrize"+i] >= 3)
-					list.push(orCombinator([dungeons[i].isBeaten(), andCombinator([dungeons[i].isAccessible(), dungeons[i].isBeatable()])]));
-			return andCombinator([regions.northWestLightWorld(), threshCombinator(3, list)]);
+					list.push(orCombiner([dungeons[i].isBeaten(), dungeons[i].canGetPrize()]));
+			return andCombiner([regions.northWestLightWorld(), threshCombiner(3, list)]);
 	}
 	return {};
 }
@@ -501,7 +450,7 @@ function hasBoomerang() {
 	return qtyCounter.blueboom > 0 || qtyCounter.redboom > 0;
 }
 function medallionCheck_path(dungeon) {
-	return orCombinator([(qtyCounter["medallion"+dungeon] === 1 && items.bombos)
+	return orCombiner([(qtyCounter["medallion"+dungeon] === 1 && items.bombos)
 		|| (qtyCounter["medallion"+dungeon] === 2 && items.ether)
 		|| (qtyCounter["medallion"+dungeon] === 3 && items.quake)
 		|| (items.bombos && items.ether && items.quake),
@@ -514,12 +463,12 @@ function canAdvancedItems_path() {
 }
 function AccurateLogic(path1, path2) {
 	if (optBottleCount) //Use correct (path2) arg, path1 is marked with mg
-		return orCombinator([path2, andCombinator([glitched("major"), path1])]);
+		return orCombiner([path2, andCombiner([glitched("major"), path1])]);
 	else //Use logic (path1) arg, correct path is marked with g
-		return orCombinator([path1, andCombinator([glitched("true"), path2])]);
+		return orCombiner([path1, andCombiner([glitched("true"), path2])]);
 }
-function AgaPossible_path() { //TODO: Will need to track bottles when we add fairy revive
-	return orCombinator([dungeons[11].isBeaten(), dungeons[11].canGetPrize()]);
+function AgaPossible_path() {
+	return orCombiner([dungeons[11].isBeaten(), dungeons[11].canGetPrize()]);
 }
 
 //From app/support/ItemCollection.php
@@ -546,10 +495,16 @@ function canSpinSpeed() {
 function canBlockLasers() {
 	return qtyCounter.shield >= 3;
 }
-function canExtendMagic($bars = 2) { //TODO: option to change this for other difficulties
+function canExtendMagic($bars = 2) {
+	var refill = 1;
+	switch (optionDifficulty) {
+		case "normal" : refill = 1; break;
+		case "hard" : refill = 0.5; break;
+		case "expert" : refill = 0.25; break;
+	}
 	return ((qtyCounter.magic === 2) ? 2 : 1)
 		* ((qtyCounter.magic === 3) ? 4 : 1)
-		* (bottleCount() + 1) >= $bars;
+		* AccurateLogic(bottleCount() + 1, (bottleCount() * refill) + 1) >= $bars;
 }
 function glitchedLinkInDarkWorld() {
 	return items.moonpearl || hasABottle();
@@ -575,8 +530,8 @@ function hasABottle() {
 
 //Helpers returning path information
 function canFly_path(from_locs = []) {
-	return orCombinator([qtyCounter.flute === 2,
-		andCombinator([qtyCounter.flute === 1, canActivateOcarina_path(from_locs)])]);
+	return orCombiner([qtyCounter.flute === 2,
+		andCombiner([qtyCounter.flute === 1, canActivateOcarina_path(from_locs)])]);
 }
 function canActivateOcarina_path(from_locs = []) {
 	if (optionState === "inverted")
@@ -601,7 +556,7 @@ function canShootArrows_path($min_level = 1) {
 	}
 }
 function canKillEscapeThings_path() { //Used during HyruleCastleEscape
-	return orCombinator([hasSword()
+	return orCombiner([hasSword()
 		|| items.somaria
 		|| canBombThings()
 		|| items.byrna,
@@ -609,18 +564,21 @@ function canKillEscapeThings_path() { //Used during HyruleCastleEscape
 		items.hammer
 		|| items.firerod]);
 }
-//TODO: canExtendMagic is not great for higher difficulty, but this is how logic is right now -- not actually sure how to handle it otherwise (approx 1.25 for CT, none for MM)
 function canKillMostThings_path($enemies = 5) { //only used during HyruleCastleTower & MiseryMire
-	return orCombinator([hasSword()
+	return orCombiner([hasSword()
 		|| items.somaria
-		|| (canBombThings() && $enemies < 6)
-		|| (items.byrna && ($enemies < 6 || canExtendMagic())),
+		|| (canBombThings() && $enemies < 6),
+		andCombiner([items.byrna,
+			orCombiner([$enemies < 6,
+				canExtendMagic(),
+				andCombiner([glitched("mire_byrnkill"), $enemies < 9]),
+				andCombiner([glitched("castle_byrnkill"), orCombiner([canExtendMagic(1.25), canBombThings()]), $enemies > 9])])]),
 		canShootArrows_path(),
 		items.hammer
 		|| items.firerod]);
 }
 function canGetGoodBee_path() {
-	return orCombinator([items.net
+	return orCombiner([items.net
 			&& hasABottle()
 			&& (items.boots
 				|| (hasSword() && items.quake)),
@@ -628,19 +586,19 @@ function canGetGoodBee_path() {
 		|| (qtyCounter.bottle1 === 5 && hasBottle(2))
 		|| (qtyCounter.bottle2 === 5 && hasBottle(3))
 		|| (qtyCounter.bottle3 === 5 && hasBottle(4)),
-		andCombinator([hasABottle(), orCombinator([andCombinator([qtyCounter.fairy0 === 5, chests[5].isAvailable()]),
-			andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
-			andCombinator([qtyCounter.fairy1 === 5, chests[46].isAvailable()]),
-			andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable())])])])]);
+		andCombiner([hasABottle(), orCombiner([andCombiner([qtyCounter.fairy0 === 5, chests[5].isAvailable()]),
+			andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
+			andCombiner([qtyCounter.fairy1 === 5, chests[46].isAvailable()]),
+			andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable())])])])]);
 }
 function canGetBee_path() {
-	return orCombinator([items.net && hasABottle(), //Should be pull objects available to find a bee
+	return orCombiner([items.net && hasABottle(), //Should be pull objects available to find a bee
 		qtyCounter.bottle0 === 4 || qtyCounter.bottle1 === 4 || qtyCounter.bottle2 === 4 || qtyCounter.bottle3 === 4,
 		qtyCounter.bottle0 === 5 || qtyCounter.bottle1 === 5 || qtyCounter.bottle2 === 5 || qtyCounter.bottle3 === 5,
-		andCombinator([hasABottle(), orCombinator([andCombinator([qtyCounter.fairy0 === 4 || qtyCounter.fairy0 === 5, chests[5].isAvailable()]),
-			andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
-			andCombinator([qtyCounter.fairy1 === 4 || qtyCounter.fairy1 === 5, chests[46].isAvailable()]),
-			andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable())])])])]);
+		andCombiner([hasABottle(), orCombiner([andCombiner([qtyCounter.fairy0 === 4 || qtyCounter.fairy0 === 5, chests[5].isAvailable()]),
+			andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
+			andCombiner([qtyCounter.fairy1 === 4 || qtyCounter.fairy1 === 5, chests[46].isAvailable()]),
+			andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable())])])])]);
 }
 function canGetFairy_path(bottles = bottleCount(), check_pyramid = true, locs = []) {
 	var count = 0;
@@ -649,13 +607,13 @@ function canGetFairy_path(bottles = bottleCount(), check_pyramid = true, locs = 
 			count++;
 	if (bottles < 1)
 		return {};
-	return orCombinator([items.net && bottles >= 1,
+	return orCombiner([items.net && bottles >= 1,
 		count >= 1,
 		false]);
-//		andCombinator([bottles >= 1, orCombinator([andCombinator([qtyCounter.fairy0 === 6, chests[5].isAvailable()]),
-//			andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
-//			check_pyramid ? (andCombinator([qtyCounter.fairy1 === 6, chests[46].isAvailable(undefined, locs, bottles - 1, true)]),
-//				andCombinator([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable(undefined, locs, bottles - 1, true))])) : false])])]);
+//		andCombiner([bottles >= 1, orCombiner([andCombiner([qtyCounter.fairy0 === 6, chests[5].isAvailable()]),
+//			andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[5].isAvailable())]),
+//			check_pyramid ? (andCombiner([qtyCounter.fairy1 === 6, chests[46].isAvailable(undefined, locs, bottles - 1, true)]),
+//				andCombiner([qtyCounter.fairy0 === 0, convertPossible(chests[46].isAvailable(undefined, locs, bottles - 1, true))])) : false])])]);
 }
 
 //From config/logic.php
@@ -667,7 +625,7 @@ function canSuperBunny_path(type = "") { //Used for superbunny, mire, VoO
 			else if (type === "hit")
 				return glitched("superbunny_hit");
 			else if (type === "mirror")
-				return andCombinator([items.mirror, glitched("superbunny_mirror")]);
+				return andCombiner([items.mirror, glitched("superbunny_mirror")]);
 			return {};
 		case "owg":
 		case "major":
@@ -778,7 +736,7 @@ function canBunnyRevive_path(bottles = bottleCount()) { //Used nowhere
 		case "nologic":
 			logic = {ng:"a"};
 	}
-	return andCombinator([canGetFairy_path(bottles), logic]);
+	return andCombiner([canGetFairy_path(bottles), logic]);
 }
 function canOWYBA_path(bottles = bottleCount()) { //Used for fake flute only, I assume
 	var logic = {};
@@ -787,7 +745,7 @@ function canOWYBA_path(bottles = bottleCount()) { //Used for fake flute only, I 
 		case "owg": logic = glitched("fakeflute"); break;
 		case "major": case "nologic": logic = {ng:"a"}; break;
 	}
-	return AccurateLogic(andCombinator([bottleCount() >= 1, logic]), andCombinator([bottles >= 1, logic]));
+	return AccurateLogic(andCombiner([bottleCount() >= 1, logic]), andCombiner([bottles >= 1, logic]));
 }
 function canOneFrameClipOW_path() {
 	switch (optionLogic) {
@@ -829,20 +787,20 @@ function canBombClipOW_path() {
 //LogicAdd: Added bombs to Lanmo byrna kill and Arrghus rod kills
 //LogicAdd: Added net to Mothula good bee kill, because V31 assumes net req to get good bee
 function canBeatArmos() {
-	return orCombinator([hasSword() || items.hammer, canShootArrows_path(),
-		hasBoomerang()
-		|| (canExtendMagic(4) && (items.firerod || items.icerod))
-		|| (canExtendMagic(2) && (items.byrna || items.somaria)),
-		andCombinator([glitched("armos_firerod"), canExtendMagic(2.25) && items.firerod]),
-		andCombinator([glitched("armos_firerod_super"), canExtendMagic(1.5) && items.firerod]),
-		andCombinator([glitched("armos_bombs"), canBombThings() && (items.firerod || items.icerod || items.byrna || items.somaria)]),
-		andCombinator([glitched("armos_bombs_only"), canBombThings()])]);
+	return orCombiner([hasSword() || items.hammer, canShootArrows_path(),
+		hasBoomerang(),
+		andCombiner([canExtendMagic(4), items.firerod || items.icerod]),
+		andCombiner([canExtendMagic(2), items.byrna || items.somaria]),
+		andCombiner([glitched("armos_firerod"), canExtendMagic(2.25), items.firerod]),
+		andCombiner([glitched("armos_firerod_super"), canExtendMagic(1.5), items.firerod]),
+		andCombiner([glitched("armos_bombs"), canBombThings() && (items.firerod || items.icerod || items.byrna || items.somaria)]),
+		andCombiner([glitched("armos_bombs_only"), canBombThings()])]);
 }
 function canBeatLanmolas() {
-	return orCombinator([hasSword() || items.hammer,
+	return orCombiner([hasSword() || items.hammer,
 		canShootArrows_path(), items.firerod || items.icerod
 		|| (items.byrna && canBombThings()) || items.somaria,
-		andCombinator([glitched("lanmo_bombs"), canBombThings()])]);
+		andCombiner([glitched("lanmo_bombs"), canBombThings()])]);
 }
 function canBeatMoldorm() {
 	return bool2path(hasSword() || items.hammer);
@@ -851,64 +809,64 @@ function canBeatAgahnim() {
 	return bool2path(hasSword() || items.hammer || items.net);
 }
 function canBeatHelmasaur() {
-	return andCombinator([canBombThings() || items.hammer,
-		orCombinator([hasSword(2), canShootArrows_path()]),
-		andCombinator(glitched("helma_fighter"), hasSword()),
-		andCombinator(glitched("helma_hammer_ext"), items.hammer && (hasSword() || optionSwords === "swordless")), //extension when holding sword out or in swordless mode (sword = 255)
-		andCombinator(glitched("helma_hammer"), items.hammer)]);
+	return andCombiner([canBombThings() || items.hammer,
+		orCombiner([hasSword(2), canShootArrows_path()]),
+		andCombiner(glitched("helma_fighter"), hasSword()),
+		andCombiner(glitched("helma_hammer_ext"), items.hammer && (hasSword() || optionSwords === "swordless")), //extension when holding sword out or in swordless mode (sword = 255)
+		andCombiner(glitched("helma_hammer"), items.hammer)]);
 }
 function canBeatArrghus() {
 	//13 puffs vulnerable to bombs (2), silvers, rods
 	//body vulnerable to arrows, rods (0.5 bar)
-	return andCombinator([orCombinator([optionItemplace !== "basic" || optionSwords === "swordless" || hasSword(2), canAdvancedItems_path()]),
-		hasHookshot(), orCombinator([items.hammer || hasSword(),
-			andCombinator([orCombinator([canExtendMagic(2), canShootArrows_path()]), canBombThings() && (items.firerod || items.icerod)]),
-			andCombinator([glitched("arrghus_silver"), canShootArrows_path(2)]),
-			andCombinator([glitched("arrghus_rods"), items.firerod || items.icerod, orCombinator([canExtendMagic(2.125), andCombinator([canExtendMagic(1.625), canShootArrows_path()])])]),
-			andCombinator([glitched("arrghus_spooky"), items.firerod, orCombinator([canExtendMagic(1.375), canShootArrows_path()])]),
-			andCombinator([glitched("arrghus_spooky_triple"), items.firerod]),
-			andCombinator([glitched("arrghus_bombs"), canBombThings(), orCombinator([canShootArrows_path(), items.firerod || items.icerod])])])]);
+	return andCombiner([orCombiner([optionItemplace !== "basic" || optionSwords === "swordless" || hasSword(2), canAdvancedItems_path()]),
+		hasHookshot(), orCombiner([items.hammer || hasSword(),
+			andCombiner([orCombiner([canExtendMagic(2), canShootArrows_path()]), canBombThings() && (items.firerod || items.icerod)]),
+			andCombiner([glitched("arrghus_silver"), canShootArrows_path(2)]),
+			andCombiner([glitched("arrghus_rods"), items.firerod || items.icerod, orCombiner([canExtendMagic(2.125), andCombiner([canExtendMagic(1.625), canShootArrows_path()])])]),
+			andCombiner([glitched("arrghus_spooky"), items.firerod, orCombiner([canExtendMagic(1.375), canShootArrows_path()])]),
+			andCombiner([glitched("arrghus_spooky_triple"), items.firerod]),
+			andCombiner([glitched("arrghus_bombs"), canBombThings(), orCombiner([canShootArrows_path(), items.firerod || items.icerod])])])]);
 }
 function canBeatMothula() {
-	return andCombinator([orCombinator([optionItemplace !== "basic" || hasSword(2) || (canExtendMagic(2) && items.firerod), canAdvancedItems_path()]),
-		orCombinator([hasSword() || items.hammer
-			|| (canExtendMagic(2) && (items.firerod || items.somaria
-				|| items.byrna)),
-			andCombinator([items.net, canGetGoodBee_path()]),
-			andCombinator([glitched("mothula_adv"), items.firerod || items.somaria || (canExtendMagic(1.25) && items.byrna)])])]);
+	return andCombiner([orCombiner([optionItemplace !== "basic" || hasSword(2), andCombiner([canExtendMagic(2), items.firerod]), canAdvancedItems_path()]),
+		orCombiner([hasSword() || items.hammer,
+			andCombiner([canExtendMagic(2), items.firerod || items.somaria
+				|| items.byrna]),
+			andCombiner([items.net, canGetGoodBee_path()]),
+			andCombiner([glitched("mothula_adv"), orCombiner([items.firerod || items.somaria, andCombiner([canExtendMagic(1.25), items.byrna])])])])]);
 }
 function canBeatBlind() {
-	return andCombinator([orCombinator([optionItemplace !== "basic" || optionSwords === "swordless" || (hasSword() && (items.cape || items.byrna)), canAdvancedItems_path()]),
+	return andCombiner([orCombiner([optionItemplace !== "basic" || optionSwords === "swordless" || (hasSword() && (items.cape || items.byrna)), canAdvancedItems_path()]),
 		hasSword() || items.hammer
 		|| items.somaria || items.byrna]);
 }
 function canBeatKholdstare() {
-	return andCombinator([orCombinator([optionItemplace !== "basic" || hasSword(2) || (canExtendMagic(3) && items.firerod)
-			|| (items.bombos && (optionSwords === "swordless" || hasSword()) && canExtendMagic(2) && items.firerod), canAdvancedItems_path()]),
-		canMeltThings(), orCombinator([(items.hammer || hasSword()
-			|| (canExtendMagic(3) && items.firerod)
-			|| (canExtendMagic(2) && items.firerod && items.bombos)),
-			andCombinator([glitched("khold_single"), orCombinator([canExtendMagic(2.5) && items.firerod, canExtendMagic(1.75) && items.firerod && items.bombos,
-				andCombinator([glitched("khold_beams"), canExtendMagic(2) && items.firerod])])]),
-			andCombinator([glitched("khold_double"), orCombinator([canExtendMagic(1.75) && items.firerod, items.firerod && items.bombos,
-				andCombinator([glitched("khold_beams"), canExtendMagic(1.25) && items.firerod])])]),
-			andCombinator([glitched("khold_triple"), orCombinator([canExtendMagic(1.5) && items.firerod, items.firerod && items.bombos,
-				andCombinator([glitched("khold_beams"), items.firerod])])])])]);
+	return andCombiner([orCombiner([optionItemplace !== "basic" || hasSword(2), andCombiner([canExtendMagic(3), items.firerod]),
+			andCombiner([items.bombos && (optionSwords === "swordless" || hasSword()), canExtendMagic(2), items.firerod]), canAdvancedItems_path()]),
+		canMeltThings(), orCombiner([items.hammer || hasSword(),
+			andCombiner([canExtendMagic(3), items.firerod]),
+			andCombiner([canExtendMagic(2), items.firerod && items.bombos]),
+			andCombiner([glitched("khold_single"), orCombiner([andCombiner([canExtendMagic(2.5), items.firerod]), andCombiner([canExtendMagic(1.75), items.firerod && items.bombos]),
+				andCombiner([glitched("khold_beams"), canExtendMagic(2), items.firerod])])]),
+			andCombiner([glitched("khold_double"), orCombiner([andCombiner([canExtendMagic(1.75), items.firerod]), items.firerod && items.bombos,
+				andCombiner([glitched("khold_beams"), canExtendMagic(1.25), items.firerod])])]),
+			andCombiner([glitched("khold_triple"), orCombiner([andCombiner([canExtendMagic(1.5), items.firerod]), items.firerod && items.bombos,
+				andCombiner([glitched("khold_beams"), items.firerod])])])])]);
 }
 function canBeatVitreous() {
-	return andCombinator([orCombinator([optionItemplace !== "basic" || hasSword(2), canShootArrows_path(), canAdvancedItems_path()]),
-		orCombinator([items.hammer || hasSword(), canShootArrows_path(), //35 arrows
-			andCombinator([glitched("vitty_bombs"), canBombThings()])])]);
+	return andCombiner([orCombiner([optionItemplace !== "basic" || hasSword(2), canShootArrows_path(), canAdvancedItems_path()]),
+		orCombiner([items.hammer || hasSword(), canShootArrows_path(), //35 arrows
+			andCombiner([glitched("vitty_bombs"), canBombThings()])])]);
 }
 function canBeatTrinexx() {
-	return andCombinator([items.firerod && items.icerod,
-		orCombinator([optionItemplace !== "basic" || optionSwords === "swordless" || hasSword(3) || (canExtendMagic(2) && hasSword(2)), canAdvancedItems_path()]),
-		orCombinator([hasSword(3) || items.hammer
-			|| (canExtendMagic(2) && hasSword(2))
-			|| (canExtendMagic(4) && hasSword()),
-			andCombinator([glitched("trinexx_master"), hasSword(2)]),
-			andCombinator([glitched("trinexx_fighter"), canExtendMagic(1.25) && hasSword()])
-			//andCombinator([glitched("trinexx_spooky"), canExtendMagic(1.125) && hasSword()]) //Expert mode already restores 25%, so no need for this strat
+	return andCombiner([items.firerod && items.icerod,
+		orCombiner([optionItemplace !== "basic" || optionSwords === "swordless" || hasSword(3), andCombiner([canExtendMagic(2), hasSword(2)]), canAdvancedItems_path()]),
+		orCombiner([hasSword(3) || items.hammer,
+			andCombiner([canExtendMagic(2) && hasSword(2)]),
+			andCombiner([canExtendMagic(4) && hasSword()]),
+			andCombiner([glitched("trinexx_master"), hasSword(2)]),
+			andCombiner([glitched("trinexx_fighter"), canExtendMagic(1.25), hasSword()])
+			//andCombiner([glitched("trinexx_spooky"), canExtendMagic(1.125), hasSword()]) //Expert mode already restores 25%, so no need for this strat
 		])]);
 }
 function canBeatAgahnim2() {
@@ -968,7 +926,7 @@ function canBeatBoss(dungeonNum, offset = undefined) {
 						case 8: path.push(canBeatVitreous()); break;
 						case 9: path.push(canBeatTrinexx()); break;
 					}
-			return anyOrAllCombinator(path);
+			return anyOrAllCombiner(path);
 		case 0: return canBeatArmos();
 		case 1: return canBeatLanmolas();
 		case 2: return canBeatMoldorm();
@@ -1004,7 +962,6 @@ function convertPossible(set) {
 	});
 	return result;
 }
-
 //Change all portions from x to xv (will overwrite existing views)
 function convertView(set) {
 	var result = {};
@@ -1018,7 +975,6 @@ function convertView(set) {
 	});
 	return result;
 }
-
 //Change all portions from x to xa (will overwrite existing aga)
 function convertAga(set) {
 	var result = {};
@@ -1150,7 +1106,6 @@ function populatePath(path_in) {
 	}
 	return path;
 }
-
 //Remove redundant keys from the set. Note that this works on apu constructs too, not just paths
 function depopulate(set) {
 	if ((set.mga !== undefined && (set.mga === set.mg || set.mga === set.ga)) || set.mga === undefined)
@@ -1180,11 +1135,18 @@ function depopulate(set) {
 	return set;
 }
 
+//Takes a boolean and returns a path
+function bool2path(bool) {
+	if (bool === true)
+		return {ng:"a"};
+	return {};
+}
+
 //Look at several paths and return the easiest path
 //a+x -> a
 //p+p/u -> p
 //u+u -> u
-function orCombinator(path1, path2, path3 = {}, path4 = {}, path5 = {}, path6 = {}) {
+function orCombiner(path1, path2, path3 = {}, path4 = {}, path5 = {}, path6 = {}) {
 	if (Array.isArray(path1)) {
 		for (var i = 0; i < path1.length; i++)
 			if (path1[i] === true || path1[i].ng === "a")
@@ -1229,96 +1191,16 @@ function orCombinator(path1, path2, path3 = {}, path4 = {}, path5 = {}, path6 = 
 	}
 }
 
-//Take several paths and figure out if it is possible to do all of them
-//a+a -> a
-//a+u or p+x -> p
-//u+u -> u
-function anyOrAllCombinator(path1, path2) { //TODO: Convert every usage to arrays
-	if (Array.isArray(path1)) {
-		var result = {};
-		var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
-		pathList.forEach(function(route) {
-			var all_a = true;
-			var all_u = true;
-			for (var i = 0; i < path1.length; i++) {
-				var p = populatePath(path1[i]);
-				if (p[route] !== "a")
-					all_a = false;
-				if (p[route] !== "u" && p[route] !== undefined)
-					all_u = false;
-			}
-			if (all_a)
-				result[route] = "a";
-			else if (all_u)
-				; //result[route] = "u";
-			else
-				result[route] = "p";
-		});
-		return depopulate(result);
-	} else {
-		var p1 = populatePath(path1);
-		var p2 = populatePath(path2);
-		var result = {};
-		var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
-		pathList.forEach(function(route) {
-			if (p1[route] === "a" && p2[route] === "a")
-				result[route] = "a";
-			else if (p1[route] !== undefined || p2[route] !== undefined)
-				result[route] = "p";
-		});
-		return depopulate(result);
-	}
-}
-function anyOrAll4Combinator(path1, path2, path3, path4) { //TODO: Delete this
-	return anyOrAllCombinator(anyOrAllCombinator(path1, path2), anyOrAllCombinator(path3, path4));
-}
-
-//combine multiple paths into final apu for rendering multiple locations in one spot
-function multipleChests(path1, path2, path3 = undefined, path4 = undefined, path5 = undefined, path6 = undefined) {
-	var p1 = populatePath(path1);
-	var p2 = populatePath(path2);
-	var p3 = (path3 === undefined) ? undefined : populatePath(path3);
-	var p4 = (path4 === undefined) ? undefined : populatePath(path4);
-	var p5 = (path5 === undefined) ? undefined : populatePath(path5);
-	var p6 = (path6 === undefined) ? undefined : populatePath(path6);
-	var result = {};
-	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
-	pathList.forEach(function(route) {
-		if ((p1[route] !== undefined && p1[route].indexOf("a") !== -1)
-			|| (p2[route] !== undefined && p2[route].indexOf("a") !== -1)
-			|| (p3 !== undefined && p3[route] !== undefined && p3[route].indexOf("a") !== -1)
-			|| (p4 !== undefined && p4[route] !== undefined && p4[route].indexOf("a") !== -1)
-			|| (p5 !== undefined && p5[route] !== undefined && p5[route].indexOf("a") !== -1)
-			|| (p6 !== undefined && p6[route] !== undefined && p6[route].indexOf("a") !== -1))
-			result[route] = "a";
-		if ((p1[route] !== undefined && p1[route].indexOf("p") !== -1)
-			|| (p2[route] !== undefined && p2[route].indexOf("p") !== -1)
-			|| (p3 !== undefined && p3[route] !== undefined && p3[route].indexOf("p") !== -1)
-			|| (p4 !== undefined && p4[route] !== undefined && p4[route].indexOf("p") !== -1)
-			|| (p5 !== undefined && p5[route] !== undefined && p5[route].indexOf("p") !== -1)
-			|| (p6 !== undefined && p6[route] !== undefined && p6[route].indexOf("p") !== -1))
-			result[route] === undefined ? result[route] = "p" : result[route] += "p";
-		if (p1[route] === undefined
-			|| p2[route] === undefined
-			|| (p3 !== undefined && p3[route] === undefined)
-			|| (p4 !== undefined && p4[route] === undefined)
-			|| (p5 !== undefined && p5[route] === undefined)
-			|| (p6 !== undefined && p6[route] === undefined))
-			result[route] === undefined ? true : result[route] += "u";
-	});
-	return depopulate(result);
-}
-
 //Take several paths and figure out the result if it is needed to do them one after the other
 //a+a -> a
 //p+a/p -> p
 //u+x -> u
-function andCombinator(path1, path2, path3 = undefined, path4 = undefined, path5 = undefined, path6 = undefined) { //TODO: Convert every usage to arrays
+function andCombiner(path1, path2, path3 = undefined, path4 = undefined, path5 = undefined, path6 = undefined) {
 	if (Array.isArray(path1)) {
 		for (var i = 0; i < path1.length; i++)
 			if (isEmpty(path1[i]) && path1[i] !== true)
 				return {};
-		return threshCombinator(path1.length, path1);
+		return threshCombiner(path1.length, path1);
 	} else {
 		var p1 = populatePath(path1);
 		var p2 = populatePath(path2);
@@ -1350,7 +1232,7 @@ function andCombinator(path1, path2, path3 = undefined, path4 = undefined, path5
 //at least x paths are a -> a
 //too many u to do x -> u
 //everything else -> p
-function threshCombinator(threshold, paths = []) {
+function threshCombiner(threshold, paths) {
 	var result = {};
 	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
 	pathList.forEach(function(route) {
@@ -1372,10 +1254,92 @@ function threshCombinator(threshold, paths = []) {
 	});
 	return depopulate(result);
 }
+//a+a+a+... -> a
+//too many u to do x -> u
+//everything else -> p
+function threshAllCombiner(threshold, paths) {
+	var result = {};
+	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
+	pathList.forEach(function(route) {
+		var all_a = true;
+		var u_count = 0;
+		for (var i = 0; i < paths.length; i++) {
+			var p = populatePath(paths[i]);
+			if (p[route] !== "a")
+				all_a = false;
+			else if (p[route] === "u" || p[route] === undefined)
+				u_count++;
+		}
+		if (all_a)
+			result[route] = "a";
+		else if (paths.length - u_count < threshold)
+			; //result[route] = "u";
+		else
+			result[route] = "p";
+	});
+	return depopulate(result);
+}
+
+//Take several paths and figure out if it is possible to do all of them
+//a+a -> a
+//a+u or p+x -> p
+//u+u -> u
+function anyOrAllCombiner(paths) {
+	var result = {};
+	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
+	pathList.forEach(function(route) {
+		var all_a = true;
+		var all_u = true;
+		for (var i = 0; i < paths.length; i++) {
+			var p = populatePath(paths[i]);
+			if (p[route] !== "a")
+				all_a = false;
+			if (p[route] !== "u" && p[route] !== undefined)
+				all_u = false;
+		}
+		if (all_a)
+			result[route] = "a";
+		else if (all_u)
+			; //result[route] = "u";
+		else
+			result[route] = "p";
+	});
+	return depopulate(result);
+}
+
+//combine multiple paths into final apu for rendering multiple locations in one spot
+function multipleChests(paths) {
+	var result = {};
+	var pathList = ["ng", "ngv", "g", "gv", "mg", "mgv", "nga", "ngva", "ga", "gva", "mga", "mgva"];
+	pathList.forEach(function(route) {
+		var has_a = false;
+		var has_p = false;
+		var has_u = false;
+		for (var i = 0; i < paths.length; i++) {
+			var p = populatePath(paths[i]);
+			if (p[route] === "a")
+				has_a = true;
+			if (p[route] === "p")
+				has_p = true;
+			if (p[route] === "u" || p[route] === undefined)
+				has_u = true;
+		}
+		var combo = "";
+		if (has_a)
+			combo += "a";
+		if (has_p)
+			combo += "p";
+		if (has_u)
+			combo += "u";
+		if (combo !== "u")
+			result[route] = combo;
+	});
+	return depopulate(result);
+}
 
 //Looks up a glitch and returns a path
 function glitched(id) {
-	//Quick way to get {g:"a"} (example, andCombinator([glitched("true"), conditions]))
+	//Quick way to get {g:"a"} (example, andCombiner([glitched("true"), conditions]))
 	if (id === "true")
 		return {g:"a"};
 	if (id === "major")
@@ -1391,15 +1355,9 @@ function glitched(id) {
 	return {};
 }
 
-//Takes a boolean and returns a path
-function bool2path(bool) {
-	if (bool === true)
-		return {ng:"a"};
-	return {};
-}
-
 //Functions to calculate regions to avoid expensive recalculations
 //Invalidates all cached results
+var regions_cache;
 function clear_region_cache() {
 	regions_cache = [];
 	for (var key in regions) {
