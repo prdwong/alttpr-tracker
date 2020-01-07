@@ -1,6 +1,8 @@
 //TODO: Getting good bee might use up a bottle that's needed for dungeon entrance...
 //TODO: Regular bee damages Mothula
 //TODO: Track bottles (AgaPossible_path) for barrier revive
+//TODO: Sometimes, you can refill bottles along the way (especially fairies)
+//TODO: Never will be added into logic needs to be marked as glitches (stumpy2link, bumper2link, etc...)
 
 //TODO: Some major glitches will sneak into nmg logic
 
@@ -406,7 +408,7 @@ function goModeCalc() {
 					anyOrAllCombiner([threshCombiner(0, list), threshCombiner(1, list), threshCombiner(2, list), threshCombiner(3, list),
 						threshCombiner(4, list), threshCombiner(5, list), threshCombiner(6, list), threshCombiner(7, list)])]);
 			} else
-				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].canGetPrize(true), threshCombiner(optionGanon, list)]);
+				return andCombiner([dungeons[12].canReachHole(), dungeons[12].isBeatable(true), dungeons[10].canGetPrize(), threshCombiner(optionGanon, list)]);
 		case "fastganon":
 			for (var i = 0; i < 10; i++)
 				if (qtyCounter["dungeonPrize"+i] === 1 || qtyCounter["dungeonPrize"+i] === 2)
@@ -504,7 +506,8 @@ function canExtendMagic($bars = 2) {
 	}
 	return ((qtyCounter.magic === 2) ? 2 : 1)
 		* ((qtyCounter.magic === 3) ? 4 : 1)
-		* AccurateLogic(bottleCount() + 1, (bottleCount() * refill) + 1) >= $bars;
+		* (bottleCount() + 1) >= $bars;
+//		* AccurateLogic(bottleCount() + 1, (bottleCount() * refill) + 1) >= $bars;
 }
 function glitchedLinkInDarkWorld() {
 	return items.moonpearl || hasABottle();
@@ -810,10 +813,10 @@ function canBeatAgahnim() {
 }
 function canBeatHelmasaur() {
 	return andCombiner([canBombThings() || items.hammer,
-		orCombiner([hasSword(2), canShootArrows_path()]),
-		andCombiner(glitched("helma_fighter"), hasSword()),
-		andCombiner(glitched("helma_hammer_ext"), items.hammer && (hasSword() || optionSwords === "swordless")), //extension when holding sword out or in swordless mode (sword = 255)
-		andCombiner(glitched("helma_hammer"), items.hammer)]);
+		orCombiner([hasSword(2), canShootArrows_path()],
+			andCombiner(glitched("helma_fighter"), hasSword()),
+			andCombiner(glitched("helma_hammer_ext"), items.hammer && (hasSword() || optionSwords === "swordless")), //extension when holding sword out or in swordless mode (sword = 255)
+			andCombiner(glitched("helma_hammer"), items.hammer))]);
 }
 function canBeatArrghus() {
 	//13 puffs vulnerable to bombs (2), silvers, rods

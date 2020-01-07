@@ -176,10 +176,13 @@ for (var i = 0; i < chests.length; i++) {
 for (var i = 0; i < dungeons.length; i++) {
 	var k = "bossMap" + i;
 	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='background-repeat:no-repeat; outline-style:solid; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
 	var k = "dungeon" + i;
 	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-width:0px; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
 	var k = "dungentr" + i;
 	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='outline-style:solid; outline-color: black; top:"+dungeons[i].y+"; left:"+dungeons[i].x+"'></span>");
+	document.getElementById(k).addEventListener('mousedown', mapToggle);
 }
 
 for (var i = 0; i < entrances.length; i++) {
@@ -286,6 +289,24 @@ for (var i = 0; i < shops.length; i++) {
 	<option value="insane">Insane</option>
 </select>
 
+<div id="uw_map" class="uw-map" style='display:none'>
+<script>
+document.write('<canvas id="myCanvas" width="440" height="734"></canvas>');
+for (var i = 0; i < uw_poi.length; i++) {
+	var k = "uw_poi" + i;
+	var outline = "outline-style:solid; outline-color: black; ";
+	if (uw_poi[i].type === "door")
+		outline = "";
+	document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='"+outline+"; top:"+uw_poi[i].y+"; left:"+uw_poi[i].x+"'></span>");
+	k = document.getElementById(k);
+	k.addEventListener('mousedown', uwmapToggle);
+	k.addEventListener('mouseup', uwmapDrag);
+	k.ondragstart = function() { return false; }; //don't show "no drop" icon when dragging
+}
+</script>
+<input type="button" id="close_uwmap_button" value="Close">
+</div>
+
 <div id="options" style='display:none; background:rgba(0, 0, 0, 0.75)'>
 	<textarea id="log-text-area" readonly="true">Item log will be shown here</textarea>
 	<div id="seq-break-border" style='position:absolute; top:15px; left:453px; height:386px; width:396px; border:2px solid white'>
@@ -328,6 +349,7 @@ for (var i = 0; i < shops.length; i++) {
 <script>
 initTracker();
 refreshMap();
+refreshUWMap();
 filterChange();
 </script>
 

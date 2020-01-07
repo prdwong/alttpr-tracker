@@ -49,6 +49,10 @@ document.querySelector('#reset_button').addEventListener('click', function() {
 	resetLog();
 });
 
+document.querySelector('#close_uwmap_button').addEventListener('click', function() {
+	document.querySelector('#uw_map').style.display = "none";
+});
+
 stateSelect.addEventListener('change', function() {
 	optionState = stateSelect.value;
 

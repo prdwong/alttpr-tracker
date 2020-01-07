@@ -621,7 +621,7 @@ function highlight(x){
 		caption = "caption-alt";
 	if (x.substring(0, 7) === "bossMap" || x.substring(0, 7) === "dungeon")
 		x = "dungentr" + x.substring(7);
-	if (x.substring(0, 8) === "entrance")
+	if (x.substring(0, 8) === "entrance" || (x.substring(0, 6) === "uw_poi" && uw_poi[x.substring(6)].type === "door"))
 		document.getElementById(x).style.borderColor  = "yellow";
 	else
 		document.getElementById(x).style.outlineColor  = "yellow";
@@ -631,6 +631,8 @@ function highlight(x){
 		document.getElementById(caption).innerHTML = entrances[x.substring(8)].name + " " + (entrances[x.substring(8)].hint ? entrances[x.substring(8)].hint : "");
 	else if (x.substring(0, 4) === "shop")
 		document.getElementById(caption).innerHTML = shops[x.substring(4)].name + " " + (shops[x.substring(4)].hint ? shops[x.substring(4)].hint : "");
+	else if (x.substring(0, 6) === "uw_poi")
+		document.getElementById(caption).innerHTML = uw_poi[x.substring(6)].name;
 }
 function unhighlight(x){
 	var caption = "caption";
@@ -643,6 +645,18 @@ function unhighlight(x){
 			document.getElementById(x).style.borderColor = "gold";
 		else
 			document.getElementById(x).style.borderColor = "black";
+	else if (x.substring(0, 6) === "uw_poi")
+		if (uw_poi[x.substring(6)].isHighlight) {
+			var color = lookup_color(uw_poi[x.substring(6)].highlight);
+			if (uw_poi[x.substring(6)].type === "door")
+				document.getElementById(x).style.borderColor = color;
+			else
+				document.getElementById(x).style.outlineColor = color;
+		} else
+			if (uw_poi[x.substring(6)].type === "door")
+				document.getElementById(x).style.borderColor = "black";
+			else
+				document.getElementById(x).style.outlineColor = "black";
 	else if (x.substring(0, 4) === "shop")
 		if (shops[x.substring(4)].isHighlight)
 			document.getElementById(x).style.outlineColor = "gold";
@@ -671,45 +685,270 @@ function mapToggle(event) {
 			logAction(event.target.id, shops[event.target.id.substring(4)].isOpened, event.button);
 		}
 	} else if (event.button === 2) { //right click
-		var icon;
-		if (event.target.id.substring(0, 3) === "poi")
-			icon = chests[event.target.id.substring(3)];
-		else if (event.target.id.substring(0, 8) === "entrance")
-			icon = entrances[event.target.id.substring(8)];
-		else if (event.target.id.substring(0, 4) === "shop")
-			icon = shops[event.target.id.substring(4)];
-		icon.isHighlight = !icon.isHighlight;
+		if (event.target.id.substring(0, 4) === "dung" || event.target.id.substring(0, 4) === "boss") {
+			document.querySelector('#uw_map').style.display = "inherit";
+			var i;
+			if (event.target.id.substring(0, 8) === "dungentr")
+				i = event.target.id.substring(8);
+			else
+				i = event.target.id.substring(7);
+			prepUWMap(parseInt(i));
+		} else {
+			var icon;
+			if (event.target.id.substring(0, 3) === "poi")
+				icon = chests[event.target.id.substring(3)];
+			else if (event.target.id.substring(0, 8) === "entrance")
+				icon = entrances[event.target.id.substring(8)];
+			else if (event.target.id.substring(0, 4) === "shop")
+				icon = shops[event.target.id.substring(4)];
+			icon.isHighlight = !icon.isHighlight;
+		}
 	}
 	refreshMap("map", event.target.id);
 }
 
-function workerMap() {
-	//State of the world is sent through e
-	//Worker returns info for each map object
-	//  chest.isAvailable()
-	//  dungeon.isBeatable()
-	//  dungeon.canGetChests()
-	//  dungeon.isAccessible()
-	var response = "self.onmessage=function(e){\
-		console.log('Starting my task');\
-		console.log(e.data.url);\
-		var index = e.data.url.indexOf('tracker_map.html');\
-		var url = e.data.url.substring(0, index);\
-		importScripts(url + 'chests.js');\
-		var workerResult = 5;\
-		postMessage(workerResult);\
-	}";
+var cur_UWMap_todraw;
+function prepUWMap(dungeonNum) {
+	cur_UWMap_todraw = dungeonNum;
+	switch (dungeonNum) {
+		case 0:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ep.png)";
+			document.getElementById("uw_map").style.width = "440px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 1:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-dp.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 2:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-hera.png)";
+			document.getElementById("uw_map").style.width = "489px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 3:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-pod.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 4:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-sp.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 5:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-sw.png)";
+			document.getElementById("uw_map").style.width = "828px";
+			document.getElementById("uw_map").style.height = "621px";
+			break;
+		case 6:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-tt.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 7:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ip.png)";
+			document.getElementById("uw_map").style.width = "489px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 8:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-mm.png)";
+			document.getElementById("uw_map").style.width = "587px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 9:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-tr.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 10:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-gt.png)";
+			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 11:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ct.png)";
+			document.getElementById("uw_map").style.width = "367px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+	}
 
-	var blob = new Blob([response], {type: 'application/javascript'});
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.canvas.width = parseInt(document.getElementById("uw_map").style.width);
+	ctx.canvas.height = parseInt(document.getElementById("uw_map").style.height);
 
-	var blobURL = window.URL.createObjectURL(blob);
+	uw_poi.forEach(function(poi, poiNum) {
+		if (poi.dungeon === dungeonNum)
+			document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+		else
+			document.getElementById("uw_poi"+poiNum).style.display = "none";
+	});
+	refreshUWMap();
+}
 
-	var worker = new Worker(blobURL);
-	worker.onmessage = function(e) {
-		//Worker is finished
-		console.log("We are done with result: " + e.data);
-	};
-	worker.postMessage({url: document.location.href});
+var uwmapToggle_whereICameFrom;
+function uwmapToggle(event) {
+	if (event.button === 0) { //left click
+		if (event.target.id.substring(0, 6) === "uw_poi") {
+			uwmapToggle_whereICameFrom = parseInt(event.target.id.substring(6));
+		}
+	} else if (event.button === 2) { //right click
+		if (event.target.id.substring(0, 6) === "uw_poi") {
+			poi = uw_poi[event.target.id.substring(6)];
+			if (!poi.isHighlight)
+				poi.isHighlight = true;
+			else {
+				poi.highlight++;
+				if (poi.highlight >= NUM_HIGHLIGHT_COLORS) {
+					poi.highlight = 0;
+					poi.isHighlight = false;
+				}
+			}
+			copyHighlightsViaConnectors(event.target.id.substring(6));
+		}
+	} else if (event.button === 1) { //middle click
+		if (event.target.id.substring(0, 6) === "uw_poi") {
+			poi = uw_poi[event.target.id.substring(6)];
+			poi.icon++;
+			if (poi.icon >= NUM_CHEST_ICONS)
+				poi.icon = 0;
+		}
+	}
+	refreshUWMap("map", event.target.id);
+}
+
+function copyHighlightsViaConnectors(poiNum, curNum = poiNum, traversed = []) {
+	if (traversed.indexOf(curNum) !== -1)
+		return;
+	uw_poi[curNum].isHighlight = uw_poi[poiNum].isHighlight;
+	uw_poi[curNum].highlight = uw_poi[poiNum].highlight;
+	traversed.push(curNum);
+	for (var i = 0; i < uw_poi[curNum].connector.length; i++)
+		copyHighlightsViaConnectors(poiNum, uw_poi[curNum].connector[i], traversed);
+	if (poiNum === curNum)
+		refreshUWMap();
+}
+
+function uwmapDrag(event) {
+	if (event.button === 0) { //left release
+		if (event.target.id.substring(0, 6) === "uw_poi") {
+			if (event.target.id.substring(6) != uwmapToggle_whereICameFrom) {
+				if (uw_poi[event.target.id.substring(6)].connector.indexOf(uwmapToggle_whereICameFrom) === -1) {
+					uw_poi[event.target.id.substring(6)].connector.push(uwmapToggle_whereICameFrom);
+					uw_poi[event.target.id.substring(6)].contype.push(0);
+					uw_poi[event.target.id.substring(6)].isConnected = true;
+					uw_poi[uwmapToggle_whereICameFrom].isConnected = true;
+					uw_poi[uwmapToggle_whereICameFrom].connector.push(parseInt(event.target.id.substring(6)));
+					uw_poi[uwmapToggle_whereICameFrom].contype.push(0);
+					uw_poi[event.target.id.substring(6)].highlight = uw_poi[uwmapToggle_whereICameFrom].highlight;
+					copyHighlightsViaConnectors(uwmapToggle_whereICameFrom);
+				} else { //already connector, now need to delete
+					var index = uw_poi[event.target.id.substring(6)].connector.indexOf(uwmapToggle_whereICameFrom);
+					uw_poi[event.target.id.substring(6)].connector.splice(index, 1);
+					uw_poi[event.target.id.substring(6)].contype.splice(index, 1);
+					if (uw_poi[event.target.id.substring(6)].connector.length === 0)
+						uw_poi[event.target.id.substring(6)].isConnected = false;
+					index = uw_poi[uwmapToggle_whereICameFrom].connector.indexOf(event.target.id.substring(6));
+					uw_poi[uwmapToggle_whereICameFrom].connector.splice(index, 1);
+					uw_poi[uwmapToggle_whereICameFrom].contype.splice(index, 1);
+					if (uw_poi[uwmapToggle_whereICameFrom].connector.length === 0)
+						uw_poi[uwmapToggle_whereICameFrom].isConnected = false;
+					refreshUWMap("map", uwmapToggle_whereICameFrom);
+				}
+			} else //click release on same poi
+				uw_poi[event.target.id.substring(6)].isOpened = !uw_poi[event.target.id.substring(6)].isOpened;
+		}
+	}
+	refreshUWMap("map", event.target.id);
+}
+
+const NUM_CHEST_ICONS = 7;
+function lookup_chestImage(icon) {
+	switch (icon) {
+		case 0: return "url(images/blank.png)";
+		case 1: return "url(images/smallkey.png)";
+		case 2: return "url(images/bigkey.png)";
+		case 3: return "url(images/checkmark.png)";
+		case 4: return "url(images/mapdung.png)";
+		case 5: return "url(images/compass.png)";
+		case 6: return "url(images/unknown.png)";
+	}
+	return "url(images/missingpicture)";
+}
+
+const NUM_HIGHLIGHT_COLORS = 6;
+function lookup_color(color) {
+	switch (color) {
+		case 0: return "lightpink"; break;
+		case 1: return "lightseagreen"; break;
+		case 2: return "gold"; break;
+		case 3: return "magenta"; break;
+		case 4: return "dodgerblue"; break;
+		case 5: return "white"; break;
+	}
+	return "blue";
+}
+
+function refreshUWMap(type = undefined, name = undefined) {
+	//Update all chests on the map, className and backgroundImage
+	var chestClass = "chest";
+	uw_poi.forEach(function(uw_poi, poiNum) {
+		if (type === undefined || (type === "map" && name === "uw_poi"+poiNum)) {
+			var poiImage = "";
+			if (uw_poi.type === "uwchest") poiImage = lookup_chestImage(uw_poi.icon);
+			document.getElementById("uw_poi"+poiNum).style.backgroundImage = poiImage;
+			if (uw_poi.isOpened) {
+				document.getElementById("uw_poi"+poiNum).className = uw_poi.type + " opened";
+			} else {
+				var poiStatus = accessTranslator(uw_poi.isAvailable());
+				document.getElementById("uw_poi"+poiNum).className = uw_poi.type + " " + poiStatus;
+				if (poiStatus.indexOf("aga") !== -1)
+					document.getElementById("uw_poi"+poiNum).style.backgroundImage += ", url(images/aga.png)";
+				if (poiStatus.indexOf("majorglitched") !== -1)
+					document.getElementById("uw_poi"+poiNum).style.backgroundImage += ", url(images/majorglitched.png)";
+				else if (poiStatus.indexOf("glitched") !== -1)
+					document.getElementById("uw_poi"+poiNum).style.backgroundImage += ", url(images/glitched.png)";
+			}
+			if (uw_poi.isHighlight)
+				if (uw_poi.type === "door")
+					document.getElementById("uw_poi"+poiNum).style.borderColor = lookup_color(uw_poi.highlight);
+				else
+					document.getElementById("uw_poi"+poiNum).style.outlineColor = lookup_color(uw_poi.highlight);
+			else
+				if (uw_poi.type === "door")
+					document.getElementById("uw_poi"+poiNum).style.borderColor = "black";
+				else
+					document.getElementById("uw_poi"+poiNum).style.outlineColor = "black";
+		}
+	});
+
+	refreshCanvas();
+	window.requestAnimationFrame(function() {
+		updateTrackerItem("go");
+	});
+}
+
+function refreshCanvas() {
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	ctx.lineWidth = 4;
+	uw_poi.forEach(function(poi, poiNum) {
+		if (poi.dungeon === cur_UWMap_todraw) {
+			ctx.beginPath();
+			if (poi.isConnected) {
+				ctx.strokeStyle = lookup_color(poi.highlight);
+				if (!poi.isHighlight) ctx.strokeStyle = "black";
+				for (var i = 0; i < poi.connector.length; i++) {
+					ctx.moveTo(Number(poi.x.split("%")[0])*ctx.canvas.width/100,Number(poi.y.split("%")[0])*ctx.canvas.height/100);
+					ctx.lineTo(Number(uw_poi[poi.connector[i]].x.split("%")[0])*ctx.canvas.width/100,Number(uw_poi[poi.connector[i]].y.split("%")[0])*ctx.canvas.height/100);
+					ctx.stroke();
+				}
+				ctx.closePath();
+			}
+		}
+	});
 }
 
 var times = [];
