@@ -6709,7 +6709,7 @@ uw_poi[217] = {
 uw_poi[218] = {
 	name: "TT - Pot Alcove Bottom SW",
 	x: "81.5%",
-	y: "19%",
+	y: "49%",
 	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
