@@ -1986,6 +1986,31 @@ dungeons[12] = {
 		return regions.northEastDarkWorld();
 	}
 };
+dungeons[13] = {
+	name: "Hyrule Castle",
+	abbrev: "HC",
+	x: "24.75%",
+	y: "52%",
+	image: "zelda1.png",
+	isBeaten: function(){
+		return {};
+	},
+	gotPrize: function(){
+		return {};
+	},
+	isAccessible: function(){
+		return {ng:"a"};
+	},
+	canGetPrize: function(){
+		return {ng:"a"};
+	},
+	isBeatable: function(){
+		return {ng:"a"};
+	},
+	canGetChests: function(){
+		return {ng:"a"};
+	}
+}
 
 var chests = new Array;
 
@@ -9694,5 +9719,505 @@ uw_poi[516] = {
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
+	}
+}
+uw_poi[517] = {
+	name: "HC - Sanctuary",
+	x: "87%",
+	y: "30.5%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[518] = {
+	name: "HC - Sewers - Secret Room - Left",
+	x: "57%",
+	y: "26%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[519] = {
+	name: "HC - Sewers - Secret Room - Middle",
+	x: "60%",
+	y: "26%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[520] = {
+	name: "HC - Sewers - Secret Room - Right",
+	x: "63%",
+	y: "26%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[521] = {
+	name: "HC - Sewers - Dark Cross",
+	x: "95%",
+	y: "73%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[522] = {
+	name: "HC - Boomerang Chest",
+	x: "16.5%",
+	y: "19%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[523] = {
+	name: "HC - Map Chest",
+	x: "32.7%",
+	y: "7%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[524] = {
+	name: "HC - Zelda's Cell",
+	x: "59%",
+	y: "3%",
+	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[525] = {
+	name: "HC - Map Guard Key Drop",
+	x: "35%",
+	y: "5%",
+	dungeon: 13, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[526] = {
+	name: "HC - Boomerang Guard Key Drop",
+	x: "19%",
+	y: "19%",
+	dungeon: 13, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[527] = {
+	name: "HC - Key Rat Key Drop",
+	x: "59.5%",
+	y: "42%",
+	dungeon: 13, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[528] = {
+	name: "HC - Big Key Drop",
+	x: "63%",
+	y: "7%",
+	dungeon: 13, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[529] = {
+	name: "HC - Lobby W",
+	x: "14%",
+	y: "88%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[530] = {
+	name: "HC - West Lobby E",
+	x: "8.5%",
+	y: "88%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[531] = {
+	name: "HC - Lobby WN",
+	x: "13%",
+	y: "82%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[532] = {
+	name: "HC - West Lobby EN",
+	x: "9.5%",
+	y: "82%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[533] = {
+	name: "HC - West Lobby N",
+	x: "5.5%",
+	y: "79%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[534] = {
+	name: "HC - West Hall S",
+	x: "5.5%",
+	y: "72%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[535] = {
+	name: "HC - West Hall E",
+	x: "8.5%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[536] = {
+	name: "HC - Lobby E",
+	x: "30.5%",
+	y: "88%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[537] = {
+	name: "HC - East Lobby W",
+	x: "36.5%",
+	y: "88%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[538] = {
+	name: "HC - East Lobby NW",
+	x: "39%",
+	y: "79%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[539] = {
+	name: "HC - East Hall SW",
+	x: "39%",
+	y: "72%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[540] = {
+	name: "HC - East Lobby N",
+	x: "44.5%",
+	y: "78%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[541] = {
+	name: "HC - East Hall S",
+	x: "44.5%",
+	y: "73%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[542] = {
+	name: "HC - East Hall W",
+	x: "36.5%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[543] = {
+	name: "HC - Back Hall W",
+	x: "58.5%",
+	y: "94%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[544] = {
+	name: "HC - Back Hall E",
+	x: "75%",
+	y: "94%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[545] = {
+	name: "HC - Back Hall Down Stairs",
+	x: "67%",
+	y: "92.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[546] = {
+	name: "HC - Map Room Up Stairs",
+	x: "33.5%",
+	y: "3.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[547] = {
+	name: "HC - Guardroom N",
+	x: "5.5%",
+	y: "29%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[548] = {
+	name: "HC - Armory S",
+	x: "5.5%",
+	y: "22%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[549] = {
+	name: "HC - Armory Down Stairs",
+	x: "7.5%",
+	y: "3.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[550] = {
+	name: "HC - Staircase Up Stairs",
+	x: "18.5%",
+	y: "2.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[551] = {
+	name: "HC - Staircase Down Stairs",
+	x: "15%",
+	y: "2.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[552] = {
+	name: "HC - Cellblock Up Stairs",
+	x: "48.5%",
+	y: "2.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[553] = {
+	name: "HC - Throne Room N",
+	x: "22.5%",
+	y: "53%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[554] = {
+	name: "HC - Behind Tapestry S",
+	x: "67%",
+	y: "86%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[555] = {
+	name: "HC - Behind Tapestry Down Stairs",
+	x: "74.5%",
+	y: "65.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[556] = {
+	name: "HC - Rope Room Up Stairs",
+	x: "96.5%",
+	y: "90.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[557] = {
+	name: "HC - Dark Cross Key Door N",
+	x: "89%",
+	y: "65.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[558] = {
+	name: "HC - Dark Cross Key Door S",
+	x: "89%",
+	y: "60.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[559] = {
+	name: "HC - Water W",
+	x: "80%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[560] = {
+	name: "HC - Key Rat E",
+	x: "76%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[561] = {
+	name: "HC - Key Rat Key Door N",
+	x: "72.5%",
+	y: "40.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[562] = {
+	name: "HC - Secret Room Key Door S",
+	x: "72.5%",
+	y: "35.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[563] = {
+	name: "HC - Secret Room Up Stairs",
+	x: "72.5%",
+	y: "15.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[564] = {
+	name: "HC - Pull Switch Down Stairs",
+	x: "94.5%",
+	y: "4%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[565] = {
+	name: "HC - Pull Switch S",
+	x: "89%",
+	y: "22%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
+	}
+}
+uw_poi[566] = {
+	name: "HC - Sanctuary N",
+	x: "89%",
+	y: "28%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[13].isAccessible();
 	}
 }

@@ -686,13 +686,15 @@ function mapToggle(event) {
 		}
 	} else if (event.button === 2) { //right click
 		if (event.target.id.substring(0, 4) === "dung" || event.target.id.substring(0, 4) === "boss") {
-			document.querySelector('#uw_map').style.display = "inherit";
 			var i;
 			if (event.target.id.substring(0, 8) === "dungentr")
 				i = event.target.id.substring(8);
 			else
 				i = event.target.id.substring(7);
-			prepUWMap(parseInt(i));
+			if (parseInt(i) !== 12) {
+				document.querySelector('#uw_map').style.display = "inherit";
+				prepUWMap(parseInt(i));
+			}
 		} else {
 			var icon;
 			if (event.target.id.substring(0, 3) === "poi")
@@ -769,6 +771,11 @@ function prepUWMap(dungeonNum) {
 		case 11:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ct.png)";
 			document.getElementById("uw_map").style.width = "367px";
+			document.getElementById("uw_map").style.height = "734px";
+			break;
+		case 13:
+			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-hc.png)";
+			document.getElementById("uw_map").style.width = "826px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 	}
@@ -999,6 +1006,10 @@ function refreshMap(type = undefined, name = undefined) {
 				document.getElementById("poi"+chestNum).style.outlineColor = "gold";
 			else
 				document.getElementById("poi"+chestNum).style.outlineColor = "black";
+			if (optionDoors !== "vanilla" && chestNum >= 62 && chestNum <= 65)
+				document.getElementById("poi"+chestNum).style.display = "none";
+			else
+				document.getElementById("poi"+chestNum).style.display = "inherit";
 		}
 		var newt = window.performance.now();
 		if ((newt - start) > 2) {
@@ -1053,6 +1064,7 @@ function refreshMap(type = undefined, name = undefined) {
 				case 10: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim2.png)"; break;
 				case 11: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/agahnim.png)"; break;
 				case 12: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/ganon.png)"; break;
+				case 13: document.getElementById("bossMap"+dungeonNum).style.backgroundImage = "url(images/zelda1.png)"; break;
 				default:
 					if (qtyCounter["boss"+dungeonNum] === -1) {
 						document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss_unk2.png)";
@@ -1062,6 +1074,15 @@ function refreshMap(type = undefined, name = undefined) {
 						document.getElementById("bossMap"+dungeonNum).style.backgroundImage += ", url(images/boss"+bossnum+"2.png)";
 					}
 					break;
+			}
+			if (optionDoors === "vanilla") {
+				document.getElementById("bossMap13").style.display = "none";
+				document.getElementById("dungeon13").style.display = "none";
+				document.getElementById("dungentr13").style.display = "none";
+			} else {
+				document.getElementById("bossMap13").style.display = "inherit";
+				document.getElementById("dungeon13").style.display = "inherit";
+				document.getElementById("dungentr13").style.display = "inherit";
 			}
 			var newt = window.performance.now();
 			times.push((newt - start).toFixed(2));

@@ -539,6 +539,7 @@ bossShuffleSelect.addEventListener('change', function() {
 
 doorSelect.addEventListener('change', function() {
 	optionDoors = doorSelect.value;
+	refreshMap();
 	refreshUWMap();
 });
 
