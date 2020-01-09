@@ -894,7 +894,17 @@ function refreshUWMap(type = undefined, name = undefined) {
 	//Update all chests on the map, className and backgroundImage
 	var chestClass = "chest";
 	uw_poi.forEach(function(uw_poi, poiNum) {
-		if (type === undefined || (type === "map" && name === "uw_poi"+poiNum)) {
+		if (uw_poi.dungeon === cur_UWMap_todraw && (type === undefined || (type === "map" && name === "uw_poi"+poiNum))) {
+			if (uw_poi.type === "door")
+				if (optionDoors === "vanilla")
+					document.getElementById("uw_poi"+poiNum).style.display = "none";
+				else
+					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+			if (uw_poi.type === "hint")
+				if (optionHints === "off")
+					document.getElementById("uw_poi"+poiNum).style.display = "none";
+				else
+					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 			var poiImage = "";
 			if (uw_poi.type === "uwchest") poiImage = lookup_chestImage(uw_poi.icon);
 			document.getElementById("uw_poi"+poiNum).style.backgroundImage = poiImage;

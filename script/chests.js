@@ -4910,7 +4910,7 @@ uw_poi[38] = {
 	name: "EP - Telepathic Tile",
 	x: "25.4%",
 	y: "24%",
-	dungeon: 0, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -5090,7 +5090,7 @@ uw_poi[56] = {
 	name: "DP - Telepathic Tile",
 	x: "43.7%",
 	y: "52.7%",
-	dungeon: 1, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5280,7 +5280,7 @@ uw_poi[75] = {
 	name: "Hera - Telepathic Tile Entrance",
 	x: "75%",
 	y: "49%",
-	dungeon: 2, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5290,7 +5290,7 @@ uw_poi[76] = {
 	name: "Hera - Telepathic Tile Floor 4",
 	x: "25%",
 	y: "83.5%",
-	dungeon: 2, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5780,7 +5780,7 @@ uw_poi[125] = {
 	name: "PoD - Telepathic Tile",
 	x: "68.9%",
 	y: "77.5%",
-	dungeon: 3, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -6300,7 +6300,7 @@ uw_poi[177] = {
 	name: "SP - Telepathic Tile",
 	x: "92%",
 	y: "48%",
-	dungeon: 4, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6890,7 +6890,7 @@ uw_poi[236] = {
 	name: "TT - Telepathic Tile",
 	x: "4.2%",
 	y: "15.5%",
-	dungeon: 6, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -7380,7 +7380,7 @@ uw_poi[285] = {
 	name: "IP - Telepathic Tile Entrance",
 	x: "44%",
 	y: "27%",
-	dungeon: 7, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7390,7 +7390,7 @@ uw_poi[286] = {
 	name: "IP - Telepathic Tile Stalfos Knights Room",
 	x: "19%",
 	y: "35.5%",
-	dungeon: 7, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7400,7 +7400,7 @@ uw_poi[287] = {
 	name: "IP - Telepathic Tile Large Room",
 	x: "69%",
 	y: "2%",
-	dungeon: 7, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -8060,7 +8060,7 @@ uw_poi[353] = {
 	name: "MM - Telepathic Tile",
 	x: "15.5%",
 	y: "87%",
-	dungeon: 8, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8630,7 +8630,7 @@ uw_poi[410] = {
 	name: "TR - Telepathic Tile",
 	x: "52.5%",
 	y: "56%",
-	dungeon: 9, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -9681,6 +9681,16 @@ uw_poi[515] = {
 	x: "13%",
 	y: "49%",
 	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	isConnected: false, isOpened: false, isHighlight: false,
+	isAvailable: function(){
+		return dungeons[11].isAccessible();
+	}
+}
+uw_poi[516] = {
+	name: "CT - Telepathic Tile",
+	x: "82%",
+	y: "3%",
+	dungeon: 11, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();

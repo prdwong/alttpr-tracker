@@ -13,6 +13,8 @@ var difficultySelect = document.querySelector('#difficulty_select');
 var bossShuffleSelect = document.querySelector('#bossShuffle_select');
 var categorySelect = document.querySelector('#category_select');
 var itemSelect = document.querySelector('#item_select');
+var doorSelect = document.querySelector('#door_select');
+var hintSelect = document.querySelector('#hint_select');
 var topList = document.querySelector('#top-area');
 var bottomList = document.querySelector('#bottom-area');
 
@@ -30,6 +32,9 @@ var optionDifficulty = difficultySelect.value;
 var optionBossShuffle = bossShuffleSelect.value;
 var optionCategorySelect = categorySelect.value;
 var optionItemSelect = itemSelect.value;
+var optionDoors = doorSelect.value;
+var optionHints = hintSelect.value;
+
 
 var optMapCompLogic = document.querySelector('#MapCompLogic').checked;
 var optStdKeys = document.querySelector('#std_keysanity').checked;
@@ -530,6 +535,16 @@ bossShuffleSelect.addEventListener('change', function() {
 		document.getElementById("gtboss15").style.display = "none";
 	}
 	resetItems();
+});
+
+doorSelect.addEventListener('change', function() {
+	optionDoors = doorSelect.value;
+	refreshUWMap();
+});
+
+hintSelect.addEventListener('change', function() {
+	optionHints = hintSelect.value;
+	refreshUWMap();
 });
 
 categorySelect.addEventListener('change', function() {
