@@ -345,6 +345,12 @@ td {
 	left: 940px;
 	top: 430px;
 }
+#door_select {
+	position: absolute;
+	z-index: 5;
+	left: 1050px;
+	top: 430px;
+}
 
 #difficulty_select{
 	position: absolute;
