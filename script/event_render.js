@@ -789,9 +789,17 @@ function prepUWMap(dungeonNum) {
 
 	uw_poi.forEach(function(poi, poiNum) {
 		if (poi.dungeon === dungeonNum)
-			document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+			if (poi.type === "door") {
+				document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
+				document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+			} else
+				document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 		else
-			document.getElementById("uw_poi"+poiNum).style.display = "none";
+			if (poi.type === "door") {
+				document.getElementById("uw_poi"+poiNum).parentNode.style.display = "none";
+				document.getElementById("uw_poi"+poiNum).style.display = "none";
+			} else
+				document.getElementById("uw_poi"+poiNum).style.display = "none";
 	});
 	refreshUWMap();
 }
@@ -908,10 +916,13 @@ function refreshUWMap(type = undefined, name = undefined) {
 			
 			//Show or hide doors/hints
 			if (uw_poi.type === "door")
-				if (optionDoors === "vanilla")
+				if (optionDoors === "vanilla") {
+					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "none";
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
-				else
+				} else {
+					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+				}
 			if (uw_poi.type === "hint")
 				if (optionHints === "off")
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
