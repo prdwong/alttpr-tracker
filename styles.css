@@ -213,7 +213,7 @@ td {
 	margin-top: -4.25px;
 }
 
-.key, .shop {
+.key, .shop, .hint {
 	width: 12px;
 	height: 12px;
 	background-size: 100% 100%;
@@ -338,6 +338,12 @@ td {
 	z-index: 5;
 	left: 830px;
 	top: 450px;
+}
+#hint_select {
+	position: absolute;
+	z-index: 5;
+	left: 830px;
+	top: 470px;
 }
 #swords_select {
 	position: absolute;
