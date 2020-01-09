@@ -621,8 +621,10 @@ function highlight(x){
 		caption = "caption-alt";
 	if (x.substring(0, 7) === "bossMap" || x.substring(0, 7) === "dungeon")
 		x = "dungentr" + x.substring(7);
-	if (x.substring(0, 8) === "entrance" || (x.substring(0, 6) === "uw_poi" && uw_poi[x.substring(6)].type === "door"))
-		document.getElementById(x).style.borderColor  = "yellow";
+	if (x.substring(0, 8) === "entrance")
+		document.getElementById(x).style.borderColor = "yellow";
+	else if (x.substring(0, 6) === "uw_poi" && uw_poi[x.substring(6)].type === "door")
+		document.getElementById(x).style.stroke = "yellow";
 	else
 		document.getElementById(x).style.outlineColor  = "yellow";
 	if (x.substring(0, 3) === "poi")
@@ -649,12 +651,12 @@ function unhighlight(x){
 		if (uw_poi[x.substring(6)].isHighlight) {
 			var color = lookup_color(uw_poi[x.substring(6)].highlight);
 			if (uw_poi[x.substring(6)].type === "door")
-				document.getElementById(x).style.borderColor = color;
+				document.getElementById(x).style.stroke = color;
 			else
 				document.getElementById(x).style.outlineColor = color;
 		} else
 			if (uw_poi[x.substring(6)].type === "door")
-				document.getElementById(x).style.borderColor = "black";
+				document.getElementById(x).style.stroke = "black";
 			else
 				document.getElementById(x).style.outlineColor = "black";
 	else if (x.substring(0, 4) === "shop")
@@ -901,7 +903,10 @@ function refreshUWMap(type = undefined, name = undefined) {
 	//Update all chests on the map, className and backgroundImage
 	var chestClass = "chest";
 	uw_poi.forEach(function(uw_poi, poiNum) {
+		//Only update if it's on the current map -- if specified, only update that poi
 		if (uw_poi.dungeon === cur_UWMap_todraw && (type === undefined || (type === "map" && name === "uw_poi"+poiNum))) {
+			
+			//Show or hide doors/hints
 			if (uw_poi.type === "door")
 				if (optionDoors === "vanilla")
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
@@ -912,14 +917,29 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
 				else
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+				
+			//Image of poi -- only for chests
 			var poiImage = "";
 			if (uw_poi.type === "uwchest") poiImage = lookup_chestImage(uw_poi.icon);
 			document.getElementById("uw_poi"+poiNum).style.backgroundImage = poiImage;
+			
+			//Type of poi -- for css styling
+			var poiType = uw_poi.type;
+			if (uw_poi.type === "door") poiType = "door"+uw_poi.direction;
+			
 			if (uw_poi.isOpened) {
-				document.getElementById("uw_poi"+poiNum).className = uw_poi.type + " opened";
+				if (uw_poi.type === "door") {
+					document.getElementById("uw_poi"+poiNum).className.baseVal = "openeddoor";
+					//document.getElementById("uw_poi"+poiNum).childNodes[0].className.baseVal = "openeddoor";
+				} else
+					document.getElementById("uw_poi"+poiNum).className = poiType + " opened";
 			} else {
 				var poiStatus = accessTranslator(uw_poi.isAvailable());
-				document.getElementById("uw_poi"+poiNum).className = uw_poi.type + " " + poiStatus;
+				if (uw_poi.type === "door") {
+					document.getElementById("uw_poi"+poiNum).className.baseVal = poiStatus+"door";
+					//document.getElementById("uw_poi"+poiNum).childNodes[0].className.baseVal = poiStatus+"door";
+				} else
+					document.getElementById("uw_poi"+poiNum).className = poiType + " " + poiStatus;
 				if (poiStatus.indexOf("aga") !== -1)
 					document.getElementById("uw_poi"+poiNum).style.backgroundImage += ", url(images/aga.png)";
 				if (poiStatus.indexOf("majorglitched") !== -1)
@@ -929,12 +949,12 @@ function refreshUWMap(type = undefined, name = undefined) {
 			}
 			if (uw_poi.isHighlight)
 				if (uw_poi.type === "door")
-					document.getElementById("uw_poi"+poiNum).style.borderColor = lookup_color(uw_poi.highlight);
+					document.getElementById("uw_poi"+poiNum).style.stroke = lookup_color(uw_poi.highlight);
 				else
 					document.getElementById("uw_poi"+poiNum).style.outlineColor = lookup_color(uw_poi.highlight);
 			else
 				if (uw_poi.type === "door")
-					document.getElementById("uw_poi"+poiNum).style.borderColor = "black";
+					document.getElementById("uw_poi"+poiNum).style.stroke = "black";
 				else
 					document.getElementById("uw_poi"+poiNum).style.outlineColor = "black";
 		}
