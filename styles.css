@@ -288,76 +288,76 @@ td {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
-	top: 734px;
+	top: 430px;
 }
 #itemplace_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
-	top: 754px;
+	top: 450px;
 }
 #variation_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
-	top: 774px;
+	top: 470px;
 }
 #accessibility_select {
 	position: absolute;
 	z-index: 5;
 	left: 448px;
-	top: 794px;
+	top: 490px;
 }
 
 #goal_select {
 	position: absolute;
 	z-index: 5;
 	left: 660px;
-	top: 734px;
+	top: 430px;
 }
 #tower_select {
 	position: absolute;
 	z-index: 5;
 	left: 660px;
-	top: 754px;
+	top: 450px;
 }
 #ganon_select {
 	position: absolute;
 	z-index: 5;
 	left: 660px;
-	top: 774px;
+	top: 470px;
 }
 #state_select {
 	position: absolute;
 	z-index: 5;
 	left: 830px;
-	top: 734px;
+	top: 430px;
 }
 #bossShuffle_select {
 	position: absolute;
 	z-index: 5;
 	left: 830px;
-	top: 754px;
+	top: 450px;
 }
 #swords_select {
 	position: absolute;
 	z-index: 5;
 	left: 940px;
-	top: 734px;
+	top: 430px;
 }
 
 #difficulty_select{
 	position: absolute;
 	z-index: 5;
 	left: 448px;
-	top: 814px;
+	top: 510px;
 }
 
 
 
 #option_button {
 	position: absolute;
-	top: 734px;
+	top: 430px;
 	left: 1214px;
 	z-index: 15;
 }
@@ -369,7 +369,7 @@ td {
 }
 #reset_button {
 	position: absolute;
-	top: 756px;
+	top: 452px;
 	left: 1225px;
 	z-index: 15;
 }
