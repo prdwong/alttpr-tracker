@@ -4635,7 +4635,7 @@ uw_poi[8] = {
 	name: "EP - Lobby Bridge N",
 	x: "50.3%",
 	y: "62%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4645,7 +4645,7 @@ uw_poi[9] = {
 	name: "EP - Cannonball S",
 	x: "50.3%",
 	y: "59%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4655,7 +4655,7 @@ uw_poi[10] = {
 	name: "EP - Cannonball N",
 	x: "50.3%",
 	y: "42%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4665,7 +4665,7 @@ uw_poi[11] = {
 	name: "EP - Courtyard Ledge S",
 	x: "50.3%",
 	y: "39%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4675,7 +4675,7 @@ uw_poi[12] = {
 	name: "EP - Courtyard Ledge E",
 	x: "64.5%",
 	y: "30.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4685,7 +4685,7 @@ uw_poi[13] = {
 	name: "EP - Courtyard Ledge W",
 	x: "36%",
 	y: "30.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4695,7 +4695,7 @@ uw_poi[14] = {
 	name: "EP - East Wing W",
 	x: "69.5%",
 	y: "30.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4705,7 +4705,7 @@ uw_poi[15] = {
 	name: "EP - West Wing E",
 	x: "31%",
 	y: "30.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4715,7 +4715,7 @@ uw_poi[16] = {
 	name: "EP - Hint Tile EN",
 	x: "31%",
 	y: "25.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4725,7 +4725,7 @@ uw_poi[17] = {
 	name: "EP - Hint Tile Blocked Path SE",
 	x: "25.4%",
 	y: "39%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4735,7 +4735,7 @@ uw_poi[18] = {
 	name: "EP - Courtyard WN",
 	x: "36%",
 	y: "25.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4745,7 +4745,7 @@ uw_poi[19] = {
 	name: "EP - Courtyard EN",
 	x: "64.5%",
 	y: "25.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4755,7 +4755,7 @@ uw_poi[20] = {
 	name: "EP - Courtyard N",
 	x: "50.3%",
 	y: "22%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4765,7 +4765,7 @@ uw_poi[21] = {
 	name: "EP - Map Valley WN",
 	x: "69.5%",
 	y: "25.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4775,7 +4775,7 @@ uw_poi[22] = {
 	name: "EP - Map Valley SW",
 	x: "75.3%",
 	y: "39%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4785,7 +4785,7 @@ uw_poi[23] = {
 	name: "EP - Dark Square NW",
 	x: "75.3%",
 	y: "42%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4795,7 +4795,7 @@ uw_poi[24] = {
 	name: "EP - Dark Square Key Door WN",
 	x: "69.5%",
 	y: "45.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4805,7 +4805,7 @@ uw_poi[25] = {
 	name: "EP - Cannonball Ledge Key Door EN",
 	x: "64.5%",
 	y: "45.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4815,7 +4815,7 @@ uw_poi[26] = {
 	name: "EP - Cannonball Ledge WN",
 	x: "36%",
 	y: "45.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4825,7 +4825,7 @@ uw_poi[27] = {
 	name: "EP - Eastern Big Key EN",
 	x: "31%",
 	y: "45.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4835,7 +4835,7 @@ uw_poi[28] = {
 	name: "EP - Eastern Big Key NE",
 	x: "25.4%",
 	y: "42%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4845,7 +4845,7 @@ uw_poi[29] = {
 	name: "EP - Darkness S",
 	x: "50.3%",
 	y: "19%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4855,7 +4855,7 @@ uw_poi[30] = {
 	name: "EP - Darkness Up Stairs",
 	x: "42%",
 	y: "12%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4865,7 +4865,7 @@ uw_poi[31] = {
 	name: "EP - Attic Start Down Stairs",
 	x: "75.3%",
 	y: "92%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4875,7 +4875,7 @@ uw_poi[32] = {
 	name: "EP - Attic Start WS",
 	x: "69.5%",
 	y: "95.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4885,7 +4885,7 @@ uw_poi[33] = {
 	name: "EP - False Switches ES",
 	x: "64.5%",
 	y: "95.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4895,7 +4895,7 @@ uw_poi[34] = {
 	name: "EP - Cannonball Hell WS",
 	x: "36%",
 	y: "95.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4905,7 +4905,7 @@ uw_poi[35] = {
 	name: "EP - Single Eyegore ES",
 	x: "31%",
 	y: "95.5%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4915,7 +4915,7 @@ uw_poi[36] = {
 	name: "EP - Duo Eyegores NE",
 	x: "25.4%",
 	y: "82%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -4925,7 +4925,7 @@ uw_poi[37] = {
 	name: "EP - Eastern Boss SE",
 	x: "25.4%",
 	y: "79%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
@@ -5035,7 +5035,7 @@ uw_poi[48] = {
 	name: "DP - Compass NW",
 	x: "94%",
 	y: "77.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5045,7 +5045,7 @@ uw_poi[49] = {
 	name: "DP - Cannonball S",
 	x: "94%",
 	y: "73.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5055,7 +5055,7 @@ uw_poi[50] = {
 	name: "DP - Tiles 1 Up Stairs",
 	x: "6.5%",
 	y: "77.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5065,7 +5065,7 @@ uw_poi[51] = {
 	name: "DP - Bridge Down Stairs",
 	x: "6.5%",
 	y: "52.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5075,7 +5075,7 @@ uw_poi[52] = {
 	name: "DP - Beamos Hall NE",
 	x: "19%",
 	y: "52.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5085,7 +5085,7 @@ uw_poi[53] = {
 	name: "DP - Tiles 2 SE",
 	x: "19%",
 	y: "48.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5095,7 +5095,7 @@ uw_poi[54] = {
 	name: "DP - Wall Slide NW",
 	x: "6.5%",
 	y: "27.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5105,7 +5105,7 @@ uw_poi[55] = {
 	name: "DP - Boss SW",
 	x: "6.5%",
 	y: "23.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
@@ -5185,7 +5185,7 @@ uw_poi[63] = {
 	name: "Hera - Lobby Down Stairs",
 	x: "64%",
 	y: "56%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5195,7 +5195,7 @@ uw_poi[64] = {
 	name: "Hera - Basement Cage Up Stairs",
 	x: "64%",
 	y: "88%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5205,7 +5205,7 @@ uw_poi[65] = {
 	name: "Hera - Lobby Key Stairs",
 	x: "63%",
 	y: "38%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5215,7 +5215,7 @@ uw_poi[66] = {
 	name: "Hera - Tile Room Up Stairs",
 	x: "63%",
 	y: "70%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5225,7 +5225,7 @@ uw_poi[67] = {
 	name: "Hera - Lobby Up Stairs",
 	x: "86%",
 	y: "56%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5235,7 +5235,7 @@ uw_poi[68] = {
 	name: "Hera - Beetles Down Stairs",
 	x: "86%",
 	y: "21%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5245,7 +5245,7 @@ uw_poi[69] = {
 	name: "Hera - Startile Wide Up Stairs",
 	x: "94%",
 	y: "8%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5255,7 +5255,7 @@ uw_poi[70] = {
 	name: "Hera - 4F Down Stairs",
 	x: "44%",
 	y: "75%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5265,7 +5265,7 @@ uw_poi[71] = {
 	name: "Hera - 4F Up Stairs",
 	x: "7%",
 	y: "75%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5275,7 +5275,7 @@ uw_poi[72] = {
 	name: "Hera - 5F Down Stairs",
 	x: "7%",
 	y: "42%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5285,7 +5285,7 @@ uw_poi[73] = {
 	name: "Hera - 5F Up Stairs",
 	x: "43%",
 	y: "42%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5295,7 +5295,7 @@ uw_poi[74] = {
 	name: "Hera - Boss Down Stairs",
 	x: "43%",
 	y: "8%",
-	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[2].isAccessible();
@@ -5465,7 +5465,7 @@ uw_poi[91] = {
 	name: "PoD - Left Cage Down Stairs",
 	x: "31.5%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5475,7 +5475,7 @@ uw_poi[92] = {
 	name: "PoD - Shooter Room Up Stairs",
 	x: "6.5%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5485,7 +5485,7 @@ uw_poi[93] = {
 	name: "PoD - Middle Cage N",
 	x: "37.7%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5495,7 +5495,7 @@ uw_poi[94] = {
 	name: "PoD - Pit Room S",
 	x: "37.7%",
 	y: "73.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5505,7 +5505,7 @@ uw_poi[95] = {
 	name: "PoD - Middle Cage Down Stairs",
 	x: "44%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5515,7 +5515,7 @@ uw_poi[96] = {
 	name: "PoD - Warp Room Up Stairs",
 	x: "19%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5525,7 +5525,7 @@ uw_poi[97] = {
 	name: "PoD - Pit Room NW",
 	x: "31.5%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5535,7 +5535,7 @@ uw_poi[98] = {
 	name: "PoD - Pit Room NE",
 	x: "44%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5545,7 +5545,7 @@ uw_poi[99] = {
 	name: "PoD - Basement Ledge Up Stairs",
 	x: "12.7%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5555,7 +5555,7 @@ uw_poi[100] = {
 	name: "PoD - Big Key Landing Down Stairs",
 	x: "37.7%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5565,7 +5565,7 @@ uw_poi[101] = {
 	name: "PoD - Mimics 1 NW",
 	x: "56.4%",
 	y: "77.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5575,7 +5575,7 @@ uw_poi[102] = {
 	name: "PoD - PoD Conveyor SW",
 	x: "56.4%",
 	y: "73.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5585,7 +5585,7 @@ uw_poi[103] = {
 	name: "PoD - Arena Main SW",
 	x: "31.5%",
 	y: "49%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5595,7 +5595,7 @@ uw_poi[104] = {
 	name: "PoD - Arena Bridge SE",
 	x: "44%",
 	y: "49%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5605,7 +5605,7 @@ uw_poi[105] = {
 	name: "PoD - Arena Ledge ES",
 	x: "48.5%",
 	y: "44.3%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5615,7 +5615,7 @@ uw_poi[106] = {
 	name: "PoD - Map Balcony WS",
 	x: "51.5%",
 	y: "44.3%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5625,7 +5625,7 @@ uw_poi[107] = {
 	name: "PoD - Arena Crystals E",
 	x: "47.5%",
 	y: "38%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5635,7 +5635,7 @@ uw_poi[108] = {
 	name: "PoD - Sexy Statue W",
 	x: "53%",
 	y: "38%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5645,7 +5645,7 @@ uw_poi[109] = {
 	name: "PoD - Arena Main NW",
 	x: "31.5%",
 	y: "27.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5655,7 +5655,7 @@ uw_poi[110] = {
 	name: "PoD - Falling Bridge SW",
 	x: "31.5%",
 	y: "24%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5665,7 +5665,7 @@ uw_poi[111] = {
 	name: "PoD - Falling Bridge WN",
 	x: "26.5%",
 	y: "7%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5675,7 +5675,7 @@ uw_poi[112] = {
 	name: "PoD - Dark Maze EN",
 	x: "23.5%",
 	y: "7%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5685,7 +5685,7 @@ uw_poi[113] = {
 	name: "PoD - Dark Maze E",
 	x: "23.5%",
 	y: "13%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5695,7 +5695,7 @@ uw_poi[114] = {
 	name: "PoD - Big Chest Balcony W",
 	x: "26.5%",
 	y: "13%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5705,7 +5705,7 @@ uw_poi[115] = {
 	name: "PoD - Harmless Hellway SE",
 	x: "44%",
 	y: "24%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5715,7 +5715,7 @@ uw_poi[116] = {
 	name: "PoD - Arena Main NE",
 	x: "44%",
 	y: "27.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5725,7 +5725,7 @@ uw_poi[117] = {
 	name: "PoD - Compass Room W Down Stairs",
 	x: "41.5%",
 	y: "2.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5735,7 +5735,7 @@ uw_poi[118] = {
 	name: "PoD - Dark Basement W Up Stairs",
 	x: "91.5%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5745,7 +5745,7 @@ uw_poi[119] = {
 	name: "PoD - Dark Basement E Up Stairs",
 	x: "96.2%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5755,7 +5755,7 @@ uw_poi[120] = {
 	name: "PoD - Compass Room E Down Stairs",
 	x: "46.2%",
 	y: "2.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5765,7 +5765,7 @@ uw_poi[121] = {
 	name: "PoD - Sexy Statue NW",
 	x: "56.4%",
 	y: "27.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5775,7 +5775,7 @@ uw_poi[122] = {
 	name: "PoD - Mimics 2 SW",
 	x: "56.4%",
 	y: "24%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5785,7 +5785,7 @@ uw_poi[123] = {
 	name: "PoD - Dark Alley NE",
 	x: "93.9%",
 	y: "52.5%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5795,7 +5795,7 @@ uw_poi[124] = {
 	name: "PoD - Boss SE",
 	x: "93.9%",
 	y: "49%",
-	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[3].isAccessible();
@@ -5965,7 +5965,7 @@ uw_poi[141] = {
 	name: "SP - Entrance Down Stairs",
 	x: "85%",
 	y: "42%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -5975,7 +5975,7 @@ uw_poi[142] = {
 	name: "SP - Pot Row Up Stairs",
 	x: "85%",
 	y: "62%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -5985,7 +5985,7 @@ uw_poi[143] = {
 	name: "SP - Pot Row WN",
 	x: "81.5%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -5995,7 +5995,7 @@ uw_poi[144] = {
 	name: "SP - Swamp Map Ledge EN",
 	x: "78.7%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6005,7 +6005,7 @@ uw_poi[145] = {
 	name: "SP - Pot Row WS",
 	x: "81.5%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6015,7 +6015,7 @@ uw_poi[146] = {
 	name: "SP - Trench 1 Approach ES",
 	x: "78.7%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6025,7 +6025,7 @@ uw_poi[147] = {
 	name: "SP - Hammer Switch WN",
 	x: "61.5%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6035,7 +6035,7 @@ uw_poi[148] = {
 	name: "SP - Hub Dead Ledge EN",
 	x: "58.7%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6045,7 +6045,7 @@ uw_poi[149] = {
 	name: "SP - Trench 1 Departure WS",
 	x: "61.5%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6055,7 +6055,7 @@ uw_poi[150] = {
 	name: "SP - Hub ES",
 	x: "58.7%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6065,7 +6065,7 @@ uw_poi[151] = {
 	name: "SP - Hub S",
 	x: "50.2%",
 	y: "78.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6075,7 +6075,7 @@ uw_poi[152] = {
 	name: "SP - Donut Top N",
 	x: "50.2%",
 	y: "83%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6085,7 +6085,7 @@ uw_poi[153] = {
 	name: "SP - Hub WN",
 	x: "41.5%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6095,7 +6095,7 @@ uw_poi[154] = {
 	name: "SP - Crystal Switch EN",
 	x: "38.7%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6105,7 +6105,7 @@ uw_poi[155] = {
 	name: "SP - Hub WS",
 	x: "41.5%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6115,7 +6115,7 @@ uw_poi[156] = {
 	name: "SP - Trench 2 Pots ES",
 	x: "38.7%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6125,7 +6125,7 @@ uw_poi[157] = {
 	name: "SP - Trench 2 Departure WS",
 	x: "21.5%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6135,7 +6135,7 @@ uw_poi[158] = {
 	name: "SP - West Shallows ES",
 	x: "18.7%",
 	y: "75.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6145,7 +6145,7 @@ uw_poi[159] = {
 	name: "SP - West Block Path Up Stairs",
 	x: "5%",
 	y: "72%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6155,7 +6155,7 @@ uw_poi[160] = {
 	name: "SP - Attic Down Stairs",
 	x: "5%",
 	y: "52%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6165,7 +6165,7 @@ uw_poi[161] = {
 	name: "SP - Barrier EN",
 	x: "18.7%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6175,7 +6175,7 @@ uw_poi[162] = {
 	name: "SP - Big Key Ledge WN",
 	x: "21.5%",
 	y: "65.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6185,7 +6185,7 @@ uw_poi[163] = {
 	name: "SP - Hub North Ledge N",
 	x: "50.2%",
 	y: "62%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6195,7 +6195,7 @@ uw_poi[164] = {
 	name: "SP - Push Statue S",
 	x: "50.2%",
 	y: "59%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6205,7 +6205,7 @@ uw_poi[165] = {
 	name: "SP - Left Elbow Down Stairs",
 	x: "52.5%",
 	y: "42%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6215,7 +6215,7 @@ uw_poi[166] = {
 	name: "SP - Drain Left Up Stairs",
 	x: "72.5%",
 	y: "42%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6225,7 +6225,7 @@ uw_poi[167] = {
 	name: "SP - Right Elbow Down Stairs",
 	x: "57%",
 	y: "42%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6235,7 +6235,7 @@ uw_poi[168] = {
 	name: "SP - Drain Right Up Stairs",
 	x: "77%",
 	y: "42%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6245,7 +6245,7 @@ uw_poi[169] = {
 	name: "SP - Push Statue Down Stairs",
 	x: "58%",
 	y: "52%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6255,7 +6255,7 @@ uw_poi[170] = {
 	name: "SP - Flooded Room Up Stairs",
 	x: "77.5%",
 	y: "51.5%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6265,7 +6265,7 @@ uw_poi[171] = {
 	name: "SP - Basement Shallows NW",
 	x: "65%",
 	y: "43%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6275,7 +6275,7 @@ uw_poi[172] = {
 	name: "SP - Waterfall Room SW",
 	x: "65%",
 	y: "38%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6285,7 +6285,7 @@ uw_poi[173] = {
 	name: "SP - Behind Waterfall Up Stairs",
 	x: "75.3%",
 	y: "22%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6295,7 +6295,7 @@ uw_poi[174] = {
 	name: "SP - C Down Stairss",
 	x: "55%",
 	y: "22%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6305,7 +6305,7 @@ uw_poi[175] = {
 	name: "SP - T NW",
 	x: "45.3%",
 	y: "22%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6315,7 +6315,7 @@ uw_poi[176] = {
 	name: "SP - Boss SW",
 	x: "45.3%",
 	y: "19%",
-	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 4, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[4].isAccessible();
@@ -6435,7 +6435,7 @@ uw_poi[188] = {
 	name: "SW - 1 Lobby WS",
 	x: "51.7%",
 	y: "59%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6445,7 +6445,7 @@ uw_poi[189] = {
 	name: "SW - Pot Prison ES",
 	x: "48.7%",
 	y: "59%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6455,7 +6455,7 @@ uw_poi[190] = {
 	name: "SW - Pot Prison SE",
 	x: "44%",
 	y: "65%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6465,7 +6465,7 @@ uw_poi[191] = {
 	name: "SW - Compass Room NE",
 	x: "44%",
 	y: "70%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6475,7 +6475,7 @@ uw_poi[192] = {
 	name: "SW - Compass Room ES",
 	x: "48.7%",
 	y: "92.3%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6485,7 +6485,7 @@ uw_poi[193] = {
 	name: "SW - Pinball WS",
 	x: "51.7%",
 	y: "92.3%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6495,7 +6495,7 @@ uw_poi[194] = {
 	name: "SW - Pinball NE",
 	x: "69%",
 	y: "70%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6505,7 +6505,7 @@ uw_poi[195] = {
 	name: "SW - Map Room SE",
 	x: "69%",
 	y: "65%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6515,7 +6515,7 @@ uw_poi[196] = {
 	name: "SW - 2 East Lobby WS",
 	x: "26.5%",
 	y: "59%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6525,7 +6525,7 @@ uw_poi[197] = {
 	name: "SW - Small Hall ES",
 	x: "23.5%",
 	y: "59%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6535,7 +6535,7 @@ uw_poi[198] = {
 	name: "SW - 3 Lobby NW",
 	x: "81.4%",
 	y: "70%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6545,7 +6545,7 @@ uw_poi[199] = {
 	name: "SW - Star Pits SW",
 	x: "81.4%",
 	y: "65%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6555,7 +6555,7 @@ uw_poi[200] = {
 	name: "SW - Vines NW",
 	x: "81.4%",
 	y: "36.7%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6565,7 +6565,7 @@ uw_poi[201] = {
 	name: "SW - Spike Corner SW",
 	x: "81.4%",
 	y: "32%",
-	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 5, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[5].isAccessible();
@@ -6675,7 +6675,7 @@ uw_poi[212] = {
 	name: "TT - Lobby E",
 	x: "73.5%",
 	y: "88%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6685,7 +6685,7 @@ uw_poi[213] = {
 	name: "TT - Ambush E",
 	x: "73.5%",
 	y: "63%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6695,7 +6695,7 @@ uw_poi[214] = {
 	name: "TT - Rail Ledge W",
 	x: "76.8%",
 	y: "63%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6705,7 +6705,7 @@ uw_poi[215] = {
 	name: "TT - Rail Ledge NW",
 	x: "81.5%",
 	y: "52.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6715,7 +6715,7 @@ uw_poi[216] = {
 	name: "TT - Compass Room W",
 	x: "76.8%",
 	y: "88%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6725,7 +6725,7 @@ uw_poi[217] = {
 	name: "TT - BK Corner NE",
 	x: "94%",
 	y: "52.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6735,7 +6735,7 @@ uw_poi[218] = {
 	name: "TT - Pot Alcove Bottom SW",
 	x: "81.5%",
 	y: "49%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6745,7 +6745,7 @@ uw_poi[219] = {
 	name: "TT - Thieves Hallway SE",
 	x: "94%",
 	y: "49%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6755,7 +6755,7 @@ uw_poi[220] = {
 	name: "TT - Pot Alcove Mid WS",
 	x: "76.8%",
 	y: "44.3%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6765,7 +6765,7 @@ uw_poi[221] = {
 	name: "TT - Spike Track ES",
 	x: "73.5%",
 	y: "44.3%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6775,7 +6775,7 @@ uw_poi[222] = {
 	name: "TT - Hellway NW",
 	x: "56.5%",
 	y: "27.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6785,7 +6785,7 @@ uw_poi[223] = {
 	name: "TT - Spike Switch SW",
 	x: "56.5%",
 	y: "24%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6795,7 +6795,7 @@ uw_poi[224] = {
 	name: "TT - Spike Switch Up Stairs",
 	x: "56.5%",
 	y: "15%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6805,7 +6805,7 @@ uw_poi[225] = {
 	name: "TT - Attic Down Stairs",
 	x: "6.5%",
 	y: "15%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6815,7 +6815,7 @@ uw_poi[226] = {
 	name: "TT - Triple Bypass EN",
 	x: "73.5%",
 	y: "32%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6825,7 +6825,7 @@ uw_poi[227] = {
 	name: "TT - Conveyor Maze WN",
 	x: "76.8%",
 	y: "32%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6835,7 +6835,7 @@ uw_poi[228] = {
 	name: "TT - Conveyor Maze Down Stairs",
 	x: "81.5%",
 	y: "27.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6845,7 +6845,7 @@ uw_poi[229] = {
 	name: "TT - Basement Block Up Stairs",
 	x: "31.5%",
 	y: "27.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6855,7 +6855,7 @@ uw_poi[230] = {
 	name: "TT - Lonely Zazak WS",
 	x: "26.8%",
 	y: "44.3%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6865,7 +6865,7 @@ uw_poi[231] = {
 	name: "TT - Conveyor Bridge ES",
 	x: "23.5%",
 	y: "44.3%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6875,7 +6875,7 @@ uw_poi[232] = {
 	name: "TT - Conveyor Bridge EN",
 	x: "23.5%",
 	y: "32%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6885,7 +6885,7 @@ uw_poi[233] = {
 	name: "TT - Basement Block WN ",
 	x: "26.8%",
 	y: "32%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6895,7 +6895,7 @@ uw_poi[234] = {
 	name: "TT - Hallway NE",
 	x: "94%",
 	y: "27.5%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -6905,7 +6905,7 @@ uw_poi[235] = {
 	name: "TT - Boss SE",
 	x: "94%",
 	y: "24%",
-	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 6, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[6].isAccessible();
@@ -7045,7 +7045,7 @@ uw_poi[249] = {
 	name: "IP - Jelly Key Down Stairs",
 	x: "31.5%",
 	y: "27%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7055,7 +7055,7 @@ uw_poi[250] = {
 	name: "IP - Floor Switch Up Stairs",
 	x: "6.5%",
 	y: "10.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7065,7 +7065,7 @@ uw_poi[251] = {
 	name: "IP - Cross Bottom SE",
 	x: "19%",
 	y: "15.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7075,7 +7075,7 @@ uw_poi[252] = {
 	name: "IP - Compass Room NE",
 	x: "19%",
 	y: "18.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7085,7 +7085,7 @@ uw_poi[253] = {
 	name: "IP - Cross Right ES",
 	x: "23%",
 	y: "13%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7095,7 +7095,7 @@ uw_poi[254] = {
 	name: "IP - Pengator Switch WS",
 	x: "27.5%",
 	y: "13%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7105,7 +7105,7 @@ uw_poi[255] = {
 	name: "IP - Conveyor SW",
 	x: "6.5%",
 	y: "49%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7115,7 +7115,7 @@ uw_poi[256] = {
 	name: "IP - Bomb Jump NW",
 	x: "6.5%",
 	y: "52%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7125,7 +7125,7 @@ uw_poi[257] = {
 	name: "IP - Narrow Corridor Down Stairs",
 	x: "22.2%",
 	y: "54%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7135,7 +7135,7 @@ uw_poi[258] = {
 	name: "IP - Pengator Trap Up Stairs",
 	x: "22.2%",
 	y: "87.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7145,7 +7145,7 @@ uw_poi[259] = {
 	name: "IP - Pengator Trap NE",
 	x: "19%",
 	y: "85%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7155,7 +7155,7 @@ uw_poi[260] = {
 	name: "IP - Spike Cross SE",
 	x: "19%",
 	y: "82.2%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7165,7 +7165,7 @@ uw_poi[261] = {
 	name: "IP - Spike Cross ES",
 	x: "23%",
 	y: "79.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7175,7 +7175,7 @@ uw_poi[262] = {
 	name: "IP - Spike Room WS",
 	x: "27.5%",
 	y: "79.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7185,7 +7185,7 @@ uw_poi[263] = {
 	name: "IP - Spike Room Up Stairs",
 	x: "34.5%",
 	y: "77%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7195,7 +7195,7 @@ uw_poi[264] = {
 	name: "IP - Hammer Block Down Stairs",
 	x: "34.5%",
 	y: "43.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7205,7 +7205,7 @@ uw_poi[265] = {
 	name: "IP - Spike Room Down Stairs",
 	x: "28.5%",
 	y: "77%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7215,7 +7215,7 @@ uw_poi[266] = {
 	name: "IP - Spikeball Up Stairs",
 	x: "78.5%",
 	y: "10.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7225,7 +7225,7 @@ uw_poi[267] = {
 	name: "IP - Hookshot Ledge WN",
 	x: "77.5%",
 	y: "4.7%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7235,7 +7235,7 @@ uw_poi[268] = {
 	name: "IP - Tall Hint EN",
 	x: "73%",
 	y: "4.7%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7245,7 +7245,7 @@ uw_poi[269] = {
 	name: "IP - Tall Hint SE",
 	x: "69%",
 	y: "15.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7255,7 +7255,7 @@ uw_poi[270] = {
 	name: "IP - Lonely Freezor NE",
 	x: "69%",
 	y: "18.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7265,7 +7265,7 @@ uw_poi[271] = {
 	name: "IP - Lonely Freezor Down Stairs",
 	x: "66%",
 	y: "18.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7275,7 +7275,7 @@ uw_poi[272] = {
 	name: "IP - Iced T Up Stairs",
 	x: "66%",
 	y: "52%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7285,7 +7285,7 @@ uw_poi[273] = {
 	name: "IP - Iced T EN",
 	x: "73%",
 	y: "54.6%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7295,7 +7295,7 @@ uw_poi[274] = {
 	name: "IP - Catwalk WN",
 	x: "77.5%",
 	y: "54.6%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7305,7 +7305,7 @@ uw_poi[275] = {
 	name: "IP - Catwalk NW",
 	x: "81.5%",
 	y: "52%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7315,7 +7315,7 @@ uw_poi[276] = {
 	name: "IP - Many Pots SW",
 	x: "81.5%",
 	y: "49%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7325,7 +7325,7 @@ uw_poi[277] = {
 	name: "IP - Many Pots WS",
 	x: "77.5%",
 	y: "46.3%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7335,7 +7335,7 @@ uw_poi[278] = {
 	name: "IP - Crystal Right ES",
 	x: "73%",
 	y: "46.3%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7345,7 +7345,7 @@ uw_poi[279] = {
 	name: "IP - Backwards Room Down Stairs",
 	x: "69%",
 	y: "35.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7355,7 +7355,7 @@ uw_poi[280] = {
 	name: "IP - Anti-Fairy Up Stairs",
 	x: "69%",
 	y: "68.7%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7365,7 +7365,7 @@ uw_poi[281] = {
 	name: "IP - Switch Room ES",
 	x: "73%",
 	y: "79.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7375,7 +7375,7 @@ uw_poi[282] = {
 	name: "IP - Refill WS",
 	x: "77.5%",
 	y: "79.5%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7385,7 +7385,7 @@ uw_poi[283] = {
 	name: "IP - Switch Room SE",
 	x: "69%",
 	y: "82.2%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7395,7 +7395,7 @@ uw_poi[284] = {
 	name: "IP - Antechamber NE",
 	x: "69%",
 	y: "85%",
-	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 7, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[7].isAccessible();
@@ -7545,7 +7545,7 @@ uw_poi[299] = {
 	name: "MM - Post-Gap Down Stairs",
 	x: "95%",
 	y: "92%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7555,7 +7555,7 @@ uw_poi[300] = {
 	name: "MM - 2 Up Stairs",
 	x: "70%",
 	y: "92%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7565,7 +7565,7 @@ uw_poi[301] = {
 	name: "MM - 2 NE",
 	x: "69%",
 	y: "82%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7575,7 +7575,7 @@ uw_poi[302] = {
 	name: "MM - Hub SE",
 	x: "69%",
 	y: "79%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7585,7 +7585,7 @@ uw_poi[303] = {
 	name: "MM - Hub ES",
 	x: "73.3%",
 	y: "75.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7595,7 +7595,7 @@ uw_poi[304] = {
 	name: "MM - Lone Shooter WS",
 	x: "77%",
 	y: "75.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7605,7 +7605,7 @@ uw_poi[305] = {
 	name: "MM - Hub E",
 	x: "73.3%",
 	y: "70.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7615,7 +7615,7 @@ uw_poi[306] = {
 	name: "MM - Failure Bridge W",
 	x: "77%",
 	y: "70.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7625,7 +7625,7 @@ uw_poi[307] = {
 	name: "MM - Hub Right EN",
 	x: "73.3%",
 	y: "65.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7635,7 +7635,7 @@ uw_poi[308] = {
 	name: "MM - Map Spot WN",
 	x: "77%",
 	y: "65.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7645,7 +7645,7 @@ uw_poi[309] = {
 	name: "MM - Crystal Dead End NW",
 	x: "81.5%",
 	y: "62%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7655,7 +7655,7 @@ uw_poi[310] = {
 	name: "MM - Spikes SW",
 	x: "81.5%",
 	y: "59%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7665,7 +7665,7 @@ uw_poi[311] = {
 	name: "MM - Spikes WS",
 	x: "77%",
 	y: "55.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7675,7 +7675,7 @@ uw_poi[312] = {
 	name: "MM - Hidden Shooters ES",
 	x: "73.3%",
 	y: "55.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7685,7 +7685,7 @@ uw_poi[313] = {
 	name: "MM - Hub NE",
 	x: "69%",
 	y: "62%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7695,7 +7695,7 @@ uw_poi[314] = {
 	name: "MM - Hidden Shooters SE",
 	x: "69%",
 	y: "59%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7705,7 +7705,7 @@ uw_poi[315] = {
 	name: "MM - Hub Top NW",
 	x: "56.5%",
 	y: "62%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7715,7 +7715,7 @@ uw_poi[316] = {
 	name: "MM - Cross SW",
 	x: "56.5%",
 	y: "59%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7725,7 +7725,7 @@ uw_poi[317] = {
 	name: "MM - Minibridge NE",
 	x: "69%",
 	y: "42%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7735,7 +7735,7 @@ uw_poi[318] = {
 	name: "MM - Right Bridge SE",
 	x: "69%",
 	y: "39%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7745,7 +7745,7 @@ uw_poi[319] = {
 	name: "MM - Ledgehop NW",
 	x: "81.5%",
 	y: "42%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7755,7 +7755,7 @@ uw_poi[320] = {
 	name: "MM - Bent Bridge SW",
 	x: "81.5%",
 	y: "39%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7765,7 +7765,7 @@ uw_poi[321] = {
 	name: "MM - Bent Bridge W",
 	x: "77%",
 	y: "30.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7775,7 +7775,7 @@ uw_poi[322] = {
 	name: "MM - Over Bridge E",
 	x: "73.3%",
 	y: "30.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7785,7 +7785,7 @@ uw_poi[323] = {
 	name: "MM - Over Bridge W",
 	x: "52%",
 	y: "30.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7795,7 +7795,7 @@ uw_poi[324] = {
 	name: "MM - Fishbone E",
 	x: "48.5%",
 	y: "30.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7805,7 +7805,7 @@ uw_poi[325] = {
 	name: "MM - Fishbone SE",
 	x: "44%",
 	y: "39%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7815,7 +7815,7 @@ uw_poi[326] = {
 	name: "MM - Spike Barrier NE",
 	x: "44%",
 	y: "42%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7825,7 +7825,7 @@ uw_poi[327] = {
 	name: "MM - Spike Barrier SE",
 	x: "44%",
 	y: "59%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7835,7 +7835,7 @@ uw_poi[328] = {
 	name: "MM - Wizzrobe Bypass NE",
 	x: "44%",
 	y: "62%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7845,7 +7845,7 @@ uw_poi[329] = {
 	name: "MM - Wizzrobe Bypass EN",
 	x: "48.5%",
 	y: "65.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7855,7 +7855,7 @@ uw_poi[330] = {
 	name: "MM - Hub WN",
 	x: "52%",
 	y: "65.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7865,7 +7865,7 @@ uw_poi[331] = {
 	name: "MM - Hub WS",
 	x: "52%",
 	y: "75.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7875,7 +7875,7 @@ uw_poi[332] = {
 	name: "MM - Conveyor Crystal ES",
 	x: "48.5%",
 	y: "75.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7885,7 +7885,7 @@ uw_poi[333] = {
 	name: "MM - Conveyor Crystal SE",
 	x: "44%",
 	y: "79%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7895,7 +7895,7 @@ uw_poi[334] = {
 	name: "MM - Neglected Room NE",
 	x: "44%",
 	y: "82%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7905,7 +7905,7 @@ uw_poi[335] = {
 	name: "MM - Tile Room SW",
 	x: "31.5%",
 	y: "79%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7915,7 +7915,7 @@ uw_poi[336] = {
 	name: "MM - Conveyor Barrier NW",
 	x: "31.5%",
 	y: "82%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7925,7 +7925,7 @@ uw_poi[337] = {
 	name: "MM - Conveyor Barrier Up Stairs",
 	x: "34%",
 	y: "82%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7935,7 +7935,7 @@ uw_poi[338] = {
 	name: "MM - Torches Top Down Stairs",
 	x: "9%",
 	y: "82%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7945,7 +7945,7 @@ uw_poi[339] = {
 	name: "MM - Ledgehop WN",
 	x: "78%",
 	y: "45.3%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7955,7 +7955,7 @@ uw_poi[340] = {
 	name: "MM - BK Door Room EN",
 	x: "72.5%",
 	y: "45.3%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7965,7 +7965,7 @@ uw_poi[341] = {
 	name: "MM - BK Door Room N",
 	x: "62.7%",
 	y: "42%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7975,7 +7975,7 @@ uw_poi[342] = {
 	name: "MM - Left Bridge S",
 	x: "62.7%",
 	y: "39%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7985,7 +7985,7 @@ uw_poi[343] = {
 	name: "MM - Left Bridge Down Stairs",
 	x: "62.7%",
 	y: "23%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -7995,7 +7995,7 @@ uw_poi[344] = {
 	name: "MM - Dark Shooters Up Stairs",
 	x: "88%",
 	y: "2%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8005,7 +8005,7 @@ uw_poi[345] = {
 	name: "MM - Block X WS",
 	x: "77%",
 	y: "15.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8015,7 +8015,7 @@ uw_poi[346] = {
 	name: "MM - Tall Dark and Roomy ES",
 	x: "73.3%",
 	y: "15.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8025,7 +8025,7 @@ uw_poi[347] = {
 	name: "MM - Crystal Left WS",
 	x: "52%",
 	y: "15.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8035,7 +8035,7 @@ uw_poi[348] = {
 	name: "MM - Falling Foes ES",
 	x: "48.5%",
 	y: "15.5%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8045,7 +8045,7 @@ uw_poi[349] = {
 	name: "MM - Falling Foes Up Stairs",
 	x: "44%",
 	y: "7%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8055,7 +8055,7 @@ uw_poi[350] = {
 	name: "MM - Firesnake Skip Down Stairs",
 	x: "19%",
 	y: "27%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8065,7 +8065,7 @@ uw_poi[351] = {
 	name: "MM - Antechamber NW",
 	x: "6.5%",
 	y: "22%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8075,7 +8075,7 @@ uw_poi[352] = {
 	name: "MM - Boss SW",
 	x: "6.5%",
 	y: "19%",
-	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 8, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[8].isAccessible();
@@ -8235,7 +8235,7 @@ uw_poi[368] = {
 	name: "TR - Lobby Ledge NE",
 	x: "55.2%",
 	y: "42%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8245,7 +8245,7 @@ uw_poi[369] = {
 	name: "TR - Hub SE",
 	x: "55.2%",
 	y: "39%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8255,7 +8255,7 @@ uw_poi[370] = {
 	name: "TR - Hub SW",
 	x: "45.2%",
 	y: "39%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8265,7 +8265,7 @@ uw_poi[371] = {
 	name: "TR - Compass Room NW",
 	x: "45.2%",
 	y: "42%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8275,7 +8275,7 @@ uw_poi[372] = {
 	name: "TR - Hub ES",
 	x: "58.7%",
 	y: "35.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8285,7 +8285,7 @@ uw_poi[373] = {
 	name: "TR - Torches Ledge WS",
 	x: "61.5%",
 	y: "35.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8295,7 +8295,7 @@ uw_poi[374] = {
 	name: "TR - Hub EN",
 	x: "58.7%",
 	y: "25.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8305,7 +8305,7 @@ uw_poi[375] = {
 	name: "TR - Torches WN",
 	x: "61.5%",
 	y: "25.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8315,7 +8315,7 @@ uw_poi[376] = {
 	name: "TR - Torches NW",
 	x: "65.3%",
 	y: "22%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8325,7 +8325,7 @@ uw_poi[377] = {
 	name: "TR - Roller Room SW",
 	x: "65.3%",
 	y: "19%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8335,7 +8335,7 @@ uw_poi[378] = {
 	name: "TR - Hub NE",
 	x: "55.2%",
 	y: "22%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8345,7 +8345,7 @@ uw_poi[379] = {
 	name: "TR - Tile Room SE",
 	x: "55.2%",
 	y: "19%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8355,7 +8355,7 @@ uw_poi[380] = {
 	name: "TR - Hub NW",
 	x: "45.2%",
 	y: "22%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8365,7 +8365,7 @@ uw_poi[381] = {
 	name: "TR - Pokey 1 SW",
 	x: "45.2%",
 	y: "19%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8375,7 +8375,7 @@ uw_poi[382] = {
 	name: "TR - Chain Chomps Down Stairs",
 	x: "45.2%",
 	y: "2%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8385,7 +8385,7 @@ uw_poi[383] = {
 	name: "TR - Pipe Pit Up Stairs",
 	x: "85.5%",
 	y: "62%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8395,7 +8395,7 @@ uw_poi[384] = {
 	name: "TR - Pipe Pit WN",
 	x: "81.5%",
 	y: "65.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8405,7 +8405,7 @@ uw_poi[385] = {
 	name: "TR - Lava Dual Pipes EN",
 	x: "79%",
 	y: "65.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8415,7 +8415,7 @@ uw_poi[386] = {
 	name: "TR - Lava Dual Pipes WN",
 	x: "61.5%",
 	y: "65.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8425,7 +8425,7 @@ uw_poi[387] = {
 	name: "TR - Pokey 2 EN",
 	x: "58.7%",
 	y: "65.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8435,7 +8435,7 @@ uw_poi[388] = {
 	name: "TR - Pokey 2 ES",
 	x: "58.7%",
 	y: "75.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8445,7 +8445,7 @@ uw_poi[389] = {
 	name: "TR - Lava Island WS",
 	x: "61.5%",
 	y: "75.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8455,7 +8455,7 @@ uw_poi[390] = {
 	name: "TR - Lava Island ES",
 	x: "79%",
 	y: "75.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8465,7 +8465,7 @@ uw_poi[391] = {
 	name: "TR - Pipe Ledge WS",
 	x: "81.5%",
 	y: "75.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8475,7 +8475,7 @@ uw_poi[392] = {
 	name: "TR - Lava Dual Pipes SW",
 	x: "65.3%",
 	y: "79%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8485,7 +8485,7 @@ uw_poi[393] = {
 	name: "TR - Twin Pokeys NW",
 	x: "65.3%",
 	y: "82%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8495,7 +8495,7 @@ uw_poi[394] = {
 	name: "TR - Hallway WS",
 	x: "61.5%",
 	y: "95.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8505,7 +8505,7 @@ uw_poi[395] = {
 	name: "TR - Lazy Eyes ES",
 	x: "58.7%",
 	y: "95.5%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8515,7 +8515,7 @@ uw_poi[396] = {
 	name: "TR - Dodgers NE",
 	x: "75.2%",
 	y: "82%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8525,7 +8525,7 @@ uw_poi[397] = {
 	name: "TR - Lava Escape SE",
 	x: "75.2%",
 	y: "79%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8535,7 +8535,7 @@ uw_poi[398] = {
 	name: "TR - Lava Escape NW",
 	x: "65.3%",
 	y: "62%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8545,7 +8545,7 @@ uw_poi[399] = {
 	name: "TR - Dash Room SW",
 	x: "65.3%",
 	y: "59%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8555,7 +8555,7 @@ uw_poi[400] = {
 	name: "TR - Crystaroller Down Stairs",
 	x: "65.3%",
 	y: "42%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8565,7 +8565,7 @@ uw_poi[401] = {
 	name: "TR - Dark Ride Up Stairs",
 	x: "25.2%",
 	y: "22%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8575,7 +8575,7 @@ uw_poi[402] = {
 	name: "TR - Dark Ride SW",
 	x: "25.2%",
 	y: "39%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8585,7 +8585,7 @@ uw_poi[403] = {
 	name: "TR - Dash Bridge NW",
 	x: "25.2%",
 	y: "42%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8595,7 +8595,7 @@ uw_poi[404] = {
 	name: "TR - Dash Bridge SW",
 	x: "25.2%",
 	y: "59%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8605,7 +8605,7 @@ uw_poi[405] = {
 	name: "TR - Eye Bridge NW",
 	x: "25.2%",
 	y: "62%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8615,7 +8615,7 @@ uw_poi[406] = {
 	name: "TR - Dash Bridge WS",
 	x: "21.5%",
 	y: "55.3%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8625,7 +8625,7 @@ uw_poi[407] = {
 	name: "TR - Crystal Maze ES",
 	x: "19%",
 	y: "55.3%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8635,7 +8635,7 @@ uw_poi[408] = {
 	name: "TR - Final Abyss NW",
 	x: "5.2%",
 	y: "22%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8645,7 +8645,7 @@ uw_poi[409] = {
 	name: "TR - Boss SW",
 	x: "5.2%",
 	y: "19%",
-	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 9, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[9].isAccessible();
@@ -8975,7 +8975,7 @@ uw_poi[442] = {
 	name: "GT - Lobby Left Down Stairs",
 	x: "65%",
 	y: "3%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -8985,7 +8985,7 @@ uw_poi[443] = {
 	name: "GT - Torch Up Stairs",
 	x: "25%",
 	y: "62%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -8995,7 +8995,7 @@ uw_poi[444] = {
 	name: "GT - Torch WN",
 	x: "21.8%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9005,7 +9005,7 @@ uw_poi[445] = {
 	name: "GT - Conveyor Cross EN",
 	x: "18.5%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9015,7 +9015,7 @@ uw_poi[446] = {
 	name: "GT - Hookshot NW",
 	x: "5%",
 	y: "62%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9025,7 +9025,7 @@ uw_poi[447] = {
 	name: "GT - DMs Room SW",
 	x: "5%",
 	y: "59%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9035,7 +9035,7 @@ uw_poi[448] = {
 	name: "GT - Hookshot SW",
 	x: "5%",
 	y: "79%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9045,7 +9045,7 @@ uw_poi[449] = {
 	name: "GT - Double Switch NW",
 	x: "5%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9055,7 +9055,7 @@ uw_poi[450] = {
 	name: "GT - Warp Maze (Rails) WS",
 	x: "41.8%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9065,7 +9065,7 @@ uw_poi[451] = {
 	name: "GT - Randomizer Room ES",
 	x: "38.5%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9075,7 +9075,7 @@ uw_poi[452] = {
 	name: "GT - Warp Maze (Pits) ES",
 	x: "18.5%",
 	y: "95.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9085,7 +9085,7 @@ uw_poi[453] = {
 	name: "GT - Invisible Catwalk WS",
 	x: "21.8%",
 	y: "95.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9095,7 +9095,7 @@ uw_poi[454] = {
 	name: "GT - Invisible Catwalk NW",
 	x: "25%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9105,7 +9105,7 @@ uw_poi[455] = {
 	name: "GT - Big Chest SW",
 	x: "25%",
 	y: "79%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9115,7 +9115,7 @@ uw_poi[456] = {
 	name: "GT - Invisible Catwalk NE",
 	x: "35%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9125,7 +9125,7 @@ uw_poi[457] = {
 	name: "GT - Bob's Room SE",
 	x: "35%",
 	y: "79%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9135,7 +9135,7 @@ uw_poi[458] = {
 	name: "GT - Four Torches Up Stairs",
 	x: "62.5%",
 	y: "32%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9145,7 +9145,7 @@ uw_poi[459] = {
 	name: "GT - Blocked Stairs Down Stairs",
 	x: "22.5%",
 	y: "72%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9155,7 +9155,7 @@ uw_poi[460] = {
 	name: "GT - Lobby Right Down Stairs",
 	x: "75%",
 	y: "3%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9165,7 +9165,7 @@ uw_poi[461] = {
 	name: "GT - Hope Room Up Stairs",
 	x: "35%",
 	y: "62%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9175,7 +9175,7 @@ uw_poi[462] = {
 	name: "GT - Hope Hope Room EN",
 	x: "38.5%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9185,7 +9185,7 @@ uw_poi[463] = {
 	name: "GT - Tile Room WN",
 	x: "41.8%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9195,7 +9195,7 @@ uw_poi[464] = {
 	name: "GT - Speed Torch NE",
 	x: "55%",
 	y: "62%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9205,7 +9205,7 @@ uw_poi[465] = {
 	name: "GT - Trap Room SE",
 	x: "55%",
 	y: "59%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9215,7 +9215,7 @@ uw_poi[466] = {
 	name: "GT - Speed Torch SE",
 	x: "55%",
 	y: "79%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9225,7 +9225,7 @@ uw_poi[467] = {
 	name: "GT - Crystal Conveyor NE",
 	x: "55%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9235,7 +9235,7 @@ uw_poi[468] = {
 	name: "GT - Conveyor Star Pits EN",
 	x: "18.5%",
 	y: "45.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9245,7 +9245,7 @@ uw_poi[469] = {
 	name: "GT - Falling Bridge WN",
 	x: "21.8%",
 	y: "45.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9255,7 +9255,7 @@ uw_poi[470] = {
 	name: "GT - Falling Bridge WS",
 	x: "21.8%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9265,7 +9265,7 @@ uw_poi[471] = {
 	name: "GT - Hidden Star ES",
 	x: "18.5%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9275,7 +9275,7 @@ uw_poi[472] = {
 	name: "GT - Invisible Bridges WS",
 	x: "38.5%",
 	y: "95.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9285,7 +9285,7 @@ uw_poi[473] = {
 	name: "GT - Invisible Catwalk ES",
 	x: "41.8%",
 	y: "95.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9295,7 +9295,7 @@ uw_poi[474] = {
 	name: "GT - Lobby Up Stairs",
 	x: "70%",
 	y: "2%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9305,7 +9305,7 @@ uw_poi[475] = {
 	name: "GT - Crystal Paths Down Stairs",
 	x: "10%",
 	y: "22%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9315,7 +9315,7 @@ uw_poi[476] = {
 	name: "GT - Dash Hall NE",
 	x: "15%",
 	y: "22%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9325,7 +9325,7 @@ uw_poi[477] = {
 	name: "GT - Hidden Spikes SE",
 	x: "15%",
 	y: "19%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9335,7 +9335,7 @@ uw_poi[478] = {
 	name: "GT - Hidden Spikes EN",
 	x: "18.5%",
 	y: "5.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9345,7 +9345,7 @@ uw_poi[479] = {
 	name: "GT - Cannonball Bridge WN",
 	x: "21.8%",
 	y: "5.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9355,7 +9355,7 @@ uw_poi[480] = {
 	name: "GT - Cannonball Bridge Up Stairs",
 	x: "35%",
 	y: "2%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9365,7 +9365,7 @@ uw_poi[481] = {
 	name: "GT - Gauntlet 1 Down Stairs",
 	x: "55%",
 	y: "2%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9375,7 +9375,7 @@ uw_poi[482] = {
 	name: "GT - Gauntlet 3 SW",
 	x: "45%",
 	y: "19%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9385,7 +9385,7 @@ uw_poi[483] = {
 	name: "GT - Gauntlet 4 NW",
 	x: "45%",
 	y: "22%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9395,7 +9395,7 @@ uw_poi[484] = {
 	name: "GT - Gauntlet 5 WS",
 	x: "41.8%",
 	y: "35.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9405,7 +9405,7 @@ uw_poi[485] = {
 	name: "GT - Beam Dash ES",
 	x: "38.5%",
 	y: "35.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9415,7 +9415,7 @@ uw_poi[486] = {
 	name: "GT - Quad Pot Up Stairs",
 	x: "25%",
 	y: "22%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9425,7 +9425,7 @@ uw_poi[487] = {
 	name: "GT - Wizzrobes 1 Down Stairs",
 	x: "65%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9435,7 +9435,7 @@ uw_poi[488] = {
 	name: "GT - Wizzrobes 2 NE",
 	x: "75%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9445,7 +9445,7 @@ uw_poi[489] = {
 	name: "GT - Conveyor Bridge SE",
 	x: "75%",
 	y: "79%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9455,7 +9455,7 @@ uw_poi[490] = {
 	name: "GT - Conveyor Bridge EN",
 	x: "78.5%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9465,7 +9465,7 @@ uw_poi[491] = {
 	name: "GT - Torch Cross WN",
 	x: "81.8%",
 	y: "65.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9475,7 +9475,7 @@ uw_poi[492] = {
 	name: "GT - Crystal Circles SW",
 	x: "85%",
 	y: "39%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9485,7 +9485,7 @@ uw_poi[493] = {
 	name: "GT - Left Moldorm Ledge NW",
 	x: "85%",
 	y: "42%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9495,7 +9495,7 @@ uw_poi[494] = {
 	name: "GT - Moldorm Pit Up Stairs",
 	x: "95%",
 	y: "82%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9505,7 +9505,7 @@ uw_poi[495] = {
 	name: "GT - Right Moldorm Ledge Down Stairs",
 	x: "95%",
 	y: "42%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9515,7 +9515,7 @@ uw_poi[496] = {
 	name: "GT - Validation WS",
 	x: "81.8%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9525,7 +9525,7 @@ uw_poi[497] = {
 	name: "GT - Frozen Over ES",
 	x: "78.5%",
 	y: "55.5%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9535,7 +9535,7 @@ uw_poi[498] = {
 	name: "GT - Frozen Over Up Stairs",
 	x: "75%",
 	y: "42%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9545,7 +9545,7 @@ uw_poi[499] = {
 	name: "GT - Brightly Lit Hall Down Stairs",
 	x: "95%",
 	y: "12%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9555,7 +9555,7 @@ uw_poi[500] = {
 	name: "GT - Brightly Lit Hall NW",
 	x: "85%",
 	y: "12%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9565,7 +9565,7 @@ uw_poi[501] = {
 	name: "GT - Agahnim 2 SW",
 	x: "85%",
 	y: "9%",
-	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 10, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[10].isAccessible();
@@ -9615,7 +9615,7 @@ uw_poi[506] = {
 	name: "CT - Room 03 Up Stairs",
 	x: "88%",
 	y: "77.5%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9625,7 +9625,7 @@ uw_poi[507] = {
 	name: "CT - Lone Statue Down Stairs",
 	x: "88%",
 	y: "52.5%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9635,7 +9635,7 @@ uw_poi[508] = {
 	name: "CT - Dark Chargers Up Stairs",
 	x: "91%",
 	y: "65%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9645,7 +9645,7 @@ uw_poi[509] = {
 	name: "CT - Dual Statues Down Stairs",
 	x: "91%",
 	y: "40%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9655,7 +9655,7 @@ uw_poi[510] = {
 	name: "CT - Dark Archers Up Stairs",
 	x: "88%",
 	y: "27.5%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9665,7 +9665,7 @@ uw_poi[511] = {
 	name: "CT - Red Spears Down Stairs",
 	x: "88%",
 	y: "2.5%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9675,7 +9675,7 @@ uw_poi[512] = {
 	name: "CT - Pacifist Run Up Stairs",
 	x: "91%",
 	y: "15%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9685,7 +9685,7 @@ uw_poi[513] = {
 	name: "CT - Push Statue Down Stairs",
 	x: "41%",
 	y: "91%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9695,7 +9695,7 @@ uw_poi[514] = {
 	name: "CT - Altar NW",
 	x: "13%",
 	y: "52.5%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9705,7 +9705,7 @@ uw_poi[515] = {
 	name: "CT - Agahnim 1 SW",
 	x: "13%",
 	y: "49%",
-	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 11, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
@@ -9845,7 +9845,7 @@ uw_poi[529] = {
 	name: "HC - Lobby W",
 	x: "14%",
 	y: "88%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W", 
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9855,7 +9855,7 @@ uw_poi[530] = {
 	name: "HC - West Lobby E",
 	x: "8.5%",
 	y: "88%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9865,7 +9865,7 @@ uw_poi[531] = {
 	name: "HC - Lobby WN",
 	x: "13%",
 	y: "82%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9875,7 +9875,7 @@ uw_poi[532] = {
 	name: "HC - West Lobby EN",
 	x: "9.5%",
 	y: "82%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9885,7 +9885,7 @@ uw_poi[533] = {
 	name: "HC - West Lobby N",
 	x: "5.5%",
 	y: "79%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9895,7 +9895,7 @@ uw_poi[534] = {
 	name: "HC - West Hall S",
 	x: "5.5%",
 	y: "72%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9905,7 +9905,7 @@ uw_poi[535] = {
 	name: "HC - West Hall E",
 	x: "8.5%",
 	y: "57%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9915,7 +9915,7 @@ uw_poi[536] = {
 	name: "HC - Lobby E",
 	x: "30.5%",
 	y: "88%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9925,7 +9925,7 @@ uw_poi[537] = {
 	name: "HC - East Lobby W",
 	x: "36.5%",
 	y: "88%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9935,7 +9935,7 @@ uw_poi[538] = {
 	name: "HC - East Lobby NW",
 	x: "39%",
 	y: "79%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9945,7 +9945,7 @@ uw_poi[539] = {
 	name: "HC - East Hall SW",
 	x: "39%",
 	y: "72%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9955,7 +9955,7 @@ uw_poi[540] = {
 	name: "HC - East Lobby N",
 	x: "44.5%",
 	y: "78%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9965,7 +9965,7 @@ uw_poi[541] = {
 	name: "HC - East Hall S",
 	x: "44.5%",
 	y: "73%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9975,7 +9975,7 @@ uw_poi[542] = {
 	name: "HC - East Hall W",
 	x: "36.5%",
 	y: "57%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9983,9 +9983,9 @@ uw_poi[542] = {
 }
 uw_poi[543] = {
 	name: "HC - Back Hall W",
-	x: "58.5%",
-	y: "94%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	x: "14%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -9993,9 +9993,9 @@ uw_poi[543] = {
 }
 uw_poi[544] = {
 	name: "HC - Back Hall E",
-	x: "75%",
-	y: "94%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	x: "30.5%",
+	y: "57%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10003,9 +10003,9 @@ uw_poi[544] = {
 }
 uw_poi[545] = {
 	name: "HC - Back Hall Down Stairs",
-	x: "67%",
-	y: "92.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	x: "22.5%",
+	y: "55%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10015,7 +10015,7 @@ uw_poi[546] = {
 	name: "HC - Map Room Up Stairs",
 	x: "33.5%",
 	y: "3.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10025,7 +10025,7 @@ uw_poi[547] = {
 	name: "HC - Guardroom N",
 	x: "5.5%",
 	y: "29%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10035,7 +10035,7 @@ uw_poi[548] = {
 	name: "HC - Armory S",
 	x: "5.5%",
 	y: "22%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10045,7 +10045,7 @@ uw_poi[549] = {
 	name: "HC - Armory Down Stairs",
 	x: "7.5%",
 	y: "3.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10055,7 +10055,7 @@ uw_poi[550] = {
 	name: "HC - Staircase Up Stairs",
 	x: "18.5%",
 	y: "2.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10065,7 +10065,7 @@ uw_poi[551] = {
 	name: "HC - Staircase Down Stairs",
 	x: "15%",
 	y: "2.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10075,7 +10075,7 @@ uw_poi[552] = {
 	name: "HC - Cellblock Up Stairs",
 	x: "48.5%",
 	y: "2.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10084,8 +10084,8 @@ uw_poi[552] = {
 uw_poi[553] = {
 	name: "HC - Throne Room N",
 	x: "22.5%",
-	y: "53%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	y: "62%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10094,8 +10094,8 @@ uw_poi[553] = {
 uw_poi[554] = {
 	name: "HC - Behind Tapestry S",
 	x: "67%",
-	y: "86%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	y: "98%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10104,8 +10104,8 @@ uw_poi[554] = {
 uw_poi[555] = {
 	name: "HC - Behind Tapestry Down Stairs",
 	x: "74.5%",
-	y: "65.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	y: "77.5%",
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10115,7 +10115,7 @@ uw_poi[556] = {
 	name: "HC - Rope Room Up Stairs",
 	x: "96.5%",
 	y: "90.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10125,7 +10125,7 @@ uw_poi[557] = {
 	name: "HC - Dark Cross Key Door N",
 	x: "89%",
 	y: "65.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10135,7 +10135,7 @@ uw_poi[558] = {
 	name: "HC - Dark Cross Key Door S",
 	x: "89%",
 	y: "60.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10145,7 +10145,7 @@ uw_poi[559] = {
 	name: "HC - Water W",
 	x: "80%",
 	y: "57%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10155,7 +10155,7 @@ uw_poi[560] = {
 	name: "HC - Key Rat E",
 	x: "76%",
 	y: "57%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10165,7 +10165,7 @@ uw_poi[561] = {
 	name: "HC - Key Rat Key Door N",
 	x: "72.5%",
 	y: "40.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10175,7 +10175,7 @@ uw_poi[562] = {
 	name: "HC - Secret Room Key Door S",
 	x: "72.5%",
 	y: "35.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10185,7 +10185,7 @@ uw_poi[563] = {
 	name: "HC - Secret Room Up Stairs",
 	x: "72.5%",
 	y: "15.5%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10195,7 +10195,7 @@ uw_poi[564] = {
 	name: "HC - Pull Switch Down Stairs",
 	x: "94.5%",
 	y: "4%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10205,7 +10205,7 @@ uw_poi[565] = {
 	name: "HC - Pull Switch S",
 	x: "89%",
 	y: "22%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
@@ -10215,7 +10215,7 @@ uw_poi[566] = {
 	name: "HC - Sanctuary N",
 	x: "89%",
 	y: "28%",
-	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0,
+	dungeon: 13, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[13].isAccessible();
