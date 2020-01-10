@@ -4843,8 +4843,8 @@ uw_poi[28] = {
 }
 uw_poi[29] = {
 	name: "EP - Darkness S",
-	x: "43.75%",
-	y: "41.18%",
+	x: "62.50%",
+	y: "12.61%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
