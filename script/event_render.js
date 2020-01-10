@@ -718,21 +718,21 @@ function prepUWMap(dungeonNum) {
 		case 0:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ep.png)";
 			document.getElementById("uw_map").style.width = "828px";
-			document.getElementById("uw_map").style.height = "725px";
+			document.getElementById("uw_map").style.height = "724.5px";
 			break;
 		case 1:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-dp.png)";
-			document.getElementById("uw_map").style.width = "734px";
-			document.getElementById("uw_map").style.height = "734px";
+			document.getElementById("uw_map").style.width = "828px";
+			document.getElementById("uw_map").style.height = "724.5px";
 			break;
 		case 2:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-hera.png)";
-			document.getElementById("uw_map").style.width = "489px";
+			document.getElementById("uw_map").style.width = "734px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 		case 3:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-pod.png)";
-			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.width = "642.25px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 		case 4:
@@ -984,16 +984,22 @@ function refreshCanvas() {
 	ctx.lineWidth = 4;
 	uw_poi.forEach(function(poi, poiNum) {
 		if (poi.dungeon === cur_UWMap_todraw) {
-			ctx.beginPath();
-			if (poi.isConnected) {
-				ctx.strokeStyle = lookup_color(poi.highlight);
-				if (!poi.isHighlight) ctx.strokeStyle = "black";
-				for (var i = 0; i < poi.connector.length; i++) {
-					ctx.moveTo(Number(poi.x.split("%")[0])*ctx.canvas.width/100,Number(poi.y.split("%")[0])*ctx.canvas.height/100);
-					ctx.lineTo(Number(uw_poi[poi.connector[i]].x.split("%")[0])*ctx.canvas.width/100,Number(uw_poi[poi.connector[i]].y.split("%")[0])*ctx.canvas.height/100);
-					ctx.stroke();
+			if (poi.type === "door" && optionDoors === "vanilla") ;
+			else if (poi.type === "hint" && optionHints === "off") ;
+			else {
+				ctx.beginPath();
+				if (poi.isConnected) {
+					ctx.strokeStyle = lookup_color(poi.highlight);
+					if (!poi.isHighlight) ctx.strokeStyle = "black";
+					for (var i = 0; i < poi.connector.length; i++) {
+						ctx.moveTo(Number(poi.x.split("%")[0])*ctx.canvas.width/100,Number(poi.y.split("%")[0])*ctx.canvas.height/100);
+						if (poi.contype[i] === 1) ctx.setLineDash([4, 6]);
+						else ctx.setLineDash([1,0]);
+						ctx.lineTo(Number(uw_poi[poi.connector[i]].x.split("%")[0])*ctx.canvas.width/100,Number(uw_poi[poi.connector[i]].y.split("%")[0])*ctx.canvas.height/100);
+						ctx.stroke();
+					}
+					ctx.closePath();
 				}
-				ctx.closePath();
 			}
 		}
 	});
