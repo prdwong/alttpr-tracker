@@ -717,8 +717,8 @@ function prepUWMap(dungeonNum) {
 	switch (dungeonNum) {
 		case 0:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ep.png)";
-			document.getElementById("uw_map").style.width = "440px";
-			document.getElementById("uw_map").style.height = "734px";
+			document.getElementById("uw_map").style.width = "828px";
+			document.getElementById("uw_map").style.height = "725px";
 			break;
 		case 1:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-dp.png)";

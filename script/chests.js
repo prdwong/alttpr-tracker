@@ -4553,8 +4553,8 @@ shops[8] = {
 var uw_poi = new Array;
 uw_poi[0] = {
 	name: "EP - Compass Chest",
-	x: "7%",
-	y: "23%",
+	x: "30.47%",
+	y: "18.75%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4563,8 +4563,8 @@ uw_poi[0] = {
 }
 uw_poi[1] = {
 	name: "EP - Big Chest",
-	x: "50%",
-	y: "29%",
+	x: "62.50%",
+	y: "26.56%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4573,8 +4573,8 @@ uw_poi[1] = {
 }
 uw_poi[2] = {
 	name: "EP - Cannonball Chest",
-	x: "60%",
-	y: "52%",
+	x: "69.92%",
+	y: "59.38%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4583,8 +4583,8 @@ uw_poi[2] = {
 }
 uw_poi[3] = {
 	name: "EP - Big Key Chest",
-	x: "25.5%",
-	y: "45%",
+	x: "44.14%",
+	y: "50.45%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4593,8 +4593,8 @@ uw_poi[3] = {
 }
 uw_poi[4] = {
 	name: "EP - Map Chest",
-	x: "95%",
-	y: "35%",
+	x: "96.48%",
+	y: "35.27%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4603,8 +4603,8 @@ uw_poi[4] = {
 }
 uw_poi[5] = {
 	name: "EP - Boss",
-	x: "25%",
-	y: "75%",
+	x: "6.25%",
+	y: "64.73%",
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4613,8 +4613,8 @@ uw_poi[5] = {
 }
 uw_poi[6] = {
 	name: "EP - Dark Square Pot Key",
-	x: "96.5%",
-	y: "44%",
+	x: "97.27%",
+	y: "48.66%",
 	dungeon: 0, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4623,8 +4623,8 @@ uw_poi[6] = {
 }
 uw_poi[7] = {
 	name: "EP - Dark Eyegore Key Drop",
-	x: "52%",
-	y: "14.5%",
+	x: "63.87%",
+	y: "6.92%",
 	dungeon: 0, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4633,8 +4633,8 @@ uw_poi[7] = {
 }
 uw_poi[8] = {
 	name: "EP - Lobby Bridge N",
-	x: "50.3%",
-	y: "62%",
+	x: "62.50%",
+	y: "74.00%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4643,8 +4643,8 @@ uw_poi[8] = {
 }
 uw_poi[9] = {
 	name: "EP - Cannonball S",
-	x: "50.3%",
-	y: "59%",
+	x: "62.50%",
+	y: "69.75%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4653,8 +4653,8 @@ uw_poi[9] = {
 }
 uw_poi[10] = {
 	name: "EP - Cannonball N",
-	x: "50.3%",
-	y: "42%",
+	x: "62.50%",
+	y: "45.42%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4663,8 +4663,8 @@ uw_poi[10] = {
 }
 uw_poi[11] = {
 	name: "EP - Courtyard Ledge S",
-	x: "50.3%",
-	y: "39%",
+	x: "62.50%",
+	y: "41.18%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4673,8 +4673,8 @@ uw_poi[11] = {
 }
 uw_poi[12] = {
 	name: "EP - Courtyard Ledge E",
-	x: "64.5%",
-	y: "30.5%",
+	x: "73.54%",
+	y: "29.02%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4683,8 +4683,8 @@ uw_poi[12] = {
 }
 uw_poi[13] = {
 	name: "EP - Courtyard Ledge W",
-	x: "36%",
-	y: "30.5%",
+	x: "51.46%",
+	y: "29.02%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4693,8 +4693,8 @@ uw_poi[13] = {
 }
 uw_poi[14] = {
 	name: "EP - East Wing W",
-	x: "69.5%",
-	y: "30.5%",
+	x: "76.46%",
+	y: "29.02%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4703,8 +4703,8 @@ uw_poi[14] = {
 }
 uw_poi[15] = {
 	name: "EP - West Wing E",
-	x: "31%",
-	y: "30.5%",
+	x: "48.54%",
+	y: "29.02%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4713,8 +4713,8 @@ uw_poi[15] = {
 }
 uw_poi[16] = {
 	name: "EP - Hint Tile EN",
-	x: "31%",
-	y: "25.5%",
+	x: "47.36%",
+	y: "21.88%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4723,8 +4723,8 @@ uw_poi[16] = {
 }
 uw_poi[17] = {
 	name: "EP - Hint Tile Blocked Path SE",
-	x: "25.4%",
-	y: "39%",
+	x: "43.75%",
+	y: "41.18%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4733,8 +4733,8 @@ uw_poi[17] = {
 }
 uw_poi[18] = {
 	name: "EP - Courtyard WN",
-	x: "36%",
-	y: "25.5%",
+	x: "52.64%",
+	y: "21.88%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4743,8 +4743,8 @@ uw_poi[18] = {
 }
 uw_poi[19] = {
 	name: "EP - Courtyard EN",
-	x: "64.5%",
-	y: "25.5%",
+	x: "72.36%",
+	y: "21.88%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4753,8 +4753,8 @@ uw_poi[19] = {
 }
 uw_poi[20] = {
 	name: "EP - Courtyard N",
-	x: "50.3%",
-	y: "22%",
+	x: "62.50%",
+	y: "16.85%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4763,8 +4763,8 @@ uw_poi[20] = {
 }
 uw_poi[21] = {
 	name: "EP - Map Valley WN",
-	x: "69.5%",
-	y: "25.5%",
+	x: "77.64%",
+	y: "21.88%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4773,8 +4773,8 @@ uw_poi[21] = {
 }
 uw_poi[22] = {
 	name: "EP - Map Valley SW",
-	x: "75.3%",
-	y: "39%",
+	x: "81.25%",
+	y: "41.18%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4783,8 +4783,8 @@ uw_poi[22] = {
 }
 uw_poi[23] = {
 	name: "EP - Dark Square NW",
-	x: "75.3%",
-	y: "42%",
+	x: "81.25%",
+	y: "45.42%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4793,8 +4793,8 @@ uw_poi[23] = {
 }
 uw_poi[24] = {
 	name: "EP - Dark Square Key Door WN",
-	x: "69.5%",
-	y: "45.5%",
+	x: "76.46%",
+	y: "50.45%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4803,8 +4803,8 @@ uw_poi[24] = {
 }
 uw_poi[25] = {
 	name: "EP - Cannonball Ledge Key Door EN",
-	x: "64.5%",
-	y: "45.5%",
+	x: "73.54%",
+	y: "50.45%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4813,8 +4813,8 @@ uw_poi[25] = {
 }
 uw_poi[26] = {
 	name: "EP - Cannonball Ledge WN",
-	x: "36%",
-	y: "45.5%",
+	x: "51.46%",
+	y: "50.45%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4823,8 +4823,8 @@ uw_poi[26] = {
 }
 uw_poi[27] = {
 	name: "EP - Eastern Big Key EN",
-	x: "31%",
-	y: "45.5%",
+	x: "48.54%",
+	y: "50.45%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4833,8 +4833,8 @@ uw_poi[27] = {
 }
 uw_poi[28] = {
 	name: "EP - Eastern Big Key NE",
-	x: "25.4%",
-	y: "42%",
+	x: "43.75%",
+	y: "45.42%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4843,8 +4843,8 @@ uw_poi[28] = {
 }
 uw_poi[29] = {
 	name: "EP - Darkness S",
-	x: "50.3%",
-	y: "19%",
+	x: "43.75%",
+	y: "41.18%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4853,8 +4853,8 @@ uw_poi[29] = {
 }
 uw_poi[30] = {
 	name: "EP - Darkness Up Stairs",
-	x: "42%",
-	y: "12%",
+	x: "56.25%",
+	y: "2.57%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4863,8 +4863,8 @@ uw_poi[30] = {
 }
 uw_poi[31] = {
 	name: "EP - Attic Start Down Stairs",
-	x: "75.3%",
-	y: "92%",
+	x: "43.75%",
+	y: "88.28%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4873,8 +4873,8 @@ uw_poi[31] = {
 }
 uw_poi[32] = {
 	name: "EP - Attic Start WS",
-	x: "69.5%",
-	y: "95.5%",
+	x: "38.96%",
+	y: "93.30%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4883,8 +4883,8 @@ uw_poi[32] = {
 }
 uw_poi[33] = {
 	name: "EP - False Switches ES",
-	x: "64.5%",
-	y: "95.5%",
+	x: "36.04%",
+	y: "93.30%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4893,8 +4893,8 @@ uw_poi[33] = {
 }
 uw_poi[34] = {
 	name: "EP - Cannonball Hell WS",
-	x: "36%",
-	y: "95.5%",
+	x: "13.96%",
+	y: "93.30%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4903,8 +4903,8 @@ uw_poi[34] = {
 }
 uw_poi[35] = {
 	name: "EP - Single Eyegore ES",
-	x: "31%",
-	y: "95.5%",
+	x: "11.04%",
+	y: "93.30%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4913,8 +4913,8 @@ uw_poi[35] = {
 }
 uw_poi[36] = {
 	name: "EP - Duo Eyegores NE",
-	x: "25.4%",
-	y: "82%",
+	x: "6.25%",
+	y: "74.00%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4923,8 +4923,8 @@ uw_poi[36] = {
 }
 uw_poi[37] = {
 	name: "EP - Eastern Boss SE",
-	x: "25.4%",
-	y: "79%",
+	x: "6.25%",
+	y: "69.75%",
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
