@@ -4855,8 +4855,8 @@ uw_poi[30] = {
 	name: "EP - Darkness Up Stairs",
 	x: "56.25%",
 	y: "2.57%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
-	isConnected: false, isOpened: false, isHighlight: false,
+	dungeon: 0, type: "door", highlight: 0, connector: [31], contype: [1], icon: 0, direction: "X",
+	isConnected: true, isOpened: true, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -4865,8 +4865,8 @@ uw_poi[31] = {
 	name: "EP - Attic Start Down Stairs",
 	x: "43.75%",
 	y: "88.28%",
-	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
-	isConnected: false, isOpened: false, isHighlight: false,
+	dungeon: 0, type: "door", highlight: 0, connector: [30], contype: [1], icon: 0, direction: "X",
+	isConnected: true, isOpened: true, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -4933,8 +4933,8 @@ uw_poi[37] = {
 }
 uw_poi[38] = {
 	name: "EP - Telepathic Tile",
-	x: "25.4%",
-	y: "24%",
+	x: "43.75%",
+	y: "20.09%",
 	dungeon: 0, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4943,8 +4943,8 @@ uw_poi[38] = {
 }
 uw_poi[39] = {
 	name: "DP - Big Chest",
-	x: "31.2%",
-	y: "56%",
+	x: "31.25%",
+	y: "49.78%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4953,8 +4953,8 @@ uw_poi[39] = {
 }
 uw_poi[40] = {
 	name: "DP - Map Chest",
-	x: "62.5%",
-	y: "56%",
+	x: "62.50%",
+	y: "50.00%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4963,8 +4963,8 @@ uw_poi[40] = {
 }
 uw_poi[41] = {
 	name: "DP - Torch",
-	x: "41%",
-	y: "55%",
+	x: "41.02%",
+	y: "48.66%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4973,8 +4973,8 @@ uw_poi[41] = {
 }
 uw_poi[42] = {
 	name: "DP - Big Key Chest",
-	x: "93.7%",
-	y: "54%",
+	x: "93.75%",
+	y: "47.77%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4983,8 +4983,8 @@ uw_poi[42] = {
 }
 uw_poi[43] = {
 	name: "DP - Compass Chest",
-	x: "93.7%",
-	y: "80%",
+	x: "93.75%",
+	y: "76.9%", //76.34%
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -4993,8 +4993,8 @@ uw_poi[43] = {
 }
 uw_poi[44] = {
 	name: "DP - Boss",
-	x: "6%",
-	y: "19%",
+	x: "6.25%",
+	y: "7.59%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5003,8 +5003,8 @@ uw_poi[44] = {
 }
 uw_poi[45] = {
 	name: "DP - Desert Tiles 1 Pot Key",
-	x: "3%",
-	y: "85%",
+	x: "2.73%",
+	y: "82.59%",
 	dungeon: 1, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5013,8 +5013,8 @@ uw_poi[45] = {
 }
 uw_poi[46] = {
 	name: "DP - Beamos Hall Pot Key",
-	x: "20%",
-	y: "59%",
+	x: "19.92%",
+	y: "53.13%",
 	dungeon: 1, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5023,8 +5023,8 @@ uw_poi[46] = {
 }
 uw_poi[47] = {
 	name: "DP - Desert Tiles 2 Pot Key",
-	x: "22%",
-	y: "41%",
+	x: "22.27%",
+	y: "32.59%",
 	dungeon: 1, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5033,8 +5033,8 @@ uw_poi[47] = {
 }
 uw_poi[48] = {
 	name: "DP - Compass NW",
-	x: "94%",
-	y: "77.5%",
+	x: "93.75%",
+	y: "74.00%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5043,8 +5043,8 @@ uw_poi[48] = {
 }
 uw_poi[49] = {
 	name: "DP - Cannonball S",
-	x: "94%",
-	y: "73.5%",
+	x: "93.75%",
+	y: "69.75%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5053,28 +5053,28 @@ uw_poi[49] = {
 }
 uw_poi[50] = {
 	name: "DP - Tiles 1 Up Stairs",
-	x: "6.5%",
-	y: "77.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
-	isConnected: false, isOpened: false, isHighlight: false,
+	x: "6.25%",
+	y: "74.00%",
+	dungeon: 1, type: "door", highlight: 0, connector: [51], contype: [1], icon: 0, direction: "X",
+	isConnected: true, isOpened: true, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
 }
 uw_poi[51] = {
 	name: "DP - Bridge Down Stairs",
-	x: "6.5%",
-	y: "52.5%",
-	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
-	isConnected: false, isOpened: false, isHighlight: false,
+	x: "6.25%",
+	y: "45.42%",
+	dungeon: 1, type: "door", highlight: 0, connector: [50], contype: [1], icon: 0, direction: "X",
+	isConnected: true, isOpened: true, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
 }
 uw_poi[52] = {
 	name: "DP - Beamos Hall NE",
-	x: "19%",
-	y: "52.5%",
+	x: "18.75%",
+	y: "45.42%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5083,8 +5083,8 @@ uw_poi[52] = {
 }
 uw_poi[53] = {
 	name: "DP - Tiles 2 SE",
-	x: "19%",
-	y: "48.5%",
+	x: "18.75%",
+	y: "41.18%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5093,8 +5093,8 @@ uw_poi[53] = {
 }
 uw_poi[54] = {
 	name: "DP - Wall Slide NW",
-	x: "6.5%",
-	y: "27.5%",
+	x: "6.25%",
+	y: "16.85%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5103,8 +5103,8 @@ uw_poi[54] = {
 }
 uw_poi[55] = {
 	name: "DP - Boss SW",
-	x: "6.5%",
-	y: "23.5%",
+	x: "6.25%",
+	y: "12.61%",
 	dungeon: 1, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5113,8 +5113,8 @@ uw_poi[55] = {
 }
 uw_poi[56] = {
 	name: "DP - Telepathic Tile",
-	x: "43.7%",
-	y: "52.7%",
+	x: "43.75%",
+	y: "45.54%",
 	dungeon: 1, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
