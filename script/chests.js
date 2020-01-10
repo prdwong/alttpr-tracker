@@ -4963,7 +4963,7 @@ uw_poi[40] = {
 }
 uw_poi[41] = {
 	name: "DP - Torch",
-	x: "41.02%",
+	x: "40.82%",
 	y: "48.66%",
 	dungeon: 1, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
@@ -5123,8 +5123,8 @@ uw_poi[56] = {
 }
 uw_poi[57] = {
 	name: "Hera - Big Key Chest",
-	x: "87.5%",
-	y: "94%",
+	x: "91.67%",
+	y: "94.27%",
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5133,8 +5133,8 @@ uw_poi[57] = {
 }
 uw_poi[58] = {
 	name: "Hera - Basement Cage",
-	x: "63%",
-	y: "94%",
+	x: "75.26%",
+	y: "94.27%",
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5143,8 +5143,8 @@ uw_poi[58] = {
 }
 uw_poi[59] = {
 	name: "Hera - Map Chest",
-	x: "75%",
-	y: "41%",
+	x: "50.00%",
+	y: "75.00%",
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5153,8 +5153,8 @@ uw_poi[59] = {
 }
 uw_poi[60] = {
 	name: "Hera - Compass Chest",
-	x: "25%",
-	y: "86.3%",
+	x: "16.67%",
+	y: "86.7%", //85.94%
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5163,8 +5163,8 @@ uw_poi[60] = {
 }
 uw_poi[61] = {
 	name: "Hera - Big Chest",
-	x: "25%",
-	y: "72%",
+	x: "16.67%",
+	y: "72.14%",
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5173,8 +5173,8 @@ uw_poi[61] = {
 }
 uw_poi[62] = {
 	name: "Hera - Boss",
-	x: "25%",
-	y: "18%",
+	x: "16.67%",
+	y: "16.67%",
 	dungeon: 2, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5183,8 +5183,8 @@ uw_poi[62] = {
 }
 uw_poi[63] = {
 	name: "Hera - Lobby Down Stairs",
-	x: "64%",
-	y: "56%",
+	x: "42.71%",
+	y: "88.93%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5193,8 +5193,8 @@ uw_poi[63] = {
 }
 uw_poi[64] = {
 	name: "Hera - Basement Cage Up Stairs",
-	x: "64%",
-	y: "88%",
+	x: "76.04%",
+	y: "87.37%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5203,8 +5203,8 @@ uw_poi[64] = {
 }
 uw_poi[65] = {
 	name: "Hera - Lobby Key Stairs",
-	x: "63%",
-	y: "38%",
+	x: "41.67%",
+	y: "71.22%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5213,8 +5213,8 @@ uw_poi[65] = {
 }
 uw_poi[66] = {
 	name: "Hera - Tile Room Up Stairs",
-	x: "63%",
-	y: "70%",
+	x: "75.00%",
+	y: "69.66%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5223,8 +5223,8 @@ uw_poi[66] = {
 }
 uw_poi[67] = {
 	name: "Hera - Lobby Up Stairs",
-	x: "86%",
-	y: "56%",
+	x: "57.29%",
+	y: "88.93%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5233,8 +5233,8 @@ uw_poi[67] = {
 }
 uw_poi[68] = {
 	name: "Hera - Beetles Down Stairs",
-	x: "86%",
-	y: "21%",
+	x: "57.29%",
+	y: "54.04%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5243,8 +5243,8 @@ uw_poi[68] = {
 }
 uw_poi[69] = {
 	name: "Hera - Startile Wide Up Stairs",
-	x: "94%",
-	y: "8%",
+	x: "62.50%",
+	y: "41.54%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5253,8 +5253,8 @@ uw_poi[69] = {
 }
 uw_poi[70] = {
 	name: "Hera - 4F Down Stairs",
-	x: "44%",
-	y: "75%",
+	x: "29.17%",
+	y: "74.87%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5263,8 +5263,8 @@ uw_poi[70] = {
 }
 uw_poi[71] = {
 	name: "Hera - 4F Up Stairs",
-	x: "7%",
-	y: "75%",
+	x: "4.17%",
+	y: "74.87%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5273,8 +5273,8 @@ uw_poi[71] = {
 }
 uw_poi[72] = {
 	name: "Hera - 5F Down Stairs",
-	x: "7%",
-	y: "42%",
+	x: "4.17%",
+	y: "41.54%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5283,8 +5283,8 @@ uw_poi[72] = {
 }
 uw_poi[73] = {
 	name: "Hera - 5F Up Stairs",
-	x: "43%",
-	y: "42%",
+	x: "28.13%",
+	y: "41.54%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5293,8 +5293,8 @@ uw_poi[73] = {
 }
 uw_poi[74] = {
 	name: "Hera - Boss Down Stairs",
-	x: "43%",
-	y: "8%",
+	x: "28.13%",
+	y: "8.20%",
 	dungeon: 2, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5303,8 +5303,8 @@ uw_poi[74] = {
 }
 uw_poi[75] = {
 	name: "Hera - Telepathic Tile Entrance",
-	x: "75%",
-	y: "49%",
+	x: "50.00%",
+	y: "81.77%",
 	dungeon: 2, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5313,8 +5313,8 @@ uw_poi[75] = {
 }
 uw_poi[76] = {
 	name: "Hera - Telepathic Tile Floor 4",
-	x: "25%",
-	y: "83.5%",
+	x: "16.67%",
+	y: "83.85%",
 	dungeon: 2, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5323,8 +5323,8 @@ uw_poi[76] = {
 }
 uw_poi[77] = {
 	name: "PoD - Shooter Room",
-	x: "10%",
-	y: "84%",
+	x: "11.16%",
+	y: "83.98%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5333,8 +5333,8 @@ uw_poi[77] = {
 }
 uw_poi[78] = {
 	name: "PoD - Big Key Chest",
-	x: "37.5%",
-	y: "57%",
+	x: "42.86%",
+	y: "57.42%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5343,8 +5343,8 @@ uw_poi[78] = {
 }
 uw_poi[79] = {
 	name: "PoD - The Arena - Ledge",
-	x: "47%",
-	y: "41.5%",
+	x: "53.3%", //54.02%
+	y: "42%", //42.97%
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5353,8 +5353,8 @@ uw_poi[79] = {
 }
 uw_poi[80] = {
 	name: "PoD - The Arena - Bridge",
-	x: "43.5%",
-	y: "42%",
+	x: "49.55%",
+	y: "42.58%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5363,8 +5363,8 @@ uw_poi[80] = {
 }
 uw_poi[81] = {
 	name: "PoD - Stalfos Basement",
-	x: "12%",
-	y: "59%",
+	x: "13.84%",
+	y: "59.38%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5373,8 +5373,8 @@ uw_poi[81] = {
 }
 uw_poi[82] = {
 	name: "PoD - Map Chest",
-	x: "56.2%",
-	y: "45%",
+	x: "64.29%",
+	y: "44.92%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5383,8 +5383,8 @@ uw_poi[82] = {
 }
 uw_poi[83] = {
 	name: "PoD - Big Chest",
-	x: "29%",
-	y: "12%",
+	x: "33.6%", //32.59%
+	y: "12.70%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5393,8 +5393,8 @@ uw_poi[83] = {
 }
 uw_poi[84] = {
 	name: "PoD - Compass Chest",
-	x: "44%",
-	y: "6.5%",
+	x: "50.00%",
+	y: "6.64%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5403,8 +5403,8 @@ uw_poi[84] = {
 }
 uw_poi[85] = {
 	name: "PoD - Harmless Hellway",
-	x: "40%",
-	y: "19%",
+	x: "46.43%",
+	y: "18.75%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5413,8 +5413,8 @@ uw_poi[85] = {
 }
 uw_poi[86] = {
 	name: "PoD - Dark Basement - Left",
-	x: "90%",
-	y: "68%",
+	x: "88.84%",
+	y: "68.36%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5423,8 +5423,8 @@ uw_poi[86] = {
 }
 uw_poi[87] = {
 	name: "PoD - Dark Basement - Right",
-	x: "97%",
-	y: "68%",
+	x: "96.88%",
+	y: "68.36%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5433,8 +5433,8 @@ uw_poi[87] = {
 }
 uw_poi[88] = {
 	name: "PoD - Dark Maze - Top",
-	x: "13%",
-	y: "3%",
+	x: "15.18%",
+	y: "3.91%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5443,8 +5443,8 @@ uw_poi[88] = {
 }
 uw_poi[89] = {
 	name: "PoD - Dark Maze - Bottom",
-	x: "22%",
-	y: "21%",
+	x: "25.45%",
+	y: "21.09%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5453,8 +5453,8 @@ uw_poi[89] = {
 }
 uw_poi[90] = {
 	name: "PoD - Boss",
-	x: "93.7%",
-	y: "44%",
+	x: "92.86%",
+	y: "44.14%",
 	dungeon: 3, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5463,8 +5463,8 @@ uw_poi[90] = {
 }
 uw_poi[91] = {
 	name: "PoD - Left Cage Down Stairs",
-	x: "31.5%",
-	y: "77.5%",
+	x: "35.71%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5473,8 +5473,8 @@ uw_poi[91] = {
 }
 uw_poi[92] = {
 	name: "PoD - Shooter Room Up Stairs",
-	x: "6.5%",
-	y: "77.5%",
+	x: "7.14%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5483,8 +5483,8 @@ uw_poi[92] = {
 }
 uw_poi[93] = {
 	name: "PoD - Middle Cage N",
-	x: "37.7%",
-	y: "77.5%",
+	x: "42.86%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5493,8 +5493,8 @@ uw_poi[93] = {
 }
 uw_poi[94] = {
 	name: "PoD - Pit Room S",
-	x: "37.7%",
-	y: "73.5%",
+	x: "42.86%",
+	y: "73.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5503,8 +5503,8 @@ uw_poi[94] = {
 }
 uw_poi[95] = {
 	name: "PoD - Middle Cage Down Stairs",
-	x: "44%",
-	y: "77.5%",
+	x: "50.00%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5513,8 +5513,8 @@ uw_poi[95] = {
 }
 uw_poi[96] = {
 	name: "PoD - Warp Room Up Stairs",
-	x: "19%",
-	y: "77.5%",
+	x: "21.43%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5523,8 +5523,8 @@ uw_poi[96] = {
 }
 uw_poi[97] = {
 	name: "PoD - Pit Room NW",
-	x: "31.5%",
-	y: "52.5%",
+	x: "35.71%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5533,8 +5533,8 @@ uw_poi[97] = {
 }
 uw_poi[98] = {
 	name: "PoD - Pit Room NE",
-	x: "44%",
-	y: "52.5%",
+	x: "50.00%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5543,8 +5543,8 @@ uw_poi[98] = {
 }
 uw_poi[99] = {
 	name: "PoD - Basement Ledge Up Stairs",
-	x: "12.7%",
-	y: "52.5%",
+	x: "14.29%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5553,8 +5553,8 @@ uw_poi[99] = {
 }
 uw_poi[100] = {
 	name: "PoD - Big Key Landing Down Stairs",
-	x: "37.7%",
-	y: "52.5%",
+	x: "42.86%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5563,8 +5563,8 @@ uw_poi[100] = {
 }
 uw_poi[101] = {
 	name: "PoD - Mimics 1 NW",
-	x: "56.4%",
-	y: "77.5%",
+	x: "64.29%",
+	y: "77.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5573,8 +5573,8 @@ uw_poi[101] = {
 }
 uw_poi[102] = {
 	name: "PoD - PoD Conveyor SW",
-	x: "56.4%",
-	y: "73.5%",
+	x: "64.29%",
+	y: "73.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5583,8 +5583,8 @@ uw_poi[102] = {
 }
 uw_poi[103] = {
 	name: "PoD - Arena Main SW",
-	x: "31.5%",
-	y: "49%",
+	x: "35.71%",
+	y: "48.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5593,8 +5593,8 @@ uw_poi[103] = {
 }
 uw_poi[104] = {
 	name: "PoD - Arena Bridge SE",
-	x: "44%",
-	y: "49%",
+	x: "50.00%",
+	y: "48.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5603,8 +5603,8 @@ uw_poi[104] = {
 }
 uw_poi[105] = {
 	name: "PoD - Arena Ledge ES",
-	x: "48.5%",
-	y: "44.3%",
+	x: "55.47%",
+	y: "44.14%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5613,8 +5613,8 @@ uw_poi[105] = {
 }
 uw_poi[106] = {
 	name: "PoD - Map Balcony WS",
-	x: "51.5%",
-	y: "44.3%",
+	x: "58.82%",
+	y: "44.14%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5623,8 +5623,8 @@ uw_poi[106] = {
 }
 uw_poi[107] = {
 	name: "PoD - Arena Crystals E",
-	x: "47.5%",
-	y: "38%",
+	x: "54.13%",
+	y: "37.89%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5633,8 +5633,8 @@ uw_poi[107] = {
 }
 uw_poi[108] = {
 	name: "PoD - Sexy Statue W",
-	x: "53%",
-	y: "38%",
+	x: "60.16%",
+	y: "37.89%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5643,8 +5643,8 @@ uw_poi[108] = {
 }
 uw_poi[109] = {
 	name: "PoD - Arena Main NW",
-	x: "31.5%",
-	y: "27.5%",
+	x: "35.71%",
+	y: "27.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5653,8 +5653,8 @@ uw_poi[109] = {
 }
 uw_poi[110] = {
 	name: "PoD - Falling Bridge SW",
-	x: "31.5%",
-	y: "24%",
+	x: "35.71%",
+	y: "23.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5663,8 +5663,8 @@ uw_poi[110] = {
 }
 uw_poi[111] = {
 	name: "PoD - Falling Bridge WN",
-	x: "26.5%",
-	y: "7%",
+	x: "30.25%",
+	y: "6.64%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5673,8 +5673,8 @@ uw_poi[111] = {
 }
 uw_poi[112] = {
 	name: "PoD - Dark Maze EN",
-	x: "23.5%",
-	y: "7%",
+	x: "26.90%",
+	y: "6.64%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5683,8 +5683,8 @@ uw_poi[112] = {
 }
 uw_poi[113] = {
 	name: "PoD - Dark Maze E",
-	x: "23.5%",
-	y: "13%",
+	x: "26.90%",
+	y: "12.89%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5693,8 +5693,8 @@ uw_poi[113] = {
 }
 uw_poi[114] = {
 	name: "PoD - Big Chest Balcony W",
-	x: "26.5%",
-	y: "13%",
+	x: "30.25%",
+	y: "12.89%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5703,8 +5703,8 @@ uw_poi[114] = {
 }
 uw_poi[115] = {
 	name: "PoD - Harmless Hellway SE",
-	x: "44%",
-	y: "24%",
+	x: "50.00%",
+	y: "23.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5713,8 +5713,8 @@ uw_poi[115] = {
 }
 uw_poi[116] = {
 	name: "PoD - Arena Main NE",
-	x: "44%",
-	y: "27.5%",
+	x: "50.00%",
+	y: "27.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5723,8 +5723,8 @@ uw_poi[116] = {
 }
 uw_poi[117] = {
 	name: "PoD - Compass Room W Down Stairs",
-	x: "41.5%",
-	y: "2.5%",
+	x: "47.32%",
+	y: "2.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5733,8 +5733,8 @@ uw_poi[117] = {
 }
 uw_poi[118] = {
 	name: "PoD - Dark Basement W Up Stairs",
-	x: "91.5%",
-	y: "52.5%",
+	x: "90.18%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5743,8 +5743,8 @@ uw_poi[118] = {
 }
 uw_poi[119] = {
 	name: "PoD - Dark Basement E Up Stairs",
-	x: "96.2%",
-	y: "52.5%",
+	x: "95.54%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5753,8 +5753,8 @@ uw_poi[119] = {
 }
 uw_poi[120] = {
 	name: "PoD - Compass Room E Down Stairs",
-	x: "46.2%",
-	y: "2.5%",
+	x: "52.68%",
+	y: "2.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "X",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5763,8 +5763,8 @@ uw_poi[120] = {
 }
 uw_poi[121] = {
 	name: "PoD - Sexy Statue NW",
-	x: "56.4%",
-	y: "27.5%",
+	x: "64.29%",
+	y: "27.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5773,8 +5773,8 @@ uw_poi[121] = {
 }
 uw_poi[122] = {
 	name: "PoD - Mimics 2 SW",
-	x: "56.4%",
-	y: "24%",
+	x: "64.29%",
+	y: "23.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5783,8 +5783,8 @@ uw_poi[122] = {
 }
 uw_poi[123] = {
 	name: "PoD - Dark Alley NE",
-	x: "93.9%",
-	y: "52.5%",
+	x: "92.86%",
+	y: "52.25%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5793,8 +5793,8 @@ uw_poi[123] = {
 }
 uw_poi[124] = {
 	name: "PoD - Boss SE",
-	x: "93.9%",
-	y: "49%",
+	x: "92.86%",
+	y: "48.54%",
 	dungeon: 3, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
@@ -5803,8 +5803,8 @@ uw_poi[124] = {
 }
 uw_poi[125] = {
 	name: "PoD - Telepathic Tile",
-	x: "68.9%",
-	y: "77.5%",
+	x: "78.57%",
+	y: "77.34%",
 	dungeon: 3, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){

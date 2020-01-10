@@ -718,21 +718,21 @@ function prepUWMap(dungeonNum) {
 		case 0:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ep.png)";
 			document.getElementById("uw_map").style.width = "828px";
-			document.getElementById("uw_map").style.height = "725px";
+			document.getElementById("uw_map").style.height = "724.5px";
 			break;
 		case 1:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-dp.png)";
 			document.getElementById("uw_map").style.width = "828px";
-			document.getElementById("uw_map").style.height = "725px";
+			document.getElementById("uw_map").style.height = "724.5px";
 			break;
 		case 2:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-hera.png)";
-			document.getElementById("uw_map").style.width = "489px";
+			document.getElementById("uw_map").style.width = "734px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 		case 3:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-pod.png)";
-			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.width = "642.25px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 		case 4:
