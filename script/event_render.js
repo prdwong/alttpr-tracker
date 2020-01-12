@@ -714,6 +714,7 @@ function mapToggle(event) {
 var cur_UWMap_todraw;
 function prepUWMap(dungeonNum) {
 	cur_UWMap_todraw = dungeonNum;
+	document.getElementById("close_uwmap_button").style.top = "10px";
 	switch (dungeonNum) {
 		case 0:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ep.png)";
@@ -759,11 +760,13 @@ function prepUWMap(dungeonNum) {
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-mm.png)";
 			document.getElementById("uw_map").style.width = "828px";
 			document.getElementById("uw_map").style.height = "662.4px";
+			document.getElementById("close_uwmap_button").style.top = "60px";
 			break;
 		case 9:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-tr.png)";
-			document.getElementById("uw_map").style.width = "734px";
+			document.getElementById("uw_map").style.width = "825.75px";
 			document.getElementById("uw_map").style.height = "734px";
+			document.getElementById("close_uwmap_button").style.top = "60px";
 			break;
 		case 10:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-gt.png)";
@@ -772,13 +775,14 @@ function prepUWMap(dungeonNum) {
 			break;
 		case 11:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-ct.png)";
-			document.getElementById("uw_map").style.width = "367px";
+			document.getElementById("uw_map").style.width = "734px";
 			document.getElementById("uw_map").style.height = "734px";
 			break;
 		case 13:
 			document.getElementById("uw_map").style.backgroundImage = "url(images/uw-hc.png)";
-			document.getElementById("uw_map").style.width = "826px";
+			document.getElementById("uw_map").style.width = "825.75px";
 			document.getElementById("uw_map").style.height = "734px";
+			document.getElementById("close_uwmap_button").style.top = "60px";
 			break;
 	}
 
