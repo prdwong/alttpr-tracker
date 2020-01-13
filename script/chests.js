@@ -8924,7 +8924,7 @@ uw_poi[436] = {
 uw_poi[437] = {
 	name: "GT - Moldorm Chest",
 	x: "91.25%",
-	y: "93.75%",
+	y: "54.69%",
 	dungeon: 10, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
