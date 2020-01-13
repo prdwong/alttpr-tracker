@@ -81,7 +81,7 @@ td {
 	position: absolute;
 	top: 0px;
 	left: 448px;
-	z-index: 5;
+	z-index: 35;
 }
 
 .map-alt {
@@ -264,6 +264,12 @@ td {
 }
 .availabledoor {
 	fill: rgb(0,255,0);
+}
+.possibledoor {
+	fill: rgb(255,255,0);
+}
+.glitcheddoor {
+	fill: rgb(0,255,255);
 }
 .openeddoor{
 	fill: rgb(127,127,127);
