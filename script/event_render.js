@@ -808,6 +808,7 @@ function prepUWMap(dungeonNum) {
 	refreshUWMap();
 }
 
+var dblclickDetectionTime = 0;
 var uwmapToggle_whereICameFrom;
 function uwmapToggle(event) {
 	if (event.button === 0) { //left click
@@ -815,7 +816,13 @@ function uwmapToggle(event) {
 			uwmapToggle_whereICameFrom = parseInt(event.target.id.substring(6));
 		}
 	} else if (event.button === 2) { //right click
-		if (event.target.id.substring(0, 6) === "uw_poi") {
+		if (event.target.id === "myCanvas") {
+			var newTime = window.performance.now();
+			if (newTime - dblclickDetectionTime <= 333.33) //double click
+				document.querySelector('#uw_map').style.display = "none";
+			else
+				dblclickDetectionTime = newTime;
+		} else if (event.target.id.substring(0, 6) === "uw_poi") {
 			poi = uw_poi[event.target.id.substring(6)];
 			if (!poi.isHighlight)
 				poi.isHighlight = true;
