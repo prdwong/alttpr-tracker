@@ -4558,7 +4558,12 @@ uw_poi[0] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		switch (optionDoors) {
+			case "vanilla":
+				return dungeons[0].isAccessible();
+			case "basic":
+				return orCombiner([uw_poi[15].isAvailable(), uw_poi[16].isAvailable(), uw_poi[17].isAvailable()]);
+		}
 	}
 }
 uw_poi[1] = {
@@ -4568,7 +4573,27 @@ uw_poi[1] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = {};
+		switch (optionDoors) {
+			case "vanilla":
+				access = dungeons[0].isAccessible();
+			case "basic":
+				access = orCombiner([uw_poi[18].isAvailable(), uw_poi[19].isAvailable(), uw_poi[20].isAvailable()]);
+		}
+		//BK check
+		var req1 = bool2path(qtyCounter.ditems_bk0);
+		var bkloc = find_marked_uw_chest(0, "bigkey");
+		var req2 = {};
+		if (bkloc !== -1)
+			req2 = andCombiner([optionVariation !== "keysanity", uw_poi[bkloc].isOpened]);
+		else
+			req2 = andCombiner([optionVariation !== "keysanity",
+				anyOrAllCombiner([andCombiner([uw_poi[0].isAvailable(), isUWChestUnknown(0)]),
+					andCombiner([uw_poi[2].isAvailable(), isUWChestUnknown(2)]),
+					andCombiner([uw_poi[3].isAvailable(), isUWChestUnknown(3)]),
+					andCombiner([uw_poi[4].isAvailable(), isUWChestUnknown(4)]),
+					andCombiner([uw_poi[5].isAvailable(), isUWChestUnknown(5)])])]);
+		return andCombiner([access, orCombiner([req1, req2])]);
 	}
 }
 uw_poi[2] = {
@@ -4578,7 +4603,12 @@ uw_poi[2] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		switch (optionDoors) {
+			case "vanilla":
+				return dungeons[0].isAccessible();
+			case "basic":
+				return orCombiner([uw_poi[9].isAvailable(), uw_poi[10].isAvailable()]);
+		}
 	}
 }
 uw_poi[3] = {
@@ -4588,7 +4618,12 @@ uw_poi[3] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		switch (optionDoors) {
+			case "vanilla":
+				return andCombiner([dungeons[0].isAccessible(), orCombiner([items.lantern, glitched("ep_dark")])]);
+			case "basic":
+				return orCombiner([uw_poi[27].isAvailable(), uw_poi[28].isAvailable()]);
+		}
 	}
 }
 uw_poi[4] = {
@@ -4598,7 +4633,12 @@ uw_poi[4] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		switch (optionDoors) {
+			case "vanilla":
+				return dungeons[0].isAccessible();
+			case "basic":
+				return uw_poi[14].isAvailable();
+		}
 	}
 }
 uw_poi[5] = {
@@ -4608,7 +4648,12 @@ uw_poi[5] = {
 	dungeon: 0, type: "uwchest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		switch (optionDoors) {
+			case "vanilla":
+				return dungeons[0].isAccessible();
+			case "basic":
+				return uw_poi[37].isAvailable();
+		}
 	}
 }
 uw_poi[6] = {
@@ -4618,7 +4663,15 @@ uw_poi[6] = {
 	dungeon: 0, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = {};
+		switch (optionDoors) {
+			case "vanilla":
+				access = dungeons[0].isAccessible();
+			case "basic":
+				access = orCombiner([uw_poi[23].isAvailable(), uw_poi[24].isAvailable()]);
+		}
+		var req = orCombiner([items.lantern, glitched("ep_dark")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[7] = {
@@ -4628,7 +4681,15 @@ uw_poi[7] = {
 	dungeon: 0, type: "key", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = {};
+		switch (optionDoors) {
+			case "vanilla":
+				access = dungeons[0].isAccessible();
+			case "basic":
+				access = orCombiner([uw_poi[29].isAvailable(), uw_poi[30].isAvailable()]);
+		}
+		var req = orCombiner([items.lantern, andCombiner([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[8] = {
@@ -4648,7 +4709,7 @@ uw_poi[9] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[10].isOpened);
 	}
 }
 uw_poi[10] = {
@@ -4658,7 +4719,7 @@ uw_poi[10] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[9].isOpened);
 	}
 }
 uw_poi[11] = {
@@ -4668,7 +4729,7 @@ uw_poi[11] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[12].isOpened, uw_poi[13].isOpened]);
 	}
 }
 uw_poi[12] = {
@@ -4678,7 +4739,7 @@ uw_poi[12] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[11].isOpened, uw_poi[13].isOpened]);
 	}
 }
 uw_poi[13] = {
@@ -4688,7 +4749,7 @@ uw_poi[13] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[11].isOpened, uw_poi[12].isOpened]);
 	}
 }
 uw_poi[14] = {
@@ -4698,7 +4759,7 @@ uw_poi[14] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(this.isOpened);
 	}
 }
 uw_poi[15] = {
@@ -4708,7 +4769,7 @@ uw_poi[15] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[16].isOpened, uw_poi[17].isOpened]);
 	}
 }
 uw_poi[16] = {
@@ -4718,7 +4779,7 @@ uw_poi[16] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[15].isOpened, uw_poi[17].isOpened]);
 	}
 }
 uw_poi[17] = {
@@ -4728,7 +4789,7 @@ uw_poi[17] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(this.isOpened);
 	}
 }
 uw_poi[18] = {
@@ -4738,7 +4799,7 @@ uw_poi[18] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[19].isOpened, uw_poi[20].isOpened]);
 	}
 }
 uw_poi[19] = {
@@ -4748,7 +4809,7 @@ uw_poi[19] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[18].isOpened, uw_poi[20].isOpened]);
 	}
 }
 uw_poi[20] = {
@@ -4758,7 +4819,21 @@ uw_poi[20] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = orCombiner([uw_poi[18].isOpened, uw_poi[19].isOpened]);
+		//BK check
+		var req1 = bool2path(qtyCounter.ditems_bk0);
+		var bkloc = find_marked_uw_chest(0, "bigkey");
+		var req2 = {};
+		if (bkloc !== -1)
+			req2 = andCombiner([optionVariation !== "keysanity", uw_poi[bkloc].isOpened]);
+		else
+			req2 = andCombiner([optionVariation !== "keysanity",
+				anyOrAllCombiner([andCombiner([uw_poi[0].isAvailable(), isUWChestUnknown(0)]),
+					andCombiner([uw_poi[2].isAvailable(), isUWChestUnknown(2)]),
+					andCombiner([uw_poi[3].isAvailable(), isUWChestUnknown(3)]),
+					andCombiner([uw_poi[4].isAvailable(), isUWChestUnknown(4)]),
+					andCombiner([uw_poi[5].isAvailable(), isUWChestUnknown(5)])])]);
+		return andCombiner([access, orCombiner([req1, req2])]);
 	}
 }
 uw_poi[21] = {
@@ -4768,7 +4843,7 @@ uw_poi[21] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[22].isOpened);
 	}
 }
 uw_poi[22] = {
@@ -4778,7 +4853,7 @@ uw_poi[22] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[21].isOpened);
 	}
 }
 uw_poi[23] = {
@@ -4788,7 +4863,9 @@ uw_poi[23] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = uw_poi[24].isOpened;
+		var req = orCombiner([items.lantern, glitched("ep_dark")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[24] = {
@@ -4798,7 +4875,9 @@ uw_poi[24] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = uw_poi[23].isOpened;
+		var req = orCombiner([items.lantern, glitched("ep_dark")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[25] = {
@@ -4808,7 +4887,7 @@ uw_poi[25] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[26].isOpened);
 	}
 }
 uw_poi[26] = {
@@ -4818,7 +4897,7 @@ uw_poi[26] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[25].isOpened);
 	}
 }
 uw_poi[27] = {
@@ -4828,7 +4907,7 @@ uw_poi[27] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[28].isOpened);
 	}
 }
 uw_poi[28] = {
@@ -4838,7 +4917,7 @@ uw_poi[28] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[27].isOpened);
 	}
 }
 uw_poi[29] = {
@@ -4848,7 +4927,9 @@ uw_poi[29] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = uw_poi[30].isOpened;
+		var req = orCombiner([items.lantern, andCombiner([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[30] = {
@@ -4856,9 +4937,11 @@ uw_poi[30] = {
 	x: "56.25%",
 	y: "2.57%",
 	dungeon: 0, type: "door", highlight: 0, connector: [31], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		var access = uw_poi[29].isOpened;
+		var req = orCombiner([items.lantern, andCombiner([items.firerod, canAdvancedItems_path()]), glitched("ep_back")]);
+		return andCombiner([access, req]);
 	}
 }
 uw_poi[31] = {
@@ -4866,9 +4949,9 @@ uw_poi[31] = {
 	x: "43.75%",
 	y: "88.28%",
 	dungeon: 0, type: "door", highlight: 0, connector: [30], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[32].isOpened);
 	}
 }
 uw_poi[32] = {
@@ -4878,7 +4961,7 @@ uw_poi[32] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[31].isOpened);
 	}
 }
 uw_poi[33] = {
@@ -4888,7 +4971,7 @@ uw_poi[33] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[34].isOpened);
 	}
 }
 uw_poi[34] = {
@@ -4898,7 +4981,7 @@ uw_poi[34] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "W",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[33].isOpened);
 	}
 }
 uw_poi[35] = {
@@ -4908,7 +4991,7 @@ uw_poi[35] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "E",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(uw_poi[36].isOpened);
 	}
 }
 uw_poi[36] = {
@@ -4918,7 +5001,7 @@ uw_poi[36] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "N",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return andCombiner([uw_poi[35].isOpened, canShootArrows_path()]);
 	}
 }
 uw_poi[37] = {
@@ -4928,7 +5011,7 @@ uw_poi[37] = {
 	dungeon: 0, type: "door", highlight: 0, connector: [], contype: [], icon: 0, direction: "S",
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return bool2path(this.isOpened);
 	}
 }
 uw_poi[38] = {
@@ -4938,7 +5021,7 @@ uw_poi[38] = {
 	dungeon: 0, type: "hint", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return dungeons[0].isAccessible();
+		return orCombiner([uw_poi[15].isOpened, uw_poi[16].isOpened, uw_poi[17].isOpened]);
 	}
 }
 uw_poi[39] = {

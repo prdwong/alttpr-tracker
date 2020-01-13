@@ -409,6 +409,7 @@ function itemToggle(event) {
 	});
 	//setTimeout(function timeout() {
 			refreshMap();
+			refreshUWMap();
 	//	}, 20);
 	
 
@@ -528,6 +529,7 @@ function quadrantToggle(event) {
 	});
 	//setTimeout(function timeout() {
 			refreshMap();
+			refreshUWMap();
 	//	}, 20);
 }
 
@@ -836,7 +838,7 @@ function uwmapToggle(event) {
 				poi.icon = 0;
 		}
 	}
-	refreshUWMap("map", event.target.id);
+	refreshUWMap();
 }
 
 function copyHighlightsViaConnectors(poiNum, curNum = poiNum, traversed = []) {
@@ -881,7 +883,7 @@ function uwmapDrag(event) {
 				uw_poi[event.target.id.substring(6)].isOpened = !uw_poi[event.target.id.substring(6)].isOpened;
 		}
 	}
-	refreshUWMap("map", event.target.id);
+	refreshUWMap();
 }
 
 const NUM_CHEST_ICONS = 7;
@@ -934,7 +936,7 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 				
 			//Image of poi -- only for chests
-			var poiImage = "";
+			var poiImage = "url(images/blank.png)";
 			if (uw_poi.type === "uwchest") poiImage = lookup_chestImage(uw_poi.icon);
 			document.getElementById("uw_poi"+poiNum).style.backgroundImage = poiImage;
 			

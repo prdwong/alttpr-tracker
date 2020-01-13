@@ -1404,3 +1404,20 @@ function region_cache_lookup(region, linkstate = false, from_locs = [], bottles 
 	}
 	return regions_cache[i][j][k];
 }
+
+function find_marked_uw_chest(dungeon, search) {
+	var index = -1;
+	uw_poi.forEach(function(uw_poi, poiNum) {
+		if (uw_poi.dungeon === dungeon && uw_poi.type === "uwchest") {
+			if (lookup_chestImage(uw_poi.icon).substring(11, 11+search.length) === search) {
+				index = poiNum;
+			}
+		}
+	});
+	return index;
+}
+
+function isUWChestUnknown(num) {
+	return (lookup_chestImage(uw_poi[num].icon).substring(11, 11+"blank".length) === "blank"
+		|| lookup_chestImage(uw_poi[num].icon).substring(11, 11+"unknown".length) === "unknown")
+}
