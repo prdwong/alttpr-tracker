@@ -56,6 +56,11 @@ document.querySelector('#reset_button').addEventListener('click', function() {
 
 document.querySelector('#close_uwmap_button').addEventListener('click', function() {
 	document.querySelector('#uw_map').style.display = "none";
+	if (uwmapToggle_pathstatus !== -1) {
+		uwmapToggle_pathstatus = -1;
+		dungeons[cur_UWMap_todraw].highlight++;
+		if (dungeons[cur_UWMap_todraw].highlight >= NUM_HIGHLIGHT_COLORS) dungeons[cur_UWMap_todraw].highlight = 0;
+	}
 });
 
 stateSelect.addEventListener('change', function() {

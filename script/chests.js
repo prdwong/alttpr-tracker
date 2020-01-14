@@ -463,6 +463,7 @@ dungeons[0] = {
 	x: "46.62%", //47.48%
 	y: "38.84%",
 	image: "boss02.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss0 === 2;
 	},
@@ -519,6 +520,7 @@ dungeons[1] = {
 	x: "3.67%",
 	y: "79.64%",
 	image: "boss12.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss1 === 2;
 	},
@@ -590,6 +592,7 @@ dungeons[2] = {
 	x: "29.60%", //27.75%
 	y: "5.86%", //3.30%
 	image: "boss22.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss2 === 2;
 	},
@@ -807,6 +810,7 @@ dungeons[3] = {
 	x: "97.10%", //97.96%
 	y: "39.23%",
 	image: "boss32.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss3 === 2;
 	},
@@ -893,6 +897,7 @@ dungeons[4] = {
 	x: "73.69%",
 	y: "93.53%",
 	image: "boss42.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss4 === 2;
 	},
@@ -1123,6 +1128,7 @@ dungeons[5] = {
 	x: "53.38%", //52.41%
 	y: "5.86%", //4.96%
 	image: "boss52.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss5 === 2;
 	},
@@ -1224,6 +1230,7 @@ dungeons[6] = {
 	x: "56.67%",
 	y: "48.61%",
 	image: "boss62.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss6 === 2;
 	},
@@ -1304,6 +1311,7 @@ dungeons[7] = {
 	x: "89.94%",
 	y: "86.30%",
 	image: "boss72.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss7 === 2;
 	},
@@ -1411,6 +1419,7 @@ dungeons[8] = {
 	x: "56.29%", //54.15%
 	y: "80.44%",
 	image: "boss82.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss8 === 2;
 	},
@@ -1556,6 +1565,7 @@ dungeons[9] = {
 	x: "97.09%",
 	y: "7.98%",
 	image: "boss92.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss9 === 2;
 	},
@@ -1764,6 +1774,7 @@ dungeons[10] = {
 	x: "78.33%",
 	y: "5.86%", //1.73%
 	image: "boss102.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss10 === 2;
 	},
@@ -1887,6 +1898,7 @@ dungeons[11] = {
 	x: "24.75%",
 	y: "40.01%",
 	image: "agahnim.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss11 === 2;
 	},
@@ -1946,6 +1958,7 @@ dungeons[12] = {
 	x: "75.14%",
 	y: "40.80%",
 	image: "ganon.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss12 === 2;
 	},
@@ -1992,6 +2005,7 @@ dungeons[13] = {
 	x: "24.75%",
 	y: "52%",
 	image: "zelda1.png",
+	highlight: 0,
 	isBeaten: function(){
 		return {};
 	},
@@ -4856,7 +4870,7 @@ uw_poi[30] = {
 	x: "56.25%",
 	y: "2.57%",
 	dungeon: 0, type: "door", highlight: 0, connector: [31], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -4866,7 +4880,7 @@ uw_poi[31] = {
 	x: "43.75%",
 	y: "88.28%",
 	dungeon: 0, type: "door", highlight: 0, connector: [30], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -5056,7 +5070,7 @@ uw_poi[50] = {
 	x: "6.25%",
 	y: "74.00%",
 	dungeon: 1, type: "door", highlight: 0, connector: [51], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
@@ -5066,7 +5080,7 @@ uw_poi[51] = {
 	x: "6.25%",
 	y: "45.42%",
 	dungeon: 1, type: "door", highlight: 0, connector: [50], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
@@ -9696,7 +9710,7 @@ uw_poi[514] = {
 	x: "10.00%",
 	y: "23.59%",
 	dungeon: 11, type: "door", highlight: 0, connector: [515], contype: [1], icon: 0, direction: "N",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
 	}
@@ -9706,7 +9720,7 @@ uw_poi[515] = {
 	x: "10.00%",
 	y: "17.66%",
 	dungeon: 11, type: "door", highlight: 0, connector: [514], contype: [1], icon: 0, direction: "S",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
 	}
