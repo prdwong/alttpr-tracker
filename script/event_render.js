@@ -1079,7 +1079,7 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
 				}
 			} else {
-				if (uwmapToggle_pathstatus !== -1 && uwmapToggle_direction !== -1)
+				if (uwmapToggle_direction !== -1)
 					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
 				else
 					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
