@@ -4870,7 +4870,7 @@ uw_poi[30] = {
 	x: "56.25%",
 	y: "2.57%",
 	dungeon: 0, type: "door", highlight: 0, connector: [31], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -4880,7 +4880,7 @@ uw_poi[31] = {
 	x: "43.75%",
 	y: "88.28%",
 	dungeon: 0, type: "door", highlight: 0, connector: [30], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[0].isAccessible();
 	}
@@ -5070,7 +5070,7 @@ uw_poi[50] = {
 	x: "6.25%",
 	y: "74.00%",
 	dungeon: 1, type: "door", highlight: 0, connector: [51], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
@@ -5080,7 +5080,7 @@ uw_poi[51] = {
 	x: "6.25%",
 	y: "45.42%",
 	dungeon: 1, type: "door", highlight: 0, connector: [50], contype: [1], icon: 0, direction: "X",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[1].isAccessible();
 	}
@@ -9710,7 +9710,7 @@ uw_poi[514] = {
 	x: "10.00%",
 	y: "23.59%",
 	dungeon: 11, type: "door", highlight: 0, connector: [515], contype: [1], icon: 0, direction: "N",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
 	}
@@ -9720,7 +9720,7 @@ uw_poi[515] = {
 	x: "10.00%",
 	y: "17.66%",
 	dungeon: 11, type: "door", highlight: 0, connector: [514], contype: [1], icon: 0, direction: "S",
-	isConnected: true, isOpened: true, isHighlight: false,
+	isConnected: true, isOpened: false, isHighlight: false,
 	isAvailable: function(){
 		return dungeons[11].isAccessible();
 	}

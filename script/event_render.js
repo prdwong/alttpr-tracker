@@ -894,6 +894,7 @@ function uwmapToggle(event) {
 						uwmapToggle_direction = lookup_oppDir(uw_poi[poiNum].direction);
 					} else
 						uwmapToggle_direction = -1;
+					autoConnect();
 				} else { //already has a bunch of connectors, cycle highlight
 					if (!poi.isHighlight)
 						poi.isHighlight = true;
@@ -983,8 +984,6 @@ function autoConnect() {
 			}
 		}
 	});
-	console.log(count.N);
-	console.log(count.S);
 	if (count.N === 1 && count.S === 1)
 		connectUW_Pois(destN, destS, 1);
 	if (count.W === 1 && count.E === 1)
@@ -1014,6 +1013,7 @@ function uwmapDrag(event) {
 					uw_poi[event.target.id.substring(6)].isOpened = !uw_poi[event.target.id.substring(6)].isOpened;
 				} else //in path, make it open
 					uw_poi[event.target.id.substring(6)].isOpened = true;
+				autoConnect();
 			}
 		}
 	}
@@ -1073,11 +1073,16 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 				}
-				if (uw_poi.direction !== uwmapToggle_direction && uwmapToggle_direction !== -1 && uwmapToggle_opacity === true) {
+				if ((uw_poi.direction !== uwmapToggle_direction || uw_poi.connector.length > 0) && uwmapToggle_direction !== -1 && uwmapToggle_opacity === true && poiNum !== uwmapToggle_pathstatus) {
 					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
 				} else {
 					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
 				}
+			} else {
+				if (uwmapToggle_pathstatus !== -1 && uwmapToggle_direction !== -1)
+					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
+				else
+					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
 			}
 			if (uw_poi.type === "hint")
 				if (optionHints === "off")
