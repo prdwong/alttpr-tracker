@@ -1,3 +1,6 @@
+//Todo glitches:
+//Hookshot through block for backwards EP bigkey
+
 var glitches = {
 	//Dark rooms
 	darkCross_front: { category: "darkrooms", name: "Dark Cross Front", tip: "Open Dark Cross in the dark, from Hyrule Castle", def:"top"
@@ -21,6 +24,8 @@ var glitches = {
 
 	//Bomb jumps
 	qirn_jump: { category: "bj", name: "Qirn Jump", tip: "Bomb jump into fake flipper from North West Dark World to North East Dark World"
+	},
+	herabj: { category: "bj", name: "Hera Big Chest BJ"
 	},
 	
 	//Minor glitches
