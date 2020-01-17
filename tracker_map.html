@@ -324,6 +324,8 @@ for (var i = 0; i < uw_poi.length; i++) {
 	k.addEventListener('mouseup', uwmapDrag);
 	k.ondragstart = function() { return false; }; //don't show "no drop" icon when dragging
 }
+document.getElementById("myCanvas").addEventListener('mousedown', uwmapToggle);
+document.getElementById("myCanvas").addEventListener('mouseup', uwmapDrag);
 </script>
 <input type="button" id="close_uwmap_button" value="Close">
 </div>

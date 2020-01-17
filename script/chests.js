@@ -463,6 +463,7 @@ dungeons[0] = {
 	x: "46.62%", //47.48%
 	y: "38.84%",
 	image: "boss02.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss0 === 2;
 	},
@@ -519,6 +520,7 @@ dungeons[1] = {
 	x: "3.67%",
 	y: "79.64%",
 	image: "boss12.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss1 === 2;
 	},
@@ -593,6 +595,7 @@ dungeons[2] = {
 	x: "29.60%", //27.75%
 	y: "5.86%", //3.30%
 	image: "boss22.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss2 === 2;
 	},
@@ -810,6 +813,7 @@ dungeons[3] = {
 	x: "97.10%", //97.96%
 	y: "39.23%",
 	image: "boss32.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss3 === 2;
 	},
@@ -896,6 +900,7 @@ dungeons[4] = {
 	x: "73.69%",
 	y: "93.53%",
 	image: "boss42.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss4 === 2;
 	},
@@ -1126,6 +1131,7 @@ dungeons[5] = {
 	x: "53.38%", //52.41%
 	y: "5.86%", //4.96%
 	image: "boss52.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss5 === 2;
 	},
@@ -1227,6 +1233,7 @@ dungeons[6] = {
 	x: "56.67%",
 	y: "48.61%",
 	image: "boss62.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss6 === 2;
 	},
@@ -1307,6 +1314,7 @@ dungeons[7] = {
 	x: "89.94%",
 	y: "86.30%",
 	image: "boss72.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss7 === 2;
 	},
@@ -1414,6 +1422,7 @@ dungeons[8] = {
 	x: "56.29%", //54.15%
 	y: "80.44%",
 	image: "boss82.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss8 === 2;
 	},
@@ -1559,6 +1568,7 @@ dungeons[9] = {
 	x: "97.09%",
 	y: "7.98%",
 	image: "boss92.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss9 === 2;
 	},
@@ -1767,6 +1777,7 @@ dungeons[10] = {
 	x: "78.33%",
 	y: "5.86%", //1.73%
 	image: "boss102.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss10 === 2;
 	},
@@ -1890,6 +1901,7 @@ dungeons[11] = {
 	x: "24.75%",
 	y: "40.01%",
 	image: "agahnim.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss11 === 2;
 	},
@@ -1949,6 +1961,7 @@ dungeons[12] = {
 	x: "75.14%",
 	y: "40.80%",
 	image: "ganon.png",
+	highlight: 0,
 	isBeaten: function(){
 		return items.boss12 === 2;
 	},
@@ -1995,6 +2008,7 @@ dungeons[13] = {
 	x: "24.75%",
 	y: "52%",
 	image: "zelda1.png",
+	highlight: 0,
 	isBeaten: function(){
 		return {};
 	},
@@ -8688,7 +8702,7 @@ uw_poi[436] = { name: "GT - Pre-Moldorm Chest",
 }
 uw_poi[437] = { name: "GT - Moldorm Chest",
 	x: "91.25%",
-	y: "93.75%",
+	y: "54.69%",
 	dungeon: 10, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){

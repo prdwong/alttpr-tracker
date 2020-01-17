@@ -649,7 +649,7 @@ function unhighlight(x){
 			document.getElementById(x).style.borderColor = "gold";
 		else
 			document.getElementById(x).style.borderColor = "black";
-	else if (x.substring(0, 6) === "uw_poi")
+	else if (x.substring(0, 6) === "uw_poi") {
 		if (uw_poi[x.substring(6)].isHighlight) {
 			var color = lookup_color(uw_poi[x.substring(6)].highlight);
 			if (uw_poi[x.substring(6)].type === "door")
@@ -661,7 +661,14 @@ function unhighlight(x){
 				document.getElementById(x).style.stroke = "black";
 			else
 				document.getElementById(x).style.outlineColor = "black";
-	else if (x.substring(0, 4) === "shop")
+		if (x.substring(6) == uwmapToggle_pathstatus)
+			if (uw_poi[x.substring(6)].type === "door")
+				document.getElementById(x).style.stroke = "blue";
+			else
+				document.getElementById(x).style.outlineColor = "blue";
+		uwmapToggle_opacity = true;
+		refreshUWMap();
+	} else if (x.substring(0, 4) === "shop")
 		if (shops[x.substring(4)].isHighlight)
 			document.getElementById(x).style.outlineColor = "gold";
 		else
@@ -810,25 +817,104 @@ function prepUWMap(dungeonNum) {
 	refreshUWMap();
 }
 
-var uwmapToggle_whereICameFrom;
+var dblclickDetectionTime = 0; //timer for double-click detection
+var uwmapToggle_whereICameFrom; //record of mousedown used for drag/drop events
+var uwmapToggle_pathstatus = -1; //start marker for path -- not in path status = -1
+var uwmapToggle_lastpath = -1; //last marker in path used to delete last connection to update to new connection
+var uwmapToggle_opacity = true; //true = draw some directions transparent
+var uwmapToggle_direction = -1; //source direction for transparency
+var uwmapToggle_direction_undo = -1;
+
 function uwmapToggle(event) {
 	if (event.button === 0) { //left click
 		if (event.target.id.substring(0, 6) === "uw_poi") {
-			uwmapToggle_whereICameFrom = parseInt(event.target.id.substring(6));
-		}
-	} else if (event.button === 2) { //right click
-		if (event.target.id.substring(0, 6) === "uw_poi") {
-			poi = uw_poi[event.target.id.substring(6)];
-			if (!poi.isHighlight)
-				poi.isHighlight = true;
-			else {
-				poi.highlight++;
-				if (poi.highlight >= NUM_HIGHLIGHT_COLORS) {
-					poi.highlight = 0;
-					poi.isHighlight = false;
+			var poiNum = parseInt(event.target.id.substring(6));
+			uwmapToggle_whereICameFrom = poiNum; //record of start for drag events
+			if (uwmapToggle_pathstatus === -1) { //not in path status
+				//toggle if release on same poi, otherwise draw connector -- handled in uwmapDrag
+				//opaque direction
+				if (uw_poi[poiNum].type === "door") {
+					uwmapToggle_direction = lookup_oppDir(uw_poi[poiNum].direction);
+					uwmapToggle_opacity = false;
+				} else
+					uwmapToggle_direction = -1;
+			} else { //in path status
+				if (poiNum !== uwmapToggle_pathstatus) { //only do it if we're pathing to somewhere else
+					if (poiNum === uwmapToggle_lastpath) { //reclicked while drawing path, treat it as a mistake
+						eraseUW_Pois(uwmapToggle_pathstatus, uwmapToggle_lastpath);
+						uwmapToggle_lastpath = -1;
+						uwmapToggle_direction = uwmapToggle_direction_undo;
+					} else { //normal path usage
+						//erase last path connection
+						if (uwmapToggle_lastpath !== -1)
+							eraseUW_Pois(uwmapToggle_pathstatus, uwmapToggle_lastpath);
+						//connect this to start of path
+						connectUW_Pois(uwmapToggle_pathstatus, poiNum);
+						//record this as the last path connection
+						uwmapToggle_lastpath = poiNum;
+						uwmapToggle_direction_undo = uwmapToggle_direction;
+						if (uw_poi[poiNum].type === "door") {
+							if (uwmapToggle_direction === -1)
+								uwmapToggle_direction = lookup_oppDir(uw_poi[poiNum].direction);
+							else
+								uwmapToggle_direction = -1;
+						} else {
+							uwmapToggle_direction = -1;
+						}
+					}
 				}
 			}
-			copyHighlightsViaConnectors(event.target.id.substring(6));
+		}
+	} else if (event.button === 2) { //right click
+		if (event.target.id === "myCanvas") {
+			var newTime = window.performance.now();
+			if (newTime - dblclickDetectionTime <= 333.33) //double click
+				document.querySelector('#uw_map').style.display = "none";
+			else { //end path
+				dblclickDetectionTime = newTime;
+				if (uwmapToggle_pathstatus !== -1) {
+					uwmapToggle_pathstatus = -1;
+					uwmapToggle_direction = -1;
+					dungeons[cur_UWMap_todraw].highlight++;
+					if (dungeons[cur_UWMap_todraw].highlight >= NUM_HIGHLIGHT_COLORS) dungeons[cur_UWMap_todraw].highlight = 0;
+				}
+			}
+		} else if (event.target.id.substring(0, 6) === "uw_poi") {
+			poiNum = parseInt(event.target.id.substring(6));
+			poi = uw_poi[poiNum];
+			if (uwmapToggle_pathstatus === -1) {//not in path status
+				if (poi.connector.length === 0) { //toggle and start path
+					poi.isOpened = !poi.isOpened;
+					uwmapToggle_pathstatus = poiNum;
+					uwmapToggle_lastpath = -1;
+					poi.isHighlight = true;
+					poi.highlight = dungeons[cur_UWMap_todraw].highlight;
+					//opaque direction
+					uwmapToggle_opacity = true;
+					uwmapToggle_direction_undo = -1;
+					if (uw_poi[poiNum].type === "door") {
+						uwmapToggle_direction = lookup_oppDir(uw_poi[poiNum].direction);
+					} else
+						uwmapToggle_direction = -1;
+					autoConnect();
+				} else { //already has a bunch of connectors, cycle highlight
+					if (!poi.isHighlight)
+						poi.isHighlight = true;
+					else {
+						poi.highlight++;
+						if (poi.highlight >= NUM_HIGHLIGHT_COLORS) {
+							poi.highlight = 0;
+							poi.isHighlight = false;
+						}
+					}
+					copyHighlightsViaConnectors(event.target.id.substring(6));
+				}
+			} else { //we are in path status, end path
+				uwmapToggle_pathstatus = -1;
+				uwmapToggle_direction = -1;
+				dungeons[cur_UWMap_todraw].highlight++;
+				if (dungeons[cur_UWMap_todraw].highlight >= NUM_HIGHLIGHT_COLORS) dungeons[cur_UWMap_todraw].highlight = 0;
+			}
 		}
 	} else if (event.button === 1) { //middle click
 		if (event.target.id.substring(0, 6) === "uw_poi") {
@@ -839,6 +925,31 @@ function uwmapToggle(event) {
 		}
 	}
 	refreshUWMap();
+}
+
+function connectUW_Pois(start, dest, type = 0) {
+	uw_poi[start].connector.push(dest);
+	uw_poi[start].contype.push(type);
+	uw_poi[start].isConnected = true;
+	uw_poi[dest].connector.push(start);
+	uw_poi[dest].contype.push(type);
+	uw_poi[dest].isConnected = true;
+	copyHighlightsViaConnectors(start, dest);
+	if (type === 0)
+		autoConnect();
+}
+
+function eraseUW_Pois(start, dest) {
+	var index = uw_poi[start].connector.indexOf(dest);
+	uw_poi[start].connector.splice(index, 1);
+	uw_poi[start].contype.splice(index, 1);
+	if (uw_poi[start].connector.length === 0)
+		uw_poi[start].isConnected = false;
+	index = uw_poi[dest].connector.indexOf(start);
+	uw_poi[dest].connector.splice(index, 1);
+	uw_poi[dest].contype.splice(index, 1);
+	if (uw_poi[dest].connector.length === 0)
+		uw_poi[dest].isConnected = false;
 }
 
 function copyHighlightsViaConnectors(poiNum, curNum = poiNum, traversed = []) {
@@ -853,34 +964,59 @@ function copyHighlightsViaConnectors(poiNum, curNum = poiNum, traversed = []) {
 		refreshUWMap();
 }
 
+function autoConnect() {
+	var count = {N:0, S:0, E:0, W:0, X:0};
+	var destN = -1;
+	var destS = -1;
+	var destE = -1;
+	var destW = -1;
+	var destX = -1;
+	var destX2 = -1;
+	uw_poi.forEach(function(poi, poiNum) {
+		if (poi.dungeon === cur_UWMap_todraw) {
+			if (poi.type === "door" && !poi.isOpened && !poi.isConnected) {
+				count[poi.direction]++;
+				switch (poi.direction) {
+					case "N": destN = poiNum; break;
+					case "S": destS = poiNum; break;
+					case "E": destE = poiNum; break;
+					case "W": destW = poiNum; break;
+					case "X": destX2 = destX; destX = poiNum; break;
+				}
+			}
+		}
+	});
+	if (count.N === 1 && count.S === 1)
+		connectUW_Pois(destN, destS, 1);
+	if (count.W === 1 && count.E === 1)
+		connectUW_Pois(destE, destW, 1);
+	if (count.X === 2)
+		connectUW_Pois(destX2, destX, 1);
+}
+
 function uwmapDrag(event) {
 	if (event.button === 0) { //left release
+		if (event.target.id === "myCanvas") { //stop opaque
+			uwmapToggle_direction = -1;
+		}
 		if (event.target.id.substring(0, 6) === "uw_poi") {
-			if (event.target.id.substring(6) != uwmapToggle_whereICameFrom) {
-				if (uw_poi[event.target.id.substring(6)].connector.indexOf(uwmapToggle_whereICameFrom) === -1) {
-					uw_poi[event.target.id.substring(6)].connector.push(uwmapToggle_whereICameFrom);
-					uw_poi[event.target.id.substring(6)].contype.push(0);
-					uw_poi[event.target.id.substring(6)].isConnected = true;
-					uw_poi[uwmapToggle_whereICameFrom].isConnected = true;
-					uw_poi[uwmapToggle_whereICameFrom].connector.push(parseInt(event.target.id.substring(6)));
-					uw_poi[uwmapToggle_whereICameFrom].contype.push(0);
-					uw_poi[event.target.id.substring(6)].highlight = uw_poi[uwmapToggle_whereICameFrom].highlight;
-					copyHighlightsViaConnectors(uwmapToggle_whereICameFrom);
-				} else { //already connector, now need to delete
-					var index = uw_poi[event.target.id.substring(6)].connector.indexOf(uwmapToggle_whereICameFrom);
-					uw_poi[event.target.id.substring(6)].connector.splice(index, 1);
-					uw_poi[event.target.id.substring(6)].contype.splice(index, 1);
-					if (uw_poi[event.target.id.substring(6)].connector.length === 0)
-						uw_poi[event.target.id.substring(6)].isConnected = false;
-					index = uw_poi[uwmapToggle_whereICameFrom].connector.indexOf(event.target.id.substring(6));
-					uw_poi[uwmapToggle_whereICameFrom].connector.splice(index, 1);
-					uw_poi[uwmapToggle_whereICameFrom].contype.splice(index, 1);
-					if (uw_poi[uwmapToggle_whereICameFrom].connector.length === 0)
-						uw_poi[uwmapToggle_whereICameFrom].isConnected = false;
-					refreshUWMap("map", uwmapToggle_whereICameFrom);
+			if (event.target.id.substring(6) != uwmapToggle_whereICameFrom) { //dragged to elsewhere
+				uwmapToggle_direction = -1; //dragged to elsewhere, so stop opaque
+				if (uwmapToggle_pathstatus === -1) { //also not in path status
+					if (uw_poi[event.target.id.substring(6)].connector.indexOf(uwmapToggle_whereICameFrom) === -1) {
+						connectUW_Pois(uwmapToggle_whereICameFrom, parseInt(event.target.id.substring(6)));
+					} else { //already connector, now need to delete
+						eraseUW_Pois(uwmapToggle_whereICameFrom, parseInt(event.target.id.substring(6)));
+					}
 				}
-			} else //click release on same poi
-				uw_poi[event.target.id.substring(6)].isOpened = !uw_poi[event.target.id.substring(6)].isOpened;
+			} else { //click release on same poi
+				if (uwmapToggle_pathstatus === -1) { //not in path, toggle
+					uwmapToggle_direction = -1;
+					uw_poi[event.target.id.substring(6)].isOpened = !uw_poi[event.target.id.substring(6)].isOpened;
+				} else //in path, make it open
+					uw_poi[event.target.id.substring(6)].isOpened = true;
+				autoConnect();
+			}
 		}
 	}
 	refreshUWMap();
@@ -913,6 +1049,16 @@ function lookup_color(color) {
 	return "blue";
 }
 
+function lookup_oppDir(direction) {
+	switch (direction) {
+		case "N": return "S"; break;
+		case "S": return "N"; break;
+		case "E": return "W"; break;
+		case "W": return "E"; break;
+		case "X": return "X"; break;
+	}
+}
+
 function refreshUWMap(type = undefined, name = undefined) {
 	//Update all chests on the map, className and backgroundImage
 	var chestClass = "chest";
@@ -921,7 +1067,7 @@ function refreshUWMap(type = undefined, name = undefined) {
 		if (uw_poi.dungeon === cur_UWMap_todraw && (type === undefined || (type === "map" && name === "uw_poi"+poiNum))) {
 			
 			//Show or hide doors/hints
-			if (uw_poi.type === "door")
+			if (uw_poi.type === "door") {
 				if (optionDoors === "vanilla") {
 					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "none";
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
@@ -929,6 +1075,17 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 				}
+				if ((uw_poi.direction !== uwmapToggle_direction || uw_poi.connector.length > 0) && uwmapToggle_direction !== -1 && uwmapToggle_opacity === true && poiNum !== uwmapToggle_pathstatus) {
+					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
+				} else {
+					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
+				}
+			} else {
+				if (uwmapToggle_direction !== -1)
+					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
+				else
+					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
+			}
 			if (uw_poi.type === "hint")
 				if (optionHints === "off")
 					document.getElementById("uw_poi"+poiNum).style.display = "none";
@@ -974,6 +1131,11 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).style.stroke = "black";
 				else
 					document.getElementById("uw_poi"+poiNum).style.outlineColor = "black";
+			if (poiNum == uwmapToggle_pathstatus)
+				if (uw_poi.type === "door")
+					document.getElementById("uw_poi"+poiNum).style.stroke = "blue";
+				else
+					document.getElementById("uw_poi"+poiNum).style.outlineColor = "blue";
 		}
 	});
 
