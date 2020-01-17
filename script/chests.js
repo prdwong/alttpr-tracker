@@ -462,7 +462,7 @@ dungeons[0] = {
 	abbrev: "EP",
 	x: "46.62%", //47.48%
 	y: "38.84%",
-	image: "boss02.png",
+	highlight: 0, image: "boss02.png",
 	isBeaten: function(){
 		return items.boss0 === 2;
 	},
@@ -518,7 +518,7 @@ dungeons[1] = {
 	abbrev: "DP",
 	x: "3.67%",
 	y: "79.64%",
-	image: "boss12.png",
+	highlight: 0, image: "boss12.png",
 	isBeaten: function(){
 		return items.boss1 === 2;
 	},
@@ -592,7 +592,7 @@ dungeons[2] = {
 	abbrev: "Hera",
 	x: "29.60%", //27.75%
 	y: "5.86%", //3.30%
-	image: "boss22.png",
+	highlight: 0, image: "boss22.png",
 	isBeaten: function(){
 		return items.boss2 === 2;
 	},
@@ -809,7 +809,7 @@ dungeons[3] = {
 	abbrev: "PoD",
 	x: "97.10%", //97.96%
 	y: "39.23%",
-	image: "boss32.png",
+	highlight: 0, image: "boss32.png",
 	isBeaten: function(){
 		return items.boss3 === 2;
 	},
@@ -895,7 +895,7 @@ dungeons[4] = {
 	abbrev: "SP",
 	x: "73.69%",
 	y: "93.53%",
-	image: "boss42.png",
+	highlight: 0, image: "boss42.png",
 	isBeaten: function(){
 		return items.boss4 === 2;
 	},
@@ -1125,7 +1125,7 @@ dungeons[5] = {
 	abbrev: "SW",
 	x: "53.38%", //52.41%
 	y: "5.86%", //4.96%
-	image: "boss52.png",
+	highlight: 0, image: "boss52.png",
 	isBeaten: function(){
 		return items.boss5 === 2;
 	},
@@ -1226,7 +1226,7 @@ dungeons[6] = {
 	abbrev: "TT",
 	x: "56.67%",
 	y: "48.61%",
-	image: "boss62.png",
+	highlight: 0, image: "boss62.png",
 	isBeaten: function(){
 		return items.boss6 === 2;
 	},
@@ -1306,7 +1306,7 @@ dungeons[7] = {
 	abbrev: "IP",
 	x: "89.94%",
 	y: "86.30%",
-	image: "boss72.png",
+	highlight: 0, image: "boss72.png",
 	isBeaten: function(){
 		return items.boss7 === 2;
 	},
@@ -1413,7 +1413,7 @@ dungeons[8] = {
 	abbrev: "MM",
 	x: "56.29%", //54.15%
 	y: "80.44%",
-	image: "boss82.png",
+	highlight: 0, image: "boss82.png",
 	isBeaten: function(){
 		return items.boss8 === 2;
 	},
@@ -1558,7 +1558,7 @@ dungeons[9] = {
 	abbrev: "TR",
 	x: "97.09%",
 	y: "7.98%",
-	image: "boss92.png",
+	highlight: 0, image: "boss92.png",
 	isBeaten: function(){
 		return items.boss9 === 2;
 	},
@@ -1766,7 +1766,7 @@ dungeons[10] = {
 	abbrev: "GT",
 	x: "78.33%",
 	y: "5.86%", //1.73%
-	image: "boss102.png",
+	highlight: 0, image: "boss102.png",
 	isBeaten: function(){
 		return items.boss10 === 2;
 	},
@@ -1889,7 +1889,7 @@ dungeons[11] = {
 	abbrev: "CT",
 	x: "24.75%",
 	y: "40.01%",
-	image: "agahnim.png",
+	highlight: 0, image: "agahnim.png",
 	isBeaten: function(){
 		return items.boss11 === 2;
 	},
@@ -1948,7 +1948,7 @@ dungeons[12] = {
 	abbrev: "Ganon",
 	x: "75.14%",
 	y: "40.80%",
-	image: "ganon.png",
+	highlight: 0, image: "ganon.png",
 	isBeaten: function(){
 		return items.boss12 === 2;
 	},
@@ -1994,7 +1994,7 @@ dungeons[13] = {
 	abbrev: "HC",
 	x: "24.75%",
 	y: "52%",
-	image: "zelda1.png",
+	highlight: 0, image: "zelda1.png",
 	isBeaten: function(){
 		return {};
 	},
