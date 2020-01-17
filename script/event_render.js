@@ -409,6 +409,7 @@ function itemToggle(event) {
 	});
 	//setTimeout(function timeout() {
 			refreshMap();
+			refreshUWMap();
 	//	}, 20);
 	
 
@@ -528,6 +529,7 @@ function quadrantToggle(event) {
 	});
 	//setTimeout(function timeout() {
 			refreshMap();
+			refreshUWMap();
 	//	}, 20);
 }
 
@@ -1091,7 +1093,7 @@ function refreshUWMap(type = undefined, name = undefined) {
 					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 				
 			//Image of poi -- only for chests
-			var poiImage = "";
+			var poiImage = "url(images/blank.png)";
 			if (uw_poi.type === "uwchest") poiImage = lookup_chestImage(uw_poi.icon);
 			document.getElementById("uw_poi"+poiNum).style.backgroundImage = poiImage;
 			

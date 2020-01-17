@@ -1404,3 +1404,53 @@ function region_cache_lookup(region, linkstate = false, from_locs = [], bottles 
 	}
 	return regions_cache[i][j][k];
 }
+
+
+//Find a chest that is marked with the specified icon
+function find_marked_uw_chest(dungeon = cur_UWMap_todraw, search = "bigkey") {
+	var index = [];
+	uw_poi.forEach(function(uw_poi, poiNum) {
+		if (uw_poi.dungeon === dungeon && uw_poi.type === "uwchest") {
+			if (uw_poi.icon === lookup_chestIconReverse(search))
+				index.push(poiNum);
+		}
+	});
+	return index;
+}
+
+//Check if any of the doors in the list are accessible
+//TODO: followed connectors, but one of them has to be open
+//TODO: follow path?
+function uwCheck(doors) {
+	//Build list of connected objects
+	var connect = doors;
+	for (var i = 0; i < connect.length; i++)
+		for (var j = 0; j < uw_poi[connect[i]].connector.length; j++)
+			if (connect.indexOf(uw_poi[connect[i]].connector[j]) === -1)
+				connect.push(uw_poi[connect[i]].connector[j]);
+	var arr = [];
+	for (var i = 0; i < connect.length; i++)
+		arr.push(uw_poi[connect[i]].isOpened);
+	return orCombiner(arr);
+}
+
+function uwPossibleCheck(chests, hist = []) {
+	var arr = [];
+	for (var i = 0; i < chests.length; i++) {
+		var loc_hist = hist.slice();
+		var a = uw_poi[chests[i]].isAvailable(loc_hist);
+		if (a !== "stop")
+			arr.push(a);
+	}
+	return anyOrAllCombiner(arr);
+}
+
+//Discard glitch/possible/etc for dungeon entry reqs
+function uwEntry(override) {
+	if (override === undefined) {
+		if (isEmpty(dungeons[cur_UWMap_todraw].isAccessible()))
+			return {};
+	} else if (isEmpty(override))
+		return {};
+	return {ng:"a"};
+}

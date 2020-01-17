@@ -265,6 +265,12 @@ td {
 .availabledoor {
 	fill: rgb(0,255,0);
 }
+.possibledoor {
+	fill: rgb(255,255,0);
+}
+.glitcheddoor {
+	fill: rgb(0,255,255);
+}
 .openeddoor{
 	fill: rgb(127,127,127);
 }
