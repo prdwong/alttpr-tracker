@@ -9435,7 +9435,7 @@ uw_poi[517] = { name: "HC - Sanctuary",
 	dungeon: 13, type: "chest", highlight: 0, connector: [], contype: [], icon: 0,
 	isConnected: false, isOpened: false, isHighlight: false,
 	isAvailable: function(){
-		return orCombiner([uwEntry(dungeons[13].sanc()), uwCheck([566])]);
+		return uwCheck([566]);
 	}
 }
 uw_poi[518] = { name: "HC - Sewers - Secret Room - Left",
