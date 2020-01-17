@@ -17,6 +17,14 @@ var glitches = {
 	},
 	ep_back: { category: "darkrooms", name: "Eastern Palace Back", tip: "Get to Armos Knights in the dark", def:"top"
 	},
+	ctchest_dark: { category: "darkrooms", name: "Castle Tower 2nd Chest", def:"top"
+	},
+	ctchest_fr: { category: "darkrooms", name: "Castle Tower 2nd Chest w/Fire Rod", def:"top"
+	},
+	ct_dark: { category: "darkrooms", name: "Dark Agahnim"
+	},
+	ctdark_fr: { category: "darkrooms", name: "Dark Agahnim w/Fire Rod", def:"top"
+	},
 	oldMan: { category: "darkrooms", name: "Old Man Cave Front", tip: "Climb DM in the dark", def:"top"
 	},
 	oldMan_back: { category: "darkrooms", name: "Old Man Cave Back", tip: "Rescue old man in the dark, from Death Mountain", def:"top"
@@ -25,7 +33,7 @@ var glitches = {
 	//Bomb jumps
 	qirn_jump: { category: "bj", name: "Qirn Jump", tip: "Bomb jump into fake flipper from North West Dark World to North East Dark World"
 	},
-	herabj: { category: "bj", name: "Hera Big Chest BJ"
+	herabj: { category: "bj", name: "Hera Big Chest BJ", def:"top"
 	},
 	
 	//Minor glitches
@@ -58,7 +66,7 @@ var glitches = {
 	},
 	unbunny: { category: "minor", name: "Unbunny beam"
 	},
-	fakepowder: { category: "minor", name: "Fake Powder"
+	fakepowder: { category: "minor", name: "Fake Powder", def:"top"
 	},
 	enemyfairy_fakeflipper: { category: "minor", name: "Fake flipper from fairy revive using enemy RNG" //combined with fairy_fakeflipper
 	},
@@ -71,7 +79,7 @@ var glitches = {
 	bigbombdupe_hinox: { category: "minor", name: "Dupe big bomb via Hinox blob"
 	},
 
-	herapot: { category: "minor", name: "Herapot"
+	herapot: { category: "minor", name: "Herapot", def:"top"
 	},
 	
 	//Misc strats
