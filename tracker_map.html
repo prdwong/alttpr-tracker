@@ -305,16 +305,16 @@ document.write('<canvas id="myCanvas" width="440" height="734"></canvas>');
 for (var i = 0; i < uw_poi.length; i++) {
 	var k = "uw_poi" + i;
 	if (uw_poi[i].type === "door") {
-		document.write("<svg class='doorsvg' style='top:"+uw_poi[i].y+"; left:"+uw_poi[i].x+"'>");
+		document.write("<svg class='doorsvg' style='top:"+uw_poi[i].y+"; left:"+uw_poi[i].x);
 		switch (uw_poi[i].direction) {
-			case "N": document.write("<polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='2,2 16,2 9,16' style='stroke-width:2'>"); break;
-			case "S": document.write("<polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='9,2 16,16 2,16' style='stroke-width:2'>"); break;
-			case "W": document.write("<polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='2,2 2,16 16,9' style='stroke-width:2'>"); break;
+			case "N": document.write("; margin:-5px 0px 0px -9px'><polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='2,2 16,2 9,16' style='stroke-width:2'/>"); break;
+			case "S": document.write("; margin:-13px 0px 0px -9px'><polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='9,2 16,16 2,16' style='stroke-width:2'/>"); break;
+			case "W": document.write("; margin:-9px 0px 0px -5px'><polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='2,2 2,16 16,9' style='stroke-width:2'/>"); break;
 			default:
-			case "E": document.write("<polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='16,2 16,16 2,9' style='stroke-width:2'>"); break;
-			case "X": document.write("<polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='7,2 11,2 12,3 13,3 14,4 15,5 15,6 16,7 16,11 15,12 15,13 14,14 13,15 12,15 11,16 7,16 6,15 5,15 4,14 3,13 3,12 2,11 2,7 3,6 3,5 4,4 5,3 6,3' style='stroke-width:2'>"); break;
+			case "E": document.write("; margin:-9px 0px 0px -13px'><polygon id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' points='16,2 16,16 2,9' style='stroke-width:2'/>"); break;
+			case "X": document.write("; margin:-9px 0px 0px -9px'><circle id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' cx='9' cy='9' r='7' style='stroke-width:2'/>"); break;
 		}
-		document.write("</polygon></svg>");
+		document.write("</svg>");
 	} else {
 		var outline = "outline-style:solid; outline-color: black; ";
 		document.write("<span id='"+k+"' onMouseover='highlight(\""+k+"\")' onMouseout='unhighlight(\""+k+"\")' style='"+outline+"; top:"+uw_poi[i].y+"; left:"+uw_poi[i].x+"'></span>");
