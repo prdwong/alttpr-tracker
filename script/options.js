@@ -544,6 +544,14 @@ bossShuffleSelect.addEventListener('change', function() {
 
 doorSelect.addEventListener('change', function() {
 	optionDoors = doorSelect.value;
+	for (var i = 0; i < uw_poi.length; i++)
+		if (optionDoors === "vanilla" || uw_poi[i].dungeon !== cur_UWMap_todraw) {
+			document.getElementById("uw_poi"+i).parentNode.style.display = "none";
+			document.getElementById("uw_poi"+i).style.display = "none";
+		} else {
+			document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
+			document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+		}
 	refreshMap();
 	refreshUWMap();
 });

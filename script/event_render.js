@@ -803,8 +803,13 @@ function prepUWMap(dungeonNum) {
 	uw_poi.forEach(function(poi, poiNum) {
 		if (poi.dungeon === dungeonNum)
 			if (poi.type === "door") {
-				document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
-				document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+				if (optionDoors !== "vanilla") {
+					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
+					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
+				} else {
+					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "none";
+					document.getElementById("uw_poi"+poiNum).style.display = "none";
+				}
 			} else
 				document.getElementById("uw_poi"+poiNum).style.display = "inherit";
 		else
@@ -1068,20 +1073,13 @@ function refreshUWMap(type = undefined, name = undefined) {
 			
 			//Show or hide doors/hints
 			if (uw_poi.type === "door") {
-				if (optionDoors === "vanilla") {
-					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "none";
-					document.getElementById("uw_poi"+poiNum).style.display = "none";
-				} else {
-					document.getElementById("uw_poi"+poiNum).parentNode.style.display = "inherit";
-					document.getElementById("uw_poi"+poiNum).style.display = "inherit";
-				}
 				if ((uw_poi.direction !== uwmapToggle_direction || uw_poi.connector.length > 0) && uwmapToggle_direction !== -1 && uwmapToggle_opacity === true && poiNum !== uwmapToggle_pathstatus) {
 					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
 				} else {
 					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
 				}
 			} else {
-				if (uwmapToggle_direction !== -1)
+				if (uwmapToggle_direction !== -1 && uwmapToggle_opacity === true)
 					document.getElementById("uw_poi"+poiNum).style.opacity = 0.3;
 				else
 					document.getElementById("uw_poi"+poiNum).style.opacity = 1;
@@ -1140,9 +1138,6 @@ function refreshUWMap(type = undefined, name = undefined) {
 	});
 
 	refreshCanvas();
-	window.requestAnimationFrame(function() {
-		updateTrackerItem("go");
-	});
 }
 
 function refreshCanvas() {
