@@ -1161,7 +1161,7 @@ function refreshCanvas() {
 					if (!poi.isHighlight) ctx.strokeStyle = "black";
 					for (var i = 0; i < poi.connector.length; i++) {
 						ctx.moveTo(Number(poi.x.split("%")[0])*ctx.canvas.width/100,Number(poi.y.split("%")[0])*ctx.canvas.height/100);
-						if (poi.contype[i] === 1) ctx.setLineDash([4, 6]);
+						if (poi.contype[i] === 1) ctx.setLineDash([ctx.canvas.height/100*1, ctx.canvas.height/100*1]);
 						else ctx.setLineDash([1,0]);
 						ctx.lineTo(Number(uw_poi[poi.connector[i]].x.split("%")[0])*ctx.canvas.width/100,Number(uw_poi[poi.connector[i]].y.split("%")[0])*ctx.canvas.height/100);
 						ctx.stroke();
